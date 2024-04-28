@@ -22,6 +22,8 @@ using System.Windows.Controls;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
 
+/// "Диференційна діагностика стану нездужання людини-SEAM" 
+/// Розробник Стариченко Олександр Павлович тел.+380674012840, mail staric377@gmail.com
 namespace FrontSeam
 {
     public partial class MapOpisViewModel : INotifyPropertyChanged
@@ -785,6 +787,7 @@ namespace FrontSeam
             ModelInterview Idinsert = JsonConvert.DeserializeObject<ModelInterview>(CallServer.ResponseFromServer);
             // Дозапись найденого протокола в коллекции протоколов интервью
             modelColectionInterview.kodProtokola = Idinsert.kodProtokola;
+            if (colectionInterview == null) colectionInterview = new ColectionInterview();
             colectionInterview.kodProtokola = Idinsert.kodProtokola;
             string json = JsonConvert.SerializeObject(colectionInterview);
             CallServer.PostServer(pathcontrolerColection, json, "PUT");

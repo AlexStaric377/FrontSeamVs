@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+/// "Диференційна діагностика стану нездужання людини-SEAM" 
+/// Розробник Стариченко Олександр Павлович тел.+380674012840, mail staric377@gmail.com
 namespace FrontSeam
 {
     /// <summary>
@@ -29,7 +31,7 @@ namespace FrontSeam
                 // Определить высоту окна по количеству \n в многострочном тексте
                 var TextWindows_a = TextWindows.Split('\n');
 
-                this.MessageText.Text = TextWindows != null ? TextWindows : "Сообщение отсутствует!";
+                this.MessageText.Text = TextWindows != null ? TextWindows_a.ToString() : "Сообщение отсутствует!";
 
             }
         }

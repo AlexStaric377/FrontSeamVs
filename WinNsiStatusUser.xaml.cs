@@ -22,7 +22,6 @@ namespace FrontSeam
         public WinNsiStatusUser()
         {
             InitializeComponent();
-            //DataContext = new ViewModelWinNsiStatusUser();
         }
     }
 }

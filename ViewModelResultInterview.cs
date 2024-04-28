@@ -23,7 +23,8 @@ using System.Windows.Threading;
 using System.ServiceProcess;
 using System.Diagnostics;
 
-
+/// "Диференційна діагностика стану нездужання людини-SEAM" 
+/// Розробник Стариченко Олександр Павлович тел.+380674012840, mail staric377@gmail.com
 namespace FrontSeam
 {
     public class ViewModelResultInterview : INotifyPropertyChanged

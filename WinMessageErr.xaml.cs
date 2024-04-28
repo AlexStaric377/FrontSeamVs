@@ -11,7 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
+/// "Диференційна діагностика стану нездужання людини-SEAM" 
+/// Розробник Стариченко Олександр Павлович тел.+380674012840, mail staric377@gmail.com
 namespace FrontSeam
 {
     /// <summary>

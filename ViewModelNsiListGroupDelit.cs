@@ -20,6 +20,8 @@ using Newtonsoft.Json.Converters;
 using System.Windows.Media;
 using System.Windows.Controls;
 
+/// "Диференційна діагностика стану нездужання людини-SEAM" 
+/// Розробник Стариченко Олександр Павлович тел.+380674012840, mail staric377@gmail.com
 namespace FrontSeam
 {
     public partial class ViewModelNsiListGroupDelit : INotifyPropertyChanged

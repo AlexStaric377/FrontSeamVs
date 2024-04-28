@@ -19,6 +19,8 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 using System.Diagnostics;
 
+/// "Диференційна діагностика стану нездужання людини-SEAM" 
+/// Розробник Стариченко Олександр Павлович тел.+380674012840, mail staric377@gmail.com
 namespace FrontSeam
 {
 
@@ -263,8 +265,9 @@ namespace FrontSeam
                 return readColectionIntreview ??
                   (readColectionIntreview = new RelayCommand(obj =>
                   {
+                      MapOpisViewModel.IndexAddEdit = "";
                       MapOpisViewModel.ModelCall = "ModelColectionInterview";
-                      MapOpisViewModel.GetidkodProtokola = MapOpisViewModel.modelColectionInterview.kodComplInterv + "/0";
+                      MapOpisViewModel.GetidkodProtokola = MapOpisViewModel.modelColectionInterview.kodProtokola; //kodComplInterv + "/0"
 
                       WinCreatIntreview NewOrder = new WinCreatIntreview();
                       NewOrder.Left = 600;

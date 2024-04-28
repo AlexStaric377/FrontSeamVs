@@ -36,9 +36,10 @@ using System.ServiceProcess;
 using System.Printing;
 // Ссылка в проекте MSV2010 добовляется ...
 //using System.Drawing.Text;
-
 using System.Globalization;
 
+/// "Диференційна діагностика стану нездужання людини-SEAM" 
+/// Розробник Стариченко Олександр Павлович тел.+380674012840, mail staric377@gmail.com
 namespace FrontSeam
 {
     public partial class MapOpisViewModel : INotifyPropertyChanged
