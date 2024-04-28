@@ -25,6 +25,7 @@ using System.IO;
 
 /// "Диференційна діагностика стану нездужання людини-SEAM" 
 /// Розробник Стариченко Олександр Павлович тел.+380674012840, mail staric377@gmail.com
+/// функції виведення інформаційних повідомлень
 namespace FrontSeam
 {
     public partial class MapOpisViewModel : INotifyPropertyChanged
