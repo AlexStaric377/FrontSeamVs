@@ -1,0 +1,88 @@
+﻿<Window x:Class="FrontSeam.WinWelcome"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:local="clr-namespace:FrontSeam" d:DataContext="{d:DesignInstance Type=local:ViewModelWinWelcome}"
+        mc:Ignorable="d"
+        Title="WinWelcome" Height="570" Width="1070" WindowState="Normal" AllowsTransparency="True" WindowStyle="None" WindowStartupLocation="CenterOwner"  
+         ShowInTaskbar="True"    Margin="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Microsoft Sans Serif">
+    <Window.DataContext>
+        <local:ViewModelWinWelcome/>
+    </Window.DataContext>
+
+    <Grid Height="520" Width="1050" VerticalAlignment="Center">
+
+        <StackPanel x:Name ="ButtonWin" VerticalAlignment="Center" Height="500" Width="1000" >
+            <StackPanel.Effect>
+                <DropShadowEffect Color="#FF1D1504" BlurRadius="45" ShadowDepth="20" Opacity="0.5" ></DropShadowEffect>
+            </StackPanel.Effect>
+            <Border x:Name="BorderWin" BorderBrush="#FFE7E8EA" Background="#FFE7E8EA" Height="500" Width="990"  BorderThickness="0,0,0,0"  CornerRadius="15,15,15,15"   >
+                <Grid>
+                    <Grid.ColumnDefinitions >
+                        <ColumnDefinition Width="250*" />
+                        <ColumnDefinition Width ="730*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40*" />
+                        <RowDefinition Height="140*" />
+                        <RowDefinition Height="140*" />
+                        <RowDefinition Height="140*" />
+                        <RowDefinition Height="140*" />
+                        <RowDefinition Height="50*" />
+                    </Grid.RowDefinitions>
+
+
+
+                    <Label Name="Zagolovok"  Content="Шановні користувачі нижче наведено перелік ваших статусів, які ви можете використовувати спілкуючись з системою " Grid.Row="0"  Height="30" Width="900" FontSize="16" FontFamily="Microsoft Sans Serif" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalAlignment="Center" Grid.ColumnSpan="2"  />
+
+                    <Border BorderBrush="#FF979595" BorderThickness="1,1,1,1" Grid.Row="0" Grid.Column="1"  Height="30" Width="30" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <Button Command="{Binding CloseResult}"  Background="#FFE7E8EA" Height="30" Width="30"  VerticalAlignment="Center" BorderBrush="#FFCED7F7">
+                            <Image  Source="pack://application:,,,/FrontSeam;component/Images/delete2.png"  Height="24" Width="24" ></Image>
+                        </Button>
+                    </Border>
+                    <!--<Border BorderBrush="#FF979595" BorderThickness="1,1,1,1" Grid.Row="0" Grid.Column="1"  Height="30" Width="30" Margin="0,0,45,0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <Button Command="{Binding PrintDiagnoz}"  Background="#FFCED7F7" Height="30" Width="30"  VerticalAlignment="Center" BorderBrush="#FFCED7F7">
+                            <Image  Source="pack://application:,,,/FrontSeam;component/Images/printer.png"  Height="24" Width="24" ></Image>
+                        </Button>
+                    </Border>-->
+
+
+                    <TextBlock x:Name="NameInterview" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" FontSize="14" Text="  Гість" FontFamily="Microsoft Sans Serif"  Width="670" HorizontalAlignment="Left" TextAlignment="Left" Height="80" />
+
+                    <TextBlock x:Name="ListInterview" Grid.Row="4" Grid.Column="1" Text="Зміст скарги" FontFamily="Microsoft Sans Serif" FontSize="14" Height="20" Width="90" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,50,0" Visibility="Visible"  />
+                    <Image x:Name="FolderListInterview" Source="pack://application:,,,/FrontSeam;component/Images/folder_.png" Grid.Column="1" Grid.Row="4" Width="25" VerticalAlignment="Center"  HorizontalAlignment="Right" Margin="0,0,20,0"  Visibility="Visible" >
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                <i:InvokeCommandAction Command="{Binding ElementName=GridResultInterview, Path=DataContext.ReadColectionIntreview}" CommandParameter=""/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Image>
+                    <TextBlock x:Name="NameDiagnoz" Grid.Row="2" Grid.Column="1" TextWrapping="Wrap"   Height="80" Width="670" Text="  Паціент" FontFamily="Microsoft Sans Serif"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="14"  />
+
+                    <TextBlock x:Name="ShortOPis" Grid.Row="3" Grid.Column="1" Text="  Лікар&#xa; " FontFamily="Microsoft Sans Serif"  FontSize="14" Height="80" Width="670" HorizontalAlignment="Left" VerticalAlignment="Center" />
+
+                    <TextBlock x:Name="NameRecomen" Grid.Column="1" Grid.Row="4" Text="  Адміністратор&#xa;  " FontFamily="Microsoft Sans Serif" TextWrapping="Wrap"  FontSize="14" Height="60" Width="600" HorizontalAlignment="Left" VerticalAlignment="Top" />
+
+
+                    <Border  Grid.Row="5" Grid.Column="1" Height="28" Width="100"  BorderBrush="#FFCED7F7" Background="#FFCED7F7"  VerticalAlignment="Center" HorizontalAlignment="Center"
+                              BorderThickness="1,1,1,1"  CornerRadius="15,15,15,15" Cursor="Hand" Margin="0,0,100,0" >
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                <i:InvokeCommandAction Command="{Binding CloseWelcome}" CommandParameter=""/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <Label Grid.Column="2" Height="28" FontSize="14"  Width="80" Content="Далі" Background="#FFCED7F7"
+                        VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  VerticalContentAlignment="Center"   FontFamily="Microsoft Sans Serif" >
+                        </Label>
+                    </Border>
+
+                    <!--<Label Name="Podval" Grid.Row="4" Content="Для перегляду деталізації опису діагнозу необхідно натиснути на обраний рядок в списку попередніх діагнозів, який розташовано зліва у вікні"  Height="30" Width="950" FontSize="14" Foreground="Blue" FontFamily="Microsoft Sans Serif" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2" Margin="20,64,0,0"  />-->
+
+                </Grid>
+
+            </Border>
+        </StackPanel>
+    </Grid>
+</Window>

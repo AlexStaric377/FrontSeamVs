@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
+  <ItemGroup>
+    <ApplicationDefinition Update="App.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="WinAccountRecords.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WinAnalogDiagnoz.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WinColectionAnalizBlood.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WinColectionAnalizUrine.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WinColectionStanHealth.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WinDeleteData.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WinListInteviewPacient.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WinMessageDialog.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WinProfilPacient.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WinVisitingDays.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WinWelcome.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WinAccountRecords.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WinAnalogDiagnoz.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WinColectionAnalizBlood.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WinColectionAnalizUrine.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WinColectionStanHealth.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WinDeleteData.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WinListInteviewPacient.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WinMessageDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WinProfilPacient.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WinVisitingDays.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WinWelcome.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>

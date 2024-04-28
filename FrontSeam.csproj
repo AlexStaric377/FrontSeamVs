@@ -1,0 +1,62 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Platforms>AnyCPU;x86</Platforms>
+    <ApplicationIcon>kaducey.ico</ApplicationIcon>
+    <AssemblyVersion>1.0.1.18</AssemblyVersion>
+    <FileVersion>1.0.1.18</FileVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\add2.png" />
+    <None Remove="Images\corzina.png" />
+    <None Remove="Images\corzina2.png" />
+    <None Remove="Images\corzina3.png" />
+    <None Remove="Images\database.png" />
+    <None Remove="Images\delete2.png" />
+    <None Remove="Images\dialog.png" />
+    <None Remove="Images\edit2.png" />
+    <None Remove="Images\eye1.png" />
+    <None Remove="Images\eye_disabled.png" />
+    <None Remove="Images\folder_.png" />
+    <None Remove="Images\internet.png" />
+    <None Remove="Images\podskazka1.png" />
+    <None Remove="Images\printer.png" />
+    <None Remove="Images\save.png" />
+    <None Remove="Images\xrestik.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ApplicationInsights" Version="2.21.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0-preview.3.23174.8" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0-preview.3.23174.8" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0-preview.3.23174.8" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="System.Text.Json" Version="8.0.0-preview.4.23259.5" />
+    <PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\add2.png" />
+    <Resource Include="Images\corzina.png" />
+    <Resource Include="Images\corzina2.png" />
+    <Resource Include="Images\corzina3.png" />
+    <Resource Include="Images\database.png" />
+    <Resource Include="Images\delete2.png" />
+    <Resource Include="Images\dialog.png" />
+    <Resource Include="Images\edit2.png" />
+    <Resource Include="Images\eye1.png" />
+    <Resource Include="Images\eye_disabled.png" />
+    <Resource Include="Images\folder_.png" />
+    <Resource Include="Images\internet.png" />
+    <Resource Include="Images\podskazka1.png" />
+    <Resource Include="Images\printer.png" />
+    <Resource Include="Images\save.png" />
+    <Resource Include="Images\xrestik.png" />
+  </ItemGroup>
+
+</Project>
