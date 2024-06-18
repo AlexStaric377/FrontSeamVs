@@ -847,9 +847,10 @@ namespace FrontSeam
             {
                 MapOpisViewModel.IndexAddEdit = "editCommand";
                 MapOpisViewModel.GetidkodProtokola = MapOpisViewModel.modelColectionInterview.kodComplInterv + "/0";
+                SelectReception();
                 WinResultInterview NewResult = new WinResultInterview();
                 NewResult.ShowDialog();
-                SelectReception();
+                
                 switch (ActCompletedInterview)
                 {
                     case "Likar":
@@ -968,6 +969,7 @@ namespace FrontSeam
                     {
                         CallServer.ResponseFromServer = CallServer.ResponseFromServer.Replace("[", "").Replace("]", "");
                         ModelDiagnoz Insert1 = JsonConvert.DeserializeObject<ModelDiagnoz>(CallServer.ResponseFromServer);
+                        selectIcdGrDiagnoz = Insert1.icdGrDiagnoz.ToString();
                         json = ViewModelNsiLikar.controlerLikarGrDiagnoz + "0/" + Insert1.icdGrDiagnoz.ToString();
                         CallServer.PostServer(ViewModelNsiLikar.controlerLikarGrDiagnoz, json, "GETID");
                         if (CallServer.ResponseFromServer.Contains("[]") == false)
@@ -1031,7 +1033,7 @@ namespace FrontSeam
                 WinAnalogDiagnoz NewResult = new WinAnalogDiagnoz();
                 NewResult.ShowDialog();
 
-                if (ViewAnalogDiagnoz == true)SelectReception();
+                //if (ViewAnalogDiagnoz == true)SelectReception();
                 if (SaveAnalogDiagnoz == true || ViewAnalogDiagnoz == true)
                 {
                     SetContent();

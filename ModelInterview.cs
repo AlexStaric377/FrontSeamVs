@@ -375,6 +375,21 @@ namespace FrontSeam
             }
         }
 
+        // команда выбора профильного мед. учреждения
+        RelayCommand? profilMedical;
+        public RelayCommand ProfilMedical
+        {
+            get
+            {
+                return profilMedical ??
+                  (profilMedical = new RelayCommand(obj =>
+                  {
+                      WinNsiMedZaklad MedZaklad = new WinNsiMedZaklad();
+                      MedZaklad.ShowDialog();
+                  }));
+            }
+        }
+
         public void AddResultInterviewreseptionLikar()
         {
             switch (MapOpisViewModel.ActCompletedInterview)

@@ -94,11 +94,41 @@ namespace FrontSeam
                           MapOpisViewModel.modelColectionInterview.detailsInterview = selectItogInterview.detailsInterview;
                           MapOpisViewModel.OpistInterview = selectItogInterview.opistInterview;
                           MapOpisViewModel.UriInterview = selectItogInterview.uriInterview;
-
-                         
-
+                          IcdGrDiagnoz();
                       }
                   }));
+            }
+        }
+
+        private void IcdGrDiagnoz()
+        {
+            string json = MapOpisViewModel.Protocolcontroller + "0/" + MapOpisViewModel.modelColectionInterview.kodProtokola;
+            CallServer.PostServer(MapOpisViewModel.Protocolcontroller, json, "GETID");
+            string CmdStroka = CallServer.ServerReturn();
+            if (CmdStroka.Contains("[]")) return;
+            else
+            {
+                CallServer.ResponseFromServer = CallServer.ResponseFromServer.Replace("[", "").Replace("]", "");
+                ModelDependency Insert = JsonConvert.DeserializeObject<ModelDependency>(CallServer.ResponseFromServer);
+                if (Insert != null)
+                {
+                    json = MapOpisViewModel.Diagnozcontroller + Insert.kodDiagnoz.ToString() + "/0";
+                    CallServer.PostServer(MapOpisViewModel.Diagnozcontroller, json, "GETID");
+                    if (CallServer.ResponseFromServer.Contains("[]") == false)
+                    {
+                        CallServer.ResponseFromServer = CallServer.ResponseFromServer.Replace("[", "").Replace("]", "");
+                        ModelDiagnoz Insert1 = JsonConvert.DeserializeObject<ModelDiagnoz>(CallServer.ResponseFromServer);
+                        MapOpisViewModel.selectIcdGrDiagnoz = Insert1.icdGrDiagnoz.ToString();
+                        json = ViewModelLikarGrupDiagnoz.controlerLikarGrDiagnoz + "0/" + Insert1.icdGrDiagnoz.ToString();
+                        CallServer.PostServer(ViewModelLikarGrupDiagnoz.controlerLikarGrDiagnoz, json, "GETID");
+                        if (CallServer.ResponseFromServer.Contains("[]") == false)
+                        {
+                            CallServer.ResponseFromServer = CallServer.ResponseFromServer.Replace("[", "").Replace("]", "");
+                            ModelGrupDiagnoz insertGrDiagnoz = JsonConvert.DeserializeObject<ModelGrupDiagnoz>(CallServer.ResponseFromServer);
+                            MapOpisViewModel.selectIcdGrDiagnoz = insertGrDiagnoz.icdGrDiagnoz;
+                        }
+                    }
+                }
             }
         }
 
@@ -154,6 +184,8 @@ namespace FrontSeam
                   }));
             }
         }
+
+
 
         // команда закрытия окна
         private RelayCommand? reseptionLikar;
@@ -326,6 +358,22 @@ namespace FrontSeam
                       }
                       WinAnalogDiagnoz WindowResult = MainWindow.LinkMainWindow("WinAnalogDiagnoz");
                       WindowResult.Close();
+                  }));
+            }
+        }
+
+        // команда вывода списка профильных мед. учреждений
+        RelayCommand? listprofilMedical;
+        public RelayCommand ListProfilMedical
+        {
+            get
+            {
+                return listprofilMedical ??
+                  (listprofilMedical = new RelayCommand(obj =>
+                  {
+
+                      WinNsiMedZaklad MedZaklad = new WinNsiMedZaklad();
+                      MedZaklad.ShowDialog();
                   }));
             }
         }
