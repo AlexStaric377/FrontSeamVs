@@ -6,8 +6,8 @@
     <UseWPF>true</UseWPF>
     <Platforms>AnyCPU;x86</Platforms>
     <ApplicationIcon>kaducey.ico</ApplicationIcon>
-    <AssemblyVersion>1.0.1.21</AssemblyVersion>
-    <FileVersion>1.0.1.21</FileVersion>
+    <AssemblyVersion>1.0.1.23</AssemblyVersion>
+    <FileVersion>1.0.1.23</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,6 +23,7 @@
     <None Remove="Images\eye_disabled.png" />
     <None Remove="Images\folder_.png" />
     <None Remove="Images\internet.png" />
+    <None Remove="Images\lupa.png" />
     <None Remove="Images\podskazka1.png" />
     <None Remove="Images\printer.png" />
     <None Remove="Images\save.png" />
@@ -53,6 +54,7 @@
     <Resource Include="Images\eye_disabled.png" />
     <Resource Include="Images\folder_.png" />
     <Resource Include="Images\internet.png" />
+    <Resource Include="Images\lupa.png" />
     <Resource Include="Images\podskazka1.png" />
     <Resource Include="Images\printer.png" />
     <Resource Include="Images\save.png" />

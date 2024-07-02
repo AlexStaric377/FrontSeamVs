@@ -66,6 +66,27 @@ namespace FrontSeam
             }
         }
 
+        // команда закрытия окна
+        RelayCommand? searchComplaint;
+        public RelayCommand SearchComplaint
+        {
+            get
+            {
+                return searchComplaint ??
+                  (searchComplaint = new RelayCommand(obj =>
+                  {
+                      NsiComplaint WindowMen = MainWindow.LinkMainWindow("NsiComplaint");
+                      string jason = pathComplaint + "0/" + WindowMen.PoiskComplaints.Text;
+                      CallServer.PostServer(pathComplaint, jason, "GETID");
+                      string CmdStroka = CallServer.ServerReturn();
+                      if (CmdStroka.Contains("[]")) CallServer.BoolFalseTabl();
+                      else ObservableViewComplaints(CmdStroka);
+                      WindowMen.TablComplaints.ItemsSource = NsiComplaints;
+
+                  }));
+            }
+        }
+
         // команда выбора строки из списка жалоб
         RelayCommand? selectCompl;
         public RelayCommand SelectComplaint

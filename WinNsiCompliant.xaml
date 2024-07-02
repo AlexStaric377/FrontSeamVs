@@ -12,7 +12,7 @@
         xmlns:local="clr-namespace:FrontSeam"  d:DataContext ="{d:DesignInstance Type=local:ViewModelNsiComplaint}" 
         mc:Ignorable="d" 
         Title="NsiComplaint"  WindowState="Normal" AllowsTransparency="True" WindowStyle="None" WindowStartupLocation="CenterOwner"  
-         ShowInTaskbar="True"   Height="680" Width="450" Margin="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+          ShowInTaskbar="True"   Height="680" Width="600" Margin="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
         Background="{x:Null}"  >
     <Window.DataContext>
         <local:ViewModelNsiComplaint/>
@@ -24,13 +24,14 @@
         </Style>
     </Window.Resources>
 
-    <StackPanel x:Name ="ButtonWin" VerticalAlignment="Center" Height="630" Width="420" >
+    <StackPanel x:Name ="ButtonWin" VerticalAlignment="Center" Height="630" Width="570" >
         <StackPanel.Effect>
             <DropShadowEffect Color="#FF1D1504" BlurRadius="35" ShadowDepth="20" Opacity="0.5" ></DropShadowEffect>
         </StackPanel.Effect>
-        <Border x:Name="BorderWin" BorderBrush="#FFE2E2DD" Background="#FFE2E2DD"  BorderThickness="0,0,0,0" CornerRadius="15,15,15,15" Height="630" Width="400">
+        <Border x:Name="BorderWin" BorderBrush="#FFE2E2DD" Background="#FFE2E2DD"  BorderThickness="0,0,0,0" CornerRadius="15,15,15,15" Height="630" Width="550">
             <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Height="610" Width="Auto" Name="WinGrid" Background="#FFE2E2DD" >
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="25*" />
                     <RowDefinition Height="25*" />
                     <RowDefinition Height="25*" />
                     <RowDefinition Height="500*" />
@@ -38,43 +39,63 @@
 
                 </Grid.RowDefinitions>
                 <Label Name="Zagolovok"  Content="Як і де проявляється нездужання у вашому організмі" Grid.Row="0" Foreground="#FF4607A0" FontSize="14"  FontFamily="Microsoft Sans Serif"  FontWeight="Light" HorizontalAlignment="Left"  />
-                <Label Name="InfoSelect"  Content="" Grid.Row="1" 
+                <TextBox Name="PoiskComplaints" Grid.Row="1" Width="420" Text="" FontSize="14" BorderThickness="0,0,0,0" HorizontalAlignment="Left" Margin="5,0,0,0" 
+                         FontFamily="Microsoft Sans Serif" />
+
+                <Image Height="25" Width="30" Grid.Row="1" HorizontalAlignment="Right"  Name="Poisk_Compl"  VerticalAlignment="Bottom" Margin="0,0,70,0"
+                    Source="pack://application:,,,/FrontSeam;component/Images/lupa.png" Cursor="Hand"  >
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                            <i:InvokeCommandAction Command="{Binding SearchComplaint}" CommandParameter=""/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Image>
+
+                <Label Name="InfoSelect"  Content="" Grid.Row="2" 
                        Foreground="#FF4607A0"  FontSize="13" FontFamily="Microsoft Sans Serif"  FontWeight="Light" HorizontalAlignment="Center"  />
-                <ListBox Grid.Row="2" Name="TablComplaints" ItemsSource="{Binding NsiComplaints}" VerticalAlignment="Top"
-                    SelectedItem ="{Binding SelectedComplaint}" Height="520" Background="#FFE2E2DD" 
-                    Width="380" BorderThickness="0,0,0,0" ScrollViewer.HorizontalScrollBarVisibility="Hidden" 
+                <ListView Grid.Row="3" Name="TablComplaints" ItemsSource="{Binding NsiComplaints}" VerticalAlignment="Top"
+                    SelectedItem ="{Binding SelectedComplaint}" Height="495" Background="#FFE2E2DD" 
+                    Width="530" BorderThickness="0,0,0,0" ScrollViewer.HorizontalScrollBarVisibility="Hidden" 
                     BorderBrush="Transparent" ScrollViewer.VerticalScrollBarVisibility="Auto">
-                    <ListBox.ItemTemplate>
-                          <DataTemplate>
-                             <TextBlock Text="{Binding Path=name}" Margin="0,0,0,5" VerticalAlignment="Center"   Width="320" Height="20" FontSize="14" FontFamily="Microsoft Sans Serif" FontWeight="Black" HorizontalAlignment="Left" /> <!--TextWrapping="Wrap"-->
-                           </DataTemplate>
-                     </ListBox.ItemTemplate>
-                 </ListBox>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseUp">
+                            <i:InvokeCommandAction Command="{Binding ElementName=TablComplaints, Path=DataContext.SelectedNameCompl}" CommandParameter=""/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Path=name}" Margin="0,0,0,5" VerticalAlignment="Center"   Width="470" Height="20" FontSize="14" FontFamily="Microsoft Sans Serif" FontWeight="Black" HorizontalAlignment="Left" />
+                            <!--TextWrapping="Wrap"-->
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
                 <Image Height="20" Width="20" Grid.Row="0" HorizontalAlignment="Right"  Name="Close_Grid"  VerticalAlignment="Bottom" 
                     Source="pack://application:,,,/FrontSeam;component/Images/xrestik.png" Cursor="Hand"  >
-                     
-                     <i:Interaction.Triggers>
+
+                    <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseLeftButtonDown">
                             <i:InvokeCommandAction Command="{Binding CloseComplaint}" CommandParameter=""/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Image>
-                <Grid Grid.Row="3">
+                <Grid Grid.Row="4">
                     <Grid.ColumnDefinitions >
                         <ColumnDefinition Width="100*" />
                         <ColumnDefinition Width ="100*" />
                     </Grid.ColumnDefinitions>
-                    <Border  Grid.Column="0" Height="25" Width="70" BorderBrush="#FF3E3E3B" VerticalAlignment="Bottom"
+                    <Border Grid.Row="2" Grid.Column="0" Height="25" Width="70" BorderBrush="#FF3E3E3B" VerticalAlignment="Bottom"
                             Background="#FFE2E2DD"  BorderThickness="1,1,1,1" CornerRadius="15,15,15,15" Cursor="Hand" >
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseLeftButtonDown">
-                            <i:InvokeCommandAction Command="{Binding SelectComplaint}" CommandParameter=""/>
+                                <i:InvokeCommandAction Command="{Binding SelectComplaint}" CommandParameter=""/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
-                        <Label Grid.Column="3" Height="25" FontSize="10"  Width="70" Content="Вибрати" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  VerticalContentAlignment="Center"   FontFamily="Arial"  >
-                        </Label>   
+                        <Label Grid.Column="2" Height="25" FontSize="10"  Width="70" Content="Вибрати" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  VerticalContentAlignment="Center"   FontFamily="Arial"  >
+                        </Label>
                     </Border>
-                    <Border  Grid.Column="1" Height="25" Width="80" BorderBrush="#FF3E3E3B" VerticalAlignment="Bottom"
+                    <Border Grid.Row="2" Grid.Column="1" Height="25" Width="80" BorderBrush="#FF3E3E3B" VerticalAlignment="Bottom"
                             Background="#FFE2E2DD"  BorderThickness="1,1,1,1" CornerRadius="15,15,15,15" Cursor="Hand" >
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseLeftButtonDown">
@@ -85,8 +106,8 @@
                         </Label>
                     </Border>
                 </Grid>
-  
-             </Grid>
+
+            </Grid>
         </Border>
     </StackPanel>
 </Window>

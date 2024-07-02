@@ -25,6 +25,11 @@ namespace FrontSeam
         {
             InitializeComponent();
             MapOpisViewModel.ViewNsiDetaling();
+            if (ViewModelNsiDetailing.NsiModelDetailings.Count == 0)
+            {
+                NsiDetailing WindowMen = MainWindow.LinkMainWindow("NsiDetailing");
+                WindowMen.Close();
+            }
         }
     }
 }
