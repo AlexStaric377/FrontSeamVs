@@ -449,7 +449,7 @@ namespace FrontSeam
             listgrdetaling = new ObservableCollection<ModelDetailing>();
             foreach (ModelDetailing modelDetailing in ViewModelNsiDetailing.NsiModelDetailings)
             {
-                if (modelDetailing.keyGrDetailing != null)
+                if (modelDetailing.keyGrDetailing != "")
                 {
                     listgrdetaling.Add(modelDetailing);
                 }

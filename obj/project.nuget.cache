@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "CX+AslboRgJRATsJTH+MENLIFmi06OkwVrBvSvm3gF1ixOawNedkq93+holGtpiowdyavcecJLLsJfODbmAdXg==",
+  "dgSpecHash": "ZLu2RURliS1bVEJP2WsalUcxaU2wEsYryb4CEdPnz8gErN9/1cXSJF2UZAXmGNBiQPs3CXw/NwNgav3WNVk1ew==",
   "success": true,
   "projectFilePath": "D:\\FrontSeam\\FrontSeam.csproj",
   "expectedPackageFiles": [
@@ -44,8 +44,7 @@
     "C:\\Users\\Aleksandr\\.nuget\\packages\\system.text.encodings.web\\8.0.0-preview.4.23259.5\\system.text.encodings.web.8.0.0-preview.4.23259.5.nupkg.sha512",
     "C:\\Users\\Aleksandr\\.nuget\\packages\\system.text.json\\8.0.0-preview.4.23259.5\\system.text.json.8.0.0-preview.4.23259.5.nupkg.sha512",
     "C:\\Users\\Aleksandr\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
-    "C:\\Users\\Aleksandr\\.nuget\\packages\\system.windows.interactivity.wpf\\2.0.20525\\system.windows.interactivity.wpf.2.0.20525.nupkg.sha512",
-    "C:\\Users\\Aleksandr\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.17\\microsoft.netcore.app.host.win-x64.5.0.17.nupkg.sha512"
+    "C:\\Users\\Aleksandr\\.nuget\\packages\\system.windows.interactivity.wpf\\2.0.20525\\system.windows.interactivity.wpf.2.0.20525.nupkg.sha512"
   ],
   "logs": [
     {
