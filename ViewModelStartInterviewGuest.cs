@@ -802,7 +802,7 @@ namespace FrontSeam
             // "Здійснюється формування попереднього діагнозу " + Environment.NewLine + "та відповідних рекомендацій щодо подальших дій";
             //SelectedFalseLogin();
 
-            var json = pathcontrolerInterview + "0/" + DiagnozRecomendaciya + "/0";
+            var json = pathcontrolerInterview + "0/" + DiagnozRecomendaciya + "/0/0";
             CallServer.PostServer(pathcontrolerInterview, json, "GETID");
             string CmdStroka = CallServer.ServerReturn();
             if (CmdStroka.Contains("[]"))
@@ -1025,7 +1025,7 @@ namespace FrontSeam
             string json = "", CmdStroka = "";
             while (DiagnozRecomendaciya.Contains(";") == true)
             {
-                json = pathcontrolerInterview + "0/" + DiagnozRecomendaciya + "/-1";
+                json = pathcontrolerInterview + "0/" + DiagnozRecomendaciya + "/-1/0";
                 CallServer.PostServer(pathcontrolerInterview, json, "GETID");
                 CmdStroka = CallServer.ServerReturn();
                 if (CmdStroka.Contains("[]") == false) { break; }
