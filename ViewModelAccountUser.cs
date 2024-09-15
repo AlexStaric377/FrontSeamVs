@@ -431,7 +431,7 @@ namespace FrontSeam
                                       if (Idinsert != null) WindowAccountUser.AccountUsert5.Text = Idinsert.kodPacient + ": " + Idinsert.name + " " + Idinsert.surname;
                                       break;
                                   case "3":
-                                      json = pathcontrolernsiLikar + Iduser + "/0";
+                                      json = pathcontrolernsiLikar + Iduser + "/0/0";
                                       CallServer.PostServer(pathcontrolernsiLikar, json, "GETID");
                                       CallServer.ResponseFromServer = CallServer.ResponseFromServer.Replace("[", "").Replace("]", "");
                                       ModelDoctor Insert = JsonConvert.DeserializeObject<ModelDoctor>(CallServer.ResponseFromServer);

@@ -110,7 +110,7 @@ namespace FrontSeam
             selectedModelReceptionPatient.nameDiagnoz = "";
             selectedModelReceptionPatient.nameRecomen = "";
 
-            var json = Protocolcontroller + "0/" + colectionInterview.kodProtokola.ToString();
+            var json = Protocolcontroller + "0/" + colectionInterview.kodProtokola.ToString() + "/0";
             CallServer.PostServer(Protocolcontroller, json, "GETID");
             if (CallServer.ResponseFromServer.Contains("[]") == false)
             {
@@ -119,7 +119,7 @@ namespace FrontSeam
                 if (Insert != null)
                 {
 
-                    json = Diagnozcontroller + Insert.kodDiagnoz.ToString() + "/0";
+                    json = Diagnozcontroller + Insert.kodDiagnoz.ToString() + "/0/0";
                     CallServer.PostServer(Diagnozcontroller, json, "GETID");
                     if (CallServer.ResponseFromServer.Contains("[]") == false)
                     {
@@ -130,7 +130,7 @@ namespace FrontSeam
                     }
 
 
-                    json = Recomencontroller + Insert.kodRecommend.ToString();
+                    json = Recomencontroller + Insert.kodRecommend.ToString() + "/0";
                     CallServer.PostServer(Recomencontroller, json, "GETID");
                     if (CallServer.ResponseFromServer.Contains("[]") == false)
                     {

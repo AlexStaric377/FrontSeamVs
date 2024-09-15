@@ -41,10 +41,10 @@ namespace FrontSeam
                 switch (MapOpisViewModel.ActCompletedInterview)
                 {
                     case "FeatureGET":
-                        jason = pathcontroller + "0/0";
+                        jason = pathcontroller + "0/0/0";
                         break;
                     default:
-                        jason = pathcontroller + "0/" + MapOpisViewModel.selectedGuestInterv.kodDetailing;
+                        jason = pathcontroller + "0/" + MapOpisViewModel.selectedGuestInterv.kodDetailing + "/0";
                         break;
                 }
                 CallServer.PostServer(pathcontroller, jason, "GETID");
@@ -130,7 +130,7 @@ namespace FrontSeam
                           if (selectedDetailing.keyGrDetailing != null && selectedDetailing.keyGrDetailing != "")
                           {
                               string pathcontroller = "/api/GrDetalingController/";
-                              string jason = pathcontroller + "0/" + selectedDetailing.keyGrDetailing;
+                              string jason = pathcontroller + "0/" + selectedDetailing.keyGrDetailing + "/0";
                               CallServer.PostServer(pathcontroller, jason, "GETID");
                               string CmdStroka = CallServer.ServerReturn();
                               if (CmdStroka.Contains("[]") == false)

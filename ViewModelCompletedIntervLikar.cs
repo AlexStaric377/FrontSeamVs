@@ -126,7 +126,7 @@ namespace FrontSeam
         {
 
            
-            var json = ProtocolcontrollerIntevLikar + "0/" + colectionInterview.kodProtokola.ToString();
+            var json = ProtocolcontrollerIntevLikar + "0/" + colectionInterview.kodProtokola.ToString() + "/0";
             CallServer.PostServer(ProtocolcontrollerIntevLikar, json, "GETID");
             if (CallServer.ResponseFromServer.Contains("[]") == false)
             {
@@ -135,7 +135,7 @@ namespace FrontSeam
                 if (Insert != null)
                 {
                    
-                    json = DiagnozcontrollerIntevLikar + Insert.kodDiagnoz.ToString()+"/0";
+                    json = DiagnozcontrollerIntevLikar + Insert.kodDiagnoz.ToString()+"/0/0";
                     CallServer.PostServer(DiagnozcontrollerIntevLikar, json, "GETID");
                     if (CallServer.ResponseFromServer.Contains("[]") == false)
                     {
@@ -146,7 +146,7 @@ namespace FrontSeam
                     }
 
                     
-                    json = RecomencontrollerIntevLikar + Insert.kodRecommend.ToString();
+                    json = RecomencontrollerIntevLikar + Insert.kodRecommend.ToString() + "/0";
                     CallServer.PostServer(RecomencontrollerIntevLikar, json, "GETID");
                     if (CallServer.ResponseFromServer.Contains("[]") == false)
                     {
@@ -259,9 +259,9 @@ namespace FrontSeam
                       if (selectedIntevLikar != null)
                       {
                           if (selectedIntevLikar.kodProtokola != "")
-                          { 
-                            
-                            //json = ProtocolcontrollerIntevLikar + "0/" + WindowIntevLikar.LikarIntert1.Text.ToString();
+                          {
+
+                            json = ProtocolcontrollerIntevLikar + "0/" + selectedIntevLikar.kodProtokola + "/0";
                             CallServer.PostServer(ProtocolcontrollerIntevLikar, json, "GETID");
                             CallServer.ResponseFromServer = CallServer.ResponseFromServer.Replace("[", "").Replace("]", "");
                             Insert = JsonConvert.DeserializeObject<ModelDependency>(CallServer.ResponseFromServer);

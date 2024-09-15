@@ -422,7 +422,7 @@ namespace FrontSeam
 
             selectFeature = GuestIntervs[IdItemGuestInterv - 1].detailsInterview;
             string pathcontroller = "/api/DetailingController/";
-            string jason = pathcontroller + "0/" + MapOpisViewModel.selectedGuestInterv.kodDetailing;
+            string jason = pathcontroller + "0/" + selectedGuestInterv.kodDetailing + "/0";
             CallServer.PostServer(pathcontroller, jason, "GETID");
             string CmdStroka = CallServer.ServerReturn();
             if (CmdStroka.Contains("[]") == false)
@@ -835,8 +835,8 @@ namespace FrontSeam
 
         public static void LoadDiagnozRecomen(string KodProtokola)
         {
-            string json = MapOpisViewModel.Protocolcontroller + "0/" + KodProtokola;
-            CallServer.PostServer(MapOpisViewModel.Protocolcontroller, json, "GETID");
+            string json = Protocolcontroller + "0/" + KodProtokola + "/0";
+            CallServer.PostServer(Protocolcontroller, json, "GETID");
             string CmdStroka = CallServer.ServerReturn();
             if (CmdStroka.Contains("[]")) return;
             else
@@ -846,15 +846,15 @@ namespace FrontSeam
               
                 if (Insert != null)
                 {
-                    json = Diagnozcontroller + Insert.kodDiagnoz.ToString() + "/0";
-                    CallServer.PostServer(MapOpisViewModel.Diagnozcontroller, json, "GETID");
+                    json = Diagnozcontroller + Insert.kodDiagnoz.ToString() + "/0/0";
+                    CallServer.PostServer(Diagnozcontroller, json, "GETID");
                     if (CallServer.ResponseFromServer.Contains("[]") == false)
                     {
                         CallServer.ResponseFromServer = CallServer.ResponseFromServer.Replace("[", "").Replace("]", "");
                         ModelDiagnoz Insert1 = JsonConvert.DeserializeObject<ModelDiagnoz>(CallServer.ResponseFromServer);
-                        MapOpisViewModel.NameDiagnoz = Insert1.nameDiagnoza;
+                        NameDiagnoz = Insert1.nameDiagnoza;
 
-                        json = ViewModelNsiLikar.controlerLikarGrDiagnoz + "0/" + Insert1.icdGrDiagnoz.ToString();
+                        json = ViewModelNsiLikar.controlerLikarGrDiagnoz + "0/" + Insert1.icdGrDiagnoz.ToString() + "/0";
                         CallServer.PostServer(ViewModelNsiLikar.controlerLikarGrDiagnoz, json, "GETID");
                         if (CallServer.ResponseFromServer.Contains("[]") == false)
                         {
@@ -864,13 +864,13 @@ namespace FrontSeam
                         }
                     }
 
-                    json = MapOpisViewModel.Recomencontroller + Insert.kodRecommend.ToString();
-                    CallServer.PostServer(MapOpisViewModel.Recomencontroller, json, "GETID");
+                    json = MapOpisViewModel.Recomencontroller + Insert.kodRecommend.ToString() + "/0";
+                    CallServer.PostServer(Recomencontroller, json, "GETID");
                     if (CallServer.ResponseFromServer.Contains("[]") == false)
                     {
                         CallServer.ResponseFromServer = CallServer.ResponseFromServer.Replace("[", "").Replace("]", "");
                         ModelRecommendation Insert2 = JsonConvert.DeserializeObject<ModelRecommendation>(CallServer.ResponseFromServer);
-                        MapOpisViewModel.NameRecomendaciya = Insert2.contentRecommendation;
+                        NameRecomendaciya = Insert2.contentRecommendation;
 
                     }
                 }
@@ -882,8 +882,8 @@ namespace FrontSeam
         {
             if (NameDiagnoz.Length != 0)
             {
-                MapOpisViewModel.IndexAddEdit = "editCommand";
-                MapOpisViewModel.GetidkodProtokola = MapOpisViewModel.modelColectionInterview.kodComplInterv + "/0";
+                IndexAddEdit = "editCommand";
+                GetidkodProtokola = modelColectionInterview.kodComplInterv + "/0";
                 SelectReception();
                 WinResultInterview NewResult = new WinResultInterview();
                 NewResult.ShowDialog();
@@ -990,7 +990,7 @@ namespace FrontSeam
         }
         public void SelectIcdGrDiagnoz()
         {
-            string json = Protocolcontroller + "0/" + modelColectionInterview.kodProtokola;
+            string json = Protocolcontroller + "0/" + modelColectionInterview.kodProtokola + "/0";
             CallServer.PostServer(MapOpisViewModel.Protocolcontroller, json, "GETID");
             string CmdStroka = CallServer.ServerReturn();
             if (CmdStroka.Contains("[]")) return;
@@ -1000,14 +1000,14 @@ namespace FrontSeam
                 ModelDependency Insert = JsonConvert.DeserializeObject<ModelDependency>(CallServer.ResponseFromServer);
                 if (Insert != null)
                 {
-                    json = Diagnozcontroller + Insert.kodDiagnoz.ToString() + "/0";
-                    CallServer.PostServer(MapOpisViewModel.Diagnozcontroller, json, "GETID");
+                    json = Diagnozcontroller + Insert.kodDiagnoz.ToString() + "/0/0";
+                    CallServer.PostServer(Diagnozcontroller, json, "GETID");
                     if (CallServer.ResponseFromServer.Contains("[]") == false)
                     {
                         CallServer.ResponseFromServer = CallServer.ResponseFromServer.Replace("[", "").Replace("]", "");
                         ModelDiagnoz Insert1 = JsonConvert.DeserializeObject<ModelDiagnoz>(CallServer.ResponseFromServer);
                         selectIcdGrDiagnoz = Insert1.icdGrDiagnoz.ToString();
-                        json = ViewModelNsiLikar.controlerLikarGrDiagnoz + "0/" + Insert1.icdGrDiagnoz.ToString();
+                        json = ViewModelNsiLikar.controlerLikarGrDiagnoz + "0/" + Insert1.icdGrDiagnoz.ToString() + "/0";
                         CallServer.PostServer(ViewModelNsiLikar.controlerLikarGrDiagnoz, json, "GETID");
                         if (CallServer.ResponseFromServer.Contains("[]") == false)
                         {

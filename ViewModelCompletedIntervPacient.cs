@@ -125,7 +125,7 @@ namespace FrontSeam
         private static void MethodProtokolaIntevPacient(ColectionInterview colectionInterview, bool boolname)
         {
 
-            var json = ProtocolcontrollerDependency + "0/" + colectionInterview.kodProtokola.ToString();
+            var json = ProtocolcontrollerDependency + "0/" + colectionInterview.kodProtokola.ToString() + "/0";
             CallServer.PostServer(ProtocolcontrollerDependency, json, "GETID");
             if (CallServer.ResponseFromServer.Contains("[]") == false)
             {
@@ -133,7 +133,7 @@ namespace FrontSeam
                 ModelDependency Insert = JsonConvert.DeserializeObject<ModelDependency>(CallServer.ResponseFromServer);
                 if (Insert != null)
                 {
-                    json = DiagnozcontrollerIntev + Insert.kodDiagnoz.ToString() + "/0";
+                    json = DiagnozcontrollerIntev + Insert.kodDiagnoz.ToString() + "/0/0";
                     CallServer.PostServer(DiagnozcontrollerIntev, json, "GETID");
                     if (CallServer.ResponseFromServer.Contains("[]") == false)
                     {
@@ -143,7 +143,7 @@ namespace FrontSeam
                         if (boolname == true) WindowIntevPacient.PacientInterviewt6.Text = Insert1.nameDiagnoza;
                     }
 
-                    json = RecomencontrollerIntev + Insert.kodRecommend.ToString();
+                    json = RecomencontrollerIntev + Insert.kodRecommend.ToString() + "/0";
                     CallServer.PostServer(RecomencontrollerIntev, json, "GETID");
                     if (CallServer.ResponseFromServer.Contains("[]") == false)
                     {

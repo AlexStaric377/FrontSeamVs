@@ -281,7 +281,7 @@ namespace FrontSeam
                               MapOpisViewModel.boolSetAccountUser = true;
                               break;
                           case "3":
-                              CallServer.PostServer(pathcontrolerProfilLikar, pathcontrolerProfilLikar + IdAccountUser.idUser + "/0", "GETID");
+                              CallServer.PostServer(pathcontrolerProfilLikar, pathcontrolerProfilLikar + IdAccountUser.idUser + "/0/0", "GETID");
                               CmdStroka = CallServer.ServerReturn();
                               if (CmdStroka.Contains("[]"))
                               {

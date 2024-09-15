@@ -64,7 +64,7 @@ namespace FrontSeam
  
                 if (modelVisitingDays.kodDoctor != "")
                 {
-                    string json = pathcontrolerProfilLikar + modelVisitingDays.kodDoctor.ToString()+"/0";
+                    string json = pathcontrolerProfilLikar + modelVisitingDays.kodDoctor.ToString()+"/0/0";
                     CallServer.PostServer(pathcontrolerMedZakladProfilLikar, json, "GETID");
                     CallServer.ResponseFromServer = CallServer.ResponseFromServer.Replace("[", "").Replace("]", "");
                     ModelDoctor Idinsert = JsonConvert.DeserializeObject<ModelDoctor>(CallServer.ResponseFromServer);
@@ -72,7 +72,7 @@ namespace FrontSeam
                     {
                         selectViewModelVisitingDays.nameDoctor = Idinsert.name+ Idinsert.telefon;
                         selectViewModelVisitingDays.edrpou = Idinsert.edrpou;
-                        json = pathcontrolerMedZakladProfilLikar + Idinsert.edrpou.ToString() +"/0";
+                        json = pathcontrolerMedZakladProfilLikar + Idinsert.edrpou.ToString() +"/0/0";
                         CallServer.PostServer(pathcontrolerMedZakladProfilLikar, json, "GETID");
                         CallServer.ResponseFromServer = CallServer.ResponseFromServer.Replace("[", "").Replace("]", "");
                         MedicalInstitution Idzaklad = JsonConvert.DeserializeObject<MedicalInstitution>(CallServer.ResponseFromServer);

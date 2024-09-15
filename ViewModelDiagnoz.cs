@@ -101,7 +101,7 @@ namespace FrontSeam
                         if (selectedDiagnoz.keyIcd != "")
                         {
 
-                            string json = controlerNsiIcd + selectedDiagnoz.keyIcd.ToString() + "/0";
+                            string json = controlerViewDiagnoz + "/0" + selectedDiagnoz.keyIcd.ToString() + "/0";
                             CallServer.PostServer(controlerViewDiagnoz, json, "GETID");
                             CallServer.ResponseFromServer = CallServer.ResponseFromServer.Replace("[", "").Replace("]", "");
                             ModelIcd Idinsert = JsonConvert.DeserializeObject<ModelIcd>(CallServer.ResponseFromServer);

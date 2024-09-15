@@ -203,7 +203,7 @@ namespace FrontSeam
                         selectedGridProfilLikar.napryamok = modelDoctor.napryamok;
                         if (modelDoctor.edrpou != null)
                         {
-                            string json = pathcontrolerMedZakladProfilLikar + modelDoctor.edrpou.ToString()+"/0";
+                            string json = pathcontrolerMedZakladProfilLikar + modelDoctor.edrpou.ToString()+"/0/0";
                             CallServer.PostServer(pathcontrolerMedZakladProfilLikar, json, "GETID");
                             CallServer.ResponseFromServer = CallServer.ResponseFromServer.Replace("[", "").Replace("]", "");
                             MedicalInstitution Idinsert = JsonConvert.DeserializeObject<MedicalInstitution>(CallServer.ResponseFromServer);

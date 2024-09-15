@@ -44,7 +44,7 @@ namespace FrontSeam
         public ViewModelNsiQualification()
         {
 
-            string jason = pathcontroller + "0/" + ViewModelNsiGrDetailing.selectedGrDetailing.kodGroupQualification;
+            string jason = pathcontroller + "0/" + ViewModelNsiGrDetailing.selectedGrDetailing.kodGroupQualification + "/0";
             CallServer.PostServer(pathcontroller, jason, "GETID");
             string CmdStroka = CallServer.ServerReturn();
             ObservableNsiModelFeatures(CmdStroka);

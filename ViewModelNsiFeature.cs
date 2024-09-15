@@ -24,7 +24,7 @@ using System.Windows.Controls;
 /// Розробник Стариченко Олександр Павлович тел.+380674012840, mail staric377@gmail.com
 namespace FrontSeam
 {
-    class ViewModelNsiFeature : INotifyPropertyChanged
+    class ViewModelNsiFeature : BaseViewModel
     {
         private string controller = "/api/FeatureController/";
         private ModelFeature selectedFeature;
@@ -42,7 +42,7 @@ namespace FrontSeam
                         CallServer.PostServer(controller, controller, "GET");
                         break;
                     default:
-                        CallServer.PostServer(controller, controller +"0/" + MapOpisViewModel.selectedGuestInterv.kodDetailing, "GETID");
+                        CallServer.PostServer(controller, controller +"0/" + MapOpisViewModel.selectedGuestInterv.kodDetailing + "/0", "GETID");
                         break;
                 }
 
@@ -98,14 +98,28 @@ namespace FrontSeam
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string propertyName = "")
+ 
+        // команда поиска наименования характера проявления болей
+        RelayCommand? searchNameFeature;
+        public RelayCommand SearchNameFeature
         {
-            if (PropertyChanged != null)
+            get
             {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+                return searchNameFeature ??
+                  (searchNameFeature = new RelayCommand(obj =>
+                  {
+                      WinNsiFeature WindowWinNsiFeature = MainWindow.LinkMainWindow("WinNsiFeature");
+                      if (WindowWinNsiFeature.PoiskFeature.Text.Trim() != "")
+                      {
+                          string jason = controller + "0/0/" + WindowWinNsiFeature.PoiskFeature.Text;
+                          CallServer.PostServer(controller, jason, "GETID");
+                          string CmdStroka = CallServer.ServerReturn();
+                          if (CmdStroka.Contains("[]")) CallServer.BoolFalseTabl();
+                          else ObservableNsiModelFeatures(CmdStroka);
+                          WindowWinNsiFeature.TablFeature.ItemsSource = NsiModelFeatures;
+                      }
+                  }));
             }
-
         }
     }
 }

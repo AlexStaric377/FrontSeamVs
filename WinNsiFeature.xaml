@@ -10,35 +10,52 @@
         xmlns:local="clr-namespace:FrontSeam" d:DataContext="{d:DesignInstance Type=local:ViewModelNsiFeature}"
         mc:Ignorable="d" 
         Title="WinNsiFeature"  WindowState="Normal" AllowsTransparency="True" WindowStyle="None" WindowStartupLocation="CenterOwner"  
-          ShowInTaskbar="True"   Height="680" Width="600" Margin="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+          ShowInTaskbar="True"   Height="680" Width="700" Margin="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
         Background="{x:Null}"  >
     <Window.DataContext>
         <local:ViewModelNsiFeature/>
     </Window.DataContext>
 
-    <StackPanel x:Name ="ButtonWin" VerticalAlignment="Center" Height="610" Width="520" >
+    <StackPanel x:Name ="ButtonWin" VerticalAlignment="Center" Height="610" Width="620" >
         <StackPanel.Effect>
             <DropShadowEffect Color="#FF1D1504" BlurRadius="35" ShadowDepth="20" Opacity="0.5" ></DropShadowEffect>
         </StackPanel.Effect>
-        <Border x:Name="BorderWin" BorderBrush="#FFE2E2DD" Background="#FFE2E2DD"  BorderThickness="0,0,0,0" CornerRadius="15,15,15,15" Height="590" Width="520">
+        <Border x:Name="BorderWin" BorderBrush="#FFE2E2DD" Background="#FFE2E2DD"  BorderThickness="0,0,0,0" CornerRadius="15,15,15,15" Height="590" Width="620">
             <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Height="570" Width="Auto" Name="WinGrid" Background="#FFE2E2DD" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="25*" />
                     <RowDefinition Height="25*" />
+                    <RowDefinition Height="20*" />
                     <RowDefinition Height="490*" />
                     <RowDefinition Height="30*" />
                 </Grid.RowDefinitions>
                 <Label Name="Zagolovok"  Content="Прояв нездужання:  " Grid.Row="0" Foreground="#FF4607A0" FontFamily="Microsoft Sans Serif" FontSize="14" FontWeight="Light" HorizontalAlignment="Center" VerticalAlignment="Top"  />
+                <TextBox Name="PoiskFeature" Grid.Row="2" Width="520" Text="" FontSize="14" BorderThickness="0,0,0,0" HorizontalAlignment="Left" Margin="5,0,0,0" 
+                         FontFamily="Microsoft Sans Serif" />
+
+                <Image Height="20" Width="30" Grid.Row="2" HorizontalAlignment="Right"  Name="Poisk_Feature"  VerticalAlignment="Center" Margin="0,0,5,0"
+                    Source="pack://application:,,,/FrontSeam;component/Images/lupa2.png" Cursor="Hand"  >
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                            <i:InvokeCommandAction Command="{Binding SearchNameFeature}" CommandParameter=""/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Image>
                 <Label Name="InfoSelect"  Content="Характер нездужання:" Grid.Row="1" 
                        Foreground="Blue"  FontSize="14" FontFamily="Microsoft Sans Serif"  FontWeight="Light" HorizontalAlignment="Left" Width="450"  />
-                <ListBox Grid.Row="2" Name="TablFeature" ItemsSource="{Binding NsiModelFeatures}" HorizontalAlignment="Center" VerticalAlignment="Top"
-                    SelectedItem ="{Binding SelectedModelFeature}" Height="490" Background="#FFE2E2DD"
-                    Width="490" BorderThickness="0,0,0,0" ScrollViewer.HorizontalScrollBarVisibility="Hidden" 
+                <ListBox Grid.Row="3" Name="TablFeature" ItemsSource="{Binding NsiModelFeatures}" HorizontalAlignment="Center" VerticalAlignment="Top"
+                    SelectedItem ="{Binding SelectedModelFeature}" Height="465" Background="#FFE2E2DD"
+                    Width="590" BorderThickness="0,0,0,0" ScrollViewer.HorizontalScrollBarVisibility="Hidden" 
                     BorderBrush="Transparent" ScrollViewer.VerticalScrollBarVisibility="Auto">
-                    <!---->
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseUp">
+                            <i:InvokeCommandAction Command="{Binding ElementName=TablFeature, Path=DataContext.ViewDetaling}" CommandParameter=""/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Path=name}"  Width="480" Height="20" FontSize="14" FontFamily="Microsoft Sans Serif" FontWeight="Black" HorizontalAlignment="Left" />
+                            <TextBlock Text="{Binding Path=name}"  Width="580" Height="20" TextWrapping="Wrap" FontSize="14" FontFamily="Microsoft Sans Serif" FontWeight="Black" HorizontalAlignment="Left" />
                             <!--TextWrapping="Wrap"-->
 
                         </DataTemplate>
@@ -53,7 +70,7 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Image>
-                <Grid Grid.Row="3">
+                <Grid Grid.Row="4">
                     <Grid.ColumnDefinitions >
                         <ColumnDefinition Width="100*" />
                         <ColumnDefinition Width ="100*" />
@@ -79,7 +96,7 @@
                         </Label>
                     </Border>
                 </Grid>
-    
+
             </Grid>
         </Border>
     </StackPanel>

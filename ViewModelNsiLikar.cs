@@ -54,7 +54,7 @@ namespace FrontSeam
             }
             else
             {
-                CallServer.PostServer(pathcontroller, pathcontroller+"0/"+ MapOpisViewModel.EdrpouMedZaklad, "GETID");
+                CallServer.PostServer(pathcontroller, pathcontroller+"0/"+ MapOpisViewModel.EdrpouMedZaklad + "/0", "GETID");
             }
 
             string CmdStroka = CallServer.ServerReturn();
@@ -71,7 +71,7 @@ namespace FrontSeam
                 ObservableCollection<ModelDoctor> TmpNsiLikars = new ObservableCollection<ModelDoctor>();
                 foreach (ModelDoctor modelDoctor in NsiLikars)
                 {
-                    string json = controlerLikarGrDiagnoz + modelDoctor.kodDoctor + "/" + MapOpisViewModel.selectIcdGrDiagnoz.ToString();
+                    string json = controlerLikarGrDiagnoz + modelDoctor.kodDoctor + "/" + MapOpisViewModel.selectIcdGrDiagnoz.ToString() + "/0";
                     CallServer.PostServer(controlerLikarGrDiagnoz, json, "GETID");
                     if (CallServer.ResponseFromServer.Contains("[]") == false) TmpNsiLikars.Add(modelDoctor);
                 }

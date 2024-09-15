@@ -118,7 +118,7 @@ namespace FrontSeam
                     ModelDiagnoz Idinsert = new ModelDiagnoz();
                     if (likarGrupDiagnoz.icdGrDiagnoz != "")
                     {
-                        json = controlerViewDiagnoz + "0/" + likarGrupDiagnoz.icdGrDiagnoz;
+                        json = controlerViewDiagnoz + "0/" + likarGrupDiagnoz.icdGrDiagnoz + "/0";
                         CallServer.PostServer(controlerViewDiagnoz, json, "GETID");
                         CmdStroka = CallServer.ServerReturn();
                         ObservableViewWorkDiagnoz(CmdStroka);
@@ -161,7 +161,7 @@ namespace FrontSeam
                     ViewWorkDiagnozs.Add(Idinsert);
                     if (Idinsert.icdGrDiagnoz != "")
                     {
-                        string json = controlerViewDiagnoz + "0/" + Idinsert.icdGrDiagnoz;
+                        string json = controlerViewDiagnoz + "0/" + Idinsert.icdGrDiagnoz + "/0";
                         CallServer.PostServer(controlerViewDiagnoz, json, "GETID");
                         string CmdStroka = CallServer.ServerReturn();
                         ObservableViewWorkDiagnoz(CmdStroka);
@@ -282,7 +282,7 @@ namespace FrontSeam
                   {
                       MapOpisViewModel.IndexAddEdit = "";
                       MapOpisViewModel.ModelCall = "ModelColectionInterview";
-                      string json = pathcontrolerDependency + selectedWorkDiagnoz.kodDiagnoza + "/0";
+                      string json = pathcontrolerDependency + selectedWorkDiagnoz.kodDiagnoza + "/0/0";
                       CallServer.PostServer(pathcontrolerDependency, json, "GETID");
                       CallServer.ResponseFromServer = CallServer.ResponseFromServer.Replace("[", "").Replace("]", "");
                       ModelDependencyDiagnoz Idinsert = JsonConvert.DeserializeObject<ModelDependencyDiagnoz>(CallServer.ResponseFromServer);

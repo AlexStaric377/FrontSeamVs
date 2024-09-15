@@ -58,7 +58,7 @@ namespace FrontSeam
                 }
                 else
                 {
-                    string json = controlerNsiDiagnoz + "0/" + MapOpisViewModel.SelectActivGrupDiagnoz;
+                    string json = controlerNsiDiagnoz + "0/" + MapOpisViewModel.SelectActivGrupDiagnoz + "/0";
                     CallServer.PostServer(controlerNsiDiagnoz, json, "GETID");
                     string CmdStroka = CallServer.ServerReturn();
                     ObservableViewNsiDiagnoz(CmdStroka);

@@ -102,7 +102,7 @@ namespace FrontSeam
 
         private void IcdGrDiagnoz()
         {
-            string json = MapOpisViewModel.Protocolcontroller + "0/" + MapOpisViewModel.modelColectionInterview.kodProtokola;
+            string json = MapOpisViewModel.Protocolcontroller + "0/" + MapOpisViewModel.modelColectionInterview.kodProtokola + "/0";
             CallServer.PostServer(MapOpisViewModel.Protocolcontroller, json, "GETID");
             string CmdStroka = CallServer.ServerReturn();
             if (CmdStroka.Contains("[]")) return;
@@ -112,14 +112,14 @@ namespace FrontSeam
                 ModelDependency Insert = JsonConvert.DeserializeObject<ModelDependency>(CallServer.ResponseFromServer);
                 if (Insert != null)
                 {
-                    json = MapOpisViewModel.Diagnozcontroller + Insert.kodDiagnoz.ToString() + "/0";
+                    json = MapOpisViewModel.Diagnozcontroller + Insert.kodDiagnoz.ToString() + "/0/0";
                     CallServer.PostServer(MapOpisViewModel.Diagnozcontroller, json, "GETID");
                     if (CallServer.ResponseFromServer.Contains("[]") == false)
                     {
                         CallServer.ResponseFromServer = CallServer.ResponseFromServer.Replace("[", "").Replace("]", "");
                         ModelDiagnoz Insert1 = JsonConvert.DeserializeObject<ModelDiagnoz>(CallServer.ResponseFromServer);
                         MapOpisViewModel.selectIcdGrDiagnoz = Insert1.icdGrDiagnoz.ToString();
-                        json = ViewModelLikarGrupDiagnoz.controlerLikarGrDiagnoz + "0/" + Insert1.icdGrDiagnoz.ToString();
+                        json = ViewModelLikarGrupDiagnoz.controlerLikarGrDiagnoz + "0/" + Insert1.icdGrDiagnoz.ToString() + "/0";
                         CallServer.PostServer(ViewModelLikarGrupDiagnoz.controlerLikarGrDiagnoz, json, "GETID");
                         if (CallServer.ResponseFromServer.Contains("[]") == false)
                         {

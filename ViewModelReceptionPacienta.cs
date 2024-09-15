@@ -113,7 +113,7 @@ namespace FrontSeam
 
         public static void MethodReceptionProtokol(ModelRegistrationAppointment colectionInterview)
         {
-            var json = ProtocolcontrollerIntevLikar + "0/" + colectionInterview.kodProtokola.ToString();
+            var json = ProtocolcontrollerIntevLikar + "0/" + colectionInterview.kodProtokola.ToString() + "/0";
             CallServer.PostServer(ProtocolcontrollerIntevLikar, json, "GETID");
             if (CallServer.ResponseFromServer.Contains("[]") == false)
             {
@@ -121,7 +121,7 @@ namespace FrontSeam
                 ModelDependency Insert = JsonConvert.DeserializeObject<ModelDependency>(CallServer.ResponseFromServer);
                 if (Insert != null)
                 {
-                    json = DiagnozcontrollerIntevLikar + Insert.kodDiagnoz.ToString()+"/0";
+                    json = DiagnozcontrollerIntevLikar + Insert.kodDiagnoz.ToString()+"/0/0";
                     CallServer.PostServer(DiagnozcontrollerIntevLikar, json, "GETID");
                     if (CallServer.ResponseFromServer.Contains("[]") == false)
                     {
@@ -130,7 +130,7 @@ namespace FrontSeam
                         modelColectionInterview.nameDiagnoz = Insert1.nameDiagnoza;
                     }
 
-                    json = RecomencontrollerIntevLikar + Insert.kodRecommend.ToString();
+                    json = RecomencontrollerIntevLikar + Insert.kodRecommend.ToString() + "/0";
                     CallServer.PostServer(RecomencontrollerIntevLikar, json, "GETID");
                     if (CallServer.ResponseFromServer.Contains("[]") == false)
                     {

@@ -26,7 +26,7 @@
                     <RowDefinition Height="470*" />
                     <RowDefinition Height="30*" />
                 </Grid.RowDefinitions>
-                <Label Name="Zagolovok"  Content="Зміст складеного інтерв'ю" Grid.Row="0" FontSize="15" FontWeight="Black" HorizontalAlignment="Center"  />
+                <Label Name="Zagolovok"  Content="Зміст складеного опитуання" Grid.Row="0" FontSize="15" FontWeight="Black" HorizontalAlignment="Center"  />
 
                 <ListView Grid.Row="1" Name="TablInterviews" ItemsSource="{Binding ContentIntervs}" VerticalAlignment="Top"
                     SelectedItem ="{Binding SelectedContentInterv}"  Height="455" Background="#FFE2E2DD"
@@ -41,7 +41,7 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Margin="5">
-                                <TextBlock Text="{Binding Path=detailsInterview}"   Width="540" Height="20" FontSize="16" FontWeight="Black" HorizontalAlignment="Left" />
+                                <TextBlock Text="{Binding Path=detailsInterview}"   Width="540" Height="30" FontSize="14" TextWrapping="Wrap" FontWeight="Black" HorizontalAlignment="Left" />
                              </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
