@@ -31,18 +31,8 @@ namespace FrontSeam
         public ModelInterview[] ModelInterview { get; set; }
 
     }
-    public class ModelInterview : INotifyPropertyChanged
+    public class ModelInterview : BaseViewModel
     {
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-
-        }
 
 
         // словарь протоколов интревью
@@ -52,9 +42,10 @@ namespace FrontSeam
         private string DetailsInterview;
         private string OpistInterview;
         private string UriInterview;
+        private string IdUser;
 
-        public  ModelInterview(int Id = 0, int Numberstr=0, string KodProtokola = "", string DetailsInterview="", 
-            string NametInterview = "", string OpistInterview="",string UriInterview="")
+        public ModelInterview(int Id = 0, int Numberstr = 0, string KodProtokola = "", string DetailsInterview = "",
+            string NametInterview = "", string OpistInterview = "", string UriInterview = "", string IdUser = "")
         {
             this.Id = Id;
             this.NametInterview = NametInterview;
@@ -62,6 +53,7 @@ namespace FrontSeam
             this.DetailsInterview = DetailsInterview;
             this.OpistInterview = OpistInterview;
             this.UriInterview = UriInterview;
+            this.IdUser = IdUser;
 
         }
         [JsonProperty("id")]
@@ -76,7 +68,7 @@ namespace FrontSeam
             get { return KodProtokola; }
             set { KodProtokola = value; OnPropertyChanged("kodProtokola"); }
         }
- 
+
         [JsonProperty("detailsInterview")]
         public string detailsInterview
         {
@@ -96,13 +88,19 @@ namespace FrontSeam
             set { OpistInterview = value; OnPropertyChanged("opistInterview"); }
         }
 
-        [JsonProperty("uriInterview")] 
+        [JsonProperty("uriInterview")]
         public string uriInterview
         {
             get { return UriInterview; }
             set { UriInterview = value; OnPropertyChanged("uriInterview"); }
         }
 
+        [JsonProperty("idUser")]
+        public string idUser
+        {
+            get { return IdUser; }
+            set { IdUser = value; OnPropertyChanged("idUser"); }
+        }
     }
 
 

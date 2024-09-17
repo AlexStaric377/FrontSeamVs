@@ -48,9 +48,9 @@ namespace FrontSeam
             string jason = pathcontroller + "0/" + ViewModelNsiDetailing.selectedDetailing.keyGrDetailing + "/0";
             CallServer.PostServer(pathcontroller, jason, "GETID");
             string CmdStroka = CallServer.ServerReturn();
-            ObservableNsiModelFeatures(CmdStroka);
+            ObservableNsiModelGrDetailings(CmdStroka);
         }
-        public static void ObservableNsiModelFeatures(string CmdStroka)
+        public static void ObservableNsiModelGrDetailings(string CmdStroka)
         {
             var result = JsonConvert.DeserializeObject<ListModelGrDetailing>(CmdStroka);
             List<ModelGrDetailing> res = result.ViewGrDetailing.ToList();
@@ -102,6 +102,29 @@ namespace FrontSeam
             NewOrder.Left = (MainWindow.ScreenWidth / 2) + 80;
             NewOrder.Top = (MainWindow.ScreenHeight / 2) - 400; //350;
             NewOrder.ShowDialog();
+        }
+
+        // команда поиска наименования характера проявления болей
+        RelayCommand? searchNameGrDeliting;
+        public RelayCommand SearchNameGrDeliting
+        {
+            get
+            {
+                return searchNameGrDeliting ??
+                  (searchNameGrDeliting = new RelayCommand(obj =>
+                  {
+                      WinNsiGrDetailing WindowWinNsiGrDetailing = MainWindow.LinkMainWindow("WinNsiGrDetailing");
+                      if (WindowWinNsiGrDetailing.PoiskGrDeliting.Text.Trim() != "")
+                      {
+                          string jason = pathcontroller + "0/0/" + WindowWinNsiGrDetailing.PoiskGrDeliting.Text;
+                          CallServer.PostServer(pathcontroller, jason, "GETID");
+                          string CmdStroka = CallServer.ServerReturn();
+                          if (CmdStroka.Contains("[]")) CallServer.BoolFalseTabl();
+                          else ObservableNsiModelGrDetailings(CmdStroka);
+                          WindowWinNsiGrDetailing.TablDeliting.ItemsSource = NsiModelGrDetailings;
+                      }
+                  }));
+            }
         }
     }
 }

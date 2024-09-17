@@ -152,5 +152,28 @@ namespace FrontSeam
             }
         }
 
+        // команда поиска наименования характера проявления болей
+        RelayCommand? searchNameDeliting;
+        public RelayCommand SearchNameDeliting
+        {
+            get
+            {
+                return searchNameDeliting ??
+                  (searchNameDeliting = new RelayCommand(obj =>
+                  {
+                      NsiDetailing WindowWinNsiDetailing = MainWindow.LinkMainWindow("NsiDetailing");
+                      if (WindowWinNsiDetailing.PoiskDeliting.Text.Trim() != "")
+                      {
+                          string jason = pathcontroller + "0/0/" + WindowWinNsiDetailing.PoiskDeliting.Text;
+                          CallServer.PostServer(pathcontroller, jason, "GETID");
+                          string CmdStroka = CallServer.ServerReturn();
+                          if (CmdStroka.Contains("[]")) CallServer.BoolFalseTabl();
+                          else ObservableNsiModelFeatures(CmdStroka);
+                          WindowWinNsiDetailing.TablDeliting.ItemsSource = NsiModelDetailings;
+                      }
+                  }));
+            }
+        }
+
     }
 }

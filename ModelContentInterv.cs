@@ -27,21 +27,23 @@ namespace FrontSeam
 
     }
 
-    public partial class ModelContentInterv : INotifyPropertyChanged
+    public partial class ModelContentInterv : BaseViewModel
     {
         private int Id;
         private string KodProtokola;
         private string DetailsInterview;
         private string KodDetailing;
         private int Numberstr;
+        private string IdUser;
 
-        public ModelContentInterv(int Id = 0, int Numberstr=0, string KodProtokola = "", string KodDetailing="", string DetailsInterview = "", string NametInterview = "")
+        public ModelContentInterv(int Id = 0, int Numberstr = 0, string KodProtokola = "", string KodDetailing = "", string DetailsInterview = "", string NametInterview = "", string IdUser = "")
         {
             this.Id = Id;
             this.KodProtokola = KodProtokola;
             this.KodDetailing = KodDetailing;
             this.DetailsInterview = DetailsInterview;
             this.Numberstr = Numberstr;
+            this.IdUser = IdUser;
         }
 
         [JsonProperty("id")]
@@ -77,15 +79,12 @@ namespace FrontSeam
             get { return DetailsInterview; }
             set { DetailsInterview = value; OnPropertyChanged("detailsInterview"); }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        [JsonProperty("idUser")]
+        public string idUser
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-
+            get { return IdUser; }
+            set { IdUser = value; OnPropertyChanged("idUser"); }
         }
+
     }
 }

@@ -24,20 +24,10 @@ using System.Windows.Controls;
 /// Розробник Стариченко Олександр Павлович тел.+380674012840, mail staric377@gmail.com
 namespace FrontSeam
 {
-    public partial class ViewModelCreatInterview : INotifyPropertyChanged
+    public partial class ViewModelCreatInterview : BaseViewModel
     {
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-
-        }
-
-
+ 
         bool endwhile = false;
         //public static  WinCreatIntreview WindowUri = MainWindow.LinkMainWindow("WinCreatIntreview");
         public static MainWindow WindowMain = MainWindow.LinkNameWindow("WindowMain");
@@ -66,10 +56,13 @@ namespace FrontSeam
             switch (MapOpisViewModel.IndexAddEdit)
             {
                 case "":
-
                     CallServer.PostServer(pathcontroler, pathcontroler + MapOpisViewModel.GetidkodProtokola, "GETID");
                     CmdStroka = CallServer.ServerReturn();
-                    if (CmdStroka.Contains("[]")) selectedContentInterv = new ModelContentInterv();
+                    if (CmdStroka.Contains("[]"))
+                    {
+                        selectedContentInterv = new ModelContentInterv();
+                        ContentIntervs = new ObservableCollection<ModelContentInterv>();
+                    }
                     else ObservableContentInterv(CmdStroka);
                     break;
                 case "editCommand":
@@ -133,33 +126,28 @@ namespace FrontSeam
                       WinCreatIntreview WindowUri = MainWindow.LinkMainWindow("WinCreatIntreview");
                       if (ContentIntervs == null) WindowUri.Close();
 
+ 
                       string json = pathcontroler + MapOpisViewModel.GetidkodProtokola + "/0"; //selectedContentInterv.kodProtokola +
                       CallServer.PostServer(pathcontroler, json, "DELETE");
-                      selectedInterview.detailsInterview = "";
+                      MapOpisViewModel.selectedInterview.detailsInterview = "";
+                      MapOpisViewModel.selectedInterview.idUser = MapOpisViewModel.RegIdUser;
                       Numberstroka = 0;
                       // ОБращение к серверу добавляем запись в соответствии с сформированным списком
                       foreach (ModelContentInterv modelContentInterv in ContentIntervs.OrderBy(x => x.kodDetailing))
                       {
-                          selectedInterview.detailsInterview = selectedInterview.detailsInterview.Length == 0
-                          ? modelContentInterv.kodDetailing + ";" : selectedInterview.detailsInterview + modelContentInterv.kodDetailing + ";";
+                          MapOpisViewModel.selectedInterview.detailsInterview = MapOpisViewModel.selectedInterview.detailsInterview.Length == 0
+                          ? modelContentInterv.kodDetailing + ";" : MapOpisViewModel.selectedInterview.detailsInterview + modelContentInterv.kodDetailing + ";";
                       }
                       foreach (ModelContentInterv modelContentInterv in ContentIntervs)
                       {
-
+                          modelContentInterv.idUser = MapOpisViewModel.RegIdUser;
                           modelContentInterv.id = 0;
                           modelContentInterv.numberstr = Numberstroka++;
                           json = JsonConvert.SerializeObject(modelContentInterv);
                           CallServer.PostServer(pathcontroler, json, "POST");
                       }
-                      switch (MapOpisViewModel.IndexAddEdit)
-                      {
-                          case "addCommand":
-                              AddInterviewProtokol();
-                              break;
-                          case "editCommand":
-                              EdiInterviewProtokol();
-                              break;
-                      }
+
+
                       WindowUri.Close();
                   }));
             }

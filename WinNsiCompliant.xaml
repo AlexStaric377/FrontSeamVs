@@ -1,6 +1,6 @@
 ﻿<!--"Диференційна діагностика стану нездужання людини-SEAM" 
     Розробник Стариченко Олександр Павлович тел.+380674012840, mail staric377@gmail.com-->
-    <Window x:Class="FrontSeam.NsiComplaint"
+<Window x:Class="FrontSeam.NsiComplaint"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -39,11 +39,11 @@
 
                 </Grid.RowDefinitions>
                 <Label Name="Zagolovok"  Content="Як і де проявляється нездужання у вашому організмі" Grid.Row="0" Foreground="#FF4607A0" FontSize="14"  FontFamily="Microsoft Sans Serif"  FontWeight="Light" HorizontalAlignment="Left"  />
-                <TextBox Name="PoiskComplaints" Grid.Row="1" Width="420" Text="" FontSize="14" BorderThickness="0,0,0,0" HorizontalAlignment="Left" Margin="5,0,0,0" 
+                <TextBox Name="PoiskComplaints" Grid.Row="1" Width="480" Text="" FontSize="14" BorderThickness="0,0,0,0" HorizontalAlignment="Left" Margin="5,0,0,0" 
                          FontFamily="Microsoft Sans Serif" />
 
-                <Image Height="25" Width="30" Grid.Row="1" HorizontalAlignment="Right"  Name="Poisk_Compl"  VerticalAlignment="Bottom" Margin="0,0,70,0"
-                    Source="pack://application:,,,/FrontSeam;component/Images/lupa.png" Cursor="Hand"  >
+                <Image Width="30" HorizontalAlignment="Left"  Name="Poisk_Compl" Margin="500,25,0,0"
+                    Source="pack://application:,,,/FrontSeam;component/Images/lupa2.png" Cursor="Hand" Grid.RowSpan="2"  >
 
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseLeftButtonDown">
@@ -72,7 +72,7 @@
                     </ListView.ItemTemplate>
                 </ListView>
                 <Image Height="20" Width="20" Grid.Row="0" HorizontalAlignment="Right"  Name="Close_Grid"  VerticalAlignment="Bottom" 
-                    Source="pack://application:,,,/FrontSeam;component/Images/xrestik.png" Cursor="Hand"  >
+                    Source="pack://application:,,,/FrontSeam;component/Images/xrestik.png" Cursor="Hand" Margin="0,0,5,0" >
 
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseLeftButtonDown">

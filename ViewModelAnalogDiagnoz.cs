@@ -26,18 +26,9 @@ using System.Diagnostics;
 /// Розробник Стариченко Олександр Павлович тел.+380674012840, mail staric377@gmail.com
 namespace FrontSeam
 {
-    public class ViewModelAnalogDiagnoz : INotifyPropertyChanged
+    public class ViewModelAnalogDiagnoz : BaseViewModel
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-
-        }
-
+        private MainWindow ReceptionLIkarGuest = MainWindow.LinkNameWindow("WindowMain");
         WinAnalogDiagnoz WinAnalog = MainWindow.LinkMainWindow("WinAnalogDiagnoz");
         private string pathcontroller = "/api/InterviewController/";
         private static string pathcontrolerCompleted = "/api/CompletedInterviewController/";
@@ -323,8 +314,8 @@ namespace FrontSeam
                       MapOpisViewModel.GetidkodProtokola = KodProtokola ;
 
                       WinCreatIntreview NewOrder = new WinCreatIntreview();
-                      NewOrder.Left = 600;
-                      NewOrder.Top = 130;
+                      NewOrder.Left = (MainWindow.ScreenWidth / 2);
+                      NewOrder.Top = (MainWindow.ScreenHeight / 2) - 350;
                       NewOrder.ShowDialog();
 
                   }));
@@ -376,7 +367,18 @@ namespace FrontSeam
                           WinNsiMedZaklad MedZaklad = new WinNsiMedZaklad();
                           MedZaklad.ShowDialog();
                       }
-                      
+                      MapOpisViewModel.EdrpouMedZaklad = ReceptionLIkarGuest.Likart8.Text.ToString();
+                      if (MapOpisViewModel.EdrpouMedZaklad.Length > 0)
+                      {
+                          WinNsiLikar NewOrder = new WinNsiLikar();
+                          NewOrder.ShowDialog();
+                          if (MapOpisViewModel.nameDoctor.Length > 0)
+                          {
+                              MapOpisViewModel.modelColectionInterview.nameDoctor = MapOpisViewModel.nameDoctor.Substring(MapOpisViewModel.nameDoctor.IndexOf(":"), MapOpisViewModel.nameDoctor.Length - (MapOpisViewModel.nameDoctor.IndexOf(":") + 1));
+
+                          }
+                      }
+
                   }));
             }
         }

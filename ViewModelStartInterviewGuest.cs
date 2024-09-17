@@ -43,7 +43,7 @@ namespace FrontSeam
         public static string InputContent = "", PacientContent="", LikarContent="", selectIcdGrDiagnoz = "";
         public static MainWindow WindowMain = MainWindow.LinkNameWindow("WindowMain");
         public static int NumberstrokaGuest = 0, IdItemGuestInterv = 0;
-        public static string Controlleroutfile = "/api/UnLoadController/", upLoadstroka = "";
+        public static string Controlleroutfile = "/api/UnLoadController/", upLoadstroka = "", RegIdUser = "", RegUserStatus = "";
         public static int _ControlTableItem = 0, _ControlGuest = 0, _ControlPacient = 0, _ControlLikar = 0, _ControlAdmin = 0;
         private bool endwhile = false;
         public static string IndexAddEdit ="", GetidkodProtokola="";
@@ -226,6 +226,7 @@ namespace FrontSeam
                         string json = pathcontroler + modelColectionInterview.kodProtokola + "/0";
                         CallServer.PostServer(pathcontroler, json, "DELETE");
                     }
+
                     // ОБращение к серверу добавляем запись в соответствии с сформированным списком
                     foreach (ModelCompletedInterview modelCompletedInterview in GuestIntervs.OrderBy(x => x.kodDetailing))
                     {
@@ -246,7 +247,9 @@ namespace FrontSeam
                             modelCompletedInterview.kodComplInterv = modelColectionInterview.kodComplInterv;
                             string json = JsonConvert.SerializeObject(modelCompletedInterview);
                             CallServer.PostServer(pathcontroler, json, "POST");
-                        }                  
+                        }
+                        
+
                         AddInterviewProtokol();
                         TmpGuestIntervs = GuestIntervs;
                     }
@@ -335,7 +338,7 @@ namespace FrontSeam
         // Дальнейший автовыбор характеристик жалоб на основании ранее установленных.
         // Автоматическое продолжение интервью
 
-        public static void AutoSelectedInterview()
+        public  void AutoSelectedInterview()
         {
             bool endwhileFeature = false;
             OpenNsiComplaint();
@@ -376,10 +379,27 @@ namespace FrontSeam
                         IndikatorSelected = "NsiDetailing";
                         break;
                 }
+                //if (countFeature == GuestIntervs.Count && endwhileFeature == false)
+                //{
+                //    MessageEndDialog();
+                //    EndDialogdali = endwhileFeature = true;
+                //}
+
+
                 if (countFeature == GuestIntervs.Count && endwhileFeature == false)
                 {
+
                     MessageEndDialog();
-                    EndDialogdali = endwhileFeature = true;
+                    endwhileFeature = true;
+                    if (MapOpisViewModel.StopDialog == true)
+                    {
+                        GuestIntervs = new ObservableCollection<ModelCompletedInterview>();
+                        Selectedswitch();
+                        return;
+                    }
+                    if (GuestIntervs.Count != 0) MetodSaveInterview(); 
+                    WindowMain.NameInterv.Text = "";
+                    StopDialog = true;
                 }
                 countFeature = GuestIntervs.Count;
             }

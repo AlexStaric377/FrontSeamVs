@@ -9,20 +9,21 @@
         xmlns:local="clr-namespace:FrontSeam" d:DataContext ="{d:DesignInstance Type=local:ViewModelNsiGrDetailing}" 
         mc:Ignorable="d"
         Title="WinNsiGrDetailing"  WindowState="Normal" AllowsTransparency="True" WindowStyle="None" WindowStartupLocation="CenterOwner"  
-         ShowInTaskbar="True"   Height="680" Width="500" Margin="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+         ShowInTaskbar="True"   Height="680" Width="600" Margin="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
         Background="{x:Null}"  >
     <Window.DataContext>
         <local:ViewModelNsiGrDetailing/>
     </Window.DataContext>
-    <StackPanel x:Name ="ButtonWin" VerticalAlignment="Center" Height="630" Width="490" >
+    <StackPanel x:Name ="ButtonWin" VerticalAlignment="Center" Height="630" Width="590" >
         <StackPanel.Effect>
             <DropShadowEffect Color="#FF1D1504" BlurRadius="35" ShadowDepth="20" Opacity="0.5" ></DropShadowEffect>
         </StackPanel.Effect>
-        <Border x:Name="BorderWin" BorderBrush="#FFE2E2DD" Background="#FFE2E2DD"  BorderThickness="0,0,0,0" CornerRadius="15,15,15,15" Height="630" Width="470">
+        <Border x:Name="BorderWin" BorderBrush="#FFE2E2DD" Background="#FFE2E2DD"  BorderThickness="0,0,0,0" CornerRadius="15,15,15,15" Height="630" Width="570">
             <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Height="610" Width="Auto" Name="WinGrid" Background="#FFE2E2DD" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="25*" />
-                    <RowDefinition Height="30*" />
+                    <RowDefinition Height="25*" />
+                    <RowDefinition Height="20*" />
                     <RowDefinition Height="500*" />
                     <RowDefinition Height="30*" />
 
@@ -30,15 +31,30 @@
                 <Label Name="Zagolovok"  Content="Деталізація прояву: " Grid.Row="0" Foreground="#FF4607A0" FontSize="14"  FontFamily="Microsoft Sans Serif"  FontWeight="Light" HorizontalAlignment="Center"  />
                 <Label Name="InfoSelect"  Content="Коли проявляється:" Grid.Row="1" 
                        Foreground="Blue"  FontSize="14" FontFamily="Microsoft Sans Serif"  FontWeight="Light" HorizontalAlignment="Left"  />
+                <TextBox Name="PoiskGrDeliting" Grid.Row="2" Width="500" Text="" FontSize="14" BorderThickness="0,0,0,0" HorizontalAlignment="Left" Margin="5,0,0,0" 
+                         FontFamily="Microsoft Sans Serif" />
 
-                <ListBox Grid.Row="2" Name="TablDeliting" ItemsSource="{Binding NsiModelGrDetailings}" VerticalAlignment="Top"
-                    SelectedItem ="{Binding SelectedModelGrDetailing}" Height="500" Background="#FFE2E2DD"
-                    Width="445" BorderThickness="0,0,0,0" ScrollViewer.HorizontalScrollBarVisibility="Hidden" 
+                <Image Height="20" Width="30" Grid.Row="2" HorizontalAlignment="Right"  Name="Poisk_GrDeliting"  VerticalAlignment="Center" Margin="0,0,0,0"
+                    Source="pack://application:,,,/FrontSeam;component/Images/lupa2.png" Cursor="Hand"  >
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                            <i:InvokeCommandAction Command="{Binding SearchNameGrDeliting}" CommandParameter=""/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Image>
+                <ListBox Grid.Row="3" Name="TablDeliting" ItemsSource="{Binding NsiModelGrDetailings}" VerticalAlignment="Top"
+                    SelectedItem ="{Binding SelectedModelGrDetailing}" Height="510" Background="#FFE2E2DD"
+                    Width="545" BorderThickness="0,0,0,0" ScrollViewer.HorizontalScrollBarVisibility="Hidden" 
                     BorderBrush="Transparent" ScrollViewer.VerticalScrollBarVisibility="Auto">
-
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseUp">
+                            <i:InvokeCommandAction Command="{Binding ElementName=TablDeliting, Path=DataContext.ViewkodGroupQualification}" CommandParameter=""/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Path=nameGrDetailing}" TextWrapping="Wrap"  Width="440" Height="34" FontSize="14" FontFamily="Microsoft Sans Serif" FontWeight="Black" HorizontalAlignment="Left" />
+                            <TextBlock Text="{Binding Path=nameGrDetailing}" TextWrapping="Wrap"  Width="540" Height="34" FontSize="14" FontFamily="Microsoft Sans Serif" FontWeight="Black" HorizontalAlignment="Left" />
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
@@ -51,7 +67,7 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Image>
-                <Grid Grid.Row="3">
+                <Grid Grid.Row="4">
                     <Grid.ColumnDefinitions >
                         <ColumnDefinition Width="100*" />
                         <ColumnDefinition Width ="100*" />
