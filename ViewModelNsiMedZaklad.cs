@@ -47,7 +47,7 @@ namespace FrontSeam
             {
 
                 NsiModelMedZaklads = new ObservableCollection<MedicalInstitution>();
-                string json = controlerGrDiagnoz + "0/" + MapOpisViewModel.selectIcdGrDiagnoz + "/0";
+                string json = controlerGrDiagnoz + "0/" + MapOpisViewModel.selectIcdGrDiagnoz ;
                 CallServer.PostServer(controlerGrDiagnoz, json, "GETID");
                 if (CallServer.ResponseFromServer.Contains("[]") == false)
                 {
