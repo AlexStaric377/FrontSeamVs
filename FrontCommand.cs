@@ -209,12 +209,13 @@ namespace FrontSeam
 
         private void CheckLoadKabinetLikar()
         {
-            if (loadboolPacientProfil == true)
+            if (loadboolPacientProfil == true )
             {
                 MessageOnOffKabinetLikar();
                 if (MapOpisViewModel.DeleteOnOff == false) return;
                 ExitCabinetLikar();
             }
+
  
         }
 
@@ -303,7 +304,8 @@ namespace FrontSeam
                                           if (MapOpisViewModel.DeleteOnOff == false) return;
                                           ExitCabinetLikar();
                                       }
-                                      MethodloadProfilLikar();
+                                      MessageAddOffProfilLikar();
+                                      //MethodloadProfilLikar();
                                       //MethodAddNewProfilLIkar();
                                       break;
                                   case 1:

@@ -35,11 +35,11 @@
                 <Label Name="StatusUser"  Content="Пацїєнт " Grid.Row="0" Height="30" FontSize="16" FontFamily="Microsoft Sans Serif"  HorizontalAlignment="Center"  />
 
                 <Label Name="Zagolovok"  Content="Вхід до кабінету " Grid.Row="1" Height="30" FontSize="16" FontFamily="Microsoft Sans Serif"  HorizontalAlignment="Center"  />
-                <Label Name="Nomtel"  Content="Номер телефону:      XX XX XXX XX " Grid.Row="2" Height="30" Width="180" FontSize="10" FontFamily="Microsoft Sans Serif"  HorizontalAlignment="Left" Margin="10,0,0,0" />
+                <Label Name="Nomtel"  Content="Номер телефону:   +380  XX XX XXX XX " Grid.Row="2" Height="30" Width="210" FontSize="10" FontFamily="Microsoft Sans Serif"  HorizontalAlignment="Left" Margin="10,0,0,0" />
 
 
                 <Image Height="30" Width="30" Grid.Row="0" HorizontalAlignment="Right"  Name="Close_Grid"  VerticalAlignment="Bottom" 
-                    Source="pack://application:,,,/FrontSeam;component/Images/delete2.png" Cursor="Hand"  >
+                    Source="pack://application:,,,/FrontSeam;component/Images/delete2.png" Cursor="Hand" Margin="0,0,10,0" >
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseLeftButtonDown">
                             <i:InvokeCommandAction Command="{Binding CloseAccount}" CommandParameter=""/>
@@ -48,12 +48,12 @@
                 </Image>
                 <Grid Grid.Row="3">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width ="70*"/>
-                        <ColumnDefinition Width ="170*"/>
+                        <ColumnDefinition Width ="60*"/>
+                        <ColumnDefinition Width ="180*"/>
                     </Grid.ColumnDefinitions>
 
                     <ComboBox x:Name="KodCountry" Grid.Column="0" Width="60" Height="25" Background="#FFCED7F7" HorizontalAlignment="Left" Margin="10,0,0,0"
-                               ItemsSource="{Binding Countrys}" SelectedIndex="{Binding SelectedCountry}"  ><!--Text="{Binding gender,UpdateSourceTrigger=PropertyChanged }"-->
+                               ItemsSource="{Binding Countrys}" SelectedIndex="{Binding SelectedCountry}" Visibility="Hidden" ><!--Text="{Binding gender,UpdateSourceTrigger=PropertyChanged }"-->
                        
                     </ComboBox>
                     <TextBox Text="" x:Name="TelAccount"  Grid.Column="1" Height="22" Width="120" Background="#FFDCE2F5"

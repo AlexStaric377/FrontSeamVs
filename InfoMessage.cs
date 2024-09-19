@@ -223,6 +223,13 @@ namespace FrontSeam
             SelectedWirning();
         }
 
+        public void MessageAddOffProfilLikar()
+        {
+            MainWindow.MessageError = "Увага!" + Environment.NewLine +
+            "Шановний користувач! Створення профілю лікаря здійснюється Адміністратором системи.";
+            SelectedWirning();
+        }
+
         public static void VersiyaBack()
         {
             MainWindow WindowInfo = MainWindow.LinkNameWindow("WindowMain");

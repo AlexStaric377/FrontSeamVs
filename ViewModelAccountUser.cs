@@ -115,12 +115,12 @@ namespace FrontSeam
         private void MethodLoadAccountUser()
         {
             IndexAddEdit = "";
-            loadboolAccountUser = true;
+            
             CallViewProfilLikar = "Admin";
             RegStatusUser = "Адміністратор";
             WindowAccountUser.LoadAccountUser.Visibility = Visibility.Hidden;
             if (RegSetAccountUser() == false) return;
-
+            loadboolAccountUser = true;
 
             CallServer.PostServer(pathcontrolerAccountUser, pathcontrolerAccountUser, "GET");
             string CmdStroka = CallServer.ServerReturn();
