@@ -106,7 +106,7 @@ namespace FrontSeam
         {
 
            
-            var json = DoctorcontrollerIntevLikar + colectionInterview.kodDoctor.ToString() + "/0";
+            var json = DoctorcontrollerIntevLikar + colectionInterview.kodDoctor.ToString() + "/0/0";
             CallServer.PostServer(DoctorcontrollerIntevLikar, json, "GETID");
             if (CallServer.ResponseFromServer.Contains("[]") == false)
             {

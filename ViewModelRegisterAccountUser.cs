@@ -24,17 +24,9 @@ using System.Windows.Controls;
 /// Розробник Стариченко Олександр Павлович тел.+380674012840, mail staric377@gmail.com
 namespace FrontSeam
 {
-    public class ViewModelRegisterAccountUser : INotifyPropertyChanged
+    public class ViewModelRegisterAccountUser : BaseViewModel
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-
-        }
+        
 
         WinRegisterAccountUser WindowAccount = MainWindow.LinkMainWindow("WinRegisterAccountUser");
         public static bool OnOffEye = false, ReestrOnOff = false, _GhangePaswUser = false;
@@ -120,7 +112,7 @@ namespace FrontSeam
                   {
                       if (MapOpisViewModel.WindowProfilPacient.ControlMain.SelectedIndex != 3)
                       { 
-                        IdCardKeyUp.CheckKeyUpIdCard(WindowAccount.TelAccount,12);
+                        IdCardKeyUp.CheckKeyUpIdCard(WindowAccount.TelAccount,13);
                       }    
                       
                      
@@ -241,9 +233,9 @@ namespace FrontSeam
                 return openAccount ??
                   (openAccount = new RelayCommand(obj =>
                   {
-                      string LogPasw = CountryKod + WindowAccount.TelAccount.Text.ToString();
+                      string LogPasw =  WindowAccount.TelAccount.Text.ToString(); //CountryKod +
                       if (MapOpisViewModel.WindowProfilPacient.ControlMain.SelectedIndex == 3) LogPasw = WindowAccount.TelAccount.Text.ToString();
-                      string json = pathcontrolerAccountUser + "0/" + LogPasw + "/"+ WindowAccount.PasswText.Text.ToString();
+                      string json = pathcontrolerAccountUser + "0/" + LogPasw + "/"+ WindowAccount.PasswText.Text.ToString() + "/0";
                       CallServer.PostServer(pathcontrolerAccountUser, json, "GETID");
                       string CmdStroka = CallServer.ServerReturn();
                       if (CmdStroka.Contains("[]"))
@@ -306,36 +298,36 @@ namespace FrontSeam
             }
         }
 
- 
 
-        public static List<string> Countrys { get; set; } = new List<string> { "+380", "+44" };
 
-        private string _SelectedCountry;
-        public string SelectedCountry
-        {
-            get => _SelectedCountry;
-            set
-            {
-                //// сохраняем старое значение
-                //var origValue = _SelectedUnit;
+        //public static List<string> Countrys { get; set; } = new List<string> { "+380", "+44" };
 
-                //меняем значение в обычном порядке
-                _SelectedCountry = value;
-                //Оповещаем как обычно изменение, сделанное до if (!_mainWindow.ShowYesNo("Изменить значение?"))
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedCountry)));
-                //OnPropertyChanged(nameof(SelectedUnit));
-                //а здесь уже преобразуем изменившиеся значение
-                //в необходимое uint
-                SetNewCountry(_SelectedCountry);
-            }
-        }
+        //private string _SelectedCountry;
+        //public string SelectedCountry
+        //{
+        //    get => _SelectedCountry;
+        //    set
+        //    {
+        //        //// сохраняем старое значение
+        //        //var origValue = _SelectedUnit;
 
-        public void SetNewCountry(string selected = "")
-        {
-            //MainWindow WindowMen = MainWindow.LinkNameWindow("WindowMain");
-            CountryKod = selected == "0" ? "+380" : "+44";
-        }
+        //        //меняем значение в обычном порядке
+        //        _SelectedCountry = value;
+        //        //Оповещаем как обычно изменение, сделанное до if (!_mainWindow.ShowYesNo("Изменить значение?"))
+        //        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedCountry)));
+        //        //OnPropertyChanged(nameof(SelectedUnit));
+        //        //а здесь уже преобразуем изменившиеся значение
+        //        //в необходимое uint
+        //        SetNewCountry(_SelectedCountry);
+        //    }
     }
+
+    //    public void SetNewCountry(string selected = "")
+    //    {
+    //        //MainWindow WindowMen = MainWindow.LinkNameWindow("WindowMain");
+    //        CountryKod = selected == "0" ? "+380" : "+44";
+    //    }
+    //}
 
     public class IdCardKeyUp
     {
@@ -344,7 +336,7 @@ namespace FrontSeam
 
             if (SetTextBox.Text.Length >= (IdLengh + 1)) SetTextBox.Text = SetTextBox.Text.Substring(0, IdLengh); ;
 
-            for (int indPoint = 1; indPoint <= SetTextBox.Text.Length; indPoint++)
+            for (int indPoint = 2; indPoint <= SetTextBox.Text.Length; indPoint++)
             {
                 if (!Char.IsDigit(Convert.ToChar(SetTextBox.Text.Substring(indPoint - 1, 1)))) SetTextBox.Text = SetTextBox.Text.Substring(0, indPoint - 1);
             }
