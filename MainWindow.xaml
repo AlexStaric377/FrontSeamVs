@@ -97,7 +97,7 @@
                                         BorderBrush="Transparent" ScrollViewer.VerticalScrollBarVisibility="Auto">
                                                 <ListView.ItemTemplate>
                                                     <DataTemplate>
-                                                        <TextBlock Text="{Binding Path=detailsInterview}" TextWrapping="Wrap"  Width="600" Height="20" FontSize="14" FontWeight="Bold"   HorizontalAlignment="Left" />
+                                                        <TextBlock Text="{Binding Path=detailsInterview}" TextWrapping="Wrap"  Width="600" Height="30" FontSize="14" FontWeight="Bold"   HorizontalAlignment="Left" />
                                                     </DataTemplate>
                                                 </ListView.ItemTemplate>
                                             </ListView>

@@ -100,7 +100,7 @@ namespace FrontSeam
                           {
                               MapOpisViewModel.selectGrDetailing = selectedDetailing.nameDetailing.ToString().ToUpper();
                               WinNsiGrDetailing NewOrder = new WinNsiGrDetailing();
-                              NewOrder.Left = (MainWindow.ScreenWidth / 2)+50;
+                              NewOrder.Left = (MainWindow.ScreenWidth / 2)-100;
                               NewOrder.Top = (MainWindow.ScreenHeight / 2) - 350; //350;
                               NewOrder.ShowDialog();
                           }
@@ -138,7 +138,7 @@ namespace FrontSeam
                                   MapOpisViewModel.selectedComplaintname = selectedDetailing.nameDetailing;
                                   MapOpisViewModel.selectGrDetailing = selectedDetailing.nameDetailing.ToString().ToUpper();
                                   WinNsiGrDetailing NewOrder = new WinNsiGrDetailing();
-                                  NewOrder.Left = (MainWindow.ScreenWidth / 2);
+                                  NewOrder.Left = (MainWindow.ScreenWidth / 2)-100;
                                   NewOrder.Top = (MainWindow.ScreenHeight / 2) - 350;
                                   NewOrder.ShowDialog();
                               }

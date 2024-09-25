@@ -314,7 +314,7 @@ namespace FrontSeam
                       MapOpisViewModel.GetidkodProtokola = KodProtokola ;
 
                       WinCreatIntreview NewOrder = new WinCreatIntreview();
-                      NewOrder.Left = (MainWindow.ScreenWidth / 2);
+                      NewOrder.Left = (MainWindow.ScreenWidth / 2)-200;
                       NewOrder.Top = (MainWindow.ScreenHeight / 2) - 350;
                       NewOrder.ShowDialog();
 

@@ -420,7 +420,7 @@ namespace FrontSeam
         {
             
             NsiComplaint NewOrder = new NsiComplaint();
-            NewOrder.Left = (MainWindow.ScreenWidth / 2);
+            NewOrder.Left = (MainWindow.ScreenWidth / 2)-150;
             NewOrder.Top = (MainWindow.ScreenHeight / 2) - 350; //350;
             NewOrder.ShowDialog();
             IndikatorSelected = "NsiComplaint";
@@ -432,7 +432,7 @@ namespace FrontSeam
         {
             selectedComplaintname = GuestIntervs[IdItemGuestInterv-1].detailsInterview;
             WinNsiFeature NewOrder = new WinNsiFeature();
-            NewOrder.Left = (MainWindow.ScreenWidth / 2);
+            NewOrder.Left = (MainWindow.ScreenWidth / 2)-190;
             NewOrder.Top = (MainWindow.ScreenHeight / 2) - 350;
             NewOrder.ShowDialog();
         }
@@ -453,7 +453,7 @@ namespace FrontSeam
                 if (ViewModelNsiDetailing.NsiModelDetailings.Count() > 0)
                 {
                     NsiDetailing NewNsi = new NsiDetailing();
-                    NewNsi.Left = (MainWindow.ScreenWidth / 2);
+                    NewNsi.Left = (MainWindow.ScreenWidth / 2) - 190;
                     NewNsi.Top = (MainWindow.ScreenHeight / 2) - 350;
                     NewNsi.ShowDialog();
 
@@ -483,7 +483,7 @@ namespace FrontSeam
                     ViewModelNsiDetailing.selectedDetailing = modelDetailing;
                     MapOpisViewModel.selectGrDetailing = selectFeature + " " + modelDetailing.nameDetailing.ToString().ToUpper();
                     WinNsiGrDetailing NewOrder = new WinNsiGrDetailing();
-                    NewOrder.Left = (MainWindow.ScreenWidth / 2) + 100;
+                    NewOrder.Left = (MainWindow.ScreenWidth / 2) - 150;
                     NewOrder.Top = (MainWindow.ScreenHeight / 2) - 350; //350;
                     NewOrder.ShowDialog();
                 }
@@ -495,7 +495,7 @@ namespace FrontSeam
         {
 
             WinNsiGrDetailing NewNsi = new WinNsiGrDetailing();
-            NewNsi.Left = (MainWindow.ScreenWidth / 2);
+            NewNsi.Left = (MainWindow.ScreenWidth / 2) - 150;
             NewNsi.Top = (MainWindow.ScreenHeight / 2) - 350;
             NewNsi.ShowDialog();
         }
