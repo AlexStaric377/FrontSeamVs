@@ -110,10 +110,10 @@ namespace FrontSeam
                 return checkKeyText ??
                   (checkKeyText = new RelayCommand(obj =>
                   {
-                      if (MapOpisViewModel.WindowProfilPacient.ControlMain.SelectedIndex != 3)
-                      { 
-                        IdCardKeyUp.CheckKeyUpIdCard(WindowAccount.TelAccount,13);
-                      }    
+                      //if (MapOpisViewModel.WindowProfilPacient.ControlMain.SelectedIndex != 3)
+                      //{ 
+                      //  IdCardKeyUp.CheckKeyUpIdCard(WindowAccount.TelAccount,13);
+                      //}    
                       
                      
                   }));
@@ -254,6 +254,8 @@ namespace FrontSeam
                           case "1":
                               WindowAccount.Open.Visibility = Visibility.Hidden;
                               MapOpisViewModel.boolSetAccountUser = true;
+                              MapOpisViewModel.loadboolAccountUser = true;
+                              MapOpisViewModel.CallViewProfilLikar = "Admin";
                               break;
                           case "2":
                               CallServer.PostServer(pathcontroller, pathcontroller+ IdAccountUser.idUser+ "/0/0/0/0", "GETID");
