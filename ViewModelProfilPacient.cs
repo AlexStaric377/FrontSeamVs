@@ -35,7 +35,7 @@ namespace FrontSeam
         /// через механизм REST.API
         /// </summary> 
         public static MainWindow WindowProfilPacient = MainWindow.LinkNameWindow("WindowMain");
-        public static bool editboolPacientProfil = false, addboolPacientProfil = false, loadboolPacientProfil = false;
+        public static bool editboolPacientProfil = false, addboolPacientProfil = false;
         private string edittextPacientProfil = "";
         private static string pathcontrolerPacientProfil = "/api/PacientController/";
         public static string pathcontrolerPacient = "/api/PacientController/", controlerLifePacient = "/api/LifePacientController/"
@@ -73,30 +73,41 @@ namespace FrontSeam
        // загрузка справочника по нажатию клавиши Завантажити
         private void MethodLoadPacientProfil()
         {
-
-            if (boolSetAccountUser == false)
-            { 
-                CallViewProfilLikar = "PacientProfil";
-                RegStatusUser = "Пацїєнт";            
-            }
             WindowMain.BorderCabPacient.Visibility = Visibility.Hidden;
             WindowMain.LoadProfil.Visibility = Visibility.Hidden;
-            if (RegSetAccountUser() == true)
+            if (boolSetAccountUser == false && loadboolProfilLikar == false && loadboolPacientProfil == false)
             {
-                if (ViewPacientProfils != null)
+                if (RegSetAccountUser() == true)
                 {
-                    if (ViewPacientProfils.Count > 0)
-                    { 
-                        WindowProfilPacient.LoadProfil.Visibility = Visibility.Hidden;
-                        selectedPacientProfil = ViewPacientProfils[0];
-                        SetValuePacientProfil();
+                    if (ViewPacientProfils != null)
+                    {
+                        if (ViewPacientProfils.Count > 0)
+                        {
+                            WindowProfilPacient.LoadProfil.Visibility = Visibility.Hidden;
+                            selectedPacientProfil = ViewPacientProfils[0];
+                            SetValuePacientProfil();
+                        }
+                    }
+
+                    if (CallViewProfilLikar == "Admin") SelectRegPacientProfil();
+                    if (CallViewProfilLikar == "ProfilLikar")
+                    {
+                        LoadMessageErrorProfilLikar();
+                        return;
                     }
                 }
-                if(_pacientProfil == "")
-                {
-                    SelectRegPacientProfil();
-                }
             }
+            else
+            {
+                if (loadboolProfilLikar == true && boolSetAccountUser == false)
+                {
+                    ProfilLikarMessageError();
+                    return;
+                }
+                if (boolSetAccountUser == true) SelectRegPacientProfil();           
+            }
+ 
+
         }
         // команда добавления нового объекта
         private void MethodaddcomPacientProfil()

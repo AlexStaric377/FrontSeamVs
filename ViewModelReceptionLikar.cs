@@ -388,7 +388,7 @@ namespace FrontSeam
                 return readColectionPatients ??
                   (readColectionPatients = new RelayCommand(obj =>
                   {
-                      if (selectedModelReceptionPatient.kodPacient.Contains("PCN") == true)
+                      if (selectedModelReceptionPatient != null)
                       {
                           _pacientProfil = selectedModelReceptionPatient.kodPacient;
                           _readOnlyProfil = true;

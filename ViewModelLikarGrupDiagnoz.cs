@@ -47,6 +47,8 @@ namespace FrontSeam
         // конструктор класса
         public ViewModelLikarGrupDiagnoz()
         {
+            LikarGrupDiagnozs = new ObservableCollection<ModelLikarGrupDiagnoz>();
+            AddLikarGrupDiagnozs = new ObservableCollection<ModelLikarGrupDiagnoz>();
             string json = controlerLikarGrDiagnoz + MapOpisViewModel._kodDoctor+"/0";
             CallServer.PostServer(controlerLikarGrDiagnoz, json, "GETID");
             string CmdStroka = CallServer.ServerReturn();

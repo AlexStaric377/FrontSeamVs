@@ -37,6 +37,14 @@ namespace FrontSeam
             WinDeleteData NewOrder = new WinDeleteData(MainWindow.MessageError);
             NewOrder.ShowDialog();
         }
+
+        public static void SelectedMessageError()
+        {
+
+            MessageError NewOrder = new MessageError(MainWindow.MessageError);
+            NewOrder.ShowDialog();
+        }
+        
         public static void SelectedFalseLogin(int TimePauza = 0)
         {
             TimePauza = TimePauza == 0 ? 7 : TimePauza;
@@ -81,6 +89,47 @@ namespace FrontSeam
         {
             MainWindow.MessageError = "Увага!" + Environment.NewLine + "Ви дійсно бажаєте стерти облікові данні?";
             SelectedDelete();
+        }
+
+        
+        public void LoadMessageError()
+        {
+            MainWindow.MessageError = "Похибка!" + Environment.NewLine +
+            "Пацієнту дозволено реєструєтруватися тільки в кабінеті пацієнта" ;
+            SelectedMessageError();
+        }
+
+        public void PacientProfilMessageError()
+        {
+            MainWindow.MessageError = "Похибка!" + Environment.NewLine +
+            "Пацієнт не має доступу до кабінету лікаря";
+            SelectedMessageError();
+        }
+        public void LoadMessageErrorProfilLikar()
+        {
+            MainWindow.MessageError = "Похибка!" + Environment.NewLine +
+            "Лікарю дозволено реєструєтруватися тільки в кабінеті лікаря";
+            SelectedMessageError();
+        }
+        public void ProfilLikarMessageError()
+        {
+            MainWindow.MessageError = "Похибка!" + Environment.NewLine +
+            "Лікар не має доступу до кабінету пацієнта";
+            SelectedMessageError();
+        }
+        public void ProfilLikarAdminMessageError()
+        {
+            MainWindow.MessageError = "Похибка!" + Environment.NewLine +
+            "Лікар не має доступу до функцій адміністратора";
+            SelectedMessageError();
+        }
+
+        
+            public void PacientProfilAdminMessageError()
+        {
+            MainWindow.MessageError = "Похибка!" + Environment.NewLine +
+            "Пацієнт не має доступу до функцій адміністратора";
+            SelectedMessageError();
         }
 
         public void LoadInfoPacient(string user = "")
@@ -266,7 +315,7 @@ namespace FrontSeam
                         string strProductName = objModule.FileVersionInfo.ProductName.ToString();
                         //Читать версию продукта
                         string strProductVersion = objModule.FileVersionInfo.ProductVersion.ToString();
-                        WindowAccountUser.InfoSeamVer.Text = WindowAccountUser.InfoSeamVer.Text + strFileVersion + " Дата зборки: " + strFileModificationDate;
+                        WindowInfo.InfoSeamVer.Text = WindowInfo.InfoSeamVer.Text + strFileVersion + " Дата зборки: " + strFileModificationDate;
                         WindowInfo.Title += " Версія: " + strFileVersion;
                         break;
                     }

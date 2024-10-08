@@ -96,8 +96,9 @@ namespace FrontSeam
             IndexAddEdit = "";
             loadboolStatusUser = true;
             WindowStatusUser.LoadStatusUser.Visibility = Visibility.Hidden;
-            
-            
+            CallViewProfilLikar = "Admin";
+            RegStatusUser = "Адміністратор";
+
             if (RegSetAccountUser() == false) return;
            
             CallServer.PostServer(pathcontStatusUser, pathcontStatusUser, "GET");
@@ -263,11 +264,9 @@ namespace FrontSeam
 
         public void MethodPrintNsiStatusUser()
         { 
-                     WindowStatusUser.StatusUserTablGrid.SelectedItem = null;
-                      if (ViewStatustUsers != null)
-                      {
-                          MessageBox.Show("Обліковий запис :" + ViewStatustUsers[0].nameStatus.ToString());
-                      }        
+            WindowStatusUser.StatusUserTablGrid.SelectedItem = null;
+            if (ViewStatustUsers != null)MessageBox.Show("Обліковий запис :" + ViewStatustUsers[0].nameStatus.ToString());
+    
         }
         #endregion
         #endregion

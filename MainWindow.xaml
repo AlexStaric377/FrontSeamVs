@@ -1678,7 +1678,7 @@
                             </TabItem>
                             <TabItem Header="Бібліотека робочих&#xa;          напрямків" Name="LibDiagnoz" FontSize="13" FontFamily="Microsoft Sans Serif" Height="35" Width="150" HorizontalAlignment="Center">
                                 <!--<Grid Background="White"/>-->
-                                <Grid Width="640" Background="White" HorizontalAlignment="Left">
+                                <Grid Width="640" Name="GridWorkDiagnoz" Background="White" HorizontalAlignment="Left">
                                     <Grid.RowDefinitions>
 
                                         <RowDefinition Height="250*"/>
@@ -1705,7 +1705,7 @@
                                                         <RowDefinition Height="100*"/>
                                                     </Grid.RowDefinitions>
                                                     <Label Content="" Grid.Row="0" Height="1" />
-                                                    <TextBlock x:Name="LibDiagnozLab1" Grid.Column="0" Grid.Row="1" Text="  Код"  FontSize="14" Height="24" Width="60" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+                                                    <TextBlock x:Name="LibDiagnozLab1" Grid.Column="0" Grid.Row="1" Text="  Напрямок"  FontSize="14" Height="24" Width="90" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
                                                     <TextBox Text="{Binding kodDiagnoza, UpdateSourceTrigger=PropertyChanged}" Name="LibDiagnozt1" Grid.Column="1" Grid.Row="1" Background="White" Width="200" FontSize="14" Height="30" HorizontalAlignment="Left" BorderThickness="0,0,0,0"  />
                                                     <TextBlock x:Name="LibDiagnozLab2" Grid.Row="2" TextWrapping="Wrap"  Grid.Column="0" Height="24" Text="  Попередній діагноз"   Width="145" HorizontalAlignment="Left"  FontSize="14" VerticalAlignment="Bottom" />
                                                     <TextBox Text="{Binding nameDiagnoza, UpdateSourceTrigger=PropertyChanged}" Name="LibDiagnozt2" Grid.Row="2" Grid.Column="1" Background="White" VerticalContentAlignment="Center" FontSize="14" Width="430" Height="30" HorizontalAlignment="Left" BorderThickness="0,0,0,0" />
@@ -1720,6 +1720,15 @@
                                                     </Image>
                                                     <TextBlock x:Name="LibDiagnozLab4" Grid.Column="0" Grid.Row="4" Text="  Код MKX"  FontSize="14" Height="24" Width="100" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
                                                     <TextBox Text="{Binding keyIcd, UpdateSourceTrigger=PropertyChanged}" Name="LibDiagnozt4" Grid.Column="1" Grid.Row="4" Background="White" Width="300" FontSize="14" Height="30" HorizontalAlignment="Left" BorderThickness="0,0,0,0"  />
+                                                    <TextBlock x:Name="LibCompInterviewLab" Grid.Row="4" Grid.Column="1" Text=" Зміст опитування"  FontSize="14" Height="22" Width="120" Margin="260,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Hidden"   />
+                                                    <Image x:Name="LibFoldInterv" Source="pack://application:,,,/Seam;component/Images/folder_.png" Grid.Column="1" Grid.Row="4" Width="25" Height="24" Margin="390,0,0,0" Visibility="Hidden"  >
+                                                        <i:Interaction.Triggers>
+                                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                                <i:InvokeCommandAction Command="{Binding ElementName=PacientGridCompletedInterview, Path=DataContext.ReadColectionIntevLib}" CommandParameter=""/>
+                                                            </i:EventTrigger>
+                                                        </i:Interaction.Triggers>
+                                                    </Image>
+
                                                     <TextBlock x:Name="LibDiagnozText" Grid.Row="5" Text="  Короткий опис діагнозу "  FontSize="14" Height="24" Width="165" HorizontalAlignment="Left" VerticalAlignment="Center" />
                                                     <TextBox Name="LibDiagnozOpis" Text="{Binding opisDiagnoza, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" IsEnabled="False" Grid.Column="1" Grid.Row="5"  Background="White"
                                                     Width="450" Height="65" FontSize="14" HorizontalAlignment="Left" BorderThickness="0,0,0,0"  />
@@ -1741,13 +1750,22 @@
                                             </StackPanel>
                                         </Border>
                                     </Grid>
-                                    <Grid Grid.Row="1" x:Name="LibGridMkx11" HorizontalAlignment="Right">
+                                    <Grid Grid.Row="1" x:Name="SelectGrupDiag" HorizontalAlignment="Right">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="20*" />
                                             <RowDefinition Height="130*" />
                                         </Grid.RowDefinitions>
 
                                         <Label Content=" Довідник діагнозів" Grid.Row="0" Height="30" FontWeight="Bold" FontSize="14" />
+                                        <Label Content=" Вибрати напрямок"  Grid.Row="0" Height="30" FontSize="14" FontWeight="Bold" HorizontalAlignment="Right" Margin="0,0,70,0"/>
+                                        <Image x:Name="FolderGrDiagnz" Grid.Row="0" Source="pack://application:,,,/FrontSeam;component/Images/folder_.png" Grid.Column="1"  Width="25"  HorizontalAlignment="Right"    Margin="0,0,20,0"  >
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                    <i:InvokeCommandAction Command="{Binding ElementName=GridWorkDiagnoz, Path=DataContext.SelectedListGrDiagnoz}" CommandParameter=""/>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </Image>
+
                                         <DataGrid x:Name="LibDiagnozTablGrid" Grid.Row="1"   Cursor="Hand" ItemsSource="{Binding ViewDiagnozs}" SelectedItem="{Binding SelectedViewDiagnoz}"
                                           IsReadOnly="true" AutoGenerateColumns="false" ColumnHeaderStyle="{StaticResource DGridCentAl}" HorizontalAlignment="Center" Height="240"
                                           VerticalAlignment="Top"  Width="Auto" GridLinesVisibility="None"

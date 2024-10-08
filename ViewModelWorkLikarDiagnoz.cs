@@ -35,7 +35,7 @@ namespace FrontSeam
         /// </summary>
         MainWindow Windowmain = MainWindow.LinkNameWindow("WindowMain");
         public static bool activWorkViewDiagnoz = false, loadboolWorkDiagnoz = false, loadWorkGrupDiagnoz = false, cikl = true;
-        public static string controlerLikarGrDiagnoz = "/api/LikarGrupDiagnozController/", SelectActivGrupDiagnoz = "";
+        public static string controlerLikarGrDiagnoz = "/api/LikarGrupDiagnozController/", controlerNsiIcd = "/api/IcdController/", SelectActivGrupDiagnoz = "";
         public static string pathcontrolerDependency = "/api/DependencyDiagnozController/";
         public static ModelDiagnoz selectedWorkDiagnoz;
         public static ModelInterview selectedInterview;
@@ -118,7 +118,7 @@ namespace FrontSeam
                     ModelDiagnoz Idinsert = new ModelDiagnoz();
                     if (likarGrupDiagnoz.icdGrDiagnoz != "")
                     {
-                        json = controlerViewDiagnoz + "0/" + likarGrupDiagnoz.icdGrDiagnoz + "/0";
+                        json = controlerViewDiagnoz + "0/" + likarGrupDiagnoz.icdGrDiagnoz.Substring(0, likarGrupDiagnoz.icdGrDiagnoz.IndexOf(".")) + "/0";
                         CallServer.PostServer(controlerViewDiagnoz, json, "GETID");
                         CmdStroka = CallServer.ServerReturn();
                         ObservableViewWorkDiagnoz(CmdStroka);
@@ -265,10 +265,14 @@ namespace FrontSeam
                 foreach (ModelDiagnoz modelDiagnoz in AllWorkDiagnozs)
                 { 
                     if(modelDiagnoz.icdGrDiagnoz == WindowMen.WorkDiagnozt1.Text.Trim()) ViewWorkDiagnozs.Add(modelDiagnoz);
+                    
                 }
+                Windowmain.WorkDiagnozTablGrid.ItemsSource = ViewWorkDiagnozs;
             }
-            Windowmain.WorkDiagnozTablGrid.ItemsSource = ViewWorkDiagnozs;
+            //Windowmain.WorkDiagnozTablGrid.ItemsSource = ViewWorkDiagnozs;
             SelectActivGrupDiagnoz = "";
+
+
         }
 
         // команда выбора новой жалобы для записи новой строки 

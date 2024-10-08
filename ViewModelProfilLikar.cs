@@ -24,8 +24,8 @@ namespace FrontSeam
         /// через механизм REST.API
         /// </summary>      
         public static MainWindow WindowProfilDoctor = MainWindow.LinkNameWindow("WindowMain");
-        public static bool boolSetAccountUser = false, saveboolAccountLikar = false, boolVisibleMessage = false;
-        public static bool editboolProfilLikar = false, addboolProfilLikar = false, loadboolProfilLikar = false;
+        public static bool  saveboolAccountLikar = false, boolVisibleMessage = false;
+        public static bool editboolProfilLikar = false, addboolProfilLikar = false;
         public static string CallViewProfilLikar = "ProfilLikar";
         public static string _kodDoctor = "";
         public static string pathcontrolerProfilLikar = "/api/ApiControllerDoctor/";
@@ -70,31 +70,12 @@ namespace FrontSeam
         public void MethodloadProfilLikar()
         {
             MainWindow WindowPacientProfil = MainWindow.LinkNameWindow("WindowMain");
-
-            if (boolSetAccountUser == false)
-            {
-                CallViewProfilLikar = "ProfilLikar";
-                RegStatusUser = "Лікар";
-            }
             selectedProfilLikar = new ModelDoctor();
             WindowProfilDoctor.LikarLoadInf.Visibility = Visibility.Hidden;
             WindowProfilDoctor.LikarLoadinterv.Visibility = Visibility.Hidden;
             WindowMain.BorderCabLikar.Visibility = Visibility.Hidden;
-            if (loadboolAccountUser == true)
+            if (boolSetAccountUser == false && loadboolProfilLikar == false && loadboolPacientProfil == false)
             {
-               
-                SelectRegProfilLikar();
-                if (selectedProfilLikar.id == 0) return;
-                _kodDoctor = ViewModelNsiLikar.selectedLikar.kodDoctor;
-                selectedProfilLikar = ViewModelNsiLikar.selectedLikar;
-                MetodLoadGridProfilLikar();
-                SetValueLikarProfil();
-                loadboolProfilLikar = true;
-
-            }
-            else 
-            {
-                if (loadboolProfilLikar == true) return;
                 if (RegSetAccountUser() == true)
                 {
                     if (ViewDoctors != null)
@@ -104,9 +85,35 @@ namespace FrontSeam
                         WindowProfilDoctor.LikarLoadInf.Visibility = Visibility.Hidden;
                         if (WindowProfilDoctor.LikarUrit7.Text.Length > 0) WindowProfilDoctor.FolderDocUri5.Visibility = Visibility.Visible;
                     }
-                }           
+                    if (CallViewProfilLikar == "Admin") MetodSelectRegProfilLikar();
+                    if (CallViewProfilLikar == "PacientProfil")
+                    {
+                        LoadMessageError();
+                        return;
+                    }
+                }
+            }
+            else
+            { 
+               if (loadboolPacientProfil == true && boolSetAccountUser == false)
+               {
+                    PacientProfilMessageError();
+                    return;
+               }
+               if (boolSetAccountUser == true) MetodSelectRegProfilLikar();            
             }
  
+        }
+
+        private void MetodSelectRegProfilLikar()
+        {
+            SelectRegProfilLikar();
+            if (selectedProfilLikar.id == 0) return;
+            _kodDoctor = ViewModelNsiLikar.selectedLikar.kodDoctor;
+            selectedProfilLikar = ViewModelNsiLikar.selectedLikar;
+            MetodLoadGridProfilLikar();
+            SetValueLikarProfil();
+            loadboolProfilLikar = true;
         }
 
         public void SetValueLikarProfil()
@@ -572,9 +579,7 @@ namespace FrontSeam
             _pacientProfil = "";
             SelectedGridProfilLikar = new ModelGridDoctor();
             selectedGridProfilLikar = new ModelGridDoctor();
-            
-            boolSetAccountUser = false;
-            loadboolAccountUser = false;
+
             loadboolPacientProfil = false;
             loadboolProfilLikar = false;
             selectedProfilLikar = new ModelDoctor();

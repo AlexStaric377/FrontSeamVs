@@ -29,11 +29,15 @@
                 <Label Name="Zagolovok"  Content="Довідник груповань діагнозів " Grid.Row="0" FontSize="12" FontWeight="Black" HorizontalAlignment="Center"  />
                 <!--<TextBlock x:Name="BlockNapryamok" Grid.Row="1"  Text=" Новий напрямок:"  FontSize="12" Height="22" Width="120" HorizontalAlignment="Left" />
                 <TextBox Text="" x:Name="BoxNapryamok"  Grid.Row="1"  FontSize="12" Height="22" Width="430"  Background="#FFE2E2DD" BorderThickness="0,0,0,0" HorizontalAlignment="Right" Margin="0,0,20,0"/>-->
-                <ListBox Grid.Row="1" Name="TablFeature" ItemsSource="{Binding ViewGrupDiagnozs}" VerticalAlignment="Top"
+                <ListBox Grid.Row="1" Name="TablGrupDiagnozs" ItemsSource="{Binding ViewGrupDiagnozs}" VerticalAlignment="Top"
                     SelectedItem ="{Binding SelectedViewGrupDiagnoz}" Height="565" Background="#FFE2E2DD"
                     Width="560" BorderThickness="0,0,0,0" ScrollViewer.HorizontalScrollBarVisibility="Hidden" 
                     BorderBrush="Transparent" ScrollViewer.VerticalScrollBarVisibility="Auto">
-                    
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseUp">
+                            <i:InvokeCommandAction Command="{Binding ElementName=TablGrupDiagnozs, Path=DataContext.SelectGrupDiagnoz}" CommandParameter=""/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Path=nameGrDiagnoz}"  TextWrapping="Wrap" Width="540" Height="40" FontSize="16" FontWeight="Black" HorizontalAlignment="Left" />

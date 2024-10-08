@@ -10,18 +10,9 @@ using System.ComponentModel;
 /// Розробник Стариченко Олександр Павлович тел.+380674012840, mail staric377@gmail.com
 namespace FrontSeam
 {
-    class ViewModelMessageError : INotifyPropertyChanged
+    class ViewModelMessageError : BaseViewModel
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-
-        }
-
+        
         // команда закрытия окна
         RelayCommand? closeError;
         public RelayCommand CloseError

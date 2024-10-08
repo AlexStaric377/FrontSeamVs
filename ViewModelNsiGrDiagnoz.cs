@@ -139,5 +139,38 @@ namespace FrontSeam
             }
         }
 
+        // команда выбора по наименованию групового напрвления диагноза
+        RelayCommand? selectGrupDiagnoz;
+        public RelayCommand SelectGrupDiagnoz
+        {
+            get
+            {
+                return selectGrupDiagnoz ??
+                  (selectGrupDiagnoz = new RelayCommand(obj =>
+                  {
+                      MainWindow Windowmain = MainWindow.LinkNameWindow("WindowMain");
+                      if (SelectedViewGrupDiagnoz != null)
+                      {
+                          switch (MapOpisViewModel.ActCompletedInterview)
+                          {
+                              case "IcdGrDiagnoz":
+                                  Windowmain.LibDiagnozt1.Text = selectedViewGrupDiagnoz.icdGrDiagnoz;
+                                  break;
+                              case "NameGrDiagnoz":
+                                  Windowmain.LibDiagnozt1.Text = selectedViewGrupDiagnoz.nameGrDiagnoz;
+                                  break;
+                              default:
+
+                                  break;
+
+                          }
+
+                          WindowNsiGrDiag.Close();
+                      }
+
+                  }));
+            }
+        }
+
     }
 }

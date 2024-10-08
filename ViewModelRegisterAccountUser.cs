@@ -41,13 +41,7 @@ namespace FrontSeam
             set { selectedModelAccountUser = value; OnPropertyChanged("SelectedModelAccountUser"); }
         }
         
-        public ViewModelRegisterAccountUser()
-        {
-           
-
-        }
-
-        
+          
         // команда закрытия окна
         RelayCommand? passwordOnOff;
         public RelayCommand PasswordOnOff
@@ -272,7 +266,8 @@ namespace FrontSeam
                               }
                               MapOpisViewModel.ObservableViewPacientProfil(CmdStroka);
                               MapOpisViewModel.loadboolPacientProfil = true;
-                              MapOpisViewModel.boolSetAccountUser = true;
+                              MapOpisViewModel.boolSetAccountUser = false;
+                              MapOpisViewModel.CallViewProfilLikar = "PacientProfil";
                               break;
                           case "3":
                               CallServer.PostServer(pathcontrolerProfilLikar, pathcontrolerProfilLikar + IdAccountUser.idUser + "/0/0", "GETID");
@@ -280,7 +275,7 @@ namespace FrontSeam
                               if (CmdStroka.Contains("[]"))
                               {
                                   MainWindow.MessageError = "Увага!" + Environment.NewLine +
-                                    "Інформація про користувача за вказаним обліковим записом відсутня у довіднику пацієнтів ";
+                                    "Інформація про користувача за вказаним обліковим записом відсутня у довіднику лікарів ";
                                   MapOpisViewModel.SelectedFalseLogin();
                                   MapOpisViewModel.boolSetAccountUser = false;
                                   MapOpisViewModel.loadboolProfilLikar = false;
@@ -289,12 +284,12 @@ namespace FrontSeam
                               }
                               MapOpisViewModel.ObservableViewProfilLikars(CmdStroka);
                               MapOpisViewModel.boolSetAccountUser = false;
-                              MapOpisViewModel.loadboolProfilLikar = true; 
+                              MapOpisViewModel.loadboolProfilLikar = true;
+                              MapOpisViewModel.CallViewProfilLikar = "ProfilLikar";
                               break;
                       
                       
                       }
-                      //MapOpisViewModel.boolSetAccountUser = true;
                       WindowAccount.Close();
                   }));
             }

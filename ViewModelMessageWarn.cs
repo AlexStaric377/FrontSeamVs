@@ -10,17 +10,9 @@ using System.ComponentModel;
 /// Розробник Стариченко Олександр Павлович тел.+380674012840, mail staric377@gmail.com
 namespace FrontSeam
 {
-    class ViewModelMessageWarn : INotifyPropertyChanged
+    class ViewModelMessageWarn : BaseViewModel
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-
-        }
+        private MessageWarn WindowWarn = MainWindow.LinkMainWindow("MessageWarn");
 
         // команда закрытия окна
         RelayCommand? closeWarning;
@@ -31,7 +23,6 @@ namespace FrontSeam
                 return closeWarning ??
                   (closeWarning = new RelayCommand(obj =>
                   {
-                      MessageWarn WindowWarn = MainWindow.LinkMainWindow("MessageWarn");
                       WindowWarn.Close();
                   }));
             }
@@ -47,7 +38,6 @@ namespace FrontSeam
                   (exitInterview = new RelayCommand(obj =>
                   {
                       MapOpisViewModel.StopDialog = true;
-                      MessageWarn WindowWarn = MainWindow.LinkMainWindow("MessageWarn");
                       WindowWarn.Close();
                   }));
             }

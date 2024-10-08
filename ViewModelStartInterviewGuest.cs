@@ -38,7 +38,8 @@ namespace FrontSeam
 
         private int IdItemSelected = 0;
         public static string DiagnozRecomendaciya = "", NameDiagnoz = "", NameRecomendaciya ="", OpistInterview = "", UriInterview ="";
-        public static bool endwhileselected = false, OnOffStartGuest=false, ViewAnalogDiagnoz=false, PrintCompletedInterview=false, SaveAnalogDiagnoz= false, StopDialog = false, EndDialogdali = false;
+        public static bool endwhileselected = false, OnOffStartGuest=false, ViewAnalogDiagnoz=false, PrintCompletedInterview=false, SaveAnalogDiagnoz= false,
+            StopDialog = false, EndDialogdali = false, boolSetAccountUser = false, loadboolProfilLikar = false, loadboolPacientProfil = false;
         public static string ActCompletedInterview = "null", ActCreatInterview = "", IndikatorSelected = "", selectedComplaintname = "", selectFeature="", selectGrDetailing="", selectQualification="";
         public static string InputContent = "", PacientContent="", LikarContent="", selectIcdGrDiagnoz = "";
         public static MainWindow WindowMain = MainWindow.LinkNameWindow("WindowMain");

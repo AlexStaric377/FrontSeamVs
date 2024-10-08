@@ -37,12 +37,8 @@ namespace FrontSeam
                 CloseAuto.Start();
             }
 
-            if (TextWindows != null)
-            {
-                // Определить высоту окна по количеству \n в многострочном тексте
-                var TextWindows_a = TextWindows.Split('\n');
-                MessageText.Text = TextWindows != null ? TextWindows : "Сообщение отсутствует!";
-            }
+            // Определить высоту окна по количеству \n в многострочном тексте
+            MessageText.Text = TextWindows != null ? TextWindows : "Сообщение отсутствует!";
         }
 
         private void CloseAutoTick(object sender, EventArgs e)

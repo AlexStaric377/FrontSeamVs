@@ -76,7 +76,7 @@ namespace FrontSeam
                                   case 0:
                                       // Завантажити профіль пацієнта
                                       CheckLoadKabinetPacient();
-                                      if (_pacientProfil == "") MethodLoadPacientProfil();
+                                      MethodLoadPacientProfil();
                                       if (_pacientProfil == "") return;
                                       break;
                                   case 1:
@@ -170,22 +170,31 @@ namespace FrontSeam
                                       break;
                                   case 1:
                                       // Завантаження облікових записів користувачів
-                                      if (loadboolPacientProfil == true)
+                                      if (loadboolProfilLikar == true && boolSetAccountUser == false)
                                       {
-                                          //MessageOnOffKabinetLikar();
-                                          //if (MapOpisViewModel.DeleteOnOff == false) return;
-                                          ExitCabinetLikar();
+                                          ProfilLikarAdminMessageError();
+                                          return;
                                       }
-                                      if (loadboolProfilLikar == true)
+                                      if (loadboolPacientProfil == true && boolSetAccountUser == false)
                                       {
-                                          //MessageOnOffKabinetPacient();
-                                          //if (MapOpisViewModel.DeleteOnOff == false) return;
-                                          ExitCabinetLikar();
+                                          PacientProfilAdminMessageError();
+                                          return;
                                       }
                                       MethodLoadAccountUser();
                                       break;
                                   case 2:
                                       // Завантаження статусів користувачів
+                                      if (loadboolProfilLikar == true && boolSetAccountUser == false)
+                                      {
+                                          ProfilLikarAdminMessageError();
+                                          return;
+                                      }
+                                      if (loadboolPacientProfil == true && boolSetAccountUser == false)
+                                      {
+                                          PacientProfilAdminMessageError();
+                                          return;
+                                      }
+  
                                       MethodLoadNsiStatusUser();
                                       break;
                               }
@@ -198,7 +207,7 @@ namespace FrontSeam
 
         private void CheckLoadKabinetPacient()
         {
-            if (loadboolProfilLikar == true)
+            if (loadboolProfilLikar == true && boolSetAccountUser == false)
             {
                 MessageOnOffKabinetPacient();
                 if (MapOpisViewModel.DeleteOnOff == false) return;
@@ -209,7 +218,7 @@ namespace FrontSeam
 
         private void CheckLoadKabinetLikar()
         {
-            if (loadboolPacientProfil == true )
+            if (loadboolPacientProfil == true && boolSetAccountUser == false)
             {
                 MessageOnOffKabinetLikar();
                 if (MapOpisViewModel.DeleteOnOff == false) return;

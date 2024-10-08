@@ -382,8 +382,20 @@ namespace FrontSeam
                 return profilMedical ??
                   (profilMedical = new RelayCommand(obj =>
                   {
+                      MainWindow WindowIntevLikar = MainWindow.LinkNameWindow("WindowMain");
                       WinNsiMedZaklad MedZaklad = new WinNsiMedZaklad();
                       MedZaklad.ShowDialog();
+                      MapOpisViewModel.EdrpouMedZaklad = WindowIntevLikar.Likart8.Text.ToString();
+                      if (MapOpisViewModel.EdrpouMedZaklad.Length > 0)
+                      {
+                          WinNsiLikar NewOrder = new WinNsiLikar();
+                          NewOrder.ShowDialog();
+                          if (MapOpisViewModel.nameDoctor.Length > 0)
+                          {
+                              MapOpisViewModel.modelColectionInterview.nameDoctor = MapOpisViewModel.nameDoctor.Substring(MapOpisViewModel.nameDoctor.IndexOf(":"), MapOpisViewModel.nameDoctor.Length - (MapOpisViewModel.nameDoctor.IndexOf(":") + 1));
+
+                          }
+                      }
                   }));
             }
         }

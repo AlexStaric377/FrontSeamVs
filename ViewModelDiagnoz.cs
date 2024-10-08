@@ -34,14 +34,13 @@ namespace FrontSeam
         /// Стркутура: Команды, объявления ObservableCollection, загрузка списка всех груп квалифікації из БД
         /// через механизм REST.API
         /// </summary>
-        public static MainWindow WindowMen = MainWindow.LinkNameWindow("WindowMain");
-        bool activViewDiagnoz = false, loadbooltableDiagnoz = false;
-        public static string controlerViewDiagnoz =  "/api/DiagnozController/";
-        public static string controlerNsiIcd = "/api/IcdController/";
+        private static  MainWindow WindowMen = MainWindow.LinkNameWindow("WindowMain");
+        static bool activViewDiagnoz = false, addboolGrDiagnoz = false, loadGrupDiagnoz = false;
+        public static string controlerViewDiagnoz = "/api/DiagnozController/",  GrupDiagnoz = "", KeiIcdGrup = "";
         public static ModelDiagnoz selectedDiagnoz;
 
         public static ObservableCollection<ModelDiagnoz> ViewDiagnozs { get; set; }
-
+        //public static ObservableCollection<ModelDiagnoz> TmpDiagnozs = new ObservableCollection<ModelDiagnoz>();
         public ModelDiagnoz SelectedViewDiagnoz
         { get { return selectedDiagnoz; } set { selectedDiagnoz = value; OnPropertyChanged("SelectedViewDiagnoz"); } }
 
@@ -50,7 +49,32 @@ namespace FrontSeam
             var result = JsonConvert.DeserializeObject<ListModelDiagnoz>(CmdStroka);
             List<ModelDiagnoz> res = result.ModelDiagnoz.ToList();
             ViewDiagnozs = new ObservableCollection<ModelDiagnoz>((IEnumerable<ModelDiagnoz>)res);
+            if (addboolGrDiagnoz == false && loadGrupDiagnoz == false) GrupIcdGrDiagnoz();
             WindowMen.LibDiagnozTablGrid.ItemsSource = ViewDiagnozs;
+        }
+        public static void GrupIcdGrDiagnoz()
+        {
+            string strokaIcdGrDiagnoz = "";
+            TmpDiagnozs = new ObservableCollection<ModelDiagnoz>();
+            foreach (ModelDiagnoz modelDiagnoz in ViewDiagnozs)
+            {
+               
+                if (strokaIcdGrDiagnoz != modelDiagnoz.IcdGrDiagnoz)
+                {
+                    modelDiagnoz.nameDiagnoza = modelDiagnoz.icdGrDiagnoz;
+                    modelDiagnoz.opisDiagnoza = "";
+                    modelDiagnoz.uriDiagnoza = "";
+                    TmpDiagnozs.Add(modelDiagnoz);
+                    strokaIcdGrDiagnoz = modelDiagnoz.icdGrDiagnoz;
+
+                }
+                if (modelDiagnoz.IcdGrDiagnoz == "")
+                {
+                    TmpDiagnozs.Add(modelDiagnoz);
+                    addboolGrDiagnoz = true;
+                }
+            }
+            ViewDiagnozs = TmpDiagnozs;
         }
 
         #region Команды вставки, удаления и редектирования справочника "ГРупи кваліфікації"
@@ -58,7 +82,7 @@ namespace FrontSeam
         /// Команды вставки, удаления и редектирования справочника "Жалобы"
         /// </summary>
 
-   
+
         // загрузка справочника диагнозов
         public void MethodViewLIbDiagnoz()
         {
@@ -68,11 +92,18 @@ namespace FrontSeam
         public void MethodloadtablDiagnoz()
         {
 
+            GrupDiagnoz = "";
+            addboolGrDiagnoz = false;
+            loadGrupDiagnoz = false;
+
             WindowMen.LibLoadDia.Visibility = Visibility.Hidden;
+            WindowMen.LibFoldInterv.Visibility = Visibility.Hidden;
+            WindowMen.LibCompInterviewLab.Visibility = Visibility.Hidden;
             CallServer.PostServer(controlerViewDiagnoz, controlerViewDiagnoz, "GET");
             string CmdStroka = CallServer.ServerReturn();
             if (CmdStroka.Contains("[]")) CallServer.BoolFalseTabl();
             else ObservableViewDiagnoz(CmdStroka);
+
         }
   
         // команда загрузки  строки исх МКХ11 по указанному коду для вівода наименования болезни
@@ -148,6 +179,41 @@ namespace FrontSeam
 
                   }));
             }
+        }
+
+        // команда загрузки  строки исх МКХ11 по указанному коду для вівода наименования болезни
+        private RelayCommand? selectedListGrDiagnoz;
+        public RelayCommand SelectedListGrDiagnoz
+        {
+            get
+            {
+                return selectedListGrDiagnoz ??
+                  (selectedListGrDiagnoz = new RelayCommand(obj =>
+                  { ComandFindNameGrDiagnoz(); }));
+            }
+        }
+
+
+
+        private void ComandFindNameGrDiagnoz()
+        {
+ 
+            ActCompletedInterview = "IcdGrDiagnoz";
+            WinNsiListGrDiagnoz NewOrder = new WinNsiListGrDiagnoz();
+            NewOrder.Left = (MainWindow.ScreenWidth / 2) - 150;
+            NewOrder.Top = (MainWindow.ScreenHeight / 2) - 350;
+            NewOrder.ShowDialog();
+            if (WindowMen.LibDiagnozt1.Text.Length != 0)
+            {
+                GrupDiagnoz = WindowMen.LibDiagnozt1.Text;
+                loadGrupDiagnoz = true;
+                string jason = controlerViewDiagnoz + "0/" + WindowMen.LibDiagnozt1.Text + "/0";
+                CallServer.PostServer(controlerViewDiagnoz, jason, "GETID");
+                string CmdStroka = CallServer.ServerReturn();
+                if (CmdStroka.Contains("[]"))CallServer.BoolFalseTabl();
+                else ObservableViewDiagnoz(CmdStroka);
+            }
+            ActCompletedInterview = "";
         }
 
         #endregion

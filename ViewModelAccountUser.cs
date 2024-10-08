@@ -22,7 +22,7 @@ using System.Windows.Media;
 /// Розробник Стариченко Олександр Павлович тел.+380674012840, mail staric377@gmail.com
 namespace FrontSeam
 {
-    public partial class MapOpisViewModel : INotifyPropertyChanged
+    public partial class MapOpisViewModel : BaseViewModel
     {
 
         // ViewAccountUsers  Справочник учетных записей пользователей
@@ -34,7 +34,7 @@ namespace FrontSeam
         /// Стркутура: Команды, объявления ObservableCollection, загрузка списка всех жалоб из БД
         /// через механизм REST.API
         /// </summary>      
-        public  static MainWindow WindowAccountUser = MainWindow.LinkNameWindow("WindowMain");
+        private static MainWindow WindowAccountUser = MainWindow.LinkNameWindow("WindowMain");
         public static  bool editboolAccountUser = false, addboolAccountUser = false, loadboolAccountUser = false;
         private string edittextAccountUser = "", SetIdStatus = "";
         private static string pathcontrolerAccountUser = "/api/AccountUserController/";
@@ -115,13 +115,13 @@ namespace FrontSeam
         private void MethodLoadAccountUser()
         {
             IndexAddEdit = "";
-            
             CallViewProfilLikar = "Admin";
             RegStatusUser = "Адміністратор";
             WindowAccountUser.LoadAccountUser.Visibility = Visibility.Hidden;
-            if (RegSetAccountUser() == false) return;
-            loadboolAccountUser = true;
 
+
+
+            if (RegSetAccountUser() == false) return;
             CallServer.PostServer(pathcontrolerAccountUser, pathcontrolerAccountUser, "GET");
             string CmdStroka = CallServer.ServerReturn();
             if (CmdStroka.Contains("[]")) CallServer.BoolFalseTabl();

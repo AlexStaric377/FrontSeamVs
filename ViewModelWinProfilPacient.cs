@@ -213,7 +213,7 @@ namespace FrontSeam
 
                       }
                       WindowResult.Close();
-                      if (winNsiPacient != null) winNsiPacient.Close();
+                      //if (winNsiPacient != null) winNsiPacient.Close();
 
                   }));
             }
