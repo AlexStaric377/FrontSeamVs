@@ -1287,7 +1287,7 @@
                                                     <TextBlock x:Name="ReceptionPacientLab2" Grid.Row="0"   Grid.Column="0" Height="22" Text="  Лікар"   Width="173" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="14"  />
                                                     <TextBox Text="" Name="ReceptionPacient2" Grid.Row="0" Grid.Column="1" FontSize="14" Height="24" Background="White" VerticalContentAlignment="Top" Width="370" HorizontalAlignment="Left" BorderThickness="0,0,0,0"/>
                                                     <TextBlock x:Name="Receptionrozklad" Grid.Row="2" Grid.Column="1" Text="Розклад прийому"  FontSize="14" Height="22" Width="120" Margin="230,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"   />
-                                                    <Image x:Name="ReceptionrozkladFolder" Source="pack://application:,,,/FrontSeam;component/Images/folder_.png" Grid.Column="1" Grid.Row="2" Width="25" Height="24" Margin="360,0,0,0" Visibility="Visible"  >
+                                                    <Image x:Name="ReceptionrozkladFolder" Source="pack://application:,,,/FrontSeam;component/Images/folder_.png" Grid.Column="1" Grid.Row="2" Width="25" Height="24" Margin="360,0,0,0" Visibility="Hidden"  >
                                                         <i:Interaction.Triggers>
                                                             <i:EventTrigger EventName="MouseLeftButtonDown">
                                                                 <i:InvokeCommandAction Command="{Binding ElementName=ReceptionPacientInterview, Path=DataContext.RozkladPatientsLikar}" CommandParameter=""/>
@@ -1335,7 +1335,7 @@
                                                        HorizontalAlignment="Center" FontSize="16"  Grid.ColumnSpan="2" Margin="60,0,0,0"/>
 
                                                     <TextBlock x:Name="ReceptionPacientCompInterview" Grid.Row="4" Grid.Column="1" Text=" Зміст опитування"  FontSize="14" Height="22" Width="120" Margin="230,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"   />
-                                                    <Image x:Name="ReceptionPacientFoldInterv" Source="pack://application:,,,/FrontSeam;component/Images/folder_.png" Grid.Column="1" Grid.Row="4" Width="25" Height="24" Margin="360,0,0,0" Visibility="Visible"  >
+                                                    <Image x:Name="ReceptionPacientFoldInterv" Source="pack://application:,,,/FrontSeam;component/Images/folder_.png" Grid.Column="1" Grid.Row="4" Width="25" Height="24" Margin="360,0,0,0" Visibility="Hidden"  >
                                                         <i:Interaction.Triggers>
                                                             <i:EventTrigger EventName="MouseLeftButtonDown">
                                                                 <i:InvokeCommandAction Command="{Binding ElementName=ReceptionPacientInterview, Path=DataContext.ReadIntevPatients}" CommandParameter=""/>
@@ -1343,7 +1343,7 @@
                                                         </i:Interaction.Triggers>
                                                     </Image>
                                                     <TextBlock x:Name="ReceptionPacientProfil" Grid.Row="3" Grid.Column="1" Text="Профіль"  FontSize="14" Height="22" Width="60" Margin="285,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"   />
-                                                    <Image x:Name="ReceptionPacientFoldProfil" Source="pack://application:,,,/FrontSeam;component/Images/folder_.png" Grid.Column="1" Grid.Row="3" Width="25" Height="24" Margin="360,0,0,0" Visibility="Visible"  >
+                                                    <Image x:Name="ReceptionPacientFoldProfil" Source="pack://application:,,,/FrontSeam;component/Images/folder_.png" Grid.Column="1" Grid.Row="3" Width="25" Height="24" Margin="360,0,0,0" Visibility="Hidden"  >
                                                         <i:Interaction.Triggers>
                                                             <i:EventTrigger EventName="MouseLeftButtonDown">
                                                                 <i:InvokeCommandAction Command="{Binding ElementName=ReceptionPacientInterview, Path=DataContext.ReadColectionPatients}" CommandParameter=""/>
@@ -1353,7 +1353,7 @@
                                                     <TextBlock x:Name="ReceptionPacientPriyomOn" Grid.Row="1" Grid.Column="1" Text=" Відмітка про прийом:"  FontSize="14" Height="24" Width="145" Margin="200,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"   />
                                                     <TextBox Text="Так" Name="ReceptionPacientPriyomOnOff" Grid.Row="1" Grid.Column="1" FontSize="14" Height="24" Width="30" Background="White" VerticalContentAlignment="Top"  HorizontalAlignment="Right" BorderThickness="0,0,0,0" Margin="0,0,80,0"/>
                                                     <ComboBox x:Name="CombPriyomOnOff" Grid.Row="1" Grid.Column="1" Width="60" Height="24"  ItemsSource="{Binding TakNi}" SelectedIndex="{Binding SelectedCombPriyomOnOff}"
-                                                                  Text=""    HorizontalAlignment="Right" Margin="0,0,10,0" VerticalAlignment="Center"    >
+                                                                  Text=""    HorizontalAlignment="Right" Margin="0,0,10,0" VerticalAlignment="Center" IsEnabled="False"   >
                                                     </ComboBox>
 
                                                 </Grid>

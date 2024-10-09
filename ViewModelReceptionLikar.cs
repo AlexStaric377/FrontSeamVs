@@ -218,7 +218,10 @@ namespace FrontSeam
             //WindowReceptionPacient.ReceptionPacient4.Background = Brushes.AntiqueWhite;
             WindowReceptionPacient.ReceptionPacient7.IsEnabled = true;
             WindowReceptionPacient.ReceptionPacient7.Background = Brushes.AntiqueWhite;
-           
+            WindowReceptionPacient.ReceptionrozkladFolder.Visibility = Visibility.Visible;
+            WindowReceptionPacient.ReceptionPacientFoldProfil.Visibility = Visibility.Visible;
+            WindowReceptionPacient.ReceptionPacientFoldInterv.Visibility = Visibility.Visible;
+            WindowReceptionPacient.CombPriyomOnOff.IsEnabled = true;
         }
 
         private void BoolFalseReceptionLikar()
@@ -229,7 +232,10 @@ namespace FrontSeam
             //WindowReceptionPacient.ReceptionPacient4.Background = Brushes.White;
             WindowReceptionPacient.ReceptionPacient7.IsEnabled = false;
             WindowReceptionPacient.ReceptionPacient7.Background = Brushes.White;
-            
+            WindowReceptionPacient.ReceptionrozkladFolder.Visibility = Visibility.Hidden;
+            WindowReceptionPacient.ReceptionPacientFoldProfil.Visibility = Visibility.Hidden;
+            WindowReceptionPacient.ReceptionPacientFoldInterv.Visibility = Visibility.Hidden;
+            WindowReceptionPacient.CombPriyomOnOff.IsEnabled = false;
         }
 
         // команда удаления
@@ -238,7 +244,7 @@ namespace FrontSeam
             if (ViewReceptionPacients != null)
             { 
  
-                string json = pathcontrolerReceptionPacient + ViewReceptionPacients[WindowReceptionPacient.ReceptionPacientTablGrid.SelectedIndex].id.ToString() + "/0";
+                string json = pathcontrolerReceptionPacient + ViewReceptionPacients[WindowReceptionPacient.ReceptionPacientTablGrid.SelectedIndex].id.ToString() + "/0/0";
                 CallServer.PostServer(pathcontrolerReceptionPacient, json, "DELETE");
                 selectedReceptionPacient = ViewReceptionPacients[WindowReceptionPacient.ReceptionPacientTablGrid.SelectedIndex];
                 ViewReceptionPacients.Remove(selectedReceptionPacient);
@@ -323,9 +329,7 @@ namespace FrontSeam
                         string CmdStroka = CallServer.ServerReturn();
                         if (CmdStroka.Contains("[]") == false)
                         {
-
-                            CallServer.ResponseFromServer = CallServer.ResponseFromServer.Replace("[", "").Replace("]", "");
-                            var result = JsonConvert.DeserializeObject<ListAdmissionPatient>(CallServer.ResponseFromServer);
+                            var result = JsonConvert.DeserializeObject<ListAdmissionPatient>(CmdStroka);
                             List<AdmissionPatient> listAdmission = result.AdmissionPatient.ToList();
 
                             foreach (AdmissionPatient admissionPatient in listAdmission)
@@ -388,7 +392,7 @@ namespace FrontSeam
                 return readColectionPatients ??
                   (readColectionPatients = new RelayCommand(obj =>
                   {
-                      if (selectedModelReceptionPatient != null)
+                      if (selectedModelReceptionPatient != null && selectedModelReceptionPatient.kodPacient !="")
                       {
                           _pacientProfil = selectedModelReceptionPatient.kodPacient;
                           _readOnlyProfil = true;
@@ -449,6 +453,7 @@ namespace FrontSeam
                               selectedReceptionPacient.dateInterview = selectedModelReceptionPatient.dateInterview;
                               selectedReceptionPacient.dateVizita = selectedModelReceptionPatient.dateVizita;
                               selectedReceptionPacient.topictVizita = selectedModelReceptionPatient.topictVizita;
+                              if (ViewReceptionPacients == null) ViewReceptionPacients = new ObservableCollection<AdmissionPatient>();
                               ViewReceptionPacients.Add(selectedReceptionPacient);
 
 

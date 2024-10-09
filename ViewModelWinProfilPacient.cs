@@ -56,7 +56,7 @@ namespace FrontSeam
         {
             if (MapOpisViewModel._pacientProfil != "")
             {
-                CallServer.PostServer(pathcontrolerPacientProfil, pathcontrolerPacientProfil + MapOpisViewModel._pacientProfil + "/0", "GETID");
+                CallServer.PostServer(pathcontrolerPacientProfil, pathcontrolerPacientProfil + MapOpisViewModel._pacientProfil + "/0/0/0/0", "GETID");
                 string CmdStroka = CallServer.ServerReturn();
                 ObservableViewPacientProfil(CmdStroka);
             }
