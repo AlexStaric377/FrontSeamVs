@@ -1988,7 +1988,7 @@
                                                     </i:EventTrigger>
                                                 </i:Interaction.Triggers>
                                                 <DataGrid.Columns>
-                                                    <DataGridTextColumn x:Name="AccountUserColumn1" FontSize="14" Width="120" Binding="{Binding Path=nameStatus}">
+                                                    <DataGridTextColumn x:Name="AccountUserColumn1" FontSize="14" Width="140" Binding="{Binding Path=nameStatus}">
                                                         <DataGridTextColumn.Header>
                                                             <TextBlock x:Name="AccountUserHeader1"  Text="Статус"  TextWrapping="Wrap" HorizontalAlignment="Center" />
                                                         </DataGridTextColumn.Header>
@@ -2091,7 +2091,7 @@
                                           VerticalAlignment="Top"  Width="Auto" GridLinesVisibility="None"
                                           HorizontalGridLinesBrush="Black" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                                                 <DataGrid.Columns>
-                                                    <DataGridTextColumn x:Name="StatusUserColumn1" FontSize="14" Width="120" Binding="{Binding Path=nameStatus}">
+                                                    <DataGridTextColumn x:Name="StatusUserColumn1" FontSize="14" Width="140" Binding="{Binding Path=nameStatus}">
                                                         <DataGridTextColumn.Header>
                                                             <TextBlock x:Name="StatusUserHeader1"  Text="Статус"  TextWrapping="Wrap" HorizontalAlignment="Center" />
                                                         </DataGridTextColumn.Header>

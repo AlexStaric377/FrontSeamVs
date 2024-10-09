@@ -209,16 +209,16 @@ namespace FrontSeam
         {
             if (VisitngDays.ReseptionPacientTablGrid.SelectedIndex >= 0)
             {
-                //SelectedRemove();
+                int RemoveIndex = VisitngDays.ReseptionPacientTablGrid.SelectedIndex;
                 // Видалення данных о гостях, пациентах, докторах, учетных записях
                 if (MapOpisViewModel.DeleteOnOff == true)
                 {
 
                     string json = pathcontrolerVisitingDays + selectViewModelVisitingDays.id.ToString();
+
                     CallServer.PostServer(pathcontrolerVisitingDays, json, "DELETE");
-                    //selectModelVisitingDays = ViewVisitingDays[VisitngDays.ReseptionPacientTablGrid.SelectedIndex];
-                    ViewVisitingDays.Remove(ViewVisitingDays[VisitngDays.ReseptionPacientTablGrid.SelectedIndex]);
-                    ViewModeVisitingDays.Remove(ViewModeVisitingDays[VisitngDays.ReseptionPacientTablGrid.SelectedIndex]);
+                    ViewVisitingDays.Remove(ViewVisitingDays[RemoveIndex]);
+                    ViewModeVisitingDays.Remove(ViewModeVisitingDays[RemoveIndex]);
                     VisitngDays.ReseptionPacientTablGrid.SelectedItem = null;
                     selectViewModelVisitingDays = new ViewModelVisitingDays();
                     SelectedViewModelVisitingDays = selectViewModelVisitingDays;

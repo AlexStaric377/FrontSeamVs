@@ -59,6 +59,7 @@ namespace FrontSeam
             ViewRegistrAppoints = new ObservableCollection<ModelRegistrationAppointment>((IEnumerable<ModelRegistrationAppointment>)res);
             BildModelReceptionPatient();
             WindowIntevLikar.ReceptionLikarTablGrid.ItemsSource = ViewReceptionPatients;
+            WindowIntevLikar.ReceptionPacientzap3.Text = _pacientName;
 
 
         }
@@ -85,7 +86,7 @@ namespace FrontSeam
 
         public static void MethodReceptionDoctor(ModelRegistrationAppointment colectionInterview)
         {
-            var json = DoctorcontrollerIntev + colectionInterview.kodDoctor.ToString()+"/0";
+            var json = DoctorcontrollerIntev + colectionInterview.kodDoctor.ToString()+"/0/0";
             CallServer.PostServer(DoctorcontrollerIntev, json, "GETID");
             if (CallServer.ResponseFromServer.Contains("[]") == false)
             {

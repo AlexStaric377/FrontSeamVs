@@ -309,7 +309,7 @@ namespace FrontSeam
                         MessageWarning NewOrder = new MessageWarning(MainWindow.MessageError, 2, 10);
                         return;
                     }
-                    if ((IndexAddEdit == "editCommand" && Method == "POST") || IndexAddEdit == "addCommand")
+                    if ((IndexAddEdit == "editCommand" ) || IndexAddEdit == "addCommand")
                     {
 
                         json = JsonConvert.SerializeObject(selectedReceptionPacient);
