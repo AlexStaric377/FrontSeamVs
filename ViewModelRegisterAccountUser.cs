@@ -95,6 +95,38 @@ namespace FrontSeam
             }
         }
 
+        // команда контроля нажатия клавиши enter
+        RelayCommand? checkKeyEnter;
+        public RelayCommand CheckKeyEnter
+        {
+            get
+            {
+                return checkKeyEnter ??
+                  (checkKeyEnter = new RelayCommand(obj =>
+                  {
+                      MetodNextAccount();
+                  }));
+            }
+        }
+
+        private void MetodNextAccount()
+        {
+            if (WindowAccount.TelAccount.Text.Length < 2)
+            {
+                MainWindow.MessageError = "Увага!" + Environment.NewLine +
+                "Невірно введений логін облікового запису.";
+                MapOpisViewModel.SelectedFalseLogin();
+                MapOpisViewModel.boolSetAccountUser = false;
+                WindowAccount.Open.Visibility = Visibility.Hidden;
+                WindowAccount.PasswText.Visibility = Visibility.Hidden;
+                WindowAccount.Passw.Visibility = Visibility.Hidden;
+                return;
+            }
+            WindowAccount.Open.Visibility = Visibility.Visible;
+            WindowAccount.PasswText.Visibility = Visibility.Visible;
+            WindowAccount.Passw.Visibility = Visibility.Visible;
+        }
+
         // команда закрытия окна
         RelayCommand? checkKeyText;
         public RelayCommand CheckKeyText
@@ -159,6 +191,22 @@ namespace FrontSeam
             }
         }
 
+        // команда контроля нажатия клавиши enter
+        RelayCommand? checkKeyPassword;
+        public RelayCommand CheckKeyPassword
+        {
+            get
+            {
+                return checkKeyPassword ??
+                  (checkKeyPassword = new RelayCommand(obj =>
+                  {
+                      MetodOpenAccount();
+                  }));
+            }
+        }
+
+
+
 
         RelayCommand? nextAccount;
         public RelayCommand NextAccount
@@ -168,20 +216,7 @@ namespace FrontSeam
                 return nextAccount ??
                   (nextAccount = new RelayCommand(obj =>
                   {
-                      if (WindowAccount.TelAccount.Text.Length < 2) 
-                      {
-                          MainWindow.MessageError = "Увага!" + Environment.NewLine +
-                          "Невірно введений логін облікового запису.";
-                          MapOpisViewModel.SelectedFalseLogin();
-                          MapOpisViewModel.boolSetAccountUser = false;
-                          WindowAccount.Open.Visibility = Visibility.Hidden;
-                          WindowAccount.PasswText.Visibility = Visibility.Hidden;
-                          WindowAccount.Passw.Visibility = Visibility.Hidden;
-                          return;
-                      }
-                      WindowAccount.Open.Visibility = Visibility.Visible;
-                      WindowAccount.PasswText.Visibility = Visibility.Visible;
-                      WindowAccount.Passw.Visibility = Visibility.Visible;
+                      MetodNextAccount();
                   }));
             }
         }
@@ -227,72 +262,80 @@ namespace FrontSeam
                 return openAccount ??
                   (openAccount = new RelayCommand(obj =>
                   {
-                      string LogPasw =  WindowAccount.TelAccount.Text.ToString(); //CountryKod +
-                      if (MapOpisViewModel.WindowProfilPacient.ControlMain.SelectedIndex == 3) LogPasw = WindowAccount.TelAccount.Text.ToString();
-                      string json = pathcontrolerAccountUser + "0/" + LogPasw + "/"+ WindowAccount.PasswText.Text.ToString() + "/0";
-                      CallServer.PostServer(pathcontrolerAccountUser, json, "GETID");
-                      string CmdStroka = CallServer.ServerReturn();
-                      if (CmdStroka.Contains("[]"))
-                      {
-                          MainWindow.MessageError = "Увага!" + Environment.NewLine +
-                            "Невірно введені логін або пароль облікового запису.";
-                          MapOpisViewModel.SelectedFalseLogin();
-                          MapOpisViewModel.boolSetAccountUser = false;
-                          return;
-                      }
-                      CallServer.ResponseFromServer = CallServer.ResponseFromServer.Replace("[", "").Replace("]", "");
-                      ModelAccountUser IdAccountUser = JsonConvert.DeserializeObject<ModelAccountUser>(CallServer.ResponseFromServer);
-
-                      switch(IdAccountUser.idStatus)
-                      {
-                          case "1":
-                              WindowAccount.Open.Visibility = Visibility.Hidden;
-                              MapOpisViewModel.boolSetAccountUser = true;
-                              MapOpisViewModel.loadboolAccountUser = true;
-                              MapOpisViewModel.CallViewProfilLikar = "Admin";
-                              break;
-                          case "2":
-                              CallServer.PostServer(pathcontroller, pathcontroller+ IdAccountUser.idUser+ "/0/0/0/0", "GETID");
-                              CmdStroka = CallServer.ServerReturn();
-                              if (CmdStroka.Contains("[]"))
-                              {
-                                  MainWindow.MessageError = "Увага!" + Environment.NewLine +
-                                    "Інформація про користувача за вказаним обліковим записом відсутня у довіднику пацієнтів ";
-                                  MapOpisViewModel.SelectedFalseLogin();
-                                  MapOpisViewModel.loadboolPacientProfil = false;
-                                  MapOpisViewModel.boolSetAccountUser = false;
-                                  WindowAccount.Open.Visibility = Visibility.Hidden;
-                                  return;
-                              }
-                              MapOpisViewModel.ObservableViewPacientProfil(CmdStroka);
-                              MapOpisViewModel.loadboolPacientProfil = true;
-                              MapOpisViewModel.boolSetAccountUser = false;
-                              MapOpisViewModel.CallViewProfilLikar = "PacientProfil";
-                              break;
-                          case "3":
-                              CallServer.PostServer(pathcontrolerProfilLikar, pathcontrolerProfilLikar + IdAccountUser.idUser + "/0/0", "GETID");
-                              CmdStroka = CallServer.ServerReturn();
-                              if (CmdStroka.Contains("[]"))
-                              {
-                                  MainWindow.MessageError = "Увага!" + Environment.NewLine +
-                                    "Інформація про користувача за вказаним обліковим записом відсутня у довіднику лікарів ";
-                                  MapOpisViewModel.SelectedFalseLogin();
-                                  MapOpisViewModel.boolSetAccountUser = false;
-                                  MapOpisViewModel.loadboolProfilLikar = false;
-                                  WindowAccount.Open.Visibility = Visibility.Hidden;
-                                  return;
-                              }
-                              MapOpisViewModel.ObservableViewProfilLikars(CmdStroka);
-                              MapOpisViewModel.boolSetAccountUser = false;
-                              MapOpisViewModel.loadboolProfilLikar = true;
-                              MapOpisViewModel.CallViewProfilLikar = "ProfilLikar";
-                              break;
-                      
-                      
-                      }
-                      WindowAccount.Close();
+                      MetodOpenAccount();
                   }));
             }
+        }
+
+        private void MetodOpenAccount()
+        {
+           
+            string LogPasw =  WindowAccount.TelAccount.Text.ToString(); //CountryKod +
+            if (MapOpisViewModel.WindowProfilPacient.ControlMain.SelectedIndex == 3) LogPasw = WindowAccount.TelAccount.Text.ToString();
+            string json = pathcontrolerAccountUser + "0/" + LogPasw + "/"+ WindowAccount.PasswText.Text.ToString() + "/0";
+            CallServer.PostServer(pathcontrolerAccountUser, json, "GETID");
+            string CmdStroka = CallServer.ServerReturn();
+            if (CmdStroka.Contains("[]"))
+            {
+                MainWindow.MessageError = "Увага!" + Environment.NewLine +
+                "Невірно введені логін або пароль облікового запису.";
+                MapOpisViewModel.SelectedFalseLogin();
+                MapOpisViewModel.boolSetAccountUser = false;
+                return;
+            }
+            CallServer.ResponseFromServer = CallServer.ResponseFromServer.Replace("[", "").Replace("]", "");
+            ModelAccountUser IdAccountUser = JsonConvert.DeserializeObject<ModelAccountUser>(CallServer.ResponseFromServer);
+
+            switch(IdAccountUser.idStatus)
+            {
+                case "1":
+                    WindowAccount.Open.Visibility = Visibility.Hidden;
+                    MapOpisViewModel.boolSetAccountUser = true;
+                    MapOpisViewModel.loadboolAccountUser = true;
+                    MapOpisViewModel.CallViewProfilLikar = "Admin";
+                    break;
+                case "2":
+                    CallServer.PostServer(pathcontroller, pathcontroller+ IdAccountUser.idUser+ "/0/0/0/0", "GETID");
+                    CmdStroka = CallServer.ServerReturn();
+                    if (CmdStroka.Contains("[]"))
+                    {
+                        MainWindow.MessageError = "Увага!" + Environment.NewLine +
+                        "Інформація про користувача за вказаним обліковим записом відсутня у довіднику пацієнтів ";
+                        MapOpisViewModel.SelectedFalseLogin();
+                        MapOpisViewModel.loadboolPacientProfil = false;
+                        MapOpisViewModel.boolSetAccountUser = false;
+                        WindowAccount.Open.Visibility = Visibility.Hidden;
+                        return;
+                    }
+                    MapOpisViewModel.ObservableViewPacientProfil(CmdStroka);
+                    MapOpisViewModel.loadboolPacientProfil = true;
+                    MapOpisViewModel.boolSetAccountUser = false;
+                    MapOpisViewModel.CallViewProfilLikar = "PacientProfil";
+                    break;
+                case "3":
+                    CallServer.PostServer(pathcontrolerProfilLikar, pathcontrolerProfilLikar + IdAccountUser.idUser + "/0/0", "GETID");
+                    CmdStroka = CallServer.ServerReturn();
+                    if (CmdStroka.Contains("[]"))
+                    {
+                        MainWindow.MessageError = "Увага!" + Environment.NewLine +
+                        "Інформація про користувача за вказаним обліковим записом відсутня у довіднику лікарів ";
+                        MapOpisViewModel.SelectedFalseLogin();
+                        MapOpisViewModel.boolSetAccountUser = false;
+                        MapOpisViewModel.loadboolProfilLikar = false;
+                        WindowAccount.Open.Visibility = Visibility.Hidden;
+                        return;
+                    }
+                    MapOpisViewModel.ObservableViewProfilLikars(CmdStroka);
+                    MapOpisViewModel.boolSetAccountUser = false;
+                    MapOpisViewModel.loadboolProfilLikar = true;
+                    MapOpisViewModel.CallViewProfilLikar = "ProfilLikar";
+                    break;
+                      
+                      
+            }
+            WindowAccount.Close();
+
+            
         }
 
 

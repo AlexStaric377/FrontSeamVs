@@ -27,7 +27,8 @@ namespace FrontSeam
 {
     class ViewModelNsiMedZaklad : BaseViewModel
     {
-        
+        private WinNsiMedZaklad WindowMedZaklad = MainWindow.LinkMainWindow("WinNsiMedZaklad");
+        private MainWindow WindowMain = MainWindow.LinkNameWindow("WindowMain");
         public static string controlerGrDiagnoz = "/api/MedGrupDiagnozController/";
         private string pathcontrollerMedZaklad = "/api/MedicalInstitutionController/";
         
@@ -136,18 +137,7 @@ namespace FrontSeam
                 return closeModelMedZaklad ??
                   (closeModelMedZaklad = new RelayCommand(obj =>
                   {
-                      MainWindow WindowMain = MainWindow.LinkNameWindow("WindowMain");
-                      WinNsiMedZaklad WindowMedZaklad = MainWindow.LinkMainWindow("WinNsiMedZaklad");
-                      if (selectedMedZaklad != null)
-                      {
-                          
-                          WindowMain.Likart8.Text = selectedMedZaklad.edrpou.ToString();
-                          WindowMain.Likart5.Text = selectedMedZaklad.postIndex.ToString();
-                          WindowMain.Likart9.Text = selectedMedZaklad.name.ToString();
-                          WindowMain.Likart4.Text = selectedMedZaklad.adres.ToString();
-                          
-                      }
-                      WindowMedZaklad.Close();
+                      MetodSelectMedzaklad();
                   }));
             }
         }
@@ -177,6 +167,53 @@ namespace FrontSeam
             }
         }
 
-       
+        RelayCommand? selectMedzaklad;
+        public RelayCommand SelectMedzaklad
+        {
+            get
+            {
+                return selectMedzaklad ??
+                  (selectMedzaklad = new RelayCommand(obj =>
+                  {
+                      MetodSelectMedzaklad();
+                  }));
+            }
+        }
+
+        private void MetodSelectMedzaklad()
+        {
+            if (selectedMedZaklad != null)
+            {
+                WindowMain.Likart9.Text = selectedMedZaklad.name.ToString();
+                WindowMain.Likart8.Text = selectedMedZaklad.edrpou.ToString();
+                WindowMain.Likart4.Text = selectedMedZaklad.adres.ToString();
+                WindowMain.Likart5.Text = selectedMedZaklad.postIndex.ToString();
+            }
+            WindowMedZaklad.Close();
+        }
+
+        // Выбор названия мед закладу
+        private RelayCommand? searchNameMedical;
+        public RelayCommand SearchNameMedical
+        {
+            get
+            {
+                return searchNameMedical ??
+                  (searchNameMedical = new RelayCommand(obj =>
+                  {
+                      if (WindowMedZaklad.PoiskMedical.Text.Trim() != "")
+                      {
+                          string jason = pathcontrollerMedZaklad + "0/0/" + WindowMedZaklad.PoiskMedical.Text;
+                          CallServer.PostServer(pathcontrollerMedZaklad, jason, "GETID");
+                          string CmdStroka = CallServer.ServerReturn();
+                          if (CmdStroka.Contains("[]")) CallServer.BoolFalseTabl();
+                          else ObservableNsiModelMedical(CmdStroka);
+                          WindowMedZaklad.TablMedzaklad.ItemsSource = NsiModelMedZaklads;
+                      }
+
+                  }));
+            }
+        }
+
     }
 }

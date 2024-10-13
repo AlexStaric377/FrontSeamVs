@@ -102,7 +102,8 @@ namespace FrontSeam
                }
                if (boolSetAccountUser == true) MetodSelectRegProfilLikar();            
             }
- 
+
+            
         }
 
         private void MetodSelectRegProfilLikar()

@@ -501,7 +501,9 @@ namespace FrontSeam
                           if (ViewModelReceptionPatients != null)
                           {
                               MainWindow WindowIntevLikar = MainWindow.LinkNameWindow("WindowMain");
-                              WindowIntevLikar.CombPriyomOnOff.IsEnabled = true;
+                              //WindowIntevLikar.CombPriyomOnOff.IsEnabled = true;
+                              WindowReceptionPacient.ReceptionPacientFoldProfil.Visibility = Visibility.Visible;
+                              WindowReceptionPacient.ReceptionPacientFoldInterv.Visibility = Visibility.Visible;
                               if (editboolIntevLikar == true) BoolFalseReceptionLikar();
                               selectedReceptionPacient = ViewReceptionPacients[WindowIntevLikar.ReceptionPacientTablGrid.SelectedIndex];
                               AdmissionPatient admissionPatient = ViewReceptionPacients[WindowIntevLikar.ReceptionPacientTablGrid.SelectedIndex];

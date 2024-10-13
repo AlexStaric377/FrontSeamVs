@@ -25,23 +25,16 @@ using System.Diagnostics;
 /// Розробник Стариченко Олександр Павлович тел.+380674012840, mail staric377@gmail.com
 namespace FrontSeam
 {
-    public class ViewModelNsiLikar : INotifyPropertyChanged
+    public class ViewModelNsiLikar : BaseViewModel
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
 
-        }
-        WinNsiLikar WindowMen = MainWindow.LinkMainWindow("WinNsiLikar");
+        private WinNsiLikar WindowMen = MainWindow.LinkMainWindow("WinNsiLikar");
+        private MainWindow WindowMain = MainWindow.LinkNameWindow("WindowMain");
         private string pathcontroller = "/api/ApiControllerDoctor/";
         public static string controlerLikarGrDiagnoz = "/api/LikarGrupDiagnozController/";
         public static ModelDoctor selectedLikar;
-        public static  ObservableCollection<ModelDoctor> NsiLikars { get; set; }
- 
+        public static ObservableCollection<ModelDoctor> NsiLikars { get; set; }
+
 
         public ModelDoctor SelectedLikar
         { get { return selectedLikar; } set { selectedLikar = value; OnPropertyChanged("SelectedLikar"); } }
@@ -54,7 +47,7 @@ namespace FrontSeam
             }
             else
             {
-                CallServer.PostServer(pathcontroller, pathcontroller+"0/"+ MapOpisViewModel.EdrpouMedZaklad + "/0", "GETID");
+                CallServer.PostServer(pathcontroller, pathcontroller + "0/" + MapOpisViewModel.EdrpouMedZaklad + "/0", "GETID");
             }
 
             string CmdStroka = CallServer.ServerReturn();
@@ -106,23 +99,7 @@ namespace FrontSeam
                 return selectLikar ??
                   (selectLikar = new RelayCommand(obj =>
                   {
-                      MainWindow WindowMain = MainWindow.LinkNameWindow("WindowMain");
-                      WindowMain.AccountUsert5.Text = "";
-                      MapOpisViewModel.nameDoctor = "";
-                      if (selectedLikar != null)
-                      {
-                          MapOpisViewModel._kodDoctor = selectedLikar.kodDoctor.ToString();
-                          MapOpisViewModel.nameDoctor = selectedLikar.kodDoctor.ToString() + ": " + selectedLikar.name.ToString() + " " + selectedLikar.surname.ToString() + " " + selectedLikar.telefon.ToString();
-                          if (MapOpisViewModel.ActCompletedInterview != "Guest")
-                          { 
-                              WindowMain.LikarIntert2.Text = selectedLikar.kodDoctor.ToString() + ": " + selectedLikar.name.ToString() + " " + selectedLikar.surname.ToString() + " " + selectedLikar.telefon.ToString();
-                              WindowMain.AccountUsert5.Text = selectedLikar.kodDoctor.ToString() + ": " + selectedLikar.name.ToString() + " " + selectedLikar.surname.ToString();
-                          
-                          }
-                          if (MapOpisViewModel.CallViewProfilLikar == "ProfilLikar") MapOpisViewModel.selectedProfilLikar = selectedLikar;
-
-                      }
-                      WindowMen.Close();
+                      MetodSelectTablLikars();
                   }));
             }
         }
@@ -153,6 +130,62 @@ namespace FrontSeam
             }
         }
 
+        // команда выбора строки из списка жалоб
+        RelayCommand? selectTablLikars;
+        public RelayCommand SelectTablLikars
+        {
+            get
+            {
+                return selectTablLikars ??
+                  (selectTablLikars = new RelayCommand(obj =>
+                  {
+                      MetodSelectTablLikars();
+                  }));
+            }
+        }
+
+        private void MetodSelectTablLikars()
+        {
+            WindowMain.AccountUsert5.Text = "";
+            MapOpisViewModel.nameDoctor = "";
+            if (selectedLikar != null)
+            {
+                MapOpisViewModel._kodDoctor = selectedLikar.kodDoctor.ToString();
+                MapOpisViewModel.nameDoctor = selectedLikar.kodDoctor.ToString() + ": " + selectedLikar.name.ToString() + " " + selectedLikar.surname.ToString() + " " + selectedLikar.telefon.ToString();
+                if (MapOpisViewModel.ActCompletedInterview != "Guest")
+                {
+                    WindowMain.LikarIntert2.Text = selectedLikar.kodDoctor.ToString() + ": " + selectedLikar.name.ToString() + " " + selectedLikar.surname.ToString() + " " + selectedLikar.telefon.ToString();
+                    WindowMain.AccountUsert5.Text = selectedLikar.kodDoctor.ToString() + ": " + selectedLikar.name.ToString() + " " + selectedLikar.surname.ToString();
+
+                }
+                if (MapOpisViewModel.CallViewProfilLikar == "ProfilLikar") MapOpisViewModel.selectedProfilLikar = selectedLikar;
+            }
+            WindowMen.Close();
+        }
+
+        // Выбор названия мед закладу
+        private RelayCommand? searchPoiskSurnaeLikar;
+        public RelayCommand SearchPoiskSurnaeLikar
+        {
+            get
+            {
+                return searchPoiskSurnaeLikar ??
+                  (searchPoiskSurnaeLikar = new RelayCommand(obj =>
+                  {
+                      if (WindowMen.PoiskSurnaeLikar.Text.Trim() != "")
+                      {
+                          string jason = pathcontroller + "0/0/" + WindowMen.PoiskSurnaeLikar.Text;
+                          CallServer.PostServer(pathcontroller, jason, "GETID");
+                          string CmdStroka = CallServer.ServerReturn();
+                          if (CmdStroka.Contains("[]")) CallServer.BoolFalseTabl();
+                          else ObservableNsiModelLikar(CmdStroka);
+                          WindowMen.TablLikars.ItemsSource = NsiLikars;
+                      }
+
+                  }));
+            }
+        }
+
+
     }
- 
 }
