@@ -158,7 +158,7 @@ namespace FrontSeam
                     WindowMain.AccountUsert5.Text = selectedLikar.kodDoctor.ToString() + ": " + selectedLikar.name.ToString() + " " + selectedLikar.surname.ToString();
 
                 }
-                if (MapOpisViewModel.CallViewProfilLikar == "ProfilLikar") MapOpisViewModel.selectedProfilLikar = selectedLikar;
+                MapOpisViewModel.selectedProfilLikar = selectedLikar;
             }
             WindowMen.Close();
         }

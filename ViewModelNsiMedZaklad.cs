@@ -27,7 +27,7 @@ namespace FrontSeam
 {
     class ViewModelNsiMedZaklad : BaseViewModel
     {
-        private WinNsiMedZaklad WindowMedZaklad = MainWindow.LinkMainWindow("WinNsiMedZaklad");
+        private static  WinNsiMedZaklad WindowMedZaklad = MainWindow.LinkMainWindow("WinNsiMedZaklad");
         private MainWindow WindowMain = MainWindow.LinkNameWindow("WindowMain");
         public static string controlerGrDiagnoz = "/api/MedGrupDiagnozController/";
         private string pathcontrollerMedZaklad = "/api/MedicalInstitutionController/";
@@ -106,17 +106,17 @@ namespace FrontSeam
 
         private void AddNsiModelMedZaklads()
         {
-            if (VeiwModelMedicals != null)
-            {
-                NsiModelMedZaklads = VeiwModelMedicals;
-            }
-            else
-            {
+            //if (VeiwModelMedicals != null)
+            //{
+            //    NsiModelMedZaklads = VeiwModelMedicals;
+            //}
+            //else
+            //{
                 CallServer.PostServer(pathcontrollerMedZaklad, pathcontrollerMedZaklad, "GET");
                 string CmdStroka = CallServer.ServerReturn();
                 if (CmdStroka.Contains("[]")) CallServer.BoolFalseTabl();
                 else ObservableNsiModelMedical(CmdStroka);
-            }
+            //}
         }
 
         public static void ObservableNsiModelMedical(string CmdStroka)
@@ -124,7 +124,7 @@ namespace FrontSeam
             var result = JsonConvert.DeserializeObject<ListModelMedical>(CmdStroka);
             List<MedicalInstitution> res = result.MedicalInstitution.ToList();
             NsiModelMedZaklads = new ObservableCollection<MedicalInstitution>((IEnumerable<MedicalInstitution>)res);
-
+            
         }
 
 
@@ -188,8 +188,9 @@ namespace FrontSeam
                 WindowMain.Likart8.Text = selectedMedZaklad.edrpou.ToString();
                 WindowMain.Likart4.Text = selectedMedZaklad.adres.ToString();
                 WindowMain.Likart5.Text = selectedMedZaklad.postIndex.ToString();
+                WindowMedZaklad.Close();
             }
-            WindowMedZaklad.Close();
+            
         }
 
         // Выбор названия мед закладу

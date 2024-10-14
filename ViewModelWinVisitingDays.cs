@@ -24,18 +24,10 @@ using System.Windows.Media;
 namespace FrontSeam
 {
 
-    public class ViewModelWinVisitingDays : INotifyPropertyChanged
+    public class ViewModelWinVisitingDays : BaseViewModel
     {
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-
-        }
+        private static WinVisitingDays WindowMen = MainWindow.LinkMainWindow("WinVisitingDays");
         private string pathcontrollerVisitingDays = "/api/VisitingDaysController/";
         public static ModelVisitingDays selectVisitingDays;
 
@@ -50,7 +42,6 @@ namespace FrontSeam
 
         public ViewModelWinVisitingDays()
         {
-
             CallServer.PostServer(pathcontrollerVisitingDays, pathcontrollerVisitingDays  + MapOpisViewModel._kodDoctor + "/0", "GETID");
             string CmdStroka = CallServer.ServerReturn();
             ObservableVisitingDays(CmdStroka);
@@ -72,12 +63,7 @@ namespace FrontSeam
                 return selectDaysVisiting ??
                   (selectDaysVisiting = new RelayCommand(obj =>
                   {
-                      if (selectVisitingDays != null)
-                      {
-                          MapOpisViewModel.selectVisitingDays = selectVisitingDays;
-                      }
-                      WinVisitingDays WindowMen = MainWindow.LinkMainWindow("WinVisitingDays");
-                      WindowMen.Close();
+                      MetodSetVisitingDays();
                   }));
                 
             }
@@ -92,10 +78,34 @@ namespace FrontSeam
                 return closeModelWinVisitingDays ??
                   (closeModelWinVisitingDays = new RelayCommand(obj =>
                   {
-
-                      WinVisitingDays WindowMen = MainWindow.LinkMainWindow("WinVisitingDays");
                       WindowMen.Close();
                   }));
+            }
+        }
+
+        
+
+        // команда выбора строки из списка жалоб
+        RelayCommand? setVisitingDays;
+        public RelayCommand SetVisitingDays
+        {
+            get
+            {
+                return setVisitingDays ??
+                  (setVisitingDays = new RelayCommand(obj =>
+                  {
+                      MetodSetVisitingDays();
+                  }));
+
+            }
+        }
+
+        private void MetodSetVisitingDays()
+        {
+            if (selectVisitingDays != null)
+            {
+                MapOpisViewModel.selectVisitingDays = selectVisitingDays;
+                WindowMen.Close();
             }
         }
 

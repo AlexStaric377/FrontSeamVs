@@ -146,7 +146,7 @@ namespace FrontSeam
             if (boolSetAccountUser == true && CallViewProfilLikar == "Admin") return boolSetAccountUser;
             if (loadboolProfilLikar == true && CallViewProfilLikar == "ProfilLikar") return loadboolProfilLikar;
             if (loadboolPacientProfil == true && CallViewProfilLikar == "PacientProfil") return loadboolPacientProfil;
-            bool _return = false;
+            bool _return = true;
             WinRegisterAccountUser NewAccountUser = new WinRegisterAccountUser();
             NewAccountUser.ShowDialog();
 

@@ -152,8 +152,8 @@ namespace FrontSeam
         private void SelectRegProfilLikar()
         {
 
-            WinNsiMedZaklad MedZaklad = new WinNsiMedZaklad();
-            MedZaklad.ShowDialog();
+            WinNsiMedZaklad NewOrder = new WinNsiMedZaklad();
+            NewOrder.ShowDialog();
             EdrpouMedZaklad = ReceptionLIkarGuest.Likart8.Text.ToString();
 
             if (EdrpouMedZaklad != "")
@@ -161,8 +161,8 @@ namespace FrontSeam
                 CallViewProfilLikar = "ProfilLikar";
             
                 selectedProfilLikar = new ModelDoctor();
-                WinNsiLikar NewOrder = new WinNsiLikar();
-                NewOrder.ShowDialog();
+                WinNsiLikar NewOrderL = new WinNsiLikar();
+                NewOrderL.ShowDialog();
                 CallViewProfilLikar = "";
                 if (MapOpisViewModel.nameDoctor != "")
                 {

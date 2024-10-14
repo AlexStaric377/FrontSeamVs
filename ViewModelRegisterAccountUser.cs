@@ -28,7 +28,7 @@ namespace FrontSeam
     {
         
 
-        WinRegisterAccountUser WindowAccount = MainWindow.LinkMainWindow("WinRegisterAccountUser");
+        private WinRegisterAccountUser WindowAccount = MainWindow.LinkMainWindow("WinRegisterAccountUser");
         public static bool OnOffEye = false, ReestrOnOff = false, _GhangePaswUser = false;
         public static string PasswordText = "", CountryKod = "+380", AccountTel="";
         private static string pathcontrolerAccountUser = "/api/AccountUserController/";
@@ -155,7 +155,7 @@ namespace FrontSeam
                 return closeAccount ??
                   (closeAccount = new RelayCommand(obj =>
                   {
-                      MapOpisViewModel.boolSetAccountUser = false;
+                      
                       if (MapOpisViewModel.CallViewProfilLikar == "PacientProfil")
                       { 
                           MainWindow WindowMain = MainWindow.LinkNameWindow("WindowMain");
@@ -283,8 +283,8 @@ namespace FrontSeam
                 MapOpisViewModel.boolSetAccountUser = false;
                 return;
             }
-            CallServer.ResponseFromServer = CallServer.ResponseFromServer.Replace("[", "").Replace("]", "");
-            ModelAccountUser IdAccountUser = JsonConvert.DeserializeObject<ModelAccountUser>(CallServer.ResponseFromServer);
+            CmdStroka = CallServer.ResponseFromServer.Replace("[", "").Replace("]", "");
+            ModelAccountUser IdAccountUser = JsonConvert.DeserializeObject<ModelAccountUser>(CmdStroka);
 
             switch(IdAccountUser.idStatus)
             {

@@ -26,8 +26,8 @@ namespace FrontSeam
 {
     public class ViewModelNsiPacient : BaseViewModel
     {
-
-        WinNsiPacient WindowMen = MainWindow.LinkMainWindow("WinNsiPacient");
+        private static MainWindow WindowMain = MainWindow.LinkNameWindow("WindowMain");
+        private WinNsiPacient WindowMen = MainWindow.LinkMainWindow("WinNsiPacient");
         private static string pathcontroller = "/api/PacientController/";
 
         private string _namePacient;
@@ -106,30 +106,6 @@ namespace FrontSeam
             }
         }
 
-        // команда выбора строки из списка жалоб
-        RelayCommand? selectPacient;
-        public RelayCommand SelectPacient
-        {
-            get
-            {
-                return selectPacient ??
-                  (selectPacient = new RelayCommand(obj =>
-                  {
-                      MainWindow WindowMain = MainWindow.LinkNameWindow("WindowMain");
-                      if (selectedPacient != null)
-                      {
-                          MapOpisViewModel.namePacient = selectedPacient.kodPacient.ToString() + ": " + selectedPacient.name.ToString();
-                          WindowMain.LikarIntert3.Text = selectedPacient.kodPacient.ToString() + ": " + selectedPacient.name.ToString() + " " + selectedPacient.surname.ToString() + " " + selectedPacient.tel.ToString();
-
-                          WindowMain.AccountUsert5.Text = selectedPacient.kodPacient.ToString() + ": " + selectedPacient.name.ToString() + " " + selectedPacient.surname.ToString();
-                          if (MapOpisViewModel.CallViewProfilLikar == "ProfilPacient") MapOpisViewModel.selectedProfilPacient = selectedPacient;
-                          if (MapOpisViewModel.CallViewProfilLikar == "PacientProfil") MapOpisViewModel.selectedPacientProfil = selectedPacient;
-
-                      }
-                      WindowMen.Close();
-                  }));
-            }
-        }
 
         
         // команда создания профиля пациента
@@ -234,6 +210,48 @@ namespace FrontSeam
                       TelefonPacient = null;
 
                   }));
+            }
+        }
+
+        // команда выбора строки из списка
+        RelayCommand? selectPacient;
+        public RelayCommand SelectPacient
+        {
+            get
+            {
+                return selectPacient ??
+                  (selectPacient = new RelayCommand(obj =>
+                  {
+                      MetodselectPacient();
+                  }));
+            }
+        }
+
+        // команда выбора строки из списка 
+        RelayCommand? selectTablPacients;
+        public RelayCommand SelectTablPacients
+        {
+            get
+            {
+                return selectTablPacients ??
+                  (selectTablPacients = new RelayCommand(obj =>
+                  {
+                      MetodselectPacient();
+                  }));
+            }
+        }
+
+        private void MetodselectPacient()
+        {
+            if (selectedPacient != null)
+            {
+                MapOpisViewModel.namePacient = selectedPacient.kodPacient.ToString() + ": " + selectedPacient.name.ToString();
+                WindowMain.LikarIntert3.Text = selectedPacient.kodPacient.ToString() + ": " + selectedPacient.name.ToString() + " " + selectedPacient.surname.ToString() + " " + selectedPacient.tel.ToString();
+
+                WindowMain.AccountUsert5.Text = selectedPacient.kodPacient.ToString() + ": " + selectedPacient.name.ToString() + " " + selectedPacient.surname.ToString();
+                if (MapOpisViewModel.CallViewProfilLikar == "ProfilPacient") MapOpisViewModel.selectedProfilPacient = selectedPacient;
+                if (MapOpisViewModel.CallViewProfilLikar == "PacientProfil") MapOpisViewModel.selectedPacientProfil = selectedPacient;
+                WindowMen.Close();
             }
         }
     }

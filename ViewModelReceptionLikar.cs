@@ -61,7 +61,6 @@ namespace FrontSeam
             ViewReceptionPacients = new ObservableCollection<AdmissionPatient>((IEnumerable<AdmissionPatient>)res);
             ViewModelReceptionPatients = new ObservableCollection<ModelReceptionPatient>();
             BildViewModelReceptionPacients();
-
             WindowReceptionPacient.ReceptionPacientTablGrid.ItemsSource = ViewModelReceptionPatients;
 
 
@@ -69,6 +68,7 @@ namespace FrontSeam
 
         private static void BildViewModelReceptionPacients()
         {
+            ViewModelReceptionPatients = new ObservableCollection<ModelReceptionPatient>();
             foreach (AdmissionPatient admissionPatient in ViewReceptionPacients)
             {
                 selectedModelReceptionPatient = new ModelReceptionPatient();
@@ -178,7 +178,7 @@ namespace FrontSeam
                 
                 CallServer.PostServer(pathcontrolerReceptionPacient, pathcontrolerReceptionPacient+"0/"+ _kodDoctor+"/0/0/", "GETID");
                 string CmdStroka = CallServer.ServerReturn();
-            if (CmdStroka.Contains("[]")) {if(ViewAnalogDiagnoz == false)CallServer.BoolFalseTabl();} 
+            if (CmdStroka.Contains("[]")) {if(ViewAnalogDiagnoz == false) ViewModelReceptionPatients = new ObservableCollection<ModelReceptionPatient>(); ; } 
             else ObservableViewReceptionPacient(CmdStroka);           
             
     
@@ -244,17 +244,17 @@ namespace FrontSeam
             if (ViewReceptionPacients != null)
             { 
  
-                string json = pathcontrolerReceptionPacient + ViewReceptionPacients[WindowReceptionPacient.ReceptionPacientTablGrid.SelectedIndex].id.ToString() + "/0/0";
+                int _setindex = WindowReceptionPacient.ReceptionPacientTablGrid.SelectedIndex; 
+                string json = pathcontrolerReceptionPacient + ViewReceptionPacients[_setindex].id.ToString() + "/0/0";
                 CallServer.PostServer(pathcontrolerReceptionPacient, json, "DELETE");
-                selectedReceptionPacient = ViewReceptionPacients[WindowReceptionPacient.ReceptionPacientTablGrid.SelectedIndex];
+                selectedReceptionPacient = ViewReceptionPacients[_setindex];
                 ViewReceptionPacients.Remove(selectedReceptionPacient);
                 selectedReceptionPacient = new AdmissionPatient();
-                selectedModelReceptionPatient = ViewModelReceptionPatients[WindowReceptionPacient.ReceptionPacientTablGrid.SelectedIndex];
+                selectedModelReceptionPatient = ViewModelReceptionPatients[_setindex];
                 ViewModelReceptionPatients.Remove(selectedModelReceptionPatient);
-
                 BoolFalseReceptionLikar();
                 IndexAddEdit = "";
-                
+
             }           
         }
  
@@ -342,6 +342,11 @@ namespace FrontSeam
                             CallServer.PostServer(pathcontrolerAdmissionPatients, json, "PUT");
                         }
                     }
+                    if (ViewReceptionPacients == null) ViewReceptionPacients = new ObservableCollection<AdmissionPatient>();
+                    ViewReceptionPacients.Add(selectedReceptionPacient);
+                    if (ViewModelReceptionPatients == null) ViewModelReceptionPatients = new ObservableCollection<ModelReceptionPatient>();
+                    ViewModelReceptionPatients.Add(selectedModelReceptionPatient);
+                    WindowReceptionPacient.ReceptionPacientTablGrid.ItemsSource = ViewModelReceptionPatients;
                 }
 
             }
@@ -431,7 +436,8 @@ namespace FrontSeam
                                   SelectedProfilPacient = new ModelPacient();
                                   return;
                               }
-
+                              WindowReceptionPacient.ReceptionPacient1.Text = MapOpisViewModel.DateInterview;
+                              selectedModelReceptionPatient.dateVizita = WindowReceptionPacient.ReceptionPacient4.Text;
                               selectedModelReceptionPatient.dateInterview = MapOpisViewModel.DateInterview;
                               selectedModelReceptionPatient.kodProtokola = MapOpisViewModel.KodProtokola;
                               selectedModelReceptionPatient.kodComplInterv = MapOpisViewModel.KodInterviewPacient;
@@ -440,11 +446,9 @@ namespace FrontSeam
                               colectionInterview.kodProtokola = selectedModelReceptionPatient.kodProtokola;
                               MethodReceptionPacients(colectionInterview);
                               MethodProtokolaReception(colectionInterview);
-                              if (ViewModelReceptionPatients == null) ViewModelReceptionPatients = new ObservableCollection<ModelReceptionPatient>();
-                              ViewModelReceptionPatients.Add(selectedModelReceptionPatient);
-
-                              WindowReceptionPacient.ReceptionPacientTablGrid.ItemsSource = ViewModelReceptionPatients;
-                              SelectedReceptionPacient = ViewModelReceptionPatients[ViewModelReceptionPatients.Count - 1];
+                              if (ViewModelReceptionPatients.Count == 0) SelectedReceptionPacient = new ModelReceptionPatient();
+                              else  SelectedReceptionPacient = ViewModelReceptionPatients[ViewModelReceptionPatients.Count - 1];
+                             
                               if (selectedReceptionPacient == null) selectedReceptionPacient = new AdmissionPatient();
                               selectedReceptionPacient.kodComplInterv = selectedModelReceptionPatient.kodComplInterv;
                               selectedReceptionPacient.kodDoctor = _kodDoctor;
@@ -453,8 +457,6 @@ namespace FrontSeam
                               selectedReceptionPacient.dateInterview = selectedModelReceptionPatient.dateInterview;
                               selectedReceptionPacient.dateVizita = selectedModelReceptionPatient.dateVizita;
                               selectedReceptionPacient.topictVizita = selectedModelReceptionPatient.topictVizita;
-                              if (ViewReceptionPacients == null) ViewReceptionPacients = new ObservableCollection<AdmissionPatient>();
-                              ViewReceptionPacients.Add(selectedReceptionPacient);
 
 
                           }
