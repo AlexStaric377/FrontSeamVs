@@ -1296,7 +1296,7 @@
                                                     </Image>
 
                                                     <TextBlock x:Name="ReceptionPacientLab3" Grid.Column="0" Grid.Row="3" Text="  Пацієнт (Ім'я,Прізвище)" TextWrapping="Wrap"  FontSize="14" Height="30" Width="170" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                                                    <TextBox Text="{Binding namePacient,UpdateSourceTrigger=PropertyChanged}" Name="ReceptionPacient3" Grid.Column="1" Grid.Row="3" Background="White" Width="320" Height="26" FontSize="14" HorizontalAlignment="Left" BorderThickness="0,0,0,0" />
+                                                    <TextBox Text="{Binding namePacient,UpdateSourceTrigger=PropertyChanged}" Name="ReceptionPacient3" Grid.Column="1" Grid.Row="3" Background="White" Width="280" Height="26" FontSize="14" HorizontalAlignment="Left" BorderThickness="0,0,0,0" />
                                                     <Image x:Name="ReceptionPacientFolderPacient" Source="pack://application:,,,/FrontSeam;component/Images/folder_.png" Grid.Column="1" Grid.Row="3" Width="25"  Margin="100,0,0,0" Visibility="Hidden"  >
                                                         <i:Interaction.Triggers>
                                                             <i:EventTrigger EventName="MouseLeftButtonDown">

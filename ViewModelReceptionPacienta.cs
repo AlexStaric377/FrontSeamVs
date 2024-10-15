@@ -147,17 +147,11 @@ namespace FrontSeam
 
         public void MethodAddReceptionPacient()
         {
-            IndexAddEdit = "addCommand";
-            if (addAnalogDiagnoz == false)
-            {
-                SelectedColectionReceptionPatient = null;
-                modelColectionInterview = new ModelColectionInterview();
-            }
-            else
-            {
-                SelectedColectionReceptionPatient = modelColectionInterview;
-            }
-;
+            IndexAddEdit = IndexAddEdit == "addCommand" ? "" : "addCommand";
+            SelectedColectionReceptionPatient = new ModelColectionInterview();
+            modelColectionInterview = new ModelColectionInterview();
+
+
             modelColectionInterview.kodPacient = _pacientProfil;
             if (addboolAppointment == false) BoolTrueAppointment();
             else BoolFalseAppointment();

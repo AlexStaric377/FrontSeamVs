@@ -27,14 +27,14 @@ namespace FrontSeam
     public class ViewModelWinVisitingDays : BaseViewModel
     {
 
-        private static WinVisitingDays WindowMen = MainWindow.LinkMainWindow("WinVisitingDays");
+        WinVisitingDays WindowMen = MainWindow.LinkMainWindow("WinVisitingDays");
         private string pathcontrollerVisitingDays = "/api/VisitingDaysController/";
-        public static ModelVisitingDays selectVisitingDays;
+        public static ModelVisitingDays selectVisitDays;
 
         public ModelVisitingDays SelectedVisitingDays
         {
-            get { return selectVisitingDays; }
-            set { selectVisitingDays = value; OnPropertyChanged("SelectedVisitingDays"); }
+            get { return selectVisitDays; }
+            set { selectVisitDays = value; OnPropertyChanged("SelectedVisitingDays"); }
         }
         public static ObservableCollection<ModelVisitingDays> ViewVisitingDayss { get; set; }
 
@@ -102,9 +102,10 @@ namespace FrontSeam
 
         private void MetodSetVisitingDays()
         {
-            if (selectVisitingDays != null)
+            if (selectVisitDays != null && selectVisitDays.id != 0)
             {
-                MapOpisViewModel.selectVisitingDays = selectVisitingDays;
+                MapOpisViewModel.selectVisitingDays = selectVisitDays;
+                selectVisitDays = new ModelVisitingDays();
                 WindowMen.Close();
             }
         }

@@ -243,7 +243,7 @@ namespace FrontSeam
 
         private void MetodselectPacient()
         {
-            if (selectedPacient != null)
+            if (selectedPacient != null && selectedPacient.id !=0)
             {
                 MapOpisViewModel.namePacient = selectedPacient.kodPacient.ToString() + ": " + selectedPacient.name.ToString();
                 WindowMain.LikarIntert3.Text = selectedPacient.kodPacient.ToString() + ": " + selectedPacient.name.ToString() + " " + selectedPacient.surname.ToString() + " " + selectedPacient.tel.ToString();
@@ -251,6 +251,7 @@ namespace FrontSeam
                 WindowMain.AccountUsert5.Text = selectedPacient.kodPacient.ToString() + ": " + selectedPacient.name.ToString() + " " + selectedPacient.surname.ToString();
                 if (MapOpisViewModel.CallViewProfilLikar == "ProfilPacient") MapOpisViewModel.selectedProfilPacient = selectedPacient;
                 if (MapOpisViewModel.CallViewProfilLikar == "PacientProfil") MapOpisViewModel.selectedPacientProfil = selectedPacient;
+                selectedPacient = new ModelPacient();
                 WindowMen.Close();
             }
         }

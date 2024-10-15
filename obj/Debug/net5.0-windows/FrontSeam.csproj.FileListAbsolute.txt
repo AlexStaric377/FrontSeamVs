@@ -125,4 +125,3 @@ D:\FrontSeam\obj\Debug\net5.0-windows\FrontSeam.dll
 D:\FrontSeam\obj\Debug\net5.0-windows\ref\FrontSeam.dll
 D:\FrontSeam\obj\Debug\net5.0-windows\FrontSeam.pdb
 D:\FrontSeam\obj\Debug\net5.0-windows\FrontSeam.genruntimeconfig.cache
-D:\FrontSeam\obj\Debug\net5.0-windows\FrontSeam.csproj.AssemblyReference.cache

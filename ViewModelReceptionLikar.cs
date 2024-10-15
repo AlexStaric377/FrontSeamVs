@@ -78,6 +78,7 @@ namespace FrontSeam
                 selectedModelReceptionPatient.kodPacient = admissionPatient.kodPacient;
                 selectedModelReceptionPatient.kodProtokola = admissionPatient.kodProtokola;
                 selectedModelReceptionPatient.kodComplInterv = admissionPatient.kodComplInterv;
+                selectedModelReceptionPatient.SelectedCombPriyomOnOff = "Так";
                 MethodReceptionPacients(admissionPatient);
                 MethodProtokolaReception(admissionPatient);
                 ViewModelReceptionPatients.Add(selectedModelReceptionPatient);
@@ -178,7 +179,14 @@ namespace FrontSeam
                 
                 CallServer.PostServer(pathcontrolerReceptionPacient, pathcontrolerReceptionPacient+"0/"+ _kodDoctor+"/0/0/", "GETID");
                 string CmdStroka = CallServer.ServerReturn();
-            if (CmdStroka.Contains("[]")) {if(ViewAnalogDiagnoz == false) ViewModelReceptionPatients = new ObservableCollection<ModelReceptionPatient>(); ; } 
+            if (CmdStroka.Contains("[]"))
+            {
+                if (ViewAnalogDiagnoz == false)
+                { 
+                    ViewModelReceptionPatients = new ObservableCollection<ModelReceptionPatient>();
+                    WindowReceptionPacient.ReceptionPacientTablGrid.ItemsSource = ViewModelReceptionPatients;
+                } 
+            } 
             else ObservableViewReceptionPacient(CmdStroka);           
             
     
@@ -254,6 +262,7 @@ namespace FrontSeam
                 ViewModelReceptionPatients.Remove(selectedModelReceptionPatient);
                 BoolFalseReceptionLikar();
                 IndexAddEdit = "";
+
 
             }           
         }
@@ -446,9 +455,10 @@ namespace FrontSeam
                               colectionInterview.kodProtokola = selectedModelReceptionPatient.kodProtokola;
                               MethodReceptionPacients(colectionInterview);
                               MethodProtokolaReception(colectionInterview);
-                              if (ViewModelReceptionPatients.Count == 0) SelectedReceptionPacient = new ModelReceptionPatient();
-                              else  SelectedReceptionPacient = ViewModelReceptionPatients[ViewModelReceptionPatients.Count - 1];
-                             
+                              if (ViewModelReceptionPatients.Count > 0) SelectedReceptionPacient = ViewModelReceptionPatients[ViewModelReceptionPatients.Count - 1];
+                              else SelectedReceptionPacient = selectedModelReceptionPatient;
+
+
                               if (selectedReceptionPacient == null) selectedReceptionPacient = new AdmissionPatient();
                               selectedReceptionPacient.kodComplInterv = selectedModelReceptionPatient.kodComplInterv;
                               selectedReceptionPacient.kodDoctor = _kodDoctor;

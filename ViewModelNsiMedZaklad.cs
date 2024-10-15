@@ -27,8 +27,8 @@ namespace FrontSeam
 {
     class ViewModelNsiMedZaklad : BaseViewModel
     {
-        private static  WinNsiMedZaklad WindowMedZaklad = MainWindow.LinkMainWindow("WinNsiMedZaklad");
-        private MainWindow WindowMain = MainWindow.LinkNameWindow("WindowMain");
+        WinNsiMedZaklad WindowMedZaklad = MainWindow.LinkMainWindow("WinNsiMedZaklad");
+        MainWindow WindowMain = MainWindow.LinkNameWindow("WindowMain");
         public static string controlerGrDiagnoz = "/api/MedGrupDiagnozController/";
         private string pathcontrollerMedZaklad = "/api/MedicalInstitutionController/";
         
@@ -182,12 +182,13 @@ namespace FrontSeam
 
         private void MetodSelectMedzaklad()
         {
-            if (selectedMedZaklad != null)
+            if (selectedMedZaklad != null && selectedMedZaklad.id !=0)
             {
                 WindowMain.Likart9.Text = selectedMedZaklad.name.ToString();
                 WindowMain.Likart8.Text = selectedMedZaklad.edrpou.ToString();
                 WindowMain.Likart4.Text = selectedMedZaklad.adres.ToString();
                 WindowMain.Likart5.Text = selectedMedZaklad.postIndex.ToString();
+                selectedMedZaklad = new MedicalInstitution();
                 WindowMedZaklad.Close();
             }
             
