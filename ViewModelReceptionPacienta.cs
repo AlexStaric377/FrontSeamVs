@@ -400,16 +400,16 @@ namespace FrontSeam
                   {
 
                       WinNsiMedZaklad MedZaklad = new WinNsiMedZaklad();
-                      MedZaklad.Left = 450;
-                      MedZaklad.Top = 320;
+                      //MedZaklad.Left = (MainWindow.ScreenWidth / 2) - 150;
+                      //MedZaklad.Top = (MainWindow.ScreenHeight / 2) - 350; //350;
                       MedZaklad.ShowDialog();
                       EdrpouMedZaklad = ReceptionLIkarGuest.Likart8.Text.ToString();
 
                       if (EdrpouMedZaklad != "")
                       { 
                          WinNsiLikar NewOrder = new WinNsiLikar();
-                          NewOrder.Left = 450;
-                          NewOrder.Top = 320;
+                          //NewOrder.Left = 450;
+                          //NewOrder.Top = 320;
                           NewOrder.ShowDialog();
                           if (MapOpisViewModel.nameDoctor != "")
                           { 
@@ -437,8 +437,8 @@ namespace FrontSeam
                   {
 
                       WinListInteviewPacient NewOrder = new WinListInteviewPacient();
-                      NewOrder.Left = 600;
-                      NewOrder.Top = 200;
+                      NewOrder.Left = (MainWindow.ScreenWidth / 2) - 150;
+                      NewOrder.Top = (MainWindow.ScreenHeight / 2) - 350; //350;
                       NewOrder.ShowDialog();
                       if (KodProtokola.Length != 0)
                       {
@@ -505,8 +505,8 @@ namespace FrontSeam
                       }
 
                       WinVisitingDays NewOrder = new WinVisitingDays();
-                      NewOrder.Left = 350;
-                      NewOrder.Top = 320;
+                      NewOrder.Left = (MainWindow.ScreenWidth / 2) -50 ;
+                      NewOrder.Top = (MainWindow.ScreenHeight / 2) - 350; //350;
                       NewOrder.ShowDialog();
                       if (selectVisitingDays != null)
                       {
