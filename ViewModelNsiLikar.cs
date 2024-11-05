@@ -156,11 +156,52 @@ namespace FrontSeam
                 {
                     WindowMain.LikarIntert2.Text = selectedLikar.kodDoctor.ToString() + ": " + selectedLikar.name.ToString() + " " + selectedLikar.surname.ToString() + " " + selectedLikar.telefon.ToString();
                     WindowMain.AccountUsert5.Text = selectedLikar.kodDoctor.ToString() + ": " + selectedLikar.name.ToString() + " " + selectedLikar.surname.ToString();
+                    WindowMain.LikarIntert2.Text = selectedLikar.kodDoctor.ToString() + ": " + selectedLikar.name.ToString() + " " + selectedLikar.surname.ToString() + " " + selectedLikar.telefon.ToString();
+                    WindowMain.AccountUsert5.Text = selectedLikar.kodDoctor.ToString() + ": " + selectedLikar.name.ToString() + " " + selectedLikar.surname.ToString();
 
+                    if (MapOpisViewModel.CallViewProfilLikar == "ProfilLikar") MapOpisViewModel.selectedProfilLikar = selectedLikar;
+
+                    if (MapOpisViewModel.ModelCall == "ReceptionLIkar")
+                    {
+                        MainWindow.MessageError = "Увага!" + Environment.NewLine +
+                                  "Для запису на прийом до лікаря необхідно ввести початкові данні про себе. " + Environment.NewLine +
+                                  "Ви будете формувати особисту картку? ";
+                        MapOpisViewModel.SelectedDelete();
+
+                        if (MapOpisViewModel.DeleteOnOff == true)
+                        {
+
+                            MapOpisViewModel._pacientProfil = "";
+                            WinProfilPacient NewPacient = new WinProfilPacient();
+                            NewPacient.ShowDialog();
+
+                            if (MapOpisViewModel._pacientProfil != "")
+                            {
+                                MapOpisViewModel.admissionPatient = new AdmissionPatient();
+                                MapOpisViewModel.admissionPatient.kodDoctor = MapOpisViewModel._kodDoctor;
+                                MapOpisViewModel.admissionPatient.kodPacient = MapOpisViewModel.selectedProfilPacient.kodPacient;
+                                MapOpisViewModel.admissionPatient.kodProtokola = MapOpisViewModel.modelColectionInterview.kodProtokola;
+                                MapOpisViewModel.admissionPatient.kodComplInterv = MapOpisViewModel.modelColectionInterview.kodComplInterv;
+                                MapOpisViewModel.admissionPatient.topictVizita = "Гість:  " + WindowMain.ReceptionLikarGuest7.Text.ToString();
+                                MapOpisViewModel.admissionPatient.dateInterview = MapOpisViewModel.modelColectionInterview.dateInterview;
+                                MapOpisViewModel.admissionPatient.dateVizita = WindowMain.ReceptionLikarGuest4.Text.ToString();
+                                var json = JsonConvert.SerializeObject(MapOpisViewModel.admissionPatient);
+                                CallServer.PostServer(MapOpisViewModel.pathcontrolerAdmissionPatients, json, "POST");
+                                string CmdStroka = CallServer.ServerReturn();
+                                if (CmdStroka.Contains("[]")) CallServer.FalseServerGet();
+
+                            }
+
+
+                        }
+                    }
                 }
-                MapOpisViewModel.selectedProfilLikar = selectedLikar;
             }
             WindowMen.Close();
+            WinResultInterview WindowResult = MainWindow.LinkMainWindow("WinResultInterview");
+            if (WindowResult != null) WindowResult.Close();
+            WinAnalogDiagnoz WinAnalog = MainWindow.LinkMainWindow("WinAnalogDiagnoz");
+            if (WinAnalog != null) WinAnalog.Close();
         }
 
         // Выбор названия мед закладу
