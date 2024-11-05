@@ -79,8 +79,9 @@ namespace FrontSeam
         // команда вывзова окна со списком жалоб для выбора строки  и записи в интервью
         public void MethodStartInterview()
         { 
+            modelColectionInterview = new ModelColectionInterview();
             WindowMain.NameInterv.Text = "Загальне опитування: " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString();
-
+            modelColectionInterview.nameInterview = WindowMain.NameInterv.Text;
             WindowMain.InputNameInterview.Visibility = Visibility.Hidden;
             WindowMain.StackPanelGuest.Visibility = Visibility.Hidden;
             InputContent = InputContent == ""? WindowMain.InputNameInterview.Content.ToString(): InputContent;
@@ -88,7 +89,7 @@ namespace FrontSeam
             EndDialogdali = StopDialog = false;
             ActCompletedInterview = "Guest";
             OnOffStartGuest = false;
-            modelColectionInterview = new ModelColectionInterview();
+            
             AutoSelectedInterview();
             EndInterview();
         }
@@ -636,8 +637,9 @@ namespace FrontSeam
         // команда старт создать интервью пацента
         public void MethodStartInteviewPacient()
         { 
-            WindowMain.PacentNameInterv.Text = "Опитування пацієнта: " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString(); 
-
+            modelColectionInterview = new ModelColectionInterview();
+            WindowMain.PacentNameInterv.Text = "Опитування пацієнта: " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString();
+            modelColectionInterview.nameInterview = WindowMain.PacentNameInterv.Text;
             if (_pacientProfil == "")
             {
                 WarningMessageOfProfilPacient();
@@ -649,7 +651,7 @@ namespace FrontSeam
             EndDialogdali = StopDialog = false;
             IndexAddEdit = "addCommand";
             ActCompletedInterview = "Pacient";
-            modelColectionInterview = new ModelColectionInterview();
+            
             modelColectionInterview.namePacient = selectedPacientProfil.name + selectedPacientProfil.surname;
             modelColectionInterview.kodPacient = selectedPacientProfil.kodPacient;
             AutoSelectedInterview();
@@ -703,7 +705,9 @@ namespace FrontSeam
         // команда старт создать  интервью пацента которое проводит врач 
         public void MethodStartInterviewLikar()
         { 
+            modelColectionInterview = new ModelColectionInterview();
             WindowMain.LikarNameInterv.Text = "Лікарське опитування: " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString();
+            modelColectionInterview.nameInterview = WindowMain.LikarNameInterv.Text;
             if (_kodDoctor == "")
             {
                 WarningMessageOfProfilLikar();
@@ -715,7 +719,7 @@ namespace FrontSeam
             WindowMain.InputNameProfilLikar.Visibility = Visibility.Hidden;
             WindowMain.StackPanelLikar.Visibility = Visibility.Hidden;
             LikarContent = LikarContent == "" ? WindowMain.InputNameProfilLikar.Content.ToString(): LikarContent;
-            modelColectionInterview = new ModelColectionInterview();
+            
             modelColectionInterview.nameDoctor = MapOpisViewModel.nameDoctor.Substring(MapOpisViewModel.nameDoctor.IndexOf(":") + 1, MapOpisViewModel.nameDoctor.Length - MapOpisViewModel.nameDoctor.IndexOf(":") - 1);
             modelColectionInterview.kodDoctor = _kodDoctor;
 

@@ -388,6 +388,7 @@ namespace FrontSeam
                       MapOpisViewModel.EdrpouMedZaklad = WindowIntevLikar.Likart8.Text.ToString();
                       if (MapOpisViewModel.EdrpouMedZaklad.Length > 0)
                       {
+                          MapOpisViewModel.ModelCall = "ReceptionLIkar";
                           WinNsiLikar NewOrder = new WinNsiLikar();
                           NewOrder.ShowDialog();
                           if (MapOpisViewModel.nameDoctor.Length > 0)
@@ -395,6 +396,7 @@ namespace FrontSeam
                               MapOpisViewModel.modelColectionInterview.nameDoctor = MapOpisViewModel.nameDoctor.Substring(MapOpisViewModel.nameDoctor.IndexOf(":"), MapOpisViewModel.nameDoctor.Length - (MapOpisViewModel.nameDoctor.IndexOf(":") + 1));
 
                           }
+                          MapOpisViewModel.ModelCall = "";
                       }
                   }));
             }

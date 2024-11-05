@@ -152,8 +152,8 @@ namespace FrontSeam
             {
                 MapOpisViewModel._kodDoctor = selectedLikar.kodDoctor.ToString();
                 MapOpisViewModel.nameDoctor = selectedLikar.kodDoctor.ToString() + ": " + selectedLikar.name.ToString() + " " + selectedLikar.surname.ToString() + " " + selectedLikar.telefon.ToString();
-                if (MapOpisViewModel.ActCompletedInterview != "Guest")
-                {
+                //if (MapOpisViewModel.ActCompletedInterview != "Guest")
+                //{
                     WindowMain.LikarIntert2.Text = selectedLikar.kodDoctor.ToString() + ": " + selectedLikar.name.ToString() + " " + selectedLikar.surname.ToString() + " " + selectedLikar.telefon.ToString();
                     WindowMain.AccountUsert5.Text = selectedLikar.kodDoctor.ToString() + ": " + selectedLikar.name.ToString() + " " + selectedLikar.surname.ToString();
                     WindowMain.LikarIntert2.Text = selectedLikar.kodDoctor.ToString() + ": " + selectedLikar.name.ToString() + " " + selectedLikar.surname.ToString() + " " + selectedLikar.telefon.ToString();
@@ -195,7 +195,7 @@ namespace FrontSeam
 
                         }
                     }
-                }
+                //}
             }
             WindowMen.Close();
             WinResultInterview WindowResult = MainWindow.LinkMainWindow("WinResultInterview");

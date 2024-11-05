@@ -172,10 +172,10 @@ namespace FrontSeam
         // загрузка справочника по нажатию клавиши Завантажити
         public void MethodLoadReceptionLikar()
         {
-            if (_kodDoctor == "") { WarningMessageOfProfilLikar(); return; }
-        
-          
-                WindowReceptionPacient.ReceptionPacientLoadinterv.Visibility = Visibility.Hidden;
+           
+            if (_kodDoctor == "" || WindowReceptionPacient.Likart2.Text == "") { WarningMessageOfProfilLikar(); return; }
+
+            WindowReceptionPacient.ReceptionPacientLoadinterv.Visibility = Visibility.Hidden;
                 
                 CallServer.PostServer(pathcontrolerReceptionPacient, pathcontrolerReceptionPacient+"0/"+ _kodDoctor+"/0/0/", "GETID");
                 string CmdStroka = CallServer.ServerReturn();

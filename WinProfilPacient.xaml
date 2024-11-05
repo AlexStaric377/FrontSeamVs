@@ -57,7 +57,7 @@
                     <StackPanel   Height="340" Width="630" Background="#FFCED7F7" DataContext="{Binding SelectPacientProfil}"  >
                         <Grid Name="GridResultInterview"  Background="#FFCED7F7"  Height="340" Width="630"   >
                             <Grid.ColumnDefinitions >
-                                <ColumnDefinition Width ="100*" />
+                                <ColumnDefinition Width ="130*" />
                                 <ColumnDefinition Width ="125*" />
                                 <ColumnDefinition Width="89*"/>
                             </Grid.ColumnDefinitions>
@@ -71,7 +71,9 @@
                                 <RowDefinition Height="60*"/>
 
                             </Grid.RowDefinitions>
-
+                            <Grid  Grid.Row="0" Grid.ColumnSpan="3" >
+                                <TextBlock  Height="22"  Text="  Створити профіль пацієнта натисніть на Плюс. Зберегти, натисніть на Дискету. "  Width="560" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12"  />
+                            </Grid>
                             <Grid x:Name="PacientProfilGridLab1"  Grid.Column="0" Grid.Row="1" >
                                 <Grid.ColumnDefinitions >
                                     <ColumnDefinition Width="60*"/>
@@ -202,7 +204,7 @@
                                     <ColumnDefinition Width ="110*" />
                                     <ColumnDefinition Width="80*"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock x:Name="PacientBloodSelect" Text="Аналіз сечі" TextWrapping="Wrap" Grid.Column="0" Height="24"  Width="90"  FontSize="14"  HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                <TextBlock x:Name="PacientBloodSelect" Text=" Аналіз сечі" TextWrapping="Wrap" Grid.Column="0" Height="24"  Width="90"  FontSize="14"  HorizontalAlignment="Left" VerticalAlignment="Center" />
                                 <Image x:Name="FolderBlood" Source="pack://application:,,,/FrontSeam;component/Images/folder_.png" Grid.Column="1" Grid.Row="5" Width="25" Height="30" HorizontalAlignment="Left" Margin="0,0,0,0"  Visibility="Visible" >
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="MouseLeftButtonDown">
