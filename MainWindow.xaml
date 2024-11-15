@@ -208,7 +208,7 @@
                                                         </i:EventTrigger>
                                                     </i:Interaction.Triggers>
                                                 </Image>
-                                                <TextBlock Name="ReseptionZapisLikar" Text="Для запису на прийом необхідно виконати опитування, потім перейти на цю закладку , вибрати лікаря, ввести дані та натиснути на кнопк 'Зберегти'. " Width="630"  Height="70"
+                                                <TextBlock Name="ReseptionZapisLikar" Text="Для запису на прийом необхідно виконати опитування, потім перейти на цю закладку, натиснути на кнопку 'Додати' , вибрати лікаря, ввести дані та натиснути на кнопк 'Зберегти'. " Width="630"  Height="70"
                                                    TextWrapping="Wrap" Grid.Row="9" HorizontalAlignment="Center" FontSize="18"  Grid.ColumnSpan="2" Margin="0,0,0,0"/>
                                             </Grid>
 

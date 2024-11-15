@@ -148,24 +148,27 @@ namespace FrontSeam
         {
             WindowMain.AccountUsert5.Text = "";
             MapOpisViewModel.nameDoctor = "";
+            string CmdStroka = "";
             if (selectedLikar != null)
             {
                 MapOpisViewModel._kodDoctor = selectedLikar.kodDoctor.ToString();
                 MapOpisViewModel.nameDoctor = selectedLikar.kodDoctor.ToString() + ": " + selectedLikar.name.ToString() + " " + selectedLikar.surname.ToString() + " " + selectedLikar.telefon.ToString();
                 //if (MapOpisViewModel.ActCompletedInterview != "Guest")
                 //{
-                    WindowMain.LikarIntert2.Text = selectedLikar.kodDoctor.ToString() + ": " + selectedLikar.name.ToString() + " " + selectedLikar.surname.ToString() + " " + selectedLikar.telefon.ToString();
-                    WindowMain.AccountUsert5.Text = selectedLikar.kodDoctor.ToString() + ": " + selectedLikar.name.ToString() + " " + selectedLikar.surname.ToString();
-                    WindowMain.LikarIntert2.Text = selectedLikar.kodDoctor.ToString() + ": " + selectedLikar.name.ToString() + " " + selectedLikar.surname.ToString() + " " + selectedLikar.telefon.ToString();
-                    WindowMain.AccountUsert5.Text = selectedLikar.kodDoctor.ToString() + ": " + selectedLikar.name.ToString() + " " + selectedLikar.surname.ToString();
+                WindowMain.LikarIntert2.Text = selectedLikar.kodDoctor.ToString() + ": " + selectedLikar.name.ToString() + " " + selectedLikar.surname.ToString() + " " + selectedLikar.telefon.ToString();
+                WindowMain.AccountUsert5.Text = selectedLikar.kodDoctor.ToString() + ": " + selectedLikar.name.ToString() + " " + selectedLikar.surname.ToString();
+                WindowMain.LikarIntert2.Text = selectedLikar.kodDoctor.ToString() + ": " + selectedLikar.name.ToString() + " " + selectedLikar.surname.ToString() + " " + selectedLikar.telefon.ToString();
+                WindowMain.AccountUsert5.Text = selectedLikar.kodDoctor.ToString() + ": " + selectedLikar.name.ToString() + " " + selectedLikar.surname.ToString();
 
-                    if (MapOpisViewModel.CallViewProfilLikar == "ProfilLikar") MapOpisViewModel.selectedProfilLikar = selectedLikar;
+                if (MapOpisViewModel.CallViewProfilLikar == "ProfilLikar") MapOpisViewModel.selectedProfilLikar = selectedLikar;
 
-                    if (MapOpisViewModel.ModelCall == "ReceptionLIkar")
+                if (MapOpisViewModel.ModelCall == "ReceptionLIkar")
+                {
+                    if (MapOpisViewModel._pacientProfil == "")
                     {
                         MainWindow.MessageError = "Увага!" + Environment.NewLine +
-                                  "Для запису на прийом до лікаря необхідно ввести початкові данні про себе. " + Environment.NewLine +
-                                  "Ви будете формувати особисту картку? ";
+                                "Для запису на прийом до лікаря необхідно ввести початкові данні про себе. " + Environment.NewLine +
+                                "Ви будете формувати особисту картку? ";
                         MapOpisViewModel.SelectedDelete();
 
                         if (MapOpisViewModel.DeleteOnOff == true)
@@ -174,28 +177,50 @@ namespace FrontSeam
                             MapOpisViewModel._pacientProfil = "";
                             WinProfilPacient NewPacient = new WinProfilPacient();
                             NewPacient.ShowDialog();
-
-                            if (MapOpisViewModel._pacientProfil != "")
-                            {
-                                MapOpisViewModel.admissionPatient = new AdmissionPatient();
-                                MapOpisViewModel.admissionPatient.kodDoctor = MapOpisViewModel._kodDoctor;
-                                MapOpisViewModel.admissionPatient.kodPacient = MapOpisViewModel.selectedProfilPacient.kodPacient;
-                                MapOpisViewModel.admissionPatient.kodProtokola = MapOpisViewModel.modelColectionInterview.kodProtokola;
-                                MapOpisViewModel.admissionPatient.kodComplInterv = MapOpisViewModel.modelColectionInterview.kodComplInterv;
-                                MapOpisViewModel.admissionPatient.topictVizita = "Гість:  " + WindowMain.ReceptionLikarGuest7.Text.ToString();
-                                MapOpisViewModel.admissionPatient.dateInterview = MapOpisViewModel.modelColectionInterview.dateInterview;
-                                MapOpisViewModel.admissionPatient.dateVizita = WindowMain.ReceptionLikarGuest4.Text.ToString();
-                                var json = JsonConvert.SerializeObject(MapOpisViewModel.admissionPatient);
-                                CallServer.PostServer(MapOpisViewModel.pathcontrolerAdmissionPatients, json, "POST");
-                                string CmdStroka = CallServer.ServerReturn();
-                                if (CmdStroka.Contains("[]")) CallServer.FalseServerGet();
-
-                            }
-
-
                         }
+
                     }
-                //}
+                    if (MapOpisViewModel._pacientProfil != "")
+                    {
+                        MapOpisViewModel.admissionPatient = new AdmissionPatient();
+                        MapOpisViewModel.admissionPatient.kodDoctor = MapOpisViewModel._kodDoctor;
+                        MapOpisViewModel.admissionPatient.kodPacient = MapOpisViewModel.selectedPacientProfil.kodPacient;
+                        MapOpisViewModel.admissionPatient.kodProtokola = MapOpisViewModel.modelColectionInterview.kodProtokola;
+                        MapOpisViewModel.admissionPatient.kodComplInterv = MapOpisViewModel.modelColectionInterview.kodComplInterv;
+                        MapOpisViewModel.admissionPatient.topictVizita = "Гість:  " + WindowMain.ReceptionLikarGuest7.Text.ToString();
+                        MapOpisViewModel.admissionPatient.dateInterview = MapOpisViewModel.modelColectionInterview.dateInterview;
+                        MapOpisViewModel.admissionPatient.dateVizita = WindowMain.ReceptionLikarGuest4.Text.ToString();
+
+                        MapOpisViewModel.modelColectionInterview.namePacient = MapOpisViewModel.selectedPacientProfil.name + " " + MapOpisViewModel.selectedPacientProfil.surname;
+
+                        CallServer.PostServer(MapOpisViewModel.pathcontrolerVisitingDays, MapOpisViewModel.pathcontrolerVisitingDays + MapOpisViewModel._kodDoctor + "/0", "GETID");
+                        CmdStroka = CallServer.ServerReturn();
+                        if (CmdStroka.Contains("[]") == false)
+                        {
+                            WinVisitingDays NewOrder = new WinVisitingDays();
+                            NewOrder.Left = (MainWindow.ScreenWidth / 2);//- 90
+                            NewOrder.Top = (MainWindow.ScreenHeight / 2) - 400;
+                            NewOrder.ShowDialog();
+                            if (MapOpisViewModel.selectVisitingDays != null)
+                            {
+                                WindowMain.ReceptionLikarGuest4.Text = MapOpisViewModel.selectVisitingDays.dateVizita + " :" + MapOpisViewModel.selectVisitingDays.timeVizita;
+                                MapOpisViewModel.admissionPatient.dateVizita = WindowMain.ReceptionLikarGuest4.Text.ToString();
+                                MapOpisViewModel.modelColectionInterview.dateDoctor = WindowMain.ReceptionLikarGuest4.Text.ToString();
+                            }
+                        }
+                        else MapOpisViewModel.NotVisitingDays();
+
+                        var json = JsonConvert.SerializeObject(MapOpisViewModel.admissionPatient);
+                        CallServer.PostServer(MapOpisViewModel.pathcontrolerAdmissionPatients, json, "POST");
+                        CmdStroka = CallServer.ServerReturn();
+                        if (CmdStroka.Contains("[]") == false) MapOpisViewModel.ObservableViewReceptionPacient(CmdStroka);
+                        else CallServer.FalseServerGet();
+
+                    }
+
+
+                }
+
             }
             WindowMen.Close();
             WinResultInterview WindowResult = MainWindow.LinkMainWindow("WinResultInterview");

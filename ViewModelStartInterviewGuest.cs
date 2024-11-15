@@ -758,6 +758,7 @@ namespace FrontSeam
                 SelectedProfilPacient = selectedProfilPacient;
                 modelColectionInterview.namePacient = selectedProfilPacient.name + selectedProfilPacient.surname;
                 modelColectionInterview.kodPacient = selectedProfilPacient.kodPacient;
+                selectedPacientProfil = selectedProfilPacient;
             }
             WindowMain.LikarIntert3.Text = "";
         

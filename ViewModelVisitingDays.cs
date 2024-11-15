@@ -106,7 +106,7 @@ namespace FrontSeam
                     VisitngDays.NameMedZaklad.Text = VisitngDays.Likart9.Text;
                     VisitngDays.ReseptionLikar.Text = MapOpisViewModel.nameDoctor.Substring(MapOpisViewModel.nameDoctor.IndexOf(":")+1, MapOpisViewModel.nameDoctor.Length- (MapOpisViewModel.nameDoctor.IndexOf(":")+1));
                     VisitngDays.ReseptionPacientLab.Visibility = Visibility.Hidden;
-                    CallServer.PostServer(pathcontrolerVisitingDays, pathcontrolerVisitingDays+ MapOpisViewModel._kodDoctor, "GETID");
+                    CallServer.PostServer(pathcontrolerVisitingDays, pathcontrolerVisitingDays+ MapOpisViewModel._kodDoctor +"/0", "GETID");
                     string CmdStroka = CallServer.ServerReturn();
                     if (CmdStroka.Contains("[]")) CallServer.BoolFalseTabl();
                     else ObservableModelVisitingDays(CmdStroka);

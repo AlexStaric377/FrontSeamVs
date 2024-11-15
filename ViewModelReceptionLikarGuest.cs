@@ -40,27 +40,18 @@ namespace FrontSeam
         }
         public void MethodAddReceptionLIkarGuest()
         {
-            if (OnOffStartGuest == false)
+            if (OnOffStartGuest == false) 
             {
-                MainWindow.MessageError = "Увага!" + Environment.NewLine +
-                "Для запису на прийом до лікаря необхідно пройти опитування." + Environment.NewLine + "Для цього натиснути на кнопку 'Кімната для опитування' потім натиснути на кнопку 'Додати'.";
-                MessageWarning NewOrder = new MessageWarning(MainWindow.MessageError, 2, 10);
-                NewOrder.Left = 150;
-                NewOrder.Top = 300;
-                NewOrder.ShowDialog();
+                WarningMessageReceptionLIkar();
                 return;
             }
-            
-            if (addReceptionLIkarGuest == false)
-            {
-                ReceptionLIkarGuestTrue();
-
-                SelectReceptionLIkarGuest = modelColectionInterview;
-            }
+            SelectReceptionLIkarGuest = modelColectionInterview;
+            if (addReceptionLIkarGuest == false) ReceptionLIkarGuestTrue();
             else
             {
+                SelectReceptionLIkarGuest = new ModelColectionInterview();
                 ReceptionLIkarGuestFalse();
-            }
+            } 
         }
 
         public void ReceptionLIkarGuestTrue()
