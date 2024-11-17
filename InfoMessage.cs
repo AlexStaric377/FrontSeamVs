@@ -31,10 +31,22 @@ namespace FrontSeam
     public partial class MapOpisViewModel : INotifyPropertyChanged
     {
 
-        public static void SelectedDelete()
+        public static void SelectedDelete(int HeightWidth = 0)
         {
-
             WinDeleteData NewOrder = new WinDeleteData(MainWindow.MessageError);
+            if (HeightWidth == -1)
+            {
+
+                //Random r = new Random();
+                //Brush brush = new SolidColorBrush(System.Windows.Media.Color.FromRgb((byte)r.Next(1, 200), (byte)r.Next(1, 224), (byte)r.Next(1, 247)));
+                //NewOrder.Yes.Background = brush;
+
+                NewOrder.Height = NewOrder.Height + 200;
+                NewOrder.Width = NewOrder.Width + 250;
+                NewOrder.BorderNo.Margin = new Thickness(0, 0, 250, 0);
+                NewOrder.BorderYes.Margin = new Thickness(250, 0, 0, 0);
+            }
+
             NewOrder.ShowDialog();
         }
 

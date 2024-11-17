@@ -187,7 +187,7 @@ namespace FrontSeam
                       WindowResult.PacientProfilt13.Background = Brushes.Transparent;
 
                       //  формирование кода Detailing по значениею группы выранного храктера жалобы
-                       WinNsiPacient winNsiPacient = MainWindow.LinkMainWindow("WinNsiPacient");
+                      WinNsiPacient winNsiPacient = MainWindow.LinkMainWindow("WinNsiPacient");
                       MapOpisViewModel.CallViewProfilLikar = "PacientProfil";
                       MapOpisViewModel.PacientPostIndex = WindowResult.PacientProfilt13.Text.ToString();
                       if (selectedPacientProfil == null) selectedPacientProfil = new ModelPacient();
@@ -199,21 +199,16 @@ namespace FrontSeam
                       if (Idinsert != null)
                       { 
                           MapOpisViewModel._pacientProfil = Idinsert.kodPacient;
-                          //selectedPacientProfil = new ModelPacient();
                           ViewModelNsiPacient.LoadNsiPacient();
                           if(winNsiPacient !=null) winNsiPacient.TablPacients.ItemsSource = ViewModelNsiPacient.NsiPacients;
-                          MapOpisViewModel.selectedProfilPacient = selectedPacientProfil;
-                      }
-                      MainWindow.MessageError = "Увага!" + Environment.NewLine +
-           "Ви бажаєте створити кабінет пацієнта для зберігання" + Environment.NewLine + " результатів ваших опитувань та записів до лікаря?";
-                      MapOpisViewModel.SelectedRemove();
-                      if (MapOpisViewModel.DeleteOnOff == true)
-                      {
-                          MapOpisViewModel.NewAccountRecords();
-
+                          MapOpisViewModel.selectedProfilPacient = MapOpisViewModel.selectedPacientProfil = Idinsert;
+                          MainWindow.MessageError = "Увага!" + Environment.NewLine +
+                          "Ви бажаєте створити кабінет пацієнта для зберігання" + Environment.NewLine + " результатів ваших опитувань та записів до лікаря?";
+                          MapOpisViewModel.SelectedDelete(-1);
+                          if (MapOpisViewModel.DeleteOnOff == true)MapOpisViewModel.NewAccountRecords();
                       }
                       WindowResult.Close();
-                      //if (winNsiPacient != null) winNsiPacient.Close();
+                      if (winNsiPacient != null) winNsiPacient.Close();
 
                   }));
             }

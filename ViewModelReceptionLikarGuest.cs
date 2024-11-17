@@ -198,9 +198,9 @@ namespace FrontSeam
                       if (MapOpisViewModel._pacientProfil == "")
                       { 
                             MainWindow.MessageError = "Увага!" + Environment.NewLine +
-                            "Для запису на прийом до лікаря необхідно ввести початкові данні про себе. " + Environment.NewLine +
+                            "Для запису на прийом до лікаря необхідно" + Environment.NewLine + " ввести початкові данні про себе. " + Environment.NewLine +
                             "Ви будете формувати особисту картку? ";
-                            SelectedRemove();
+                          SelectedDelete(-1);
 
                           if (MapOpisViewModel.DeleteOnOff == true)
                           {
