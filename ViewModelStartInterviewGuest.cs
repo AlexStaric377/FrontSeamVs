@@ -1066,9 +1066,19 @@ namespace FrontSeam
                 MapOpisViewModel.SelectedFalseLogin(4);
                 return;
             }
-            MainWindow.MessageError = "Увага!" + Environment.NewLine +
-            "За результатами вашого опитування в базі знань знайдені " + Environment.NewLine +
-            "визначення попереднього діагнозу. " ; 
+            if (DiagnozRecomendaciya.Length <= 6)
+            {
+                MainWindow.MessageError = "Увага!" + Environment.NewLine +
+                 "За результатами вашого опитування в базі знань знайдені " + Environment.NewLine +
+                 "попередні діагнози за місцем прояву але без" + Environment.NewLine +
+                 "визначення характеру прояву нездужання. " + Environment.NewLine + "Опитування не змістовне. ";
+            }
+            else
+            {
+                MainWindow.MessageError = "Увага!" + Environment.NewLine +
+                "За результатами вашого опитування в базі знань знайдені " + Environment.NewLine +
+                "визначення попереднього діагнозу. ";
+            }
             WinDeleteData NewOrder = new WinDeleteData(MainWindow.MessageError);
             NewOrder.Width = NewOrder.Width + 250;
             NewOrder.BorderYes.Margin = new Thickness(180, 0, 0, 0);
