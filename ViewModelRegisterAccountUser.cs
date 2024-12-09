@@ -333,6 +333,7 @@ namespace FrontSeam
                       
                       
             }
+            MapOpisViewModel.ViewAccountUser();
             WindowAccount.Close();
 
             

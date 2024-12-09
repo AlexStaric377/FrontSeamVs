@@ -90,7 +90,7 @@
                             Background="#FFE2E2DD"  BorderThickness="1,1,1,1" CornerRadius="15,15,15,15" Cursor="Hand" >
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseLeftButtonDown">
-                                <i:InvokeCommandAction Command="{Binding CloseModelMedZaklad}" CommandParameter=""/>
+                                <i:InvokeCommandAction Command="{Binding SelectMedzaklad}" CommandParameter=""/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                         <Label Grid.Column="2" Height="25" FontSize="10"  Width="70" Content="Вибрати" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  VerticalContentAlignment="Center"   FontFamily="Arial"  >

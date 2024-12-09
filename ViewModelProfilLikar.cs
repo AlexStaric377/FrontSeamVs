@@ -69,7 +69,6 @@ namespace FrontSeam
         // загрузка справочника по нажатию клавиши Завантажити
         public void MethodloadProfilLikar()
         {
-            MainWindow WindowPacientProfil = MainWindow.LinkNameWindow("WindowMain");
             selectedProfilLikar = new ModelDoctor();
             WindowProfilDoctor.LikarLoadInf.Visibility = Visibility.Hidden;
             WindowProfilDoctor.LikarLoadinterv.Visibility = Visibility.Hidden;
@@ -85,7 +84,7 @@ namespace FrontSeam
                         WindowProfilDoctor.LikarLoadInf.Visibility = Visibility.Hidden;
                         if (WindowProfilDoctor.LikarUrit7.Text.Length > 0) WindowProfilDoctor.FolderDocUri5.Visibility = Visibility.Visible;
                     }
-                    if (CallViewProfilLikar == "Admin") MetodSelectRegProfilLikar();
+                    //if (CallViewProfilLikar == "Admin") MetodSelectRegProfilLikar();
                     if (CallViewProfilLikar == "PacientProfil")
                     {
                         LoadMessageError();

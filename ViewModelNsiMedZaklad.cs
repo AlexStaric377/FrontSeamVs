@@ -137,7 +137,7 @@ namespace FrontSeam
                 return closeModelMedZaklad ??
                   (closeModelMedZaklad = new RelayCommand(obj =>
                   {
-                      MetodSelectMedzaklad();
+                       WindowMedZaklad.Close();
                   }));
             }
         }

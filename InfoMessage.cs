@@ -30,19 +30,18 @@ namespace FrontSeam
 {
     public partial class MapOpisViewModel : INotifyPropertyChanged
     {
-
+        public static MainWindow WindowInfo = MainWindow.LinkNameWindow("WindowMain");
         public static void SelectedDelete(int HeightWidth = 0)
         {
             WinDeleteData NewOrder = new WinDeleteData(MainWindow.MessageError);
-            if (HeightWidth == -1)
+            if (HeightWidth < 0)
             {
 
                 //Random r = new Random();
                 //Brush brush = new SolidColorBrush(System.Windows.Media.Color.FromRgb((byte)r.Next(1, 200), (byte)r.Next(1, 224), (byte)r.Next(1, 247)));
                 //NewOrder.Yes.Background = brush;
-
-                NewOrder.Height = NewOrder.Height + 200;
-                NewOrder.Width = NewOrder.Width + 250;
+                if (HeightWidth == -1 )NewOrder.Height = NewOrder.Height + 200;
+                NewOrder.Width = NewOrder.Width + 270;
                 NewOrder.BorderNo.Margin = new Thickness(0, 0, 250, 0);
                 NewOrder.BorderYes.Margin = new Thickness(250, 0, 0, 0);
             }
@@ -155,7 +154,7 @@ namespace FrontSeam
             MainWindow.MessageError = "Увага!" + Environment.NewLine +
             "Для входження до кабінету пацієнта необхідно вийти з кабінету лікаря " + Environment.NewLine +
             "Закрити кабінет лікаря?";
-            SelectedDelete();
+            SelectedDelete(-2);
         }
 
         public void MessageOnOffProfilPacient()
@@ -163,7 +162,7 @@ namespace FrontSeam
             MainWindow.MessageError = "Увага!" + Environment.NewLine +
             "Для входження до кабінету пацієнта необхідно вийти з кабінету попереднього  пацієнта " + Environment.NewLine +
             "Закрити кабінет попереднього  пацієнта?";
-            SelectedDelete();
+            SelectedDelete(-2);
         }
 
         public void MessageOnOffKabinetAdmin()
@@ -171,14 +170,14 @@ namespace FrontSeam
             MainWindow.MessageError = "Увага!" + Environment.NewLine +
             "Для входження до кабінету пацієнта необхідно вийти з кабінету адміністратора " + Environment.NewLine +
             "Закрити кабінет адміністратора?";
-            SelectedDelete();
+            SelectedDelete(-2);
         }
         public void MessageOnOffKabinetLikarAdmin()
         {
             MainWindow.MessageError = "Увага!" + Environment.NewLine +
             "Для входження до кабінету лікаря необхідно вийти з кабінету адміністратора " + Environment.NewLine +
             "Закрити кабінет адміністратора?";
-            SelectedDelete();
+            SelectedDelete(-2);
         }
 
         public void WarningMessageLoadProfilPacient()
@@ -193,7 +192,7 @@ namespace FrontSeam
             MainWindow.MessageError = "Увага!" + Environment.NewLine +
             "Для входження до кабінету лікаря треба вийти з кабінету пацієнта " + Environment.NewLine +
             "Закрити кабінет пацієнта?"; ;
-            SelectedDelete();
+            SelectedDelete(-2);
         }
 
         public void MessageOnOffKabinetProfilLikar()
@@ -202,7 +201,7 @@ namespace FrontSeam
             MainWindow.MessageError = "Увага!" + Environment.NewLine +
             "Для входження до кабінету лікаря треба вийти з кабінету попереднього лікаря. " + Environment.NewLine +
             "Закрити кабінет попереднього лікаря?"; ;
-            SelectedDelete();
+            SelectedDelete(-2);
         }
 
         public void WarningMessageOfProfilLikar()
@@ -293,7 +292,7 @@ namespace FrontSeam
 
         public static void VersiyaBack()
         {
-            MainWindow WindowInfo = MainWindow.LinkNameWindow("WindowMain");
+            
             // Информация для администрирования Версия программы, путь архивирования
             //string PuthConecto = Process.GetCurrentProcess().MainModule.FileName;
             //string Versia = FileVersionInfo.GetVersionInfo(PuthConecto).ToString();  // версия файла.
@@ -335,11 +334,12 @@ namespace FrontSeam
             }
             CallServer._UrlAdres = ConfigBuild();
             LoadSelectLanguageUI();
+            ViewAccountUser();
         }
 
         public static string ConfigBuild()
         {
-            MainWindow WindowInfo = MainWindow.LinkNameWindow("WindowMain");
+            
             var builder = new ConfigurationBuilder()
                           .SetBasePath(Directory.GetCurrentDirectory())
                           .AddJsonFile("appsettings.json", true);
@@ -353,7 +353,7 @@ namespace FrontSeam
 
         public static void LoadSelectLanguageUI()
         {
-            MainWindow WindowInfo = MainWindow.LinkNameWindow("WindowMain");
+           
             MainWindow.SelectLanguageUI = "Ukraine";
             string LoadLanguageUI = "", OutFile = "";
             if (MainWindow.SelectLanguageUI != "Ukraine")
@@ -377,6 +377,21 @@ namespace FrontSeam
                 }
             }
 
+        }
+
+        public static void ViewAccountUser()
+        {
+            if (MapOpisViewModel.boolSetAccountUser == false)
+            {
+                WindowInfo.AccountZap.Visibility = Visibility.Hidden;
+                WindowInfo.NsiStatusUser.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                WindowInfo.AccountZap.Visibility = Visibility.Visible;
+                WindowInfo.NsiStatusUser.Visibility = Visibility.Visible;
+            }
+        
         }
    
         public static void ViewNsiFeature()
