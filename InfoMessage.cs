@@ -385,14 +385,23 @@ namespace FrontSeam
             {
                 WindowInfo.AccountZap.Visibility = Visibility.Hidden;
                 WindowInfo.NsiStatusUser.Visibility = Visibility.Hidden;
+                //WindowInfo.GridLoad.Visibility = Visibility.Hidden;
             }
             else
             {
                 WindowInfo.AccountZap.Visibility = Visibility.Visible;
                 WindowInfo.NsiStatusUser.Visibility = Visibility.Visible;
+                //WindowInfo.GridLoad.Visibility = Visibility.Visible;
             }
         
         }
+
+        public static void VisibleGridLoad()
+        { 
+            MainWindow WindowAccountUser = MainWindow.LinkNameWindow("WindowMain");
+            WindowAccountUser.GridLoad.Visibility = Visibility.Visible;       
+        }
+
    
         public static void ViewNsiFeature()
         {

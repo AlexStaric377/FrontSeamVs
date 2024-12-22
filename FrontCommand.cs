@@ -257,12 +257,14 @@ namespace FrontSeam
                               break;
                           // Закладка Пациент
                           case 1:
+                              VisibleGridLoad();
                               switch (WindowProfilPacient.ControlPacient.SelectedIndex)
                               {
                                   case 0:
                                       // Додати новий профіль пацієнта
                                       if (loadboolProfilLikar == true)
                                       {
+                                          
                                           MessageOnOffKabinetPacient();
                                           if (MapOpisViewModel.DeleteOnOff == false) return;
                                           ExitCabinetLikar();
@@ -297,6 +299,7 @@ namespace FrontSeam
                               break;
                           // Закладка Доктор
                           case 2:
+                              VisibleGridLoad();
                               switch (WindowProfilPacient.ControlLikar.SelectedIndex)
                               {
                                   case 0:
@@ -347,6 +350,7 @@ namespace FrontSeam
                               break;
                           // Закладка Администрирование
                           case 3:
+                              VisibleGridLoad();
                               switch (WindowProfilPacient.ControlAdmin.SelectedIndex)
                               {
   

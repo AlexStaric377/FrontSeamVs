@@ -37,9 +37,9 @@ namespace FrontSeam
         }
 
         private int IdItemSelected = 0;
-        public static string DiagnozRecomendaciya = "", NameDiagnoz = "", NameRecomendaciya ="", OpistInterview = "", UriInterview ="";
+        public static string DiagnozRecomendaciya = "", NameDiagnoz = "", NameRecomendaciya ="", OpistInterview = "", UriInterview ="", StrokaInterview = "";
         public static bool endwhileselected = false, OnOffStartGuest=false, ViewAnalogDiagnoz=false, PrintCompletedInterview=false, SaveAnalogDiagnoz= false,
-            StopDialog = false, EndDialogdali = false, boolSetAccountUser = false, loadboolProfilLikar = false, loadboolPacientProfil = false;
+            StopDialog = false, EndDialogdali = false, boolSetAccountUser = false, loadboolProfilLikar = false, loadboolPacientProfil = false, loadTreeInterview = false;
         public static string ActCompletedInterview = "null", ActCreatInterview = "", IndikatorSelected = "", selectedComplaintname = "", selectFeature="", selectGrDetailing="", selectQualification="";
         public static string InputContent = "", PacientContent="", LikarContent="", selectIcdGrDiagnoz = "";
         public static MainWindow WindowMain = MainWindow.LinkNameWindow("WindowMain");
@@ -441,7 +441,7 @@ namespace FrontSeam
 
         public static void OpenNsiDetailing()
         {
-
+            if (loadTreeInterview == false) LoadTreeInterview(); // загрузка деревьв подобных интервью для настройки груповых детализаций
             selectFeature = GuestIntervs[IdItemGuestInterv - 1].detailsInterview;
             string pathcontroller = "/api/DetailingController/";
             string jason = pathcontroller + "0/" + selectedGuestInterv.kodDetailing + "/0";
@@ -466,6 +466,19 @@ namespace FrontSeam
        
         }
 
+        public static void LoadTreeInterview()
+        {
+            string detailsInterview = "";
+            loadTreeInterview = true;
+            foreach (ModelCompletedInterview modelCompletedInterview in GuestIntervs.OrderBy(x => x.kodDetailing))
+            {
+                detailsInterview += modelCompletedInterview.kodDetailing + ";";
+            }
+            string jason = Interviewcontroller + "0/" + detailsInterview + "/-1/0";
+            CallServer.PostServer(Interviewcontroller, jason, "GETID");
+            StrokaInterview = CallServer.ServerReturn();
+        }
+
         public static void LoadNsiGrDetailing()
         {
             listgrdetaling = new ObservableCollection<ModelDetailing>();
@@ -481,13 +494,16 @@ namespace FrontSeam
                 foreach (ModelDetailing modelDetailing in listgrdetaling)
                 {
                     ViewModelNsiDetailing.NsiModelDetailings.Remove(modelDetailing);
+                    if (StrokaInterview.Contains(modelDetailing.keyGrDetailing) == true || StrokaInterview.Length == 0)
+                    {
+                        ViewModelNsiDetailing.selectedDetailing = modelDetailing;
+                        MapOpisViewModel.selectGrDetailing = selectFeature + " " + modelDetailing.nameDetailing.ToString().ToUpper();
+                        WinNsiGrDetailing NewOrder = new WinNsiGrDetailing();
+                        NewOrder.Left = (MainWindow.ScreenWidth / 2) - 150;
+                        NewOrder.Top = (MainWindow.ScreenHeight / 2) - 350; //350;
+                        NewOrder.ShowDialog();
+                    }
 
-                    ViewModelNsiDetailing.selectedDetailing = modelDetailing;
-                    MapOpisViewModel.selectGrDetailing = selectFeature + " " + modelDetailing.nameDetailing.ToString().ToUpper();
-                    WinNsiGrDetailing NewOrder = new WinNsiGrDetailing();
-                    NewOrder.Left = (MainWindow.ScreenWidth / 2) - 150;
-                    NewOrder.Top = (MainWindow.ScreenHeight / 2) - 350; //350;
-                    NewOrder.ShowDialog();
                 }
             }
 
