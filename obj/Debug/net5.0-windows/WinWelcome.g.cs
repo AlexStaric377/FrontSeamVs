@@ -130,7 +130,7 @@ namespace FrontSeam {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/FrontSeam;V1.0.1.49;component/winwelcome.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/FrontSeam;V1.0.1.51;component/winwelcome.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\WinWelcome.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

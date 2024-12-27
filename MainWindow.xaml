@@ -63,7 +63,11 @@
 
                     <TabItem Header="   Приймальня" Name="Gues"   FontFamily="Microsoft Sans Serif" Background="#FFC8E0F7"
                              FontSize="14" Height="50" Width="150" BorderThickness="0,0,0,0"  >
-
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseUp">
+                                <i:InvokeCommandAction Command="{Binding ElementName=GridMain, Path=DataContext.GeustGridLoadHidden}" CommandParameter=""/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <TabControl  x:Name="ControlGuest"  HorizontalAlignment="Left" Height="550" VerticalAlignment="Top"  Width="800"  BorderThickness="0,0,0,0" TabStripPlacement="Left">
                             <TabItem Header="Загальне опитування" Name="InterviewGuestReestr" Height="50" Width="160" HorizontalAlignment="Center" Margin="0,-5,0,0">
                                 <Grid Width="630" x:Name="GuestGrid" Background="White" HorizontalAlignment="Left">
@@ -222,6 +226,11 @@
                     </TabItem>
                     <TabItem Header="   Кабінет пацієнта" Name="Pacient"   FontFamily="Microsoft Sans Serif" Background="White"
                              FontSize="14" Height="50" Width="150" BorderThickness="0,0,0,0" >
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseUp">
+                                <i:InvokeCommandAction Command="{Binding ElementName=GridMain, Path=DataContext.GeustGridLoadHidden}" CommandParameter=""/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <TabControl x:Name="ControlPacient"  HorizontalAlignment="Left" Height="550" VerticalAlignment="Top"  Width="800"  BorderThickness="0,0,0,0" TabStripPlacement="Left">
                             <TabItem Header="Профіль пацієнта" Name="PacientProfil" Height="50" Width="150" HorizontalAlignment="Center" Margin="0,-5,0,0">
                                 <Grid Width="640" Height="550" Background="White" HorizontalAlignment="Left">
@@ -853,8 +862,19 @@
                     </TabItem>
                     <TabItem Header="   Кабінет лікаря" Name="KabLikar"   FontFamily="Microsoft Sans Serif" Background="White"
                              FontSize="14" Height="50" Width="150" BorderThickness="0,0,0,0" >
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseUp">
+                                <i:InvokeCommandAction Command="{Binding ElementName=GridMain, Path=DataContext.GeustGridLoadHidden}" CommandParameter=""/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>                        
+
                         <TabControl x:Name="ControlLikar" HorizontalAlignment="Left" Height="550" VerticalAlignment="Top"  Width="800"  BorderThickness="0,0,0,0" TabStripPlacement="Left">
                             <TabItem Header="Профіль лікаря" Name="KabinetOn" Height="60" Width="150" HorizontalAlignment="Center">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseUp">
+                                        <i:InvokeCommandAction Command="{Binding ElementName=GridMain, Path=DataContext.VisibleHiddenAddEditSave}" CommandParameter=""/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                                 <Grid Width="640" Height="550" Background="White" HorizontalAlignment="Left">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="300*"/>
@@ -1038,6 +1058,11 @@
                             </TabItem>
 
                             <TabItem Header="   Провести&#xa; опитування" Name="LikarInterview" Height="60" Width="150" HorizontalAlignment="Center" >
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseUp">
+                                        <i:InvokeCommandAction Command="{Binding ElementName=GridMain, Path=DataContext.VisibleHiddenAddEditSave}" CommandParameter=""/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                                 <Grid Width="640" x:Name="LikarGrids" Background="White" HorizontalAlignment="Left">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="80*" />
@@ -1125,6 +1150,11 @@
                                 </Grid>
                             </TabItem>
                             <TabItem Header="     Перегляд&#xa;    проведених&#xa;    опитуваннь" Name="LikarListInterview" Height="90" Width="150" HorizontalAlignment="Center">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseUp">
+                                        <i:InvokeCommandAction Command="{Binding ElementName=GridMain, Path=DataContext.VisibleHiddenAddEditSave}" CommandParameter=""/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                                 <Grid Width="640" Height="550"  Background= "White" HorizontalAlignment="Left">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="250*"/>
@@ -1203,6 +1233,14 @@
                                             <RowDefinition Height="134*" />
                                         </Grid.RowDefinitions>
                                         <Label Content=" Колекція проведених інтервью" Grid.Row="0" Height="30" FontSize="14" FontWeight="Bold" />
+                                        <Label Content=" За вказаним діагнозом"  Grid.Row="0" Height="30" FontSize="14" FontWeight="Bold" HorizontalAlignment="Right" Margin="0,0,70,0"/>
+                                        <Image x:Name="FolderWorkDiagnoz" Grid.Row="0" Source="pack://application:,,,/FrontSeam;component/Images/folder_.png" Grid.Column="1"  Width="25"  HorizontalAlignment="Right"    Margin="0,0,20,0"  >
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                    <i:InvokeCommandAction Command="{Binding ElementName=GridWorkSelectGrupDiag, Path=DataContext.SelectedListWorkDiagnoz}" CommandParameter=""/>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </Image>
                                         <DataGrid x:Name="ColectionIntevLikarTablGrid" Grid.Row="1"   Cursor="Hand" ItemsSource="{Binding  ColectionInterviewIntevLikars}" SelectedItem="{Binding SelectedColectionIntevLikar}"
                                           IsReadOnly="true" AutoGenerateColumns="false" ColumnHeaderStyle="{StaticResource DGridCentAl}" HorizontalAlignment="Left" Height="230"
                                           VerticalAlignment="Top"  Width="Auto" GridLinesVisibility="None"
@@ -1252,10 +1290,40 @@
 
                                             </DataGrid.Columns>
                                         </DataGrid>
+                                        <DataGrid x:Name="ColectionDiagnozTablGrid" Grid.Row="1"   Cursor="Hand" ItemsSource="{Binding  ColectionDiagnozLikars}" SelectedItem="{Binding SelectModelColectionDiagnozInterview}"
+                                          IsReadOnly="true" AutoGenerateColumns="false" ColumnHeaderStyle="{StaticResource DGridCentAl}" HorizontalAlignment="Right" Height="170"
+                                          VerticalAlignment="Bottom"  Width="Auto" GridLinesVisibility="None"
+                                          HorizontalGridLinesBrush="Black"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="MouseUp">
+                                                    <i:InvokeCommandAction Command="{Binding ElementName=ColectionIntevLikarTablGrid, Path=DataContext.OnVisibleObjDiagnozLikars}" CommandParameter=""/>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn x:Name="LikarDiagnozColumn3"  Width="450" FontSize="14" Binding="{Binding Path=nameDiagnoz}">
+                                                    <DataGridTextColumn.Header>
+                                                        <TextBlock x:Name="LikarDiagnozHeader3"  Text="Назва діагноза"   TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                                                    </DataGridTextColumn.Header>
+                                                </DataGridTextColumn>
+                                                <DataGridTextColumn x:Name="LikarDiagnozColumn4"  Width="150" FontSize="14" Binding="{Binding Path=quanntityDiagnoz}" >
+                                                    <DataGridTextColumn.Header>
+                                                        <TextBlock x:Name="LikarDiagnozHeader4"  Text="Кількість пацієнтів"  TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                                                    </DataGridTextColumn.Header>
+                                                </DataGridTextColumn>
+
+
+                                            </DataGrid.Columns>
+                                        </DataGrid>
                                     </Grid>
                                 </Grid>
                             </TabItem>
                             <TabItem Header="Розклад прийому&#xa;     пацієнтів" Name="LikarPacient" Height="60" Width="150" HorizontalAlignment="Center">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseUp">
+                                        <i:InvokeCommandAction Command="{Binding ElementName=GridMain, Path=DataContext.VisibleHiddenAddEditSave}" CommandParameter=""/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                                 <Grid Width="640" Height="550" Background= "White" HorizontalAlignment="Left">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="250*"/>
@@ -1415,6 +1483,11 @@
                                 </Grid>
                             </TabItem>
                             <TabItem Header="Розклад прийому&#xa;        лікаря" Name="LikarListPacient" Height="60" Width="150" HorizontalAlignment="Center">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseUp">
+                                        <i:InvokeCommandAction Command="{Binding ElementName=GridMain, Path=DataContext.VisibleHiddenAddEditSave}" CommandParameter=""/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                                 <Grid Width="640" Background="White" HorizontalAlignment="Left">
                                     <!--<StackPanel x:Name ="StackPanelRozrladLikar" VerticalAlignment="Center" Height="100" Width="390" >
                                         <StackPanel.Effect>
@@ -1556,6 +1629,11 @@
                                 </Grid>
                             </TabItem>
                             <TabItem Header=" Робочі напрямки&#xa;          лікаря" Name="WorkDiagnoz" FontSize="13" FontFamily="Microsoft Sans Serif" Height="35" Width="150" HorizontalAlignment="Center">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseUp">
+                                        <i:InvokeCommandAction Command="{Binding ElementName=GridMain, Path=DataContext.VisibleHiddenAddEditSave}" CommandParameter=""/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                                 <!--<Grid Background="White"/>-->
                                 <Grid Width="640" Background="White" HorizontalAlignment="Left">
                                     <Grid.RowDefinitions>
@@ -1677,6 +1755,11 @@
 
                             </TabItem>
                             <TabItem Header="Бібліотека робочих&#xa;          напрямків" Name="LibDiagnoz" FontSize="13" FontFamily="Microsoft Sans Serif" Height="35" Width="150" HorizontalAlignment="Center">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseUp">
+                                        <i:InvokeCommandAction Command="{Binding ElementName=GridMain, Path=DataContext.VisibleHiddenAddEditSave}" CommandParameter=""/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                                 <!--<Grid Background="White"/>-->
                                 <Grid Width="640" Name="GridWorkDiagnoz" Background="White" HorizontalAlignment="Left">
                                     <Grid.RowDefinitions>
@@ -1805,6 +1888,11 @@
                         </TabControl>
                     </TabItem>
                     <TabItem Header="Адміністрування" Name="Admin" FontFamily="Microsoft Sans Serif" FontSize="14"  Height="50" Width="140" HorizontalAlignment="Center">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseUp">
+                                <i:InvokeCommandAction Command="{Binding ElementName=GridMain, Path=DataContext.GeustGridLoadHidden}" CommandParameter=""/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <Grid Background="White">
                             <TabControl x:Name="ControlAdmin"  HorizontalAlignment="Left" Height="550" VerticalAlignment="Top"  Width="800"  BorderThickness="0,0,0,0" TabStripPlacement="Left">
                                 <TabItem Header="Мова інтерфейсу" Name="DefaultLanguageUI" FontFamily="Microsoft Sans Serif" FontSize="14" Height="50" Width="150" HorizontalAlignment="Center">
@@ -2123,6 +2211,11 @@
 
                     </TabItem>
                     <TabItem Header="Про програму" Name="InfoSeam" FontFamily="Microsoft Sans Serif" FontSize="14"  Height="50" Width="140" HorizontalAlignment="Center">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseUp">
+                                <i:InvokeCommandAction Command="{Binding ElementName=GridMain, Path=DataContext.GeustGridLoadHidden}" CommandParameter=""/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <Grid Width="640" x:Name="InfoSeamGrids" Background="White" HorizontalAlignment="Center">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="60*" />

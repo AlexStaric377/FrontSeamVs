@@ -204,7 +204,7 @@ namespace FrontSeam
             SelectedDelete(-2);
         }
 
-        public void WarningMessageOfProfilLikar()
+        public static void WarningMessageOfProfilLikar()
         {
             MainWindow.MessageError = "Увага!" + Environment.NewLine +
             "Для проведення опитування необхідно завантажити профіль лікаря ";
@@ -385,13 +385,13 @@ namespace FrontSeam
             {
                 WindowInfo.AccountZap.Visibility = Visibility.Hidden;
                 WindowInfo.NsiStatusUser.Visibility = Visibility.Hidden;
-                //WindowInfo.GridLoad.Visibility = Visibility.Hidden;
+                WindowInfo.GridLoad.Visibility = Visibility.Hidden;
             }
             else
             {
                 WindowInfo.AccountZap.Visibility = Visibility.Visible;
                 WindowInfo.NsiStatusUser.Visibility = Visibility.Visible;
-                //WindowInfo.GridLoad.Visibility = Visibility.Visible;
+                WindowInfo.GridLoad.Visibility = Visibility.Visible;
             }
         
         }

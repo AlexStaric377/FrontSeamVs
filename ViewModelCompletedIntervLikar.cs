@@ -22,7 +22,7 @@ using System.Windows.Media;
 /// Розробник Стариченко Олександр Павлович тел.+380674012840, mail staric377@gmail.com
 namespace FrontSeam
 {
-    public partial class MapOpisViewModel : INotifyPropertyChanged
+    public partial class MapOpisViewModel : BaseViewModel
     {
         // ViewModelReestrCompletedInterview модель ViewQualification
         //  клавиша в окне: "Рекомендації щодо звернення до вказаного лікаря"
@@ -47,15 +47,22 @@ namespace FrontSeam
         public static ModelColectionInterview selectedIntevLikar;
         public static ColectionInterview selectedColectionIntevLikar;
         public static ModelDependency InsertIntevLikar;
+        public static ModelColectionDiagnozInterview selectModelColectionDiagnozInterview;
         public static ObservableCollection<ModelColectionInterview> ColectionInterviewIntevLikars { get; set; }
+        public static ObservableCollection<ModelColectionInterview> ColectionDiagnozIntevLikars { get; set; }
         public static ObservableCollection<ColectionInterview> ColectionIntevLikars { get; set; }
+        public static ObservableCollection<ModelColectionDiagnozInterview> ColectionDiagnozLikars { get; set; }
         public ModelColectionInterview SelectedColectionIntevLikar
         {
             get { return selectedIntevLikar; }
             set { selectedIntevLikar = value; OnPropertyChanged("SelectedColectionIntevLikar"); }
         }
 
-
+        public ModelColectionDiagnozInterview SelectModelColectionDiagnozInterview
+        {
+            get { return selectModelColectionDiagnozInterview; }
+            set { selectModelColectionDiagnozInterview = value; OnPropertyChanged("SelectModelColectionDiagnozInterview"); }
+        }
         public static void ObservablelColectionIntevLikar(string CmdStroka)
         {
             var result = JsonConvert.DeserializeObject<ListColectionInterview>(CmdStroka);
@@ -63,6 +70,14 @@ namespace FrontSeam
             ColectionIntevLikars = new ObservableCollection<ColectionInterview>((IEnumerable<ColectionInterview>)res);
             BildModelColectionIntevLikar();
             WindowIntevLikar.ColectionIntevLikarTablGrid.ItemsSource = ColectionInterviewIntevLikars;
+            if (ColectionDiagnozIntevLikars == null)
+            {
+                ColectionDiagnozIntevLikars = new ObservableCollection<ModelColectionInterview>();
+                foreach (ModelColectionInterview modelColectionInterview in ColectionInterviewIntevLikars)
+                {
+                    ColectionDiagnozIntevLikars.Add(modelColectionInterview);
+                }
+            }
         }
 
         public static void BildModelColectionIntevLikar()
@@ -83,6 +98,27 @@ namespace FrontSeam
                 selectedIntevLikar.resultDiagnoz = colectionInterview.resultDiagnoz;
                 ColectionInterviewIntevLikars.Add(selectedIntevLikar);
             }
+
+            int indexDiagnoz = 0;
+            ColectionDiagnozLikars = new ObservableCollection<ModelColectionDiagnozInterview>();
+            foreach (ModelColectionInterview modelColectionInterview in ColectionInterviewIntevLikars.OrderBy(x => x.kodProtokola))
+            {
+                selectModelColectionDiagnozInterview = new ModelColectionDiagnozInterview();
+                selectModelColectionDiagnozInterview.kodDoctor = modelColectionInterview.kodDoctor;
+                selectModelColectionDiagnozInterview.kodPacient = modelColectionInterview.kodPacient;
+                selectModelColectionDiagnozInterview.kodProtokola = modelColectionInterview.kodProtokola;
+                selectModelColectionDiagnozInterview.nameDiagnoz = modelColectionInterview.nameDiagnoz;
+
+                if (ColectionDiagnozLikars.Count == 0) ColectionDiagnozLikars.Add(selectModelColectionDiagnozInterview);
+                if (ColectionDiagnozLikars[indexDiagnoz].kodProtokola == modelColectionInterview.kodProtokola) ColectionDiagnozLikars[indexDiagnoz].quanntityDiagnoz++;
+                else
+                {
+                    selectModelColectionDiagnozInterview.quanntityDiagnoz++;
+                    ColectionDiagnozLikars.Add(selectModelColectionDiagnozInterview);
+                    indexDiagnoz++;
+                }
+            }
+            WindowMen.ColectionDiagnozTablGrid.ItemsSource = ColectionDiagnozLikars;
         }
 
         public static void MethodPacientIntevLikars(ColectionInterview colectionInterview, bool boolname)
@@ -167,14 +203,14 @@ namespace FrontSeam
         /// </summary>
 
         // загрузка справочника по нажатию клавиши Завантажити
-        private void MethodLoadtableColectionIntevLikar()
+        public static void MethodLoadtableColectionIntevLikar()
         {
 
             if (_kodDoctor == "") { WarningMessageOfProfilLikar(); return; }
    
             IndexAddEdit = "";
             WindowIntevLikar.LikarLoadinterv.Visibility = Visibility.Hidden;
-
+            WindowMen.ColectionDiagnozTablGrid.Visibility = Visibility.Hidden;
             CallServer.PostServer(ColectioncontrollerIntevLikar, ColectioncontrollerIntevLikar+ "0/" + _kodDoctor + "/0", "GETID");
             string CmdStroka = CallServer.ServerReturn();
             if (CmdStroka.Contains("[]")) CallServer.BoolFalseTabl();
@@ -450,12 +486,8 @@ namespace FrontSeam
                               { 
                                   WindowIntevLikar.LikarFoldInterv.Visibility = Visibility.Visible;
                                   ColectionInterview selectedColection = ColectionIntevLikars[WindowIntevLikar.ColectionIntevLikarTablGrid.SelectedIndex];
-                                  if (selectedColection.kodPacient != null && selectedColection.kodPacient.Length != 0) MethodPacientIntevLikars(selectedColection, true);
-                                  if (selectedColection.kodDoctor != null && selectedColection.kodDoctor.Length != 0) MethodDoctorIntevLikars(selectedColection, true);
-                                  if (selectedColection.kodProtokola != null && selectedColection.kodProtokola.Length != 0) MethodProtokolaIntevLikars(selectedColection, true);
                               }
  
-                              
                           }                    
                       }
 
@@ -463,7 +495,50 @@ namespace FrontSeam
             }
         }
 
+        private RelayCommand? selectedListWorkDiagnoz;
+        public RelayCommand SelectedListWorkDiagnoz
+        {
+            get
+            {
+                return selectedListWorkDiagnoz ??
+                (selectedListWorkDiagnoz = new RelayCommand(obj =>
+                {
+                    if (WindowIntevLikar.ColectionDiagnozTablGrid.Visibility == Visibility.Hidden) WindowIntevLikar.ColectionDiagnozTablGrid.Visibility = Visibility.Visible;
+                    else WindowIntevLikar.ColectionDiagnozTablGrid.Visibility = Visibility.Hidden;
+ 
+                }));
+            }
+        }
 
+
+        private RelayCommand? onVisibleObjDiagnozLikars;
+        public RelayCommand OnVisibleObjDiagnozLikars
+        {
+            get
+            {
+                return onVisibleObjDiagnozLikars ??
+                  (onVisibleObjDiagnozLikars = new RelayCommand(obj =>
+                  {
+
+                      if (ColectionDiagnozLikars != null)
+                      {
+                          if (ColectionDiagnozLikars.Count != 0 && WindowIntevLikar.ColectionDiagnozTablGrid.SelectedIndex >= 0)
+                          {
+
+                              selectModelColectionDiagnozInterview = ColectionDiagnozLikars[WindowIntevLikar.ColectionDiagnozTablGrid.SelectedIndex];
+                              ColectionInterviewIntevLikars = new ObservableCollection<ModelColectionInterview>();
+                              foreach (ModelColectionInterview colectionInterview in ColectionDiagnozIntevLikars)
+                              {
+                                  if (selectModelColectionDiagnozInterview.kodProtokola == colectionInterview.kodProtokola) ColectionInterviewIntevLikars.Add(colectionInterview);
+                              }
+                              WindowIntevLikar.ColectionIntevLikarTablGrid.ItemsSource = ColectionInterviewIntevLikars;
+                              WindowIntevLikar.ColectionDiagnozTablGrid.Visibility = Visibility.Hidden;
+                          }
+                      }
+
+                  }));
+            }
+        }
         #endregion
         #endregion
     }

@@ -28,25 +28,83 @@ namespace FrontSeam
         public static bool DeleteOnOff = false, LoadKabinet = false;
 
         
-        private RelayCommand? mainTabControl;
-        public RelayCommand MainTabControl
+        private RelayCommand? geustGridLoadHidden;
+        public RelayCommand GeustGridLoadHidden
         {
             get
             {
-                return mainTabControl ??
-                  (mainTabControl = new RelayCommand(obj =>
+                return geustGridLoadHidden ??
+                  (geustGridLoadHidden = new RelayCommand(obj =>
                   {
-                      switch (WindowProfilPacient.ControlMain.SelectedIndex)
-                      {
-                          // Закладка Гость
-                          case 0:
-                              break;
-                          case 1:
-                              break;
+                      if (WindowProfilPacient.ControlLikar.SelectedIndex != 2)
+                      { 
+                          switch (WindowProfilPacient.ControlMain.SelectedIndex)
+                          {
+                              // Закладка Гость
+                              case 0:
+                                  WindowInfo.GridLoad.Visibility = Visibility.Hidden;
+                                  WindowIntevLikar.GridAdd.Visibility = Visibility.Visible;
+                                  WindowIntevLikar.GridGhange.Visibility = Visibility.Visible;
+                                  WindowIntevLikar.GridSave.Visibility = Visibility.Visible;
+                                  WindowIntevLikar.GridPrint.Visibility = Visibility.Visible;
+                                  WindowIntevLikar.GridDelete.Visibility = Visibility.Visible;
+                                  break;
+                              case 4:
+                                  WindowInfo.GridLoad.Visibility = Visibility.Hidden;
+                                  WindowIntevLikar.GridAdd.Visibility = Visibility.Hidden;
+                                  WindowIntevLikar.GridGhange.Visibility = Visibility.Hidden;
+                                  WindowIntevLikar.GridSave.Visibility = Visibility.Hidden;
+                                  WindowIntevLikar.GridPrint.Visibility = Visibility.Hidden;
+                                  WindowIntevLikar.GridDelete.Visibility = Visibility.Hidden;
+                              
+                                  break;
+                              default:
+                                  WindowInfo.GridLoad.Visibility = Visibility.Visible;
+                                  WindowIntevLikar.GridAdd.Visibility = Visibility.Visible;
+                                  WindowIntevLikar.GridGhange.Visibility = Visibility.Visible;
+                                  WindowIntevLikar.GridSave.Visibility = Visibility.Visible;
+                                  WindowIntevLikar.GridPrint.Visibility = Visibility.Visible;
+                                  WindowIntevLikar.GridDelete.Visibility = Visibility.Visible;
+
+                                  break;
+                              
+                          }                     
                       }
+ 
                   }));
             }
         }
+
+        private RelayCommand? visibleHiddenAddEditSave;
+        public RelayCommand VisibleHiddenAddEditSave
+        {
+            get
+            {
+                return visibleHiddenAddEditSave ??
+                  (visibleHiddenAddEditSave = new RelayCommand(obj =>
+                  {
+
+                      switch (WindowProfilPacient.ControlLikar.SelectedIndex)
+                      {
+
+                          case 2:
+                              WindowIntevLikar.GridAdd.Visibility = Visibility.Hidden;
+                              WindowIntevLikar.GridGhange.Visibility = Visibility.Hidden;
+                              WindowIntevLikar.GridSave.Visibility = Visibility.Hidden;
+                              
+                              break;
+                          default:
+                              WindowIntevLikar.GridAdd.Visibility = Visibility.Visible;
+                              WindowIntevLikar.GridGhange.Visibility = Visibility.Visible;
+                              WindowIntevLikar.GridSave.Visibility = Visibility.Visible;
+                              break;
+                      }
+
+                      
+                  }));
+            }
+        }
+        
         // загрузка інформації по нажатию клавиши Завантажити
         private RelayCommand? loadCommand;
         public RelayCommand LoadCommand
