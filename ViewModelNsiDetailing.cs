@@ -34,7 +34,6 @@ namespace FrontSeam
         // конструктор класса
         public ViewModelNsiDetailing()
         {
-            //NsiDetailing WindowNsiDetailing = MainWindow.LinkMainWindow("NsiDetailing");
             string jason = "";
             if (ViewModelNsiDetailing.NsiModelDetailings == null)
             {

@@ -24,17 +24,8 @@ using System.Windows.Media;
 /// Розробник Стариченко Олександр Павлович тел.+380674012840, mail staric377@gmail.com
 namespace FrontSeam
 {
-    public partial class ViewModelNsiGrDetailing : INotifyPropertyChanged
+    public partial class ViewModelNsiGrDetailing : BaseViewModel
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-
-        }
 
         private string pathcontroller = "/api/GrDetalingController/";
         public static ModelGrDetailing selectedGrDetailing;
