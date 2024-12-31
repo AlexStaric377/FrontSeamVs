@@ -112,20 +112,10 @@ namespace FrontSeam
 
     }
 
-    public class ModelResultInterview : INotifyPropertyChanged
+    public class ModelResultInterview : BaseViewModel
     {
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-
-        }
-
-
+        public WinResultInterview WindowResult = MainWindow.LinkMainWindow("WinResultInterview");
+ 
         private string NametInterview;
         private string KodProtokola;
         private string DetailsInterview;
@@ -205,7 +195,6 @@ namespace FrontSeam
                 return closeResult ??
                   (closeResult = new RelayCommand(obj =>
                   {
-                      WinResultInterview WindowResult = MainWindow.LinkMainWindow("WinResultInterview");
                       WindowResult.Close();
                   }));
             }
@@ -220,7 +209,6 @@ namespace FrontSeam
                 return continueInterview ??
                   (continueInterview = new RelayCommand(obj =>
                   {
-                      WinResultInterview WindowResult = MainWindow.LinkMainWindow("WinResultInterview");
                       MapOpisViewModel.ContinueCompletedInterview();
                       WindowResult.Close();
                   }));
@@ -236,7 +224,7 @@ namespace FrontSeam
                 return saveIntervDiagnoz ??
                   (saveIntervDiagnoz = new RelayCommand(obj =>
                   {
-                      WinResultInterview WindowResult = MainWindow.LinkMainWindow("WinResultInterview");
+                      
                       CallServer.PostServer(MapOpisViewModel.pathcontrolerContent, MapOpisViewModel.pathcontrolerContent + MapOpisViewModel.modelColectionInterview.kodProtokola, "GETID");
                       string CmdStroka = CallServer.ServerReturn();
                       if (CmdStroka.Contains("[]")) return;
@@ -264,7 +252,7 @@ namespace FrontSeam
                   (readColectionIntreview = new RelayCommand(obj =>
                   {
                       MapOpisViewModel.IndexAddEdit = "";
-                      MapOpisViewModel.ModelCall = "ModelColectionInterview";
+                      MapOpisViewModel.ModelCall = "";
                       MapOpisViewModel.GetidkodProtokola = MapOpisViewModel.modelColectionInterview.kodProtokola; //kodComplInterv + "/0"
 
                       WinCreatIntreview NewOrder = new WinCreatIntreview();
@@ -365,8 +353,6 @@ namespace FrontSeam
                       MapOpisViewModel.selectRegistrationAppointment.kodPacient = MapOpisViewModel.modelColectionInterview.kodPacient;
                       MapOpisViewModel.selectRegistrationAppointment.dateInterview = MapOpisViewModel.modelColectionInterview.dateInterview; ;
                       MapOpisViewModel.ViewRegistrAppoints.Add(MapOpisViewModel.selectRegistrationAppointment);
-
-                      WinResultInterview WindowResult = MainWindow.LinkMainWindow("WinResultInterview");
                       WindowResult.Close();
                       AddResultInterviewreseptionLikar();
                   }));

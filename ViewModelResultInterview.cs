@@ -62,10 +62,14 @@ namespace FrontSeam
             MapOpisViewModel.modelColectionInterview.nameRecomen = MapOpisViewModel.NameRecomendaciya;
             MapOpisViewModel.OpistInterview = selectItogInterview.opistInterview;
             MapOpisViewModel.UriInterview = selectItogInterview.uriInterview;
+            MapOpisViewModel.NameDiagnoz = selectItogInterview.nameDiagnoza;
+            MapOpisViewModel.NameRecomendaciya = selectItogInterview.nameRecommendation;
+
 
             ResultInterviews = new ObservableCollection<ModelResultInterview>();
             ResultInterviews.Add(selectItogInterview);
         }
+
 
     }
 }

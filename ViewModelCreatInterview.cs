@@ -29,7 +29,7 @@ namespace FrontSeam
 
  
         bool endwhile = false;
-        //public static  WinCreatIntreview WindowUri = MainWindow.LinkMainWindow("WinCreatIntreview");
+        public static WinCreatIntreview WindowCreat = MainWindow.LinkMainWindow("WinCreatIntreview");
         public static MainWindow WindowMain = MainWindow.LinkNameWindow("WindowMain");
         public static int Numberstroka = 0, IdItemContentInterv = 0, IndexContentInterv=0;
         private bool booladdprotokol = false, booladdContent = false;
@@ -51,34 +51,20 @@ namespace FrontSeam
 
         public static void LoadCreatInterview()
         { 
-           string CmdStroka = "";
+ 
+            string CmdStroka = "", nawpathcontroler = pathcontroler;
             MapOpisViewModel.ActCompletedInterview = null;
-            switch (MapOpisViewModel.IndexAddEdit)
-            {
-                case "":
-                    CallServer.PostServer(pathcontroler, pathcontroler + MapOpisViewModel.GetidkodProtokola, "GETID");
-                    CmdStroka = CallServer.ServerReturn();
-                    if (CmdStroka.Contains("[]"))
-                    {
-                        selectedContentInterv = new ModelContentInterv();
-                        ContentIntervs = new ObservableCollection<ModelContentInterv>();
-                    }
-                    else ObservableContentInterv(CmdStroka);
-                    break;
-                case "editCommand":
-                    if (MapOpisViewModel.ModelCall == "ModelColectionInterview")
-                    {
-                        pathcontroler = Completedcontroller;
-                    }
-                    CallServer.PostServer(pathcontroler, pathcontroler + MapOpisViewModel.GetidkodProtokola, "GETID");
-                    CmdStroka = CallServer.ServerReturn();
-                    if (CmdStroka.Contains("[]")) selectedContentInterv = new ModelContentInterv();
-                    else ObservableContentInterv(CmdStroka);
-                    break;
-                case "addCommand":
-                    ContentIntervs = new ObservableCollection<ModelContentInterv>();
-                    break;
-            }        
+            selectedContentInterv = new ModelContentInterv();
+            ContentIntervs = new ObservableCollection<ModelContentInterv>();
+            if (MapOpisViewModel.IndexAddEdit != "addCommand")
+            { 
+                if (MapOpisViewModel.ModelCall == "ModelColectionInterview") nawpathcontroler = Completedcontroller;
+
+                CallServer.PostServer(nawpathcontroler, nawpathcontroler + MapOpisViewModel.GetidkodProtokola, "GETID");
+                CmdStroka = CallServer.ServerReturn();
+                if (CmdStroka.Contains("[]") == false) ObservableContentInterv(CmdStroka);            
+            }
+            MapOpisViewModel.ModelCall = "";
         }
 
 
@@ -99,8 +85,8 @@ namespace FrontSeam
                 return closeCreatInterview ??
                   (closeCreatInterview = new RelayCommand(obj =>
                   {
-                      WinCreatIntreview WindowUri = MainWindow.LinkMainWindow("WinCreatIntreview");
-                      WindowUri.Close();
+                      WinCreatIntreview WindowCreat = MainWindow.LinkMainWindow("WinCreatIntreview");
+                      WindowCreat.Close();
                   }));
             }
         }
@@ -164,7 +150,7 @@ namespace FrontSeam
                   {
                       if (MapOpisViewModel.ModelCall == "ModelColectionInterview" || MapOpisViewModel.ModelCall == "ModelInterview")
                       {
-                          WinCreatIntreview WindowCreat = MainWindow.LinkMainWindow("WinCreatIntreview");
+                          
                           WindowCreat.BorderPlus.Visibility = Visibility.Hidden;
                           WindowCreat.BorderDelete.Visibility = Visibility.Hidden;
                           WindowCreat.BorderSave.Visibility = Visibility.Hidden;
@@ -192,17 +178,17 @@ namespace FrontSeam
                 return addstrokaInterview ??
                   (addstrokaInterview = new RelayCommand(obj =>
                   {
-                      WinCreatIntreview WindowUri = MainWindow.LinkMainWindow("WinCreatIntreview");
+                     
                       if (MapOpisViewModel.ModelCall == "ModelColectionInterview" || MapOpisViewModel.ModelCall == "ModelInterview")
                       {
-                          WindowUri.BorderPlus.Visibility = Visibility.Hidden;
-                          WindowUri.BorderDelete.Visibility = Visibility.Hidden;
-                          WindowUri.BorderSave.Visibility = Visibility.Hidden;
+                          WindowCreat.BorderPlus.Visibility = Visibility.Hidden;
+                          WindowCreat.BorderDelete.Visibility = Visibility.Hidden;
+                          WindowCreat.BorderSave.Visibility = Visibility.Hidden;
                           return;
                       }
                       if (MapOpisViewModel.IndexAddEdit == "editCommand") booladdprotokol = true;
 
-                      IdItemContentInterv = WindowUri.TablInterviews.SelectedIndex;
+                      IdItemContentInterv = WindowCreat.TablInterviews.SelectedIndex;
                       //IndexContentInterv++;
                       if (selectedContentInterv != null && IdItemContentInterv >= 0)
                       {
@@ -211,14 +197,14 @@ namespace FrontSeam
                               case 5:
 
                                   WinNsiFeature NewOrder = new WinNsiFeature();
-                                  NewOrder.Left = 750;
-                                  NewOrder.Top = 300;
+                                  NewOrder.Left = (MainWindow.ScreenWidth / 2) - 190;
+                                  NewOrder.Top = (MainWindow.ScreenHeight / 2) - 350;
                                   NewOrder.ShowDialog();
                                   break;
                               case 9:
                                   NsiDetailing NewNsi = new NsiDetailing();
-                                  NewNsi.Left = 750;
-                                  NewNsi.Top = 300;
+                                  NewNsi.Left = (MainWindow.ScreenWidth / 2) - 190;
+                                  NewNsi.Top = (MainWindow.ScreenHeight / 2) - 350;
                                   NewNsi.ShowDialog();
                                   break;
                           }
@@ -226,13 +212,13 @@ namespace FrontSeam
                       else
                       {
                           NsiComplaint NewOrder = new NsiComplaint();
-                          NewOrder.Left = 750;
-                          NewOrder.Top = 300;
+                          NewOrder.Left = (MainWindow.ScreenWidth / 2) - 150;
+                          NewOrder.Top = (MainWindow.ScreenHeight / 2) - 350; 
                           NewOrder.ShowDialog();
-                          if (MapOpisViewModel.nameFeature3.Length != 0)WindowUri.TablInterviews.ItemsSource = ContentIntervs;
+                          if (MapOpisViewModel.nameFeature3.Length != 0) WindowCreat.TablInterviews.ItemsSource = ContentIntervs;
                       }
 
-                      WindowUri.TablInterviews.SelectedItem = null;
+                      WindowCreat.TablInterviews.SelectedItem = null;
                   }));
             }
         }
@@ -246,7 +232,6 @@ namespace FrontSeam
         {
             if (MapOpisViewModel.ModelCall == "ModelColectionInterview" || MapOpisViewModel.ModelCall == "ModelInterview")
             {
-                WinCreatIntreview WindowCreat = MainWindow.LinkMainWindow("WinCreatIntreview");
                 WindowCreat.BorderPlus.Visibility = Visibility.Hidden;
                 WindowCreat.BorderDelete.Visibility = Visibility.Hidden;
                 WindowCreat.BorderSave.Visibility = Visibility.Hidden;
@@ -270,8 +255,7 @@ namespace FrontSeam
             }
             if (ContentIntervs.Count == TmpContentIntervs.Count) AddselectedContent();
             ContentIntervs = TmpContentIntervs;
-            WinCreatIntreview WindowUri = MainWindow.LinkMainWindow("WinCreatIntreview");
-            WindowUri.TablInterviews.ItemsSource = ContentIntervs;
+            WindowCreat.TablInterviews.ItemsSource = ContentIntervs;
         }
 
   
@@ -327,8 +311,7 @@ namespace FrontSeam
                 return selectComplaint ??
                   (selectComplaint = new RelayCommand(obj =>
                   {
-                      WinCreatIntreview WindowUri = MainWindow.LinkMainWindow("WinCreatIntreview");
-                      IdItemContentInterv = WindowUri.TablInterviews.SelectedIndex+1;
+                      IdItemContentInterv = WindowCreat.TablInterviews.SelectedIndex+1;
                   }));
             }
         }

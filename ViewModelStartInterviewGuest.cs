@@ -88,6 +88,7 @@ namespace FrontSeam
             IndexAddEdit = "addCommand";
             EndDialogdali = StopDialog = false;
             ActCompletedInterview = "Guest";
+            loadTreeInterview = false;
             OnOffStartGuest = false;
             
             AutoSelectedInterview();
@@ -665,6 +666,7 @@ namespace FrontSeam
             WindowMain.PacientKabinetInterv.Visibility = Visibility.Hidden;
             WindowMain.StackPanelPacient.Visibility = Visibility.Hidden;
             EndDialogdali = StopDialog = false;
+            loadTreeInterview = false;
             IndexAddEdit = "addCommand";
             ActCompletedInterview = "Pacient";
             
@@ -732,6 +734,7 @@ namespace FrontSeam
             IndexAddEdit = "addCommand";
             EndDialogdali = StopDialog = false;
             ActCompletedInterview = "Likar";
+            loadTreeInterview = false;
             WindowMain.InputNameProfilLikar.Visibility = Visibility.Hidden;
             WindowMain.StackPanelLikar.Visibility = Visibility.Hidden;
             LikarContent = LikarContent == "" ? WindowMain.InputNameProfilLikar.Content.ToString(): LikarContent;

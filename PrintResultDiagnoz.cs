@@ -48,7 +48,8 @@ namespace FrontSeam
 
         public static void PrintDiagnoz()
         {
-            
+            MapOpisViewModel.ModelCall = "";
+            MapOpisViewModel.GetidkodProtokola = MapOpisViewModel.modelColectionInterview.kodProtokola;
             ViewModelCreatInterview.LoadCreatInterview();
 
 
@@ -110,7 +111,7 @@ namespace FrontSeam
                 // Добавляем абзац в раздел       
                 sec.Blocks.Add(p0);
                 
-                p0 = new Paragraph(new Run("Система дистанційної диференційної діагностики захворювань людини - SEAM"));
+                p0 = new Paragraph(new Run("Диференційна діагностика стану нездужання людини - SEAM"));
                 p0.FontSize = 14;
                 p0.FontStyle = FontStyles.Normal;
                 p0.TextAlignment = TextAlignment.Center;
@@ -193,8 +194,11 @@ namespace FrontSeam
                 p2.FontWeight = FontWeights.Normal;
                 sec1.Blocks.Add(p2);
             }
+            string Avtor = "Гість";
+            Avtor = _kodDoctor != "" ? modelColectionInterview.nameDoctor : Avtor;
+            Avtor = _pacientProfil != "" ? modelColectionInterview.namePacient : Avtor;
             Underline underline = new Underline();
-            underline.Inlines.Add(new Run("Кінець інформації за результатом опитування.      Контактний телефон:         "));
+            underline.Inlines.Add(new Run("Опитування провів:" + Avtor + "      Контактний телефон: " + selectedGridProfilLikar.telefon));
             p2 = new Paragraph(new Run(" "));
             p2.Inlines.Add(underline);
             p2.FontSize = 14;

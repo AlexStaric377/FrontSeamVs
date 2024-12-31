@@ -29,7 +29,7 @@ namespace FrontSeam
     public class ViewModelAnalogDiagnoz : BaseViewModel
     {
         private MainWindow ReceptionLIkarGuest = MainWindow.LinkNameWindow("WindowMain");
-        WinAnalogDiagnoz WinAnalog = MainWindow.LinkMainWindow("WinAnalogDiagnoz");
+        public WinAnalogDiagnoz WinAnalog = MainWindow.LinkMainWindow("WinAnalogDiagnoz");
         private string pathcontroller = "/api/InterviewController/";
         private static string pathcontrolerCompleted = "/api/CompletedInterviewController/";
         public string KodProtokola = "";
@@ -83,8 +83,12 @@ namespace FrontSeam
                           MapOpisViewModel.modelColectionInterview.detailsInterview = selectItogInterview.detailsInterview;
                           MapOpisViewModel.modelColectionInterview.kodProtokola = selectItogInterview.kodProtokola;
                           MapOpisViewModel.modelColectionInterview.detailsInterview = selectItogInterview.detailsInterview;
+
+                          MapOpisViewModel.NameDiagnoz = selectItogInterview.nameDiagnoza;
+                          MapOpisViewModel.NameRecomendaciya = selectItogInterview.nameRecommendation;
                           MapOpisViewModel.OpistInterview = selectItogInterview.opistInterview;
                           MapOpisViewModel.UriInterview = selectItogInterview.uriInterview;
+                          
                           IcdGrDiagnoz();
                       }
                   }));
@@ -132,10 +136,10 @@ namespace FrontSeam
                 return closeResult ??
                   (closeResult = new RelayCommand(obj =>
                   {
-                      WinAnalogDiagnoz WindowResult = MainWindow.LinkMainWindow("WinAnalogDiagnoz");
+                     
                       MapOpisViewModel.modelColectionInterview = new ModelColectionInterview();
                       MapOpisViewModel.OnOffStartGuest = false;
-                      WindowResult.Close();
+                      WinAnalog.Close();
                   }));
             }
         }
@@ -150,9 +154,8 @@ namespace FrontSeam
                   (continueInterview = new RelayCommand(obj =>
                   {
                       if (selectItogInterview.nameDiagnoza == "") { MessageNoOpis(); return; }
-                      WinAnalogDiagnoz WindowResult = MainWindow.LinkMainWindow("WinAnalogDiagnoz");
                       MapOpisViewModel.ContinueCompletedInterview();
-                      WindowResult.Close();
+                      WinAnalog.Close();
  
 
                   }));
@@ -168,10 +171,9 @@ namespace FrontSeam
                 return resultDelete ??
                   (resultDelete = new RelayCommand(obj =>
                   {
-                      WinAnalogDiagnoz WindowResult = MainWindow.LinkMainWindow("WinAnalogDiagnoz");
                       MapOpisViewModel.modelColectionInterview = new ModelColectionInterview();
                       MapOpisViewModel.OnOffStartGuest = false;
-                      WindowResult.Close();
+                      WinAnalog.Close();
                   }));
             }
         }
@@ -252,8 +254,7 @@ namespace FrontSeam
                               break;
                       }
 
-                      WinAnalogDiagnoz WindowResult = MainWindow.LinkMainWindow("WinAnalogDiagnoz");
-                      WindowResult.Close();
+                      WinAnalog.Close();
                       MessageRegistrationLikar();
                   }));
             }
@@ -356,8 +357,8 @@ namespace FrontSeam
                          "вам необхідно натиснути закладку 'Перегляд проведених опитуваннь'.";
                          MapOpisViewModel.SelectedFalseLogin(10);                      
                       }
-                      WinAnalogDiagnoz WindowResult = MainWindow.LinkMainWindow("WinAnalogDiagnoz");
-                      WindowResult.Close();
+
+                      WinAnalog.Close();
                   }));
             }
         }
