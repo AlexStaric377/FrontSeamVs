@@ -414,6 +414,11 @@
                                 </Grid>
                             </TabItem>
                             <TabItem Header="   Провести&#xa; опитування" Name="PacientInterview" Height="50" Width="150" HorizontalAlignment="Center" Margin="0,-5,0,0" >
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseUp">
+                                        <i:InvokeCommandAction Command="{Binding ElementName=GridMain, Path=DataContext.GeustGridLoadHidden}" CommandParameter=""/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                                 <Grid Width="640" Height="550" x:Name="PacientGrids" Background="White" HorizontalAlignment="Left">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="40*" />
@@ -468,6 +473,11 @@
                                 </Grid>
                             </TabItem>
                             <TabItem Header="Переглянути&#xa; проведені&#xa;опитування" Name="PacientListInterview" Height="80" Width="150" HorizontalAlignment="Center">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseUp">
+                                        <i:InvokeCommandAction Command="{Binding ElementName=GridMain, Path=DataContext.GeustGridLoadHidden}" CommandParameter=""/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                                 <Grid Width="640" Height="550" Background= "White" HorizontalAlignment="Left">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="250*"/>
@@ -583,6 +593,11 @@
 
                             </TabItem>
                             <TabItem Header="Запис на прийом&#xa;     до лікаря" Name="ZapisLikar" Height="50" Width="150" HorizontalAlignment="Center">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseUp">
+                                        <i:InvokeCommandAction Command="{Binding ElementName=GridMain, Path=DataContext.GeustGridLoadHidden}" CommandParameter=""/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                                 <Grid Width="640" Height="550" Background= "White" HorizontalAlignment="Left">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="250*"/>
@@ -728,7 +743,11 @@
                                 </Grid>
                             </TabItem>
                             <TabItem Header="Показники стану&#xa;     здоров'я" Name="StatusHealth" Height="50" Width="150" HorizontalAlignment="Center">
-
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseUp">
+                                        <i:InvokeCommandAction Command="{Binding ElementName=GridMain, Path=DataContext.GeustGridLoadHidden}" CommandParameter=""/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                                 <Grid Width="640" Height="550" Background= "White" HorizontalAlignment="Left">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="250*"/>

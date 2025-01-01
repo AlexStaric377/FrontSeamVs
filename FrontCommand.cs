@@ -36,8 +36,7 @@ namespace FrontSeam
                 return geustGridLoadHidden ??
                   (geustGridLoadHidden = new RelayCommand(obj =>
                   {
-                      if (WindowProfilPacient.ControlLikar.SelectedIndex != 2)
-                      { 
+ 
                           switch (WindowProfilPacient.ControlMain.SelectedIndex)
                           {
                               // Закладка Гость
@@ -49,28 +48,101 @@ namespace FrontSeam
                                   WindowIntevLikar.GridPrint.Visibility = Visibility.Visible;
                                   WindowIntevLikar.GridDelete.Visibility = Visibility.Visible;
                                   break;
-                              case 4:
-                                  WindowInfo.GridLoad.Visibility = Visibility.Hidden;
-                                  WindowIntevLikar.GridAdd.Visibility = Visibility.Hidden;
-                                  WindowIntevLikar.GridGhange.Visibility = Visibility.Hidden;
-                                  WindowIntevLikar.GridSave.Visibility = Visibility.Hidden;
-                                  WindowIntevLikar.GridPrint.Visibility = Visibility.Hidden;
-                                  WindowIntevLikar.GridDelete.Visibility = Visibility.Hidden;
-                              
-                                  break;
-                              default:
+                          // Закладка пациент
+                          case 1:
                                   WindowInfo.GridLoad.Visibility = Visibility.Visible;
                                   WindowIntevLikar.GridAdd.Visibility = Visibility.Visible;
                                   WindowIntevLikar.GridGhange.Visibility = Visibility.Visible;
                                   WindowIntevLikar.GridSave.Visibility = Visibility.Visible;
                                   WindowIntevLikar.GridPrint.Visibility = Visibility.Visible;
                                   WindowIntevLikar.GridDelete.Visibility = Visibility.Visible;
+                                  switch (WindowProfilPacient.ControlPacient.SelectedIndex)
+                                  {
+                                      case 1:
+                                          WindowInfo.GridLoad.Visibility = Visibility.Hidden;
+                                          WindowIntevLikar.GridGhange.Visibility = Visibility.Hidden;
+                                          WindowIntevLikar.GridSave.Visibility = Visibility.Hidden;
+                                          WindowIntevLikar.GridDelete.Visibility = Visibility.Hidden;
+                                          // Провести опитування пацієнта
+                                          CheckLoadKabinetPacient();
+                                          if (_pacientProfil == "") MethodLoadPacientProfil();
+                                          if (_pacientProfil == "") return;
+                                          MethodStartInteviewPacient();
+                                          //WindowProfilPacient.ControlPacient.SelectedIndex = -1;
+                                      break;
+                                      case 2:
+                                          WindowIntevLikar.GridAdd.Visibility = Visibility.Hidden;
+                                          WindowIntevLikar.GridGhange.Visibility = Visibility.Hidden;
+                                          WindowIntevLikar.GridSave.Visibility = Visibility.Hidden;
+                                          // Завантажити показники проведених інтервью
+                                          CheckLoadKabinetPacient();
+                                          if (_pacientProfil == "") MethodLoadPacientProfil();
+                                          if (_pacientProfil == "") return;
+                                      break;
 
+                                  }
                                   break;
-                              
+                          // Закладка лікар
+                          case 2:
+                                  WindowInfo.GridLoad.Visibility = Visibility.Visible;
+                                  WindowIntevLikar.GridAdd.Visibility = Visibility.Visible;
+                                  WindowIntevLikar.GridGhange.Visibility = Visibility.Visible;
+                                  WindowIntevLikar.GridSave.Visibility = Visibility.Visible;
+                                  WindowIntevLikar.GridPrint.Visibility = Visibility.Visible;
+                                  WindowIntevLikar.GridDelete.Visibility = Visibility.Visible;
+                                  switch (WindowProfilPacient.ControlLikar.SelectedIndex)
+                                  {
+                                      case 1:
+                                          WindowInfo.GridLoad.Visibility = Visibility.Hidden;
+                                          WindowIntevLikar.GridGhange.Visibility = Visibility.Hidden;
+                                          WindowIntevLikar.GridSave.Visibility = Visibility.Hidden;
+                                          WindowIntevLikar.GridDelete.Visibility = Visibility.Hidden;
+                                          if (_kodDoctor == "") MethodloadProfilLikar(); // WarningMessageOfProfilLikar();
+                                          if (_kodDoctor == "") return;
+                                          MethodStartInterviewLikar();
+
+                                      break;
+                                      case 2:
+                                          WindowIntevLikar.GridAdd.Visibility = Visibility.Hidden;
+                                          WindowIntevLikar.GridGhange.Visibility = Visibility.Hidden;
+                                          WindowIntevLikar.GridSave.Visibility = Visibility.Hidden;
+                                          CheckLoadKabinetLikar();
+                                          if (_kodDoctor == "") MethodloadProfilLikar(); // WarningMessageOfProfilLikar();
+                                          if (_kodDoctor == "") return;
+                                      break;
+
+                                  }
+                                  break;
+                          // Закладка Администрування
+                          case 3:
+                              WindowInfo.GridLoad.Visibility = Visibility.Visible;
+                              WindowIntevLikar.GridAdd.Visibility = Visibility.Visible;
+                              WindowIntevLikar.GridGhange.Visibility = Visibility.Visible;
+                              WindowIntevLikar.GridSave.Visibility = Visibility.Visible;
+                              WindowIntevLikar.GridPrint.Visibility = Visibility.Visible;
+                              WindowIntevLikar.GridDelete.Visibility = Visibility.Visible;
+                              switch (WindowProfilPacient.ControlLikar.SelectedIndex)
+                              {
+                                  case 0:
+                                      WindowIntevLikar.GridAdd.Visibility = Visibility.Hidden;
+                                      WindowIntevLikar.GridGhange.Visibility = Visibility.Hidden;
+                                      WindowIntevLikar.GridSave.Visibility = Visibility.Hidden;
+                                      WindowIntevLikar.GridPrint.Visibility = Visibility.Hidden;
+                                      WindowIntevLikar.GridDelete.Visibility = Visibility.Hidden;
+                                      break;
+                              }
+                              break;
+                          // Закладка про програму
+                          case 4:
+                                  WindowInfo.GridLoad.Visibility = Visibility.Hidden;
+                                  WindowIntevLikar.GridAdd.Visibility = Visibility.Hidden;
+                                  WindowIntevLikar.GridGhange.Visibility = Visibility.Hidden;
+                                  WindowIntevLikar.GridSave.Visibility = Visibility.Hidden;
+                                  WindowIntevLikar.GridPrint.Visibility = Visibility.Hidden;
+                                  WindowIntevLikar.GridDelete.Visibility = Visibility.Hidden;
+                                  break;
                           }                     
-                      }
- 
+
                   }));
             }
         }
@@ -141,7 +213,9 @@ namespace FrontSeam
                                       // Провести опитування пацієнта
                                       CheckLoadKabinetPacient();
                                       if (_pacientProfil == "") MethodLoadPacientProfil();
-                                      if (_pacientProfil == "") return; 
+                                      if (_pacientProfil == "") return;
+                                      MethodStartInteviewPacient();
+
                                       break;
                                   case 2:
                                       // Завантажити показники проведених інтервью
@@ -179,7 +253,8 @@ namespace FrontSeam
                                       // Провести опитування лікарем
                                       if (_kodDoctor == "") MethodloadProfilLikar(); // WarningMessageOfProfilLikar();
                                       if (_kodDoctor == "") return;
-                                          break;
+                                      MethodStartInterviewLikar();
+                                      break;
                                       
                                   case 2:
                                       // Завантажити показники проведених інтервью

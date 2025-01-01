@@ -107,7 +107,7 @@ namespace FrontSeam {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/FrontSeam;V1.0.1.51;component/winnsilistdiagnoz.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/FrontSeam;V1.0.1.52;component/winnsilistdiagnoz.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\WinNsiListDiagnoz.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

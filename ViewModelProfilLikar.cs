@@ -84,7 +84,7 @@ namespace FrontSeam
                         WindowProfilDoctor.LikarLoadInf.Visibility = Visibility.Hidden;
                         if (WindowProfilDoctor.LikarUrit7.Text.Length > 0) WindowProfilDoctor.FolderDocUri5.Visibility = Visibility.Visible;
                     }
-                    //if (CallViewProfilLikar == "Admin") MetodSelectRegProfilLikar();
+                    if (CallViewProfilLikar == "Admin") MetodSelectRegProfilLikar();
                     if (CallViewProfilLikar == "PacientProfil")
                     {
                         LoadMessageError();

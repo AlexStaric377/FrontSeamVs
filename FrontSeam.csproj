@@ -6,8 +6,8 @@
     <UseWPF>true</UseWPF>
     <Platforms>AnyCPU;x86</Platforms>
     <ApplicationIcon>kaducey.ico</ApplicationIcon>
-    <AssemblyVersion>1.0.1.51</AssemblyVersion>
-    <FileVersion>1.0.1.51</FileVersion>
+    <AssemblyVersion>1.0.1.52</AssemblyVersion>
+    <FileVersion>1.0.1.52</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
