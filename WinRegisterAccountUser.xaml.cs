@@ -26,7 +26,7 @@ namespace FrontSeam
             InitializeComponent();
             KodCountry.SelectedIndex = 0;
             StatusUser.Content = MapOpisViewModel.RegStatusUser;
-            MapOpisViewModel.VisibleGridLoad();
+
         }
     }
 }

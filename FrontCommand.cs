@@ -41,7 +41,7 @@ namespace FrontSeam
                           {
                               // Закладка Гость
                               case 0:
-                                  WindowInfo.GridLoad.Visibility = Visibility.Hidden;
+                                  WindowIntevLikar.GridLoadButton.Visibility = Visibility.Hidden;
                                   WindowIntevLikar.GridAdd.Visibility = Visibility.Visible;
                                   WindowIntevLikar.GridGhange.Visibility = Visibility.Visible;
                                   WindowIntevLikar.GridSave.Visibility = Visibility.Visible;
@@ -50,7 +50,7 @@ namespace FrontSeam
                                   break;
                           // Закладка пациент
                           case 1:
-                                  WindowInfo.GridLoad.Visibility = Visibility.Visible;
+                                  WindowIntevLikar.GridLoadButton.Visibility = Visibility.Visible;
                                   WindowIntevLikar.GridAdd.Visibility = Visibility.Visible;
                                   WindowIntevLikar.GridGhange.Visibility = Visibility.Visible;
                                   WindowIntevLikar.GridSave.Visibility = Visibility.Visible;
@@ -59,16 +59,18 @@ namespace FrontSeam
                                   switch (WindowProfilPacient.ControlPacient.SelectedIndex)
                                   {
                                       case 1:
-                                          WindowInfo.GridLoad.Visibility = Visibility.Hidden;
+                                          WindowIntevLikar.GridLoadButton.Visibility = Visibility.Hidden;
                                           WindowIntevLikar.GridGhange.Visibility = Visibility.Hidden;
                                           WindowIntevLikar.GridSave.Visibility = Visibility.Hidden;
                                           WindowIntevLikar.GridDelete.Visibility = Visibility.Hidden;
-                                          // Провести опитування пацієнта
-                                          CheckLoadKabinetPacient();
+                                          
+                                            // Провести опитування пацієнта
+                                            CheckLoadKabinetPacient();
                                           if (_pacientProfil == "") MethodLoadPacientProfil();
-                                          if (_pacientProfil == "") return;
+
+                                      if (_pacientProfil == "") { WindowProfilPacient.ControlPacient.SelectedIndex = 0; return; } 
                                           MethodStartInteviewPacient();
-                                          //WindowProfilPacient.ControlPacient.SelectedIndex = -1;
+                                      WindowProfilPacient.ControlPacient.SelectedIndex = 0;
                                       break;
                                       case 2:
                                           WindowIntevLikar.GridAdd.Visibility = Visibility.Hidden;
@@ -77,14 +79,15 @@ namespace FrontSeam
                                           // Завантажити показники проведених інтервью
                                           CheckLoadKabinetPacient();
                                           if (_pacientProfil == "") MethodLoadPacientProfil();
-                                          if (_pacientProfil == "") return;
+                                          if (_pacientProfil == "") { WindowProfilPacient.ControlPacient.SelectedIndex = 0; return; }
+
                                       break;
 
                                   }
                                   break;
                           // Закладка лікар
                           case 2:
-                                  WindowInfo.GridLoad.Visibility = Visibility.Visible;
+                                  WindowIntevLikar.GridLoadButton.Visibility = Visibility.Visible;
                                   WindowIntevLikar.GridAdd.Visibility = Visibility.Visible;
                                   WindowIntevLikar.GridGhange.Visibility = Visibility.Visible;
                                   WindowIntevLikar.GridSave.Visibility = Visibility.Visible;
@@ -93,12 +96,12 @@ namespace FrontSeam
                                   switch (WindowProfilPacient.ControlLikar.SelectedIndex)
                                   {
                                       case 1:
-                                          WindowInfo.GridLoad.Visibility = Visibility.Hidden;
+                                          WindowIntevLikar.GridLoadButton.Visibility = Visibility.Hidden;
                                           WindowIntevLikar.GridGhange.Visibility = Visibility.Hidden;
                                           WindowIntevLikar.GridSave.Visibility = Visibility.Hidden;
                                           WindowIntevLikar.GridDelete.Visibility = Visibility.Hidden;
                                           if (_kodDoctor == "") MethodloadProfilLikar(); // WarningMessageOfProfilLikar();
-                                          if (_kodDoctor == "") return;
+                                          if (_kodDoctor == "") { WindowProfilPacient.ControlLikar.SelectedIndex = 0; return; }
                                           MethodStartInterviewLikar();
 
                                       break;
@@ -108,19 +111,24 @@ namespace FrontSeam
                                           WindowIntevLikar.GridSave.Visibility = Visibility.Hidden;
                                           CheckLoadKabinetLikar();
                                           if (_kodDoctor == "") MethodloadProfilLikar(); // WarningMessageOfProfilLikar();
-                                          if (_kodDoctor == "") return;
+                                          if (_kodDoctor == "") { WindowProfilPacient.ControlLikar.SelectedIndex = 0; return; }
                                       break;
 
                                   }
                                   break;
                           // Закладка Администрування
                           case 3:
-                              WindowInfo.GridLoad.Visibility = Visibility.Visible;
-                              WindowIntevLikar.GridAdd.Visibility = Visibility.Visible;
-                              WindowIntevLikar.GridGhange.Visibility = Visibility.Visible;
-                              WindowIntevLikar.GridSave.Visibility = Visibility.Visible;
-                              WindowIntevLikar.GridPrint.Visibility = Visibility.Visible;
-                              WindowIntevLikar.GridDelete.Visibility = Visibility.Visible;
+                              WindowIntevLikar.GridLoadButton.Visibility = Visibility.Visible;
+                              WindowProfilPacient.ControlLikar.SelectedIndex = 0;
+                              if (MapOpisViewModel.boolSetAccountUser == true)
+                              {
+                                  WindowIntevLikar.GridAdd.Visibility = Visibility.Visible;
+                                  WindowIntevLikar.GridGhange.Visibility = Visibility.Visible;
+                                  WindowIntevLikar.GridSave.Visibility = Visibility.Visible;
+                                  WindowIntevLikar.GridPrint.Visibility = Visibility.Visible;
+                                  WindowIntevLikar.GridDelete.Visibility = Visibility.Visible;
+                              }
+
                               switch (WindowProfilPacient.ControlLikar.SelectedIndex)
                               {
                                   case 0:
@@ -134,7 +142,7 @@ namespace FrontSeam
                               break;
                           // Закладка про програму
                           case 4:
-                                  WindowInfo.GridLoad.Visibility = Visibility.Hidden;
+                                  WindowIntevLikar.GridLoadButton.Visibility = Visibility.Hidden;
                                   WindowIntevLikar.GridAdd.Visibility = Visibility.Hidden;
                                   WindowIntevLikar.GridGhange.Visibility = Visibility.Hidden;
                                   WindowIntevLikar.GridSave.Visibility = Visibility.Hidden;
@@ -390,7 +398,7 @@ namespace FrontSeam
                               break;
                           // Закладка Пациент
                           case 1:
-                              VisibleGridLoad();
+ 
                               switch (WindowProfilPacient.ControlPacient.SelectedIndex)
                               {
                                   case 0:
@@ -432,7 +440,7 @@ namespace FrontSeam
                               break;
                           // Закладка Доктор
                           case 2:
-                              VisibleGridLoad();
+
                               switch (WindowProfilPacient.ControlLikar.SelectedIndex)
                               {
                                   case 0:
@@ -483,7 +491,7 @@ namespace FrontSeam
                               break;
                           // Закладка Администрирование
                           case 3:
-                              VisibleGridLoad();
+
                               switch (WindowProfilPacient.ControlAdmin.SelectedIndex)
                               {
   

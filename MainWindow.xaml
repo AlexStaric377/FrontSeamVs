@@ -2274,7 +2274,7 @@
                     <ColumnDefinition Width ="95*" />
                     <ColumnDefinition Width ="95*" />
                 </Grid.ColumnDefinitions>
-                <Grid x:Name="GridLoad" Grid.Column="1" Width="95" >
+                <Grid x:Name="GridLoadButton" Grid.Column="1" Width="95" >
                     <Border BorderBrush="#FF979595" BorderThickness="1,1,1,1" Height="60" >
                         <StackPanel Name="Load"   Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center"    >
                             <Button Command="{Binding LoadCommand}" Background="White" Height="34" Width="77"  VerticalAlignment="Center" BorderBrush="White">
