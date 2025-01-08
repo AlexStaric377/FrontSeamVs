@@ -107,7 +107,7 @@ namespace FrontSeam {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/FrontSeam;V1.0.1.52;component/winnsilistgroupdelit.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/FrontSeam;V1.0.1.53;component/winnsilistgroupdelit.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\WinNsiListGroupDelit.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
