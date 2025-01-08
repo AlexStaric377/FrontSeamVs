@@ -28,7 +28,7 @@ using System.IO;
 /// функції виведення інформаційних повідомлень
 namespace FrontSeam
 {
-    public partial class MapOpisViewModel : INotifyPropertyChanged
+    public partial class MapOpisViewModel : BaseViewModel
     {
         public static MainWindow WindowInfo = MainWindow.LinkNameWindow("WindowMain");
         public static void SelectedDelete(int HeightWidth = 0)
@@ -41,7 +41,7 @@ namespace FrontSeam
                 //Brush brush = new SolidColorBrush(System.Windows.Media.Color.FromRgb((byte)r.Next(1, 200), (byte)r.Next(1, 224), (byte)r.Next(1, 247)));
                 //NewOrder.Yes.Background = brush;
                 if (HeightWidth == -1 )NewOrder.Height = NewOrder.Height + 200;
-                NewOrder.Width = NewOrder.Width + 270;
+                NewOrder.Width = NewOrder.Width + 350;
                 NewOrder.BorderNo.Margin = new Thickness(0, 0, 250, 0);
                 NewOrder.BorderYes.Margin = new Thickness(250, 0, 0, 0);
             }
@@ -385,13 +385,12 @@ namespace FrontSeam
             {
                 WindowInfo.AccountZap.Visibility = Visibility.Hidden;
                 WindowInfo.NsiStatusUser.Visibility = Visibility.Hidden;
-                //WindowInfo.GridLoadButton.Visibility = Visibility.Hidden;
+                WindowInfo.GridLoadButton.Visibility = Visibility.Hidden;
             }
             else
             {
                 WindowInfo.AccountZap.Visibility = Visibility.Visible;
                 WindowInfo.NsiStatusUser.Visibility = Visibility.Visible;
-                //WindowInfo.GridLoadButton.Visibility = Visibility.Visible;
             }
 
         }

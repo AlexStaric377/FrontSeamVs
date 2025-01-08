@@ -8,7 +8,7 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:FrontSeam" d:DataContext="{d:DesignInstance Type=local:ViewModelMessageDialog}"
         mc:Ignorable="d"
-        Title="WinMessageDialog" WindowState="Normal" AllowsTransparency="True" WindowStyle="None"   ShowInTaskbar="False"
+        Title="WinMessageDialog" WindowState="Normal" AllowsTransparency="True" WindowStyle="None"   ShowInTaskbar="False" Topmost="True"
         Height="280" Width="650" Background="{x:Null}"  WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <local:ViewModelMessageDialog/>

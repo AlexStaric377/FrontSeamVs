@@ -8,7 +8,7 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:FrontSeam" d:DataContext="{d:DesignInstance Type=local:ViewModelWinDeleteData}"
         mc:Ignorable="d"
-        Title="WinDeleteData" WindowState="Normal" AllowsTransparency="True" WindowStyle="None"   ShowInTaskbar="False"
+        Title="WinDeleteData" WindowState="Normal" AllowsTransparency="True" WindowStyle="None"   ShowInTaskbar="False" Topmost="True"
         Height="300" Width="500" Background="{x:Null}"  WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <local:ViewModelWinDeleteData/>

@@ -41,10 +41,13 @@ D:\FrontSeam\bin\Debug\net5.0-windows\System.Text.Encodings.Web.dll
 D:\FrontSeam\bin\Debug\net5.0-windows\System.Text.Json.dll
 D:\FrontSeam\bin\Debug\net5.0-windows\Microsoft.Expression.Interactions.dll
 D:\FrontSeam\bin\Debug\net5.0-windows\System.Windows.Interactivity.dll
+D:\FrontSeam\bin\Debug\net5.0-windows\WpfAnimatedGif.dll
+D:\FrontSeam\obj\Debug\net5.0-windows\FrontSeam.csproj.AssemblyReference.cache
 D:\FrontSeam\obj\Debug\net5.0-windows\MainWindow.g.cs
 D:\FrontSeam\obj\Debug\net5.0-windows\MessageError.g.cs
 D:\FrontSeam\obj\Debug\net5.0-windows\MessageWarn.g.cs
 D:\FrontSeam\obj\Debug\net5.0-windows\MessageWarning.g.cs
+D:\FrontSeam\obj\Debug\net5.0-windows\WaitWindow.g.cs
 D:\FrontSeam\obj\Debug\net5.0-windows\WinAccountRecords.g.cs
 D:\FrontSeam\obj\Debug\net5.0-windows\WinAnalogDiagnoz.g.cs
 D:\FrontSeam\obj\Debug\net5.0-windows\WinColectionAnalizBlood.g.cs
@@ -84,6 +87,7 @@ D:\FrontSeam\obj\Debug\net5.0-windows\MainWindow.baml
 D:\FrontSeam\obj\Debug\net5.0-windows\MessageError.baml
 D:\FrontSeam\obj\Debug\net5.0-windows\MessageWarn.baml
 D:\FrontSeam\obj\Debug\net5.0-windows\MessageWarning.baml
+D:\FrontSeam\obj\Debug\net5.0-windows\WaitWindow.baml
 D:\FrontSeam\obj\Debug\net5.0-windows\WinAccountRecords.baml
 D:\FrontSeam\obj\Debug\net5.0-windows\WinAnalogDiagnoz.baml
 D:\FrontSeam\obj\Debug\net5.0-windows\WinColectionAnalizBlood.baml
@@ -125,4 +129,3 @@ D:\FrontSeam\obj\Debug\net5.0-windows\FrontSeam.dll
 D:\FrontSeam\obj\Debug\net5.0-windows\ref\FrontSeam.dll
 D:\FrontSeam\obj\Debug\net5.0-windows\FrontSeam.pdb
 D:\FrontSeam\obj\Debug\net5.0-windows\FrontSeam.genruntimeconfig.cache
-D:\FrontSeam\obj\Debug\net5.0-windows\FrontSeam.csproj.AssemblyReference.cache

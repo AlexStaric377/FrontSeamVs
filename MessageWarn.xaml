@@ -8,7 +8,7 @@
          xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:FrontSeam" d:DataContext="{d:DesignInstance Type=local:ViewModelMessageWarn}"
         mc:Ignorable="d"
-        Title="MessageWarn" Name="MessageWar" WindowState="Normal" AllowsTransparency="True" WindowStyle="None"   ShowInTaskbar="False"
+        Title="MessageWarn" Name="MessageWar" WindowState="Normal" AllowsTransparency="True" WindowStyle="None"   ShowInTaskbar="False" Topmost="True"
         Height="380" Width="600" Background="{x:Null}"  WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <local:ViewModelMessageWarn/>

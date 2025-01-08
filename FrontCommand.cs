@@ -129,7 +129,7 @@ namespace FrontSeam
                                   WindowIntevLikar.GridDelete.Visibility = Visibility.Visible;
                               }
 
-                              switch (WindowProfilPacient.ControlLikar.SelectedIndex)
+                              switch (WindowProfilPacient.ControlAdmin.SelectedIndex)
                               {
                                   case 0:
                                       WindowIntevLikar.GridAdd.Visibility = Visibility.Hidden;
@@ -138,6 +138,13 @@ namespace FrontSeam
                                       WindowIntevLikar.GridPrint.Visibility = Visibility.Hidden;
                                       WindowIntevLikar.GridDelete.Visibility = Visibility.Hidden;
                                       break;
+                                  case 1:
+                                      if (ViewAccountUsers == null) MethodLoadAccountUser();
+                                      break;
+                                  case 2:
+                                      if (ViewStatustUsers == null) MethodLoadNsiStatusUser();
+                                      break;
+ 
                               }
                               break;
                           // Закладка про програму

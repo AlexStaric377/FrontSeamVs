@@ -90,9 +90,11 @@ namespace FrontSeam
             ActCompletedInterview = "Guest";
             loadTreeInterview = false;
             OnOffStartGuest = false;
-            
+            ZagolovokInterview();
             AutoSelectedInterview();
-            EndInterview();
+            WindowMain.TablGuestInterviews.SelectedItem = null;
+            if (GuestIntervs.Count != 0 && StopDialog == false) MetodSaveInterview();
+            //EndInterview();
         }
 
         public void EndInterview()
@@ -229,30 +231,18 @@ namespace FrontSeam
                         string json = pathcontroler + modelColectionInterview.kodProtokola + "/0";
                         CallServer.PostServer(pathcontroler, json, "DELETE");
                     }
-
-                    // ОБращение к серверу добавляем запись в соответствии с сформированным списком
-                    foreach (ModelCompletedInterview modelCompletedInterview in GuestIntervs.OrderBy(x => x.kodDetailing))
-                    {
-                        modelColectionInterview.detailsInterview = modelColectionInterview.detailsInterview.Length == 0
-                                        ? modelCompletedInterview.kodDetailing +";" : modelColectionInterview.detailsInterview + modelCompletedInterview.kodDetailing + ";";
-                    }
-            
- 
-                    DiagnozRecomendaciya = modelColectionInterview.detailsInterview;
+                    CreatDetailsInterview();
                     SelectedDiagnozRecom();
                     if (ViewAnalogDiagnoz == true)
                     { 
                         foreach (ModelCompletedInterview modelCompletedInterview in GuestIntervs)
                         {
-                
                             modelCompletedInterview.id = 0;
                             modelCompletedInterview.numberstr = NumberstrokaGuest++;
                             modelCompletedInterview.kodComplInterv = modelColectionInterview.kodComplInterv;
                             string json = JsonConvert.SerializeObject(modelCompletedInterview);
                             CallServer.PostServer(pathcontroler, json, "POST");
                         }
-                        
-
                         AddInterviewProtokol();
                         TmpGuestIntervs = GuestIntervs;
                     }
@@ -269,8 +259,18 @@ namespace FrontSeam
             WindowMain.NameInterv.Text = "";
 
         }
+        private void CreatDetailsInterview()
+        {
 
-        
+            // ОБращение к серверу добавляем запись в соответствии с сформированным списком
+            foreach (ModelCompletedInterview modelCompletedInterview in GuestIntervs.OrderBy(x => x.kodDetailing))
+            {
+                modelColectionInterview.detailsInterview = modelColectionInterview.detailsInterview.Length == 0
+                                ? modelCompletedInterview.kodDetailing + ";" : modelColectionInterview.detailsInterview + modelCompletedInterview.kodDetailing + ";";
+            }
+            DiagnozRecomendaciya = modelColectionInterview.detailsInterview;
+        }
+
         private void RemovStrIntervs(int IdItemSelected)
         {
             if (selectedGuestInterv != null)
@@ -382,17 +382,24 @@ namespace FrontSeam
                         IndikatorSelected = "NsiDetailing";
                         break;
                 }
-                //if (countFeature == GuestIntervs.Count && endwhileFeature == false)
-                //{
-                //    MessageEndDialog();
-                //    EndDialogdali = endwhileFeature = true;
-                //}
-
+ 
 
                 if (countFeature == GuestIntervs.Count && endwhileFeature == false)
                 {
-
-                    MessageEndDialog();
+                    CreatDetailsInterview();
+                    if (DiagnozRecomendaciya.Length <= 6)
+                    {
+                        StopDialog = true;
+                        MessageSmalInfo();
+                        if (MapOpisViewModel.DeleteOnOff == false)
+                        {
+                            GuestIntervs = new ObservableCollection<ModelCompletedInterview>();
+                            Selectedswitch();
+                            return;
+                        }
+                        StopDialog = false;
+                    }
+                    else MessageEndDialog();
                     endwhileFeature = true;
                     if (MapOpisViewModel.StopDialog == true)
                     {
@@ -400,9 +407,9 @@ namespace FrontSeam
                         Selectedswitch();
                         return;
                     }
-                    if (GuestIntervs.Count != 0) MetodSaveInterview(); 
-                    WindowMain.NameInterv.Text = "";
+                    if (GuestIntervs.Count != 0) MetodSaveInterview();
                     StopDialog = true;
+
                 }
                 countFeature = GuestIntervs.Count;
             }
@@ -591,12 +598,9 @@ namespace FrontSeam
             modelColectionInterview.kodComplInterv = indexcmp;
         }
 
-
-
-        // метод дозаписи данных формируемого интервью в таблицу проведенных интервью
-        public static void AddInterviewProtokol()
-        {
-            modelColectionInterview.dateInterview = DateTime.Now.ToShortDateString()+" "+DateTime.Now.ToShortTimeString();
+        public void ZagolovokInterview()
+        { 
+          modelColectionInterview.dateInterview = DateTime.Now.ToShortDateString()+" "+DateTime.Now.ToShortTimeString();
             switch (ActCompletedInterview)
             {
                 case "Likar":
@@ -617,7 +621,12 @@ namespace FrontSeam
                     modelColectionInterview.nameInterview = WindowMain.NameInterv.Text.ToString();
                     break;
                     
-            }
+            }        
+        }
+
+            // метод дозаписи данных формируемого интервью в таблицу проведенных интервью
+        public static void AddInterviewProtokol()
+        {
             CopycolectionInterview();
             SaveInterviewProtokol();
         }
@@ -672,8 +681,10 @@ namespace FrontSeam
             
             modelColectionInterview.namePacient = selectedPacientProfil.name + selectedPacientProfil.surname;
             modelColectionInterview.kodPacient = selectedPacientProfil.kodPacient;
+            ZagolovokInterview();
             AutoSelectedInterview();
-            EndInterview();
+            if (GuestIntervs.Count != 0 && StopDialog == false) MetodSaveInterview();
+            //EndInterview();
 
 
         }
@@ -745,9 +756,12 @@ namespace FrontSeam
             LoadProfPacient();
             SetProfilPacient();
             if (_pacientProfil.Length != 0)
-            { 
+            {
+                StopDialog = false;
+                ZagolovokInterview();
                 AutoSelectedInterview();
-                EndInterview();
+                if (GuestIntervs.Count != 0 && StopDialog == false) MetodSaveInterview();
+                //EndInterview();
             }
         }
 
@@ -1068,6 +1082,11 @@ namespace FrontSeam
         {
 
             string json = "", CmdStroka = "";
+            MapOpisViewModel.DeleteOnOff = true;
+            WaitWindow NewOrder = new WaitWindow();
+            NewOrder.Left = (MainWindow.ScreenWidth / 2);
+            NewOrder.Top = (MainWindow.ScreenHeight / 2);
+            NewOrder.Show();
             while (DiagnozRecomendaciya.Contains(";") == true)
             {
                 json = pathcontrolerInterview + "0/" + DiagnozRecomendaciya + "/-1/0";
@@ -1085,45 +1104,16 @@ namespace FrontSeam
                 MapOpisViewModel.SelectedFalseLogin(4);
                 return;
             }
-            if (DiagnozRecomendaciya.Length <= 6)
-            {
-                MainWindow.MessageError = "Увага!" + Environment.NewLine +
-                 "За результатами вашого опитування в базі знань знайдені " + Environment.NewLine +
-                 "попередні діагнози за місцем прояву але без" + Environment.NewLine +
-                 "визначення характеру прояву нездужання. " + Environment.NewLine + "Опитування не змістовне. ";
-            }
-            else
-            {
-                MainWindow.MessageError = "Увага!" + Environment.NewLine +
-                "За результатами вашого опитування в базі знань знайдені " + Environment.NewLine +
-                "визначення попереднього діагнозу. ";
-            }
-            WinDeleteData NewOrder = new WinDeleteData(MainWindow.MessageError);
-            NewOrder.Width = NewOrder.Width + 250;
-            NewOrder.BorderYes.Margin = new Thickness(180, 0, 0, 0);
-            NewOrder.BorderYes.Width = NewOrder.BorderYes.Width + 40;
-            NewOrder.Yes.Width = NewOrder.Yes.Width + 40;
-            NewOrder.Yes.Height = NewOrder.Yes.Height + 6;
-            NewOrder.Yes.FontSize = 15;
-            NewOrder.Yes.Content = "Переглянути";
-            NewOrder.BorderNo.Margin = new Thickness(0, 0, 180, 0);
-            NewOrder.BorderNo.Width = NewOrder.BorderNo.Width + 120;
-            NewOrder.No.Width = NewOrder.No.Width + 120;
-            NewOrder.No.Height = NewOrder.No.Height + 6;
-            NewOrder.No.FontSize = 15;
-            NewOrder.No.Content = "Продовжити опитування";
-            NewOrder.Left = 250;
-            NewOrder.Top = 100;
-            NewOrder.ShowDialog();
+ 
             if (MapOpisViewModel.DeleteOnOff == true)
             {
                 var result = JsonConvert.DeserializeObject<ListModelInterview>(CmdStroka);
                 List<ModelInterview> res = result.ModelInterview.ToList();
                 AnalogInterviews = new ObservableCollection<ModelInterview>((IEnumerable<ModelInterview>)res);
                 WinAnalogDiagnoz NewResult = new WinAnalogDiagnoz();
+                NewOrder.Close();
                 NewResult.ShowDialog();
 
-                //if (ViewAnalogDiagnoz == true)SelectReception();
                 if (SaveAnalogDiagnoz == true || ViewAnalogDiagnoz == true)
                 {
                     SetContent();
@@ -1144,13 +1134,30 @@ namespace FrontSeam
                     }
                 }
             }
-            else
-            {
-                ContinueCompletedInterview();
 
-            }
         }
-
+        private void MessageSmalInfo()
+        {
+            MainWindow.MessageError = "Увага!" + Environment.NewLine +
+                             "За результатами вашого опитування в базі знань знайдені " + Environment.NewLine +
+                             "попередні діагнози за місцем прояву але без" + Environment.NewLine +
+                             "визначення характеру прояву нездужання. " + Environment.NewLine + "Опитування не змістовне. ";
+            WinDeleteData NewOrder = new WinDeleteData(MainWindow.MessageError);
+            NewOrder.Width = NewOrder.Width + 250;
+            NewOrder.BorderYes.Margin = new Thickness(180, 0, 0, 0);
+            NewOrder.BorderYes.Width = NewOrder.BorderYes.Width + 40;
+            NewOrder.Yes.Width = NewOrder.Yes.Width + 40;
+            NewOrder.Yes.Height = NewOrder.Yes.Height + 6;
+            NewOrder.Yes.FontSize = 15;
+            NewOrder.Yes.Content = "Переглянути";
+            NewOrder.BorderNo.Margin = new Thickness(0, 0, 180, 0);
+            NewOrder.BorderNo.Width = NewOrder.BorderNo.Width + 120;
+            NewOrder.No.Width = NewOrder.No.Width + 120;
+            NewOrder.No.Height = NewOrder.No.Height + 6;
+            NewOrder.No.FontSize = 15;
+            NewOrder.No.Content = "Припинити";
+            NewOrder.ShowDialog();
+        }
         public static void SetContent()
         {
             switch (ActCompletedInterview)

@@ -9,7 +9,7 @@
 
         xmlns:local="clr-namespace:FrontSeam" d:DataContext="{d:DesignInstance Type=local:ViewModelMessageError}"
         mc:Ignorable="d"
-        Title="MessageError" Name="MessageErr" WindowState="Normal" AllowsTransparency="True" WindowStyle="None"   ShowInTaskbar="False"
+        Title="MessageError" Name="MessageErr" WindowState="Normal" AllowsTransparency="True" WindowStyle="None"   ShowInTaskbar="False" Topmost="True"
         Height="500" Width="600" Background="{x:Null}"  WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <local:ViewModelMessageError/>
