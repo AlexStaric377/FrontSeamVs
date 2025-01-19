@@ -34,6 +34,16 @@ namespace FrontSeam
         public static int Idstr = 0;
         public static double ScreenHeight = 0.0, ScreenWidth = 0.0, SetHeigtCurent = 0.0;
 
+        /// Структура данных для многопотоковой среды (передача аргументов)
+        /// </summary>
+        public struct RenderInfo
+        {
+            public string argument1 { get; set; }
+            public string argument2 { get; set; }
+            public string argument3 { get; set; }
+            public string argument4 { get; set; }
+            public string argument5 { get; set; }
+        }
 
 
         #region Вернуть ссылку на главное окно по запросу WPF C# {LinkMainWindow}

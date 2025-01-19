@@ -23,8 +23,14 @@ using System.Windows.Media;
 /// Розробник Стариченко Олександр Павлович тел.+380674012840, mail staric377@gmail.com
 namespace FrontSeam
 {
-    public partial class MapOpisViewModel : BaseViewModel
+    public partial class MapOpisViewModel : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         // ViewModelPacient справочник пациентов
         // клавиша в окне: Кабинет пацієнта  

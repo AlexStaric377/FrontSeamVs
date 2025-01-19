@@ -18,6 +18,9 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Converters;
 using System.Windows.Media;
+/// Многопоточность
+using System.Threading;
+using System.Windows.Threading;
 
 /// "Диференційна діагностика стану нездужання людини-SEAM" 
 /// Розробник Стариченко Олександр Павлович тел.+380674012840, mail staric377@gmail.com
@@ -928,6 +931,43 @@ namespace FrontSeam
                   }));
             }
         }
+
+        // запуск потока слежения за пасивностью клиента
+        public static void RunGifWait()
+        {
+            //bool TimeOut = false;
+            MainWindow.RenderInfo Arguments01 = new MainWindow.RenderInfo();
+            Thread thread = new Thread(RunWinGifWait);
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.IsBackground = true; // Фоновый поток
+            thread.Start(Arguments01);
+            //WindowUnload.BorderUnload.BorderBrush = Brushes.LimeGreen;
+            //MainWindow.RenderInfo Arguments01 = new MainWindow.RenderInfo() { };
+            //Arguments01.argument1 = "1";
+            //Thread thStartTimer01 = new Thread(RunWinGifWait);
+            //thStartTimer01.SetApartmentState(ApartmentState.STA);
+            //thStartTimer01.IsBackground = true; // Фоновый поток
+            //thStartTimer01.Start(Arguments01);
+
+        }
+
+
+        // 
+        public static void RunWinGifWait(object ThreadObj)
+        {
+            //System.Windows.Application.Current.Dispatcher.Invoke(new Action(delegate ()
+            //{
+            //    MainWindow ButtonUnload = MainWindow.LinkNameWindow("BackMain");
+            //    ButtonUnload.BorderUnload.BorderBrush = Brushes.LimeGreen;
+            //}));
+
+            WaitWindow NewOrder = new WaitWindow("", 2, 60);
+            NewOrder.Left = (MainWindow.ScreenWidth / 2);
+            NewOrder.Top = (MainWindow.ScreenHeight / 2);
+            NewOrder.ShowDialog();
+
+        }
+
     }
-           
+
 }

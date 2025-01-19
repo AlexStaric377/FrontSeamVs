@@ -8,7 +8,7 @@
         xmlns:intr="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:local="clr-namespace:FrontSeam"
         mc:Ignorable="d"
-        Title="WaitWindow" Name="WindowWait" WindowState="Normal" AllowsTransparency="True" WindowStyle="None" WindowStartupLocation="CenterOwner"  
+        Title="WaitWindow" Name="WindowWait" WindowState="Normal" AllowsTransparency="True" WindowStyle="None" WindowStartupLocation="CenterScreen"  
          ShowInTaskbar="False"   Height="120" Width="120" Margin="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Opacity ="1.0"
         Background="{x:Null}" Topmost="True"  >
     <Grid>

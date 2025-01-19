@@ -21,20 +21,17 @@ using System.Windows.Media;
 using System.Windows.Controls;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
+/// Многопоточность
+using System.Threading;
+using System.Windows.Threading;
+
 
 /// "Диференційна діагностика стану нездужання людини-SEAM" 
 /// Розробник Стариченко Олександр Павлович тел.+380674012840, mail staric377@gmail.com
 namespace FrontSeam
 {
-    public partial class MapOpisViewModel : INotifyPropertyChanged
+    public partial class MapOpisViewModel : BaseViewModel
     {
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
 
         private int IdItemSelected = 0;
         public static string DiagnozRecomendaciya = "", NameDiagnoz = "", NameRecomendaciya ="", OpistInterview = "", UriInterview ="", StrokaInterview = "";
@@ -43,7 +40,7 @@ namespace FrontSeam
         public static string ActCompletedInterview = "null", ActCreatInterview = "", IndikatorSelected = "", selectedComplaintname = "", selectFeature="", selectGrDetailing="", selectQualification="";
         public static string InputContent = "", PacientContent="", LikarContent="", selectIcdGrDiagnoz = "";
         public static MainWindow WindowMain = MainWindow.LinkNameWindow("WindowMain");
-        public static int NumberstrokaGuest = 0, IdItemGuestInterv = 0;
+        public static int NumberstrokaGuest = 0, IdItemGuestInterv = 0, endUnload = 0;
         public static string Controlleroutfile = "/api/UnLoadController/", upLoadstroka = "", RegIdUser = "", RegUserStatus = "";
         public static int _ControlTableItem = 0, _ControlGuest = 0, _ControlPacient = 0, _ControlLikar = 0, _ControlAdmin = 0;
         private bool endwhile = false;
@@ -1083,10 +1080,7 @@ namespace FrontSeam
 
             string json = "", CmdStroka = "";
             MapOpisViewModel.DeleteOnOff = true;
-            WaitWindow NewOrder = new WaitWindow();
-            NewOrder.Left = (MainWindow.ScreenWidth / 2);
-            NewOrder.Top = (MainWindow.ScreenHeight / 2);
-            NewOrder.Show();
+            RunGifWait();
             while (DiagnozRecomendaciya.Contains(";") == true)
             {
                 json = pathcontrolerInterview + "0/" + DiagnozRecomendaciya + "/-1/0";
@@ -1096,6 +1090,13 @@ namespace FrontSeam
                 DiagnozRecomendaciya = DiagnozRecomendaciya.Substring(0, DiagnozRecomendaciya.Length - 1);
                 DiagnozRecomendaciya = DiagnozRecomendaciya.Substring(0, DiagnozRecomendaciya.LastIndexOf(";") + 1);
             }
+            endUnload = 1;
+            Thread.Sleep(800);
+            if (CmdStroka.Contains("[]") == true) { MessageOfDagnoz(); return; }
+            var result = JsonConvert.DeserializeObject<ListModelInterview>(CmdStroka);
+            List<ModelInterview> res = result.ModelInterview.ToList();
+            AnalogInterviews = new ObservableCollection<ModelInterview>((IEnumerable<ModelInterview>)res);
+            if (AnalogInterviews.Count == 1) LoadDiagnozRecomen(AnalogInterviews[0].kodProtokola);
 
             if (CmdStroka.Contains("[]") == true)
             {
@@ -1107,11 +1108,7 @@ namespace FrontSeam
  
             if (MapOpisViewModel.DeleteOnOff == true)
             {
-                var result = JsonConvert.DeserializeObject<ListModelInterview>(CmdStroka);
-                List<ModelInterview> res = result.ModelInterview.ToList();
-                AnalogInterviews = new ObservableCollection<ModelInterview>((IEnumerable<ModelInterview>)res);
                 WinAnalogDiagnoz NewResult = new WinAnalogDiagnoz();
-                NewOrder.Close();
                 NewResult.ShowDialog();
 
                 if (SaveAnalogDiagnoz == true || ViewAnalogDiagnoz == true)
@@ -1135,6 +1132,13 @@ namespace FrontSeam
                 }
             }
 
+        }
+
+        private static void MessageOfDagnoz()
+        {
+            MainWindow.MessageError = "Увага!" + Environment.NewLine +
+                    "за результатами проведеного опитування відповідний діагноз відсутній.";
+            MapOpisViewModel.SelectedFalseLogin(4);
         }
         private void MessageSmalInfo()
         {
