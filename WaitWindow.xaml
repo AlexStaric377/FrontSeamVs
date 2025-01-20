@@ -13,7 +13,7 @@
         Background="{x:Null}" Topmost="True"  >
     <Grid>
         <Border x:Name="BorderWin" BorderBrush="White" Background="White" Opacity ="1.0" BorderThickness="0,0,0,0" CornerRadius="25,25,25,25" Height="120" Width="120">
-            <Image Height="110" Width="110"    Name="Wait"  gif:ImageBehavior.AnimatedSource="Images/loading9.gif" Cursor="Hand" >
+            <Image Height="110" Width="110"    Name="Wait"  gif:ImageBehavior.AnimatedSource="pack://application:,,,/FrontSeam;component/Images/loading9.gif" Cursor="Hand" >
             </Image>
         </Border>
     </Grid>
