@@ -935,7 +935,7 @@ namespace FrontSeam
         // запуск потока слежения за пасивностью клиента
         public static void RunGifWait()
         {
-            endUnload = 0;
+ 
             MainWindow.RenderInfo Arguments01 = new MainWindow.RenderInfo();
             Arguments01.argument1 = "1";
             Thread thread = new Thread(RunWinGifWait);

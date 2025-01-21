@@ -1077,7 +1077,7 @@ namespace FrontSeam
         }
         public  void SelectedFalseDiagnoz()
         {
-
+            endUnload = 0;
             string json = "", CmdStroka = "";
             MapOpisViewModel.DeleteOnOff = true;
             RunGifWait();
@@ -1091,7 +1091,6 @@ namespace FrontSeam
                 DiagnozRecomendaciya = DiagnozRecomendaciya.Substring(0, DiagnozRecomendaciya.LastIndexOf(";") + 1);
             }
             endUnload = 1;
-            
             Thread.Sleep(800);
             if (CmdStroka.Contains("[]") == true) { MessageOfDagnoz(); return; }
             var result = JsonConvert.DeserializeObject<ListModelInterview>(CmdStroka);

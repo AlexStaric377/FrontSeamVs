@@ -12,8 +12,24 @@
          ShowInTaskbar="False"   Height="120" Width="120" Margin="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Opacity ="1.0"
         Background="{x:Null}" Topmost="True"  >
     <Grid>
-        <Border x:Name="BorderWin" BorderBrush="White" Background="White" Opacity ="1.0" BorderThickness="0,0,0,0" CornerRadius="25,25,25,25" Height="120" Width="120">
-            <Image Height="110" Width="110"    Name="Wait"  gif:ImageBehavior.AnimatedSource="pack://application:,,,/FrontSeam;component/Images/loading9.gif" Cursor="Hand" >
+        <Border x:Name="BorderWin" BorderBrush="White" Background="White" Opacity ="1.0" BorderThickness="0,0,0,0" CornerRadius="30,30,30,30" Height="120" Width="120">
+            <Image Height="100" Width="100"    Name="Wait"  Source="pack://application:,,,/FrontSeam;component/Images/loading9.gif" Cursor="Hand" ><!--gif:ImageBehavior.Animated-->
+                <Image.RenderTransform>
+                    <RotateTransform x:Name="rotate"
+                         CenterX="50"
+                         CenterY="50"/>
+                </Image.RenderTransform>
+                <Image.Triggers>
+                    <EventTrigger RoutedEvent="Loaded">
+                        <BeginStoryboard>
+                            <Storyboard RepeatBehavior="Forever">
+                                <DoubleAnimation Storyboard.TargetName="rotate"
+                                     Storyboard.TargetProperty="Angle"
+                                     By="360" Duration="0:0:2"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Image.Triggers>
             </Image>
         </Border>
     </Grid>

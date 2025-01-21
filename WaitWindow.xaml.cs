@@ -39,13 +39,8 @@ namespace FrontSeam
 
         private void CloseAutoTick(object sender, EventArgs e)
         {
-            --SetTimeClose;
-            if (MapOpisViewModel.endUnload == 1) { CloseAuto.Stop(); this.Close(); return; }
-            if (SetTimeClose < 0)
-            {
-                CloseAuto.Stop();
-                this.Close();
-            }
+            if (MapOpisViewModel.endUnload == 1) { CloseAuto.Stop(); this.Close(); }
+            else --SetTimeClose; if (SetTimeClose < 0) { CloseAuto.Stop(); this.Close(); }
 
 
         }
