@@ -24,7 +24,7 @@ namespace FrontSeam
         public WinAccountRecords()
         {
             InitializeComponent();
-            KodCountry.SelectedIndex = 0;
+            //KodCountry.SelectedIndex = 0;
         }
     }
 }

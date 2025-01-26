@@ -69,7 +69,7 @@ namespace FrontSeam
         // загрузка справочника по нажатию клавиши Завантажити
         public void MethodloadProfilLikar()
         {
-            selectedProfilLikar = new ModelDoctor();
+            NewEkzemplarLikar();
             WindowProfilDoctor.LikarLoadInf.Visibility = Visibility.Hidden;
             WindowProfilDoctor.LikarLoadinterv.Visibility = Visibility.Hidden;
             WindowMain.BorderCabLikar.Visibility = Visibility.Hidden;
@@ -105,6 +105,12 @@ namespace FrontSeam
             
         }
 
+        private void NewEkzemplarLikar()
+        {
+            MapOpisViewModel.CallViewProfilLikar = "ProfilLikar";
+            selectedProfilLikar = new ModelDoctor();
+            SelectedProfilLikar = new ModelDoctor();
+        }
         private void MetodSelectRegProfilLikar()
         {
             SelectRegProfilLikar();
@@ -344,8 +350,6 @@ namespace FrontSeam
         public void MethodRemoveProfilLikar()
         {
 
-            
-           
             // зчитати профіль пацієнт в колекціїї опитувань
             string json = pathcontrolerColection + "0/" + selectedGridProfilLikar.kodDoctor.ToString()+ "/0";
             CallServer.PostServer(pathcontrolerColection, json, "GETID");
@@ -464,7 +468,6 @@ namespace FrontSeam
 
             }
 
-
             selectedGridDoctor = new ModelGridDoctor();
             selectedGridDoctor.kodDoctor = selectedProfilLikar.kodDoctor;
             selectedGridDoctor.id = selectedProfilLikar.id; 
@@ -579,7 +582,7 @@ namespace FrontSeam
             _pacientProfil = "";
             SelectedGridProfilLikar = new ModelGridDoctor();
             selectedGridProfilLikar = new ModelGridDoctor();
-
+            boolSetAccountUser = false;
             loadboolPacientProfil = false;
             loadboolProfilLikar = false;
             selectedProfilLikar = new ModelDoctor();

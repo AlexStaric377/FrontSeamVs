@@ -91,7 +91,7 @@ namespace FrontSeam
                           // Закладка лікар
                           case 2:
                                   WindowIntevLikar.GridLoadButton.Visibility = Visibility.Visible;
-                                  WindowIntevLikar.GridAdd.Visibility = Visibility.Visible;
+                                  WindowIntevLikar.GridAdd.Visibility = Visibility.Hidden;
                                   WindowIntevLikar.GridGhange.Visibility = Visibility.Visible;
                                   WindowIntevLikar.GridSave.Visibility = Visibility.Visible;
                                   WindowIntevLikar.GridPrint.Visibility = Visibility.Visible;
@@ -109,15 +109,16 @@ namespace FrontSeam
 
                                       break;
                                       case 2:
-                                          WindowIntevLikar.GridAdd.Visibility = Visibility.Hidden;
                                           WindowIntevLikar.GridGhange.Visibility = Visibility.Hidden;
                                           WindowIntevLikar.GridSave.Visibility = Visibility.Hidden;
                                           CheckLoadKabinetLikar();
                                           if (_kodDoctor == "") MethodloadProfilLikar(); // WarningMessageOfProfilLikar();
                                           if (_kodDoctor == "") { WindowProfilPacient.ControlLikar.SelectedIndex = 0; return; }
                                       break;
-
-                                  }
+                                  case 3: case 4: case 5: case 6:
+                                      WindowIntevLikar.GridAdd.Visibility = Visibility.Visible; 
+                                      break;
+                              }
                                   break;
                           // Закладка Администрування
                           case 3:
@@ -224,6 +225,11 @@ namespace FrontSeam
                                   case 0:
                                       // Завантажити профіль пацієнта
                                       CheckLoadKabinetPacient();
+                                      //if (CallViewProfilLikar == "ProfilLikar")
+                                      //{
+                                      //    LoadMessageErrorProfilLikar();
+                                      //    return;
+                                      //}
                                       MethodLoadPacientProfil();
                                       if (_pacientProfil == "") return;
                                       break;
@@ -413,16 +419,13 @@ namespace FrontSeam
                               {
                                   case 0:
                                       // Додати новий профіль пацієнта
+                                      if (loadboolPacientProfil == true)
+                                      {
+                                          WarningMessageNewProfilPacient();
+                                      }
                                       if (loadboolProfilLikar == true)
                                       {
-                                          
                                           MessageOnOffKabinetPacient();
-                                          if (MapOpisViewModel.DeleteOnOff == false) return;
-                                          ExitCabinetLikar();
-                                      }
-                                      if (loadboolAccountUser == true)
-                                      {
-                                          MessageOnOffKabinetAdmin();
                                           if (MapOpisViewModel.DeleteOnOff == false) return;
                                           ExitCabinetLikar();
                                       }
@@ -461,15 +464,13 @@ namespace FrontSeam
                                           if (MapOpisViewModel.DeleteOnOff == false) return;
                                           ExitCabinetLikar();
                                       }
-                                      if (loadboolAccountUser == true)
+                                      if (loadboolProfilLikar == true)
                                       {
-                                          MessageOnOffKabinetAdmin();
+                                          WarningMessageNewProfilLikar();
                                           if (MapOpisViewModel.DeleteOnOff == false) return;
                                           ExitCabinetLikar();
                                       }
                                       MessageAddOffProfilLikar();
-                                      //MethodloadProfilLikar();
-                                      //MethodAddNewProfilLIkar();
                                       break;
                                   case 1:
                                       // Старт інтервью яке проводить лікар

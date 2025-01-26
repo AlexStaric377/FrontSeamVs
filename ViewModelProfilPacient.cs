@@ -42,11 +42,11 @@ namespace FrontSeam
         /// </summary> 
         public static MainWindow WindowProfilPacient = MainWindow.LinkNameWindow("WindowMain");
         public static bool editboolPacientProfil = false, addboolPacientProfil = false;
-        private string edittextPacientProfil = "";
         private static string pathcontrolerPacientProfil = "/api/PacientController/";
         public static string pathcontrolerPacient = "/api/PacientController/", controlerLifePacient = "/api/LifePacientController/"
             , controlerLifeDoctor = "/api/LifeDoctorController/";
         public static ModelPacient selectedPacientProfil;
+        public static AccountUser regaccountUser;
         public static string _pacientProfil = "", _pacientName="", _pacientGender = "", RegStatusUser= "Пацїєнт";
 
         public static List<string> UnitCombProfil { get; set; } = new List<string> { "чол.", "жін." };
@@ -79,72 +79,56 @@ namespace FrontSeam
        // загрузка справочника по нажатию клавиши Завантажити
         private void MethodLoadPacientProfil()
         {
-            WindowMain.BorderCabPacient.Visibility = Visibility.Hidden;
-            WindowMain.LoadProfil.Visibility = Visibility.Hidden;
-            if (boolSetAccountUser == false && loadboolProfilLikar == false && loadboolPacientProfil == false)
-            {
-                if (RegSetAccountUser() == true)
-                {
-                    if (ViewPacientProfils != null)
-                    {
-                        if (ViewPacientProfils.Count > 0)
-                        {
-                            WindowProfilPacient.LoadProfil.Visibility = Visibility.Hidden;
-                            selectedPacientProfil = ViewPacientProfils[0];
-                            SetValuePacientProfil();
-                        }
-                    }
+            NewEkzemplar();
+            ViewPacientProfils = new ObservableCollection<ModelPacient>();
+            if (boolSetAccountUser == false && loadboolProfilLikar == false && loadboolPacientProfil == false) { RegProfil(); return; }
+            if (loadboolPacientProfil == true) { loadboolPacientProfil = false; RegProfil(); return; }
+            if (loadboolProfilLikar == true && boolSetAccountUser == false) {ProfilLikarMessageError(); return;}
+            if (boolSetAccountUser == true) SelectRegPacientProfil();           
+        }
 
-                    if (CallViewProfilLikar == "Admin") SelectRegPacientProfil();
-                    if (CallViewProfilLikar == "ProfilLikar")
-                    {
-                        LoadMessageErrorProfilLikar();
-                        return;
-                    }
-                }
-            }
-            else
+        private void RegProfil()
+        {
+            if (RegSetAccountUser() == true)
             {
-                if (loadboolProfilLikar == true && boolSetAccountUser == false)
+                if (ViewPacientProfils.Count > 0)
                 {
-                    ProfilLikarMessageError();
-                    return;
+                    selectedPacientProfil = ViewPacientProfils[0];
+                    SetValuePacientProfil();
                 }
-                if (boolSetAccountUser == true) SelectRegPacientProfil();           
+
+                if (CallViewProfilLikar == "Admin") SelectRegPacientProfil();
+                else WindowProfilPacient.GridAdd.Visibility = Visibility.Hidden;
             }
+        }
+
+        private void NewEkzemplar()
+        {
  
-
+            selectedPacientProfil = new ModelPacient();
+            SelectedPacientProfil = new ModelPacient();
+            regaccountUser = new AccountUser();
+            WindowMain.BorderCabPacient.Visibility = Visibility.Hidden;
+            CallViewProfilLikar = "PacientProfil";
+            IndexAddEdit = "";
         }
         // команда добавления нового объекта
         private void MethodaddcomPacientProfil()
         {
-            if (loadboolPacientProfil == true)
-            { 
-                WarningMessageNewProfilPacient();
-                return;
-            } 
-            
-            CallViewProfilLikar = "PacientProfil";
-            WindowMain.BorderCabPacient.Visibility = Visibility.Hidden;
-            WindowMain.LoadProfil.Visibility = Visibility.Hidden;
-            ViewPacientProfils = new ObservableCollection<ModelPacient>();
-            selectedPacientProfil = new ModelPacient();
-            SelectedPacientProfil = new ModelPacient();
-            IndexAddEdit = IndexAddEdit == "addCommand" ? "" : "addCommand";
-            if (addboolPacientProfil == true)
+            NewEkzemplar();
+            IndexAddEdit =  "addCommand";
+            if (addboolPacientProfil == false)
+            {
+                if (loadboolAccountUser == false)  {if (RegSetAccountUser() == false) return;  }
+                BoolTruePacientProfil();
+                WindowProfilPacient.CombgenderProfil.SelectedIndex = Convert.ToInt32(SelectedCombProfil);
+            }
+            else
             {
                 BoolFalsePacientProfil();
                 WindowMain.BorderCabPacient.Visibility = Visibility.Visible;
-                WindowMain.LoadProfil.Visibility = Visibility.Visible;
-                addboolPacientProfil = false;
-                ViewModelRegisterAccountUser.ReestrOnOff = true;
-                if (loadboolPacientProfil == true) WarningMessageNewProfilPacient();
                 return;
             }
-            else
-            {  BoolTruePacientProfil(); }
-            WindowProfilPacient.CombgenderProfil.SelectedIndex = Convert.ToInt32(SelectedCombProfil);
- 
         }
 
         public bool RegSetAccountUser()
@@ -153,9 +137,9 @@ namespace FrontSeam
             if (loadboolProfilLikar == true && CallViewProfilLikar == "ProfilLikar") return loadboolProfilLikar;
             if (loadboolPacientProfil == true && CallViewProfilLikar == "PacientProfil") return loadboolPacientProfil;
             bool _return = true;
+
             WinRegisterAccountUser NewAccountUser = new WinRegisterAccountUser();
             NewAccountUser.ShowDialog();
-
 
             if (CallViewProfilLikar == "PacientProfil") _return = loadboolPacientProfil;
             if (CallViewProfilLikar == "ProfilLikar") _return = loadboolProfilLikar;
@@ -165,21 +149,21 @@ namespace FrontSeam
 
         private void SelectRegPacientProfil()
         {
-            
-            CallViewProfilLikar = "PacientProfil";
-            selectedPacientProfil = new ModelPacient();
+            namePacient = "";
             WinNsiPacient NewOrder = new WinNsiPacient();
             NewOrder.ShowDialog();
-            CallViewProfilLikar = "";
-            string CmdStroka = CallServer.ServerReturn();
-            if (CmdStroka.Contains("[]"))
+            if (namePacient != "")
             {
-                WarningMessageOfProfilPacient();
+                ViewPacientProfils.Add(selectedProfilPacient);
+                SelectedPacientProfil = selectedProfilPacient;
+                SetValuePacientProfil();           
+            }
+            else
+            {
+                if(RegUserStatus != "1")WarningMessageOfProfilPacient();
                 return;
             }
-            ObservableViewPacientProfil(CmdStroka);
-            SetValuePacientProfil();
-            
+
         }
 
         public void SetValuePacientProfil()
@@ -188,15 +172,17 @@ namespace FrontSeam
             if (selectedPacientProfil != null)
             {
                 LoadInfoPacient("пацієнта.");
+                if (regaccountUser.login != null)
+                {
+                    ViewModelAccountRecords.MetodSaveAccountRecords();
+                }
                 MainWindow WindowPacientProfil = MainWindow.LinkNameWindow("WindowMain");
                 _pacientProfil = selectedPacientProfil.kodPacient;
                 _pacientGender = selectedPacientProfil.gender;
                 _pacientName = selectedPacientProfil.name + " " + selectedPacientProfil.surname + " " + selectedPacientProfil.profession + " " + selectedPacientProfil.tel;
                 SelectedPacientProfil = selectedPacientProfil;
-                WindowPacientProfil.PacientIntert3.Text = _pacientName;
+                WindowPacientProfil.PacientIntert3.Text = WindowPacientProfil.ReceptionPacientzap3.Text = WindowPacientProfil.StatusHealth3.Text = _pacientName;
                 WindowPacientProfil.PacentNameInterv.Text = "Опитування пацієнта: ";
-                WindowPacientProfil.ReceptionPacientzap3.Text = _pacientName;
-                WindowPacientProfil.StatusHealth3.Text = _pacientName;
                 SelectedProfilPacient = selectedProfilPacient;
                 modelColectionInterview.namePacient = selectedPacientProfil.name + selectedPacientProfil.surname;
                 modelColectionInterview.kodPacient = selectedPacientProfil.kodPacient;
@@ -277,6 +263,8 @@ namespace FrontSeam
             {
                 WindowProfilDoctor.LoadProfil.Content = "Для збреження профілю необхідно натиснути на кнопку 'Зберегти'";
             }
+            if (regaccountUser.login != "")WindowProfilPacient.PacientProfilt8.Text = regaccountUser.login;
+  
             WindowMain.BorderCabPacient.Visibility = Visibility.Hidden;
         }
 
@@ -305,22 +293,22 @@ namespace FrontSeam
             WindowProfilPacient.PacientProfilt11.Background = Brushes.White;
             WindowProfilPacient.PacientProfilt13.IsEnabled = false;
             WindowProfilPacient.PacientProfilt13.Background = Brushes.White;
-
+            ViewModelRegisterAccountUser.ReestrOnOff = false;
+            IndexAddEdit = "";
         }
 
         // команда удаления
         public void MethodRemovePacientProfil()
         { 
-            if (selectedPacientProfil != null)
+            if (selectedPacientProfil.id != 0)
             {
                 MetodRemovePrifilPacient( selectedPacientProfil.kodPacient);
                 WindowProfilPacient.StatusHealthTablGrid.SelectedIndex = 0;
                 selectedPacientProfil = new ModelPacient();
                 SelectedPacientProfil = new ModelPacient();
                 ExitCabinetLikar();
+                BoolFalsePacientProfil();
             }
-            IndexAddEdit = "";       
-        
         }
 
         public static void MetodRemovePrifilPacient( string kodPacient = "")
@@ -372,18 +360,14 @@ namespace FrontSeam
         // команда  редактировать
         public void MethodEditProfilPacient()
         { 
-            if (selectedPacientProfil != null)
+            if (selectedPacientProfil.id != 0)
             {
                 IndexAddEdit = "editCommand";
-                if (editboolPacientProfil == false)
+                if(editboolPacientProfil == false) BoolTruePacientProfil();
+                else BoolFalsePacientProfil();
                 {
-                   if(selectedPacientProfil != null)
-                        if(selectedPacientProfil.id !=0) BoolTruePacientProfil();
-                } 
-                else
-                {
-                    BoolFalsePacientProfil();
-                    IndexAddEdit = "";
+                    
+
                 }
             }       
         }
@@ -433,8 +417,6 @@ namespace FrontSeam
                         WindowProfilPacient.StatusHealth3.Text = WindowProfilPacient.PacientIntert3.Text;
                     }
                     else SelectedPacientProfil = new ModelPacient();
-
-
                 }
                 else
                 {
@@ -443,7 +425,6 @@ namespace FrontSeam
                 }
                 BoolFalsePacientProfil();
             }
-            IndexAddEdit = "";       
         }
 
         // команда закрытия окна
@@ -517,11 +498,11 @@ namespace FrontSeam
 
             MainWindow.MessageError = "Увага!" + Environment.NewLine +
                       "Ви бажаєте створити кабінет пацієнта для зберігання" + Environment.NewLine +" результатів ваших опитувань та записів до лікаря?";
-            SelectedRemove();
+            SelectedDelete(-1);
             if (MapOpisViewModel.DeleteOnOff == true)
             {
                 MapOpisViewModel.selectedProfilPacient = selectedPacientProfil;
-                NewAccountRecords();
+                if(regaccountUser.login == "") NewAccountRecords();
                 
             }
 

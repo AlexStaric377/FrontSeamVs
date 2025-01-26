@@ -62,9 +62,6 @@ namespace FrontSeam
             MessageWarn NewOrder = new MessageWarn(MainWindow.MessageError, 2, TimePauza);
             NewOrder.Height = NewOrder.Height + 90;
             NewOrder.grid2.Height = NewOrder.grid2.Height + 60;
-            NewOrder.MessageText.Height = NewOrder.MessageText.Height + 60;
-            //NewOrder.Left = 250;
-            //NewOrder.Top = 100;
             NewOrder.ShowDialog();
         }
 
@@ -385,7 +382,7 @@ namespace FrontSeam
             {
                 WindowInfo.AccountZap.Visibility = Visibility.Hidden;
                 WindowInfo.NsiStatusUser.Visibility = Visibility.Hidden;
-                WindowInfo.GridLoadButton.Visibility = Visibility.Hidden;
+
             }
             else
             {

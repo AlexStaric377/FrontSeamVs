@@ -41,7 +41,7 @@ namespace FrontSeam
         public static string InputContent = "", PacientContent="", LikarContent="", selectIcdGrDiagnoz = "";
         public static MainWindow WindowMain = MainWindow.LinkNameWindow("WindowMain");
         public static int NumberstrokaGuest = 0, IdItemGuestInterv = 0, endUnload = 0;
-        public static string Controlleroutfile = "/api/UnLoadController/", upLoadstroka = "", RegIdUser = "", RegUserStatus = "";
+        public static string Controlleroutfile = "/api/UnLoadController/", upLoadstroka = "", RegIdUser = "", RegUserStatus = "", RegPassword = "";
         public static int _ControlTableItem = 0, _ControlGuest = 0, _ControlPacient = 0, _ControlLikar = 0, _ControlAdmin = 0;
         private bool endwhile = false;
         public static string IndexAddEdit ="", GetidkodProtokola="";

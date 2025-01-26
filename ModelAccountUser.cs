@@ -23,18 +23,8 @@ namespace FrontSeam
     // Учетные записи
    
 
-    public class ModelAccountUser : INotifyPropertyChanged
+    public class ModelAccountUser : BaseViewModel
     {
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-
-        }
 
         private int Id;
         private string IdUser;

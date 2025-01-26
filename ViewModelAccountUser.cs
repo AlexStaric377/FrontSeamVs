@@ -194,24 +194,20 @@ namespace FrontSeam
                     // Видалення данных о гостях, пациентах, докторах, учетных записях
                     if (MapOpisViewModel.DeleteOnOff == true)
                     {
-                        MetodRemovePrifilPacient(selectedModelAccountUser.idUser);
+                        MetodRemovePrifilPacient(selectedModelAccountUser.idUser.Substring(0, selectedModelAccountUser.idUser.IndexOf(":")));
                         selectedAccountUser.id = selectedModelAccountUser.id;
+                        string json = pathcontrolerAccountUser + selectedAccountUser.id;
+                        CallServer.PostServer(pathcontrolerAccountUser, json, "DELETE");
                         ViewAccountUsers.Remove(selectedAccountUser);
                         ViewModelAccountUsers.Remove(selectedModelAccountUser);
                         selectedAccountUser = new AccountUser();
                         selectedModelAccountUser = new ModelAccountUser();
+                        WindowAccountUser.AccountUserTablGrid.ItemsSource = ViewModelAccountUsers;
                     }
 
                 }
-                else
-                {
-                    WindowAccountUser.AccountUsert1.Text = "";
-                    WindowAccountUser.AccountUsert2.Text = "";
-                    WindowAccountUser.AccountUsert3.Text = "";
-                    WindowAccountUser.AccountUsert4.Text = "";
-                    WindowAccountUser.AccountUsert5.Text = "";
+                else SelectedModelAccountUser = new ModelAccountUser();
 
-                }
             }
             BoolFalseAccountUser();
             IndexAddEdit = "";       

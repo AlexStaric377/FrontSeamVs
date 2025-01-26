@@ -34,7 +34,7 @@ namespace FrontSeam
         private static string pathcontrolerAccountUser = "/api/AccountUserController/";
         private string pathcontroller = "/api/PacientController/";
         private string pathcontrolerProfilLikar = "/api/ApiControllerDoctor/";
-        private static ModelAccountUser selectedModelAccountUser;
+        public static ModelAccountUser selectedModelAccountUser,  IdAccountUser ;
         public ModelAccountUser SelectedModelAccountUser
         {
             get { return selectedModelAccountUser; }
@@ -248,8 +248,10 @@ namespace FrontSeam
                       }
                       MainWindow.MessageError += Environment.NewLine + "2. Зберегти введені дані натиснувши на кнопку 'Зберегти'" +
                                 Environment.NewLine + "3. У відповідь на запит ввести логін та пароль";
-                      MapOpisViewModel.SelectedFalseLogin();
+                      MapOpisViewModel.SelectedFalseLogin(20);
                       WindowAccount.Close();
+                      MapOpisViewModel.NewAccountRecords();
+
                   }));
             }
         }
@@ -284,9 +286,29 @@ namespace FrontSeam
                 return;
             }
             CmdStroka = CallServer.ResponseFromServer.Replace("[", "").Replace("]", "");
-            ModelAccountUser IdAccountUser = JsonConvert.DeserializeObject<ModelAccountUser>(CmdStroka);
-
-            switch(IdAccountUser.idStatus)
+            IdAccountUser = JsonConvert.DeserializeObject<ModelAccountUser>(CmdStroka);
+            MapOpisViewModel.RegUserStatus = IdAccountUser.idStatus;
+            if (MapOpisViewModel.CallViewProfilLikar == "PacientProfil" && IdAccountUser.idStatus == "3")
+            {
+                MainWindow.MessageError = "Увага!" + Environment.NewLine +
+                                        "Реєстрація облікового запису лікаря в кабінеті пацієнта не приймається" + Environment.NewLine +
+                                        "Обліковий запис лікаря необхідно реєструвати в кабінеті лікаря";
+                MapOpisViewModel.SelectedFalseLogin(20);
+                MapOpisViewModel.loadboolPacientProfil = false;
+                WindowAccount.Close();
+                return;
+            }
+            if (MapOpisViewModel.CallViewProfilLikar == "ProfilLikar" && IdAccountUser.idStatus == "2")
+            {
+                MainWindow.MessageError = "Увага!" + Environment.NewLine +
+                                        "Реєстрація облікового запису пацієнта в кабінеті лікаря не приймається" + Environment.NewLine +
+                                        "Обліковий запис пацієнта необхідно реєструвати в кабінеті пацієнта";
+                MapOpisViewModel.SelectedFalseLogin(20);
+                MapOpisViewModel.loadboolProfilLikar = false;
+                WindowAccount.Close();
+                return;
+            }
+            switch (IdAccountUser.idStatus)
             {
                 case "1":
                     WindowAccount.Open.Visibility = Visibility.Hidden;
@@ -310,7 +332,6 @@ namespace FrontSeam
                     MapOpisViewModel.ObservableViewPacientProfil(CmdStroka);
                     MapOpisViewModel.loadboolPacientProfil = true;
                     MapOpisViewModel.boolSetAccountUser = false;
-                    MapOpisViewModel.CallViewProfilLikar = "PacientProfil";
                     break;
                 case "3":
                     CallServer.PostServer(pathcontrolerProfilLikar, pathcontrolerProfilLikar + IdAccountUser.idUser + "/0/0", "GETID");
@@ -328,7 +349,6 @@ namespace FrontSeam
                     MapOpisViewModel.ObservableViewProfilLikars(CmdStroka);
                     MapOpisViewModel.boolSetAccountUser = false;
                     MapOpisViewModel.loadboolProfilLikar = true;
-                    MapOpisViewModel.CallViewProfilLikar = "ProfilLikar";
                     break;
                       
                       

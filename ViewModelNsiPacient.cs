@@ -87,7 +87,7 @@ namespace FrontSeam
             var result = JsonConvert.DeserializeObject<ListModelPacient>(CmdStroka);
             List<ModelPacient> res = result.ViewPacient.ToList();
             NsiPacients = new ObservableCollection<ModelPacient>((IEnumerable<ModelPacient>)res);
-            
+            selectedPacient = new ModelPacient();
         }
 
 
@@ -249,10 +249,8 @@ namespace FrontSeam
                 WindowMain.LikarIntert3.Text = selectedPacient.kodPacient.ToString() + ": " + selectedPacient.name.ToString() + " " + selectedPacient.surname.ToString() + " " + selectedPacient.tel.ToString();
 
                 WindowMain.AccountUsert5.Text = selectedPacient.kodPacient.ToString() + ": " + selectedPacient.name.ToString() + " " + selectedPacient.surname.ToString();
-                if (MapOpisViewModel.CallViewProfilLikar == "ProfilPacient") MapOpisViewModel.selectedProfilPacient = selectedPacient;
-                if (MapOpisViewModel.CallViewProfilLikar == "PacientProfil") MapOpisViewModel.selectedPacientProfil = selectedPacient;
-                selectedPacient = new ModelPacient();
-                WindowMen.Close();
+                MapOpisViewModel.selectedProfilPacient = selectedPacient;
+                 WindowMen.Close();
             }
         }
     }

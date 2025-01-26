@@ -36,13 +36,13 @@ namespace FrontSeam
 
         }
 
-        private WinAccountRecords WindowAccount = MainWindow.LinkNameWindow("AccountRecords");
+        private static  WinAccountRecords WindowAccount = MainWindow.LinkNameWindow("AccountRecords");
         public static bool On1OffEye = false, Reestr1OnOff = false, On2OffEye = false, Reestr2OnOff = false;
         public static string Password1Text = "", Password2Text = "", _telefon ="", _fio="";
         private static string pathcontrolerAccountUser = "/api/AccountUserController/";
         private string pathcontroller = "/api/PacientController/";
         private string pathcontrolerProfilLikar = "/api/ApiControllerDoctor/";
-        private static ModelAccountUser selectedModelAccountUser;
+        public static ModelAccountUser selectedModelAccountUser;
         public static ModelDoctor selectProfilLikar;
         public ModelAccountUser SelectedModelAccountUser
         {
@@ -67,10 +67,13 @@ namespace FrontSeam
                     selectProfilLikar = new ModelDoctor();
                     if (ViewModelRegisterAccountUser._GhangePaswUser == false)
                     {
+                        if (MapOpisViewModel.selectedProfilPacient != null)
+                        { 
+                            selectProfilLikar.name = MapOpisViewModel.selectedProfilPacient.name;
+                            selectProfilLikar.surname = MapOpisViewModel.selectedProfilPacient.surname;
+                            selectProfilLikar.telefon = MapOpisViewModel.selectedProfilPacient.tel;                        
+                        }
 
-                        selectProfilLikar.name = MapOpisViewModel.selectedProfilPacient.name;
-                        selectProfilLikar.surname = MapOpisViewModel.selectedProfilPacient.surname;
-                        selectProfilLikar.telefon = MapOpisViewModel.selectedProfilPacient.tel;
                     }
                     else { selectProfilLikar.telefon = ViewModelRegisterAccountUser.AccountTel; }
 
@@ -228,49 +231,74 @@ namespace FrontSeam
                           GhangePasswordUser();
                           return;
                       }
-                      selectedModelAccountUser = new ModelAccountUser();
-                      string AccountUserlog = MapOpisViewModel.selectedProfilPacient == null ? "" : "+"+MapOpisViewModel.selectedProfilPacient.tel;
-                      selectedModelAccountUser.id = 0;
-                      selectedModelAccountUser.idUser = MapOpisViewModel.CallViewProfilLikar == "ProfilLikar" ? MapOpisViewModel.selectedProfilLikar.kodDoctor : MapOpisViewModel.selectedProfilPacient.kodPacient;
-                      selectedModelAccountUser.login = "+" + (MapOpisViewModel.CallViewProfilLikar == "ProfilLikar" ? MapOpisViewModel.selectedProfilLikar.telefon : MapOpisViewModel.selectedProfilPacient.tel); //_telefon+
-                      selectedModelAccountUser.password = WindowAccount.Passw1Text.Text.ToString();
-                      selectedModelAccountUser.idStatus = MapOpisViewModel.CallViewProfilLikar == "ProfilLikar"?"3":"2";
-
-                      string json = MapOpisViewModel.pathcontrolerStatusUser + selectedModelAccountUser.idStatus.ToString();
-                      CallServer.PostServer(MapOpisViewModel.pathcontrolerStatusUser, json, "GETID");
-                      CallServer.ResponseFromServer = CallServer.ResponseFromServer.Replace("[", "").Replace("]", "");
-                      NsiStatusUser Idinsert = JsonConvert.DeserializeObject<NsiStatusUser>(CallServer.ResponseFromServer);
-                      if (Idinsert != null)
+                      if (MapOpisViewModel.selectedProfilLikar == null && MapOpisViewModel.selectedProfilPacient == null)
                       {
-                          selectedModelAccountUser.kodDostupa = Idinsert.kodDostupa;
-                          selectedModelAccountUser.nameStatus = Idinsert.nameStatus;
-
+                          MapOpisViewModel.regaccountUser.login = WindowAccount.TelAccount.Text;
+                          MapOpisViewModel.regaccountUser.password = WindowAccount.Passw1Text.Text;
+                          MapOpisViewModel.regaccountUser.idStatus = MapOpisViewModel.CallViewProfilLikar == "ProfilLikar" ? "3" : "2";
                       }
-                      json = JsonConvert.SerializeObject(selectedModelAccountUser);
-                      CallServer.PostServer(pathcontrolerAccountUser, json, "POST");
-                      CallServer.ResponseFromServer = CallServer.ResponseFromServer.Replace("[", "").Replace("]", "");
-                      AccountUser Insert = JsonConvert.DeserializeObject<AccountUser>(CallServer.ResponseFromServer);
-                      if (Insert != null)
-                      {
-                          MainWindow.MessageError = "Увага!" + Environment.NewLine +
-                          "Ваш профіль збережено, обліковий запис успішно створено." + Environment.NewLine +
-                          "Відтепер ви маєте свій кабінет і вхід до нього за вашим логіном та паролем. ";
-                          MapOpisViewModel.SelectedFalseLogin();
-                          ViewModelRegisterAccountUser.ReestrOnOff = true;
-                          MapOpisViewModel.saveboolAccountLikar = true;
-                      }
-                      else
-                      {
-                          MainWindow.MessageError = "Увага!" + Environment.NewLine +
-                          "Профіль не створено. За консультацією зверніться до системного адміністратора";
-                          MapOpisViewModel.SelectedFalseLogin();
-                      }
-                     
-                      
+                      if (ViewModelRegisterAccountUser.IdAccountUser.idStatus == "Admin") return;
+                      else MetodSaveAccountRecords();
+ 
+                      MapOpisViewModel.loadboolPacientProfil = true;
                       WindowAccount.Close();
                   }));
             }
         }
+
+        public static void MetodSaveAccountRecords()
+        {
+            selectedModelAccountUser = new ModelAccountUser();
+            string AccountUserlog = MapOpisViewModel.selectedProfilPacient == null ? "" : "+" + MapOpisViewModel.selectedProfilPacient.tel;
+            selectedModelAccountUser.id = 0;
+            selectedModelAccountUser.idUser = MapOpisViewModel.CallViewProfilLikar == "ProfilLikar" ? MapOpisViewModel.selectedProfilLikar.kodDoctor : MapOpisViewModel.selectedProfilPacient.kodPacient;
+            
+            
+            if (MapOpisViewModel.regaccountUser.login != null)
+            {
+                selectedModelAccountUser.login = MapOpisViewModel.regaccountUser.login;
+                selectedModelAccountUser.password = MapOpisViewModel.regaccountUser.password;
+                selectedModelAccountUser.idStatus = MapOpisViewModel.regaccountUser.idStatus;
+            }
+            else
+            {
+                selectedModelAccountUser.login = ViewModelRegisterAccountUser.IdAccountUser.login; //MapOpisViewModel.CallViewProfilLikar == "ProfilLikar" ? MapOpisViewModel.selectedProfilLikar.telefon : MapOpisViewModel.selectedProfilPacient.tel; //_telefon+
+                selectedModelAccountUser.password = ViewModelRegisterAccountUser.IdAccountUser.password;
+                selectedModelAccountUser.idStatus = ViewModelRegisterAccountUser.IdAccountUser.idStatus; //MapOpisViewModel.CallViewProfilLikar == "ProfilLikar" ? "3" : "2";            
+            }
+
+
+            string json = MapOpisViewModel.pathcontrolerStatusUser + selectedModelAccountUser.idStatus.ToString();
+            CallServer.PostServer(MapOpisViewModel.pathcontrolerStatusUser, json, "GETID");
+            CallServer.ResponseFromServer = CallServer.ResponseFromServer.Replace("[", "").Replace("]", "");
+            NsiStatusUser Idinsert = JsonConvert.DeserializeObject<NsiStatusUser>(CallServer.ResponseFromServer);
+            if (Idinsert != null)
+            {
+                selectedModelAccountUser.kodDostupa = Idinsert.kodDostupa;
+                selectedModelAccountUser.nameStatus = Idinsert.nameStatus;
+
+            }
+            json = JsonConvert.SerializeObject(selectedModelAccountUser);
+            CallServer.PostServer(pathcontrolerAccountUser, json, "POST");
+            CallServer.ResponseFromServer = CallServer.ResponseFromServer.Replace("[", "").Replace("]", "");
+            AccountUser Insert = JsonConvert.DeserializeObject<AccountUser>(CallServer.ResponseFromServer);
+            if (Insert != null)
+            {
+                MainWindow.MessageError = "Увага!" + Environment.NewLine +
+                "Ваш профіль збережено, обліковий запис успішно створено." + Environment.NewLine +
+                "Відтепер ви маєте свій кабінет і вхід до нього за вашим логіном та паролем. ";
+                MapOpisViewModel.SelectedFalseLogin();
+                ViewModelRegisterAccountUser.ReestrOnOff = true;
+                MapOpisViewModel.saveboolAccountLikar = true;
+            }
+            else
+            {
+                MainWindow.MessageError = "Увага!" + Environment.NewLine +
+                "Профіль не створено. За консультацією зверніться до системного адміністратора";
+                MapOpisViewModel.SelectedFalseLogin();
+            }
+        }
+
 
         private void GhangePasswordUser()
         {

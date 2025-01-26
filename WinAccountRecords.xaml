@@ -36,8 +36,8 @@
                 <TextBlock Name="Fio"  Text="{Binding name, UpdateSourceTrigger=PropertyChanged}" DataContext="{Binding SelectProfilLikar}" Grid.Row="1" Height="28" Width="100" FontSize="16" FontFamily="Microsoft Sans Serif"  HorizontalAlignment="Left" Margin="40,0,0,0" />
                 <TextBlock Name="Famely"  Text="{Binding surname, UpdateSourceTrigger=PropertyChanged}" DataContext="{Binding SelectProfilLikar}" Grid.Row="1" Height="28" Width="110" FontSize="16" FontFamily="Microsoft Sans Serif"  HorizontalAlignment="Right" Margin="0,0,20,0" />
 
-                <Label Name="Nomtel"  Content="Логін : Номер телефону " Grid.Row="2" Height="30" FontSize="10" FontFamily="Microsoft Sans Serif"  HorizontalAlignment="Left" Margin="10,0,0,0" />
-
+                <!--<Label Name="Nomtel1"  Content="Логін : Номер телефону " Grid.Row="2" Height="30" FontSize="10" FontFamily="Microsoft Sans Serif"  HorizontalAlignment="Left" Margin="10,0,0,0" />-->
+                <Label Name="Nomtel"  Content="Логін :Номер телефону:   +380  XX XX XXX XX " Grid.Row="2" Height="30" Width="210" FontSize="10" FontFamily="Microsoft Sans Serif"  HorizontalAlignment="Left" Margin="10,0,0,0" />
 
                 <Image Height="30" Width="30" Grid.Row="0" HorizontalAlignment="Right"  Name="Close_Grid"  VerticalAlignment="Bottom" 
                     Source="pack://application:,,,/FrontSeam;component/Images/delete2.png" Cursor="Hand"  >
@@ -49,17 +49,20 @@
                 </Image>
                 <Grid Grid.Row="3">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width ="70*"/>
+                        <ColumnDefinition Width ="80*"/>
                         <ColumnDefinition Width ="170*"/>
                     </Grid.ColumnDefinitions>
 
-                    <ComboBox x:Name="KodCountry" Grid.Column="0" Width="60" Height="25" Background="#FFCED7F7" HorizontalAlignment="Left" Margin="10,0,0,0"
+                    <!--<ComboBox x:Name="KodCountry" Grid.Column="0" Width="60" Height="25" Background="#FFCED7F7" HorizontalAlignment="Left" Margin="10,0,0,0"
                                ItemsSource="{Binding Countrys}" SelectedIndex="{Binding SelectedCountry}"  >
-                        <!--Text="{Binding gender,UpdateSourceTrigger=PropertyChanged }"-->
+                        --><!--Text="{Binding gender,UpdateSourceTrigger=PropertyChanged }"--><!--
 
-                    </ComboBox>
-                    <TextBox Text="{Binding telefon,UpdateSourceTrigger=PropertyChanged}" DataContext="{Binding SelectProfilLikar}" x:Name="TelAccount"  Grid.Column="1" Width="120" Background="#FFCED7F7"
-                              FontSize="14" BorderThickness="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/><!--DataContext="{Type=local:ViewModelAccountRecords}"-->
+                    </ComboBox>-->
+                    <Label Name="Plus"  Content="+" Grid.Row="2" Height="24" Width="20" FontSize="10" FontFamily="Microsoft Sans Serif"  HorizontalAlignment="Right" Margin="10,0,0,0" />
+
+                    <TextBox Text="{Binding telefon,UpdateSourceTrigger=PropertyChanged}" DataContext="{Binding SelectProfilLikar}" x:Name="TelAccount"  Grid.Column="1" Width="120" Background="#FFDCE3FB"
+                              FontSize="14" BorderThickness="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <!--DataContext="{Type=local:ViewModelAccountRecords}" #FFCED7F7"-->
                     <!--GotFocus="{Binding ClearTextBox}"-->
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="KeyUp">
