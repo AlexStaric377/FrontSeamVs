@@ -2238,7 +2238,7 @@
                         <Grid Width="640" x:Name="InfoSeamGrids" Background="White" HorizontalAlignment="Center">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="60*" />
-                                <RowDefinition Height="190*"/>
+                                <RowDefinition Height="220*"/>
                                 <RowDefinition Height="50*" />
                                 <RowDefinition Height="50*" />
                                 <RowDefinition Height="100*" />
@@ -2246,15 +2246,18 @@
                             </Grid.RowDefinitions>
                             <Grid Grid.Row="0" Width="630"/>
                             <Grid Grid.Row="1" Width="630">
-                                <Border BorderBrush="#FFB6B3B3" Background="#FF858585"  BorderThickness="1" Width="630" Height="160" Padding="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                    <StackPanel x:Name="InfoSeamBd" Width="Auto" Background="White" Height="170" DataContext="{Binding SelectedModelAccountUser}" >
-                                        <Grid Width="Auto" Height="170">
+                                <Border BorderBrush="#FFB6B3B3" Background="#FF858585"  BorderThickness="1" Width="630" Height="190" Padding="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <StackPanel x:Name="InfoSeamBd" Width="Auto" Background="White" Height="180" DataContext="{Binding SelectedModelAccountUser}" >
+                                        <Grid Width="Auto" Height="180">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="60*" />
+                                                <RowDefinition Height="40*" />
                                                 <RowDefinition Height="100*"/>
                                             </Grid.RowDefinitions>
                                             <TextBlock Grid.Row="0" x:Name="InfoSeamVer"   Text="  Веріся зборки:"  FontSize="14" Height="30" Width="410"  VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                            <TextBlock Grid.Row="1"  x:Name="InfoDeveloper" Text="  Розробник: 2022-2023 ПП 'ОРІОН-С'. Стариченко Олександр Павлович&#xa;  Email: staric377@gmail.com&#xa;  Тел.: +380674012840&#xa;  Свідоцтво про реєсрацію авторського права № 126883"  FontSize="14" Height="80" Width="600" HorizontalAlignment="Left" />
+                                            <TextBlock Grid.Row="1" x:Name="InfoSeamFront"   Text="  Викоавчий модуль системи - Фронт."  FontSize="14" Height="24" Width="410"  VerticalAlignment="Center" HorizontalAlignment="Left"/>
+
+                                            <TextBlock Grid.Row="2"  x:Name="InfoDeveloper" Text="  Розробник: 2022-2023 ПП 'ОРІОН-С'. Стариченко Олександр Павлович&#xa;  Email: staric377@gmail.com&#xa;  Тел.: +380674012840&#xa;  Свідоцтво про реєсрацію авторського права № 126883"  FontSize="14" Height="80" Width="600" HorizontalAlignment="Left" />
                                         </Grid>
                                     </StackPanel>
                                 </Border>

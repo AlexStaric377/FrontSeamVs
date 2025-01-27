@@ -115,7 +115,7 @@ namespace FrontSeam
                                           if (_kodDoctor == "") MethodloadProfilLikar(); // WarningMessageOfProfilLikar();
                                           if (_kodDoctor == "") { WindowProfilPacient.ControlLikar.SelectedIndex = 0; return; }
                                       break;
-                                  case 3: case 4: case 5: case 6:
+                                  case 3: case 4: case 5: 
                                       WindowIntevLikar.GridAdd.Visibility = Visibility.Visible; 
                                       break;
                               }
@@ -225,11 +225,6 @@ namespace FrontSeam
                                   case 0:
                                       // Завантажити профіль пацієнта
                                       CheckLoadKabinetPacient();
-                                      //if (CallViewProfilLikar == "ProfilLikar")
-                                      //{
-                                      //    LoadMessageErrorProfilLikar();
-                                      //    return;
-                                      //}
                                       MethodLoadPacientProfil();
                                       if (_pacientProfil == "") return;
                                       break;

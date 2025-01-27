@@ -70,46 +70,36 @@ namespace FrontSeam
         public void MethodloadProfilLikar()
         {
             NewEkzemplarLikar();
-            WindowProfilDoctor.LikarLoadInf.Visibility = Visibility.Hidden;
-            WindowProfilDoctor.LikarLoadinterv.Visibility = Visibility.Hidden;
-            WindowMain.BorderCabLikar.Visibility = Visibility.Hidden;
-            if (boolSetAccountUser == false && loadboolProfilLikar == false && loadboolPacientProfil == false)
-            {
-                if (RegSetAccountUser() == true)
-                {
-                    if (ViewDoctors != null)
-                    {
-                        _kodDoctor = selectedProfilLikar.kodDoctor;
-                        SetValueLikarProfil();
-                        WindowProfilDoctor.LikarLoadInf.Visibility = Visibility.Hidden;
-                        if (WindowProfilDoctor.LikarUrit7.Text.Length > 0) WindowProfilDoctor.FolderDocUri5.Visibility = Visibility.Visible;
-                    }
-                    if (CallViewProfilLikar == "Admin") MetodSelectRegProfilLikar();
-                    if (CallViewProfilLikar == "PacientProfil")
-                    {
-                        LoadMessageError();
-                        return;
-                    }
-                }
-            }
-            else
-            { 
-               if (loadboolPacientProfil == true && boolSetAccountUser == false)
-               {
-                    PacientProfilMessageError();
-                    return;
-               }
-               if (boolSetAccountUser == true) MetodSelectRegProfilLikar();            
-            }
+            if (boolSetAccountUser == false && loadboolProfilLikar == false && loadboolPacientProfil == false) { RegProfilLikar(); return; }
+            if(loadboolProfilLikar == true) { loadboolProfilLikar = false; RegProfilLikar(); return; }
+            if (loadboolPacientProfil == true && boolSetAccountUser == false) { PacientProfilMessageError(); return; }
+            if (boolSetAccountUser == true) MetodSelectRegProfilLikar();            
+ 
+        }
 
-            
+        private void RegProfilLikar()
+        {
+            if (RegSetAccountUser() == true)
+            {
+                if (ViewDoctors.Count >0)
+                {
+                    _kodDoctor = selectedProfilLikar.kodDoctor;
+                    SetValueLikarProfil();
+                    if (WindowProfilDoctor.LikarUrit7.Text.Length > 0) WindowProfilDoctor.FolderDocUri5.Visibility = Visibility.Visible;
+                }
+                if (CallViewProfilLikar == "Admin") MetodSelectRegProfilLikar();
+            }
         }
 
         private void NewEkzemplarLikar()
         {
-            MapOpisViewModel.CallViewProfilLikar = "ProfilLikar";
+            WindowMain.BorderCabLikar.Visibility = Visibility.Hidden;
+            WindowProfilDoctor.LikarLoadInf.Visibility = Visibility.Hidden;
+            WindowProfilDoctor.LikarLoadinterv.Visibility = Visibility.Hidden;
+            CallViewProfilLikar = "ProfilLikar";
             selectedProfilLikar = new ModelDoctor();
             SelectedProfilLikar = new ModelDoctor();
+            ViewDoctors = new ObservableCollection<ModelDoctor>();
         }
         private void MetodSelectRegProfilLikar()
         {
@@ -156,31 +146,22 @@ namespace FrontSeam
 
         private void SelectRegProfilLikar()
         {
-
             WinNsiMedZaklad NewOrder = new WinNsiMedZaklad();
             NewOrder.ShowDialog();
-            EdrpouMedZaklad = ReceptionLIkarGuest.Likart8.Text.ToString();
-
-            if (EdrpouMedZaklad != "")
-            {
-                CallViewProfilLikar = "ProfilLikar";
             
-                selectedProfilLikar = new ModelDoctor();
+            if (ReceptionLIkarGuest.Likart8.Text != "")
+            {
+                EdrpouMedZaklad = ReceptionLIkarGuest.Likart8.Text;
                 WinNsiLikar NewOrderL = new WinNsiLikar();
                 NewOrderL.ShowDialog();
-                CallViewProfilLikar = "";
-                if (MapOpisViewModel.nameDoctor != "")
+                if (nameDoctor != "")
                 {
                     if (modelColectionInterview == null) modelColectionInterview = new ModelColectionInterview();
-
-                    modelColectionInterview.nameDoctor = MapOpisViewModel.nameDoctor.Substring(MapOpisViewModel.nameDoctor.IndexOf(":") + 1, MapOpisViewModel.nameDoctor.Length - MapOpisViewModel.nameDoctor.IndexOf(":") - 1);
-                    modelColectionInterview.kodDoctor = MapOpisViewModel.nameDoctor.Substring(0, MapOpisViewModel.nameDoctor.IndexOf(":"));
-                    WindowIntevLikar.ReceptionLikar2.Text = MapOpisViewModel.nameDoctor.Substring(MapOpisViewModel.nameDoctor.IndexOf(":") + 1, MapOpisViewModel.nameDoctor.Length - MapOpisViewModel.nameDoctor.IndexOf(":") - 1);
-
+                    WindowIntevLikar.ReseptionLikar.Text = WindowIntevLikar.ReceptionLikar2.Text = modelColectionInterview.nameDoctor = nameDoctor.Substring(nameDoctor.IndexOf(":") + 1, nameDoctor.Length - nameDoctor.IndexOf(":") - 1);
+                    modelColectionInterview.kodDoctor = nameDoctor.Substring(0, nameDoctor.IndexOf(":"));
+                    WindowIntevLikar.NameMedZaklad.Text = WindowIntevLikar.Likart9.Text;
                     ViewReceptionPacients = new ObservableCollection<AdmissionPatient>();
                     WindowIntevLikar.ReceptionPacientTablGrid.ItemsSource = ViewReceptionPacients;
-                    WindowIntevLikar.NameMedZaklad.Text = WindowIntevLikar.Likart9.Text;
-                    WindowIntevLikar.ReseptionLikar.Text = MapOpisViewModel.nameDoctor.Substring(MapOpisViewModel.nameDoctor.IndexOf(":") + 1, MapOpisViewModel.nameDoctor.Length - MapOpisViewModel.nameDoctor.IndexOf(":") - 1); ;
                     ViewVisitingDays = new ObservableCollection<ModelVisitingDays>();
                     WindowIntevLikar.ReseptionPacientTablGrid.ItemsSource = ViewVisitingDays;
                     ColectionInterviewIntevLikars = new ObservableCollection<ModelColectionInterview>();
@@ -194,8 +175,6 @@ namespace FrontSeam
 
         public static void MetodLoadGridProfilLikar()
         {
-            if (selectedProfilLikar != null)
-            {
                 if (selectedProfilLikar.id != 0)
                 {
                     ViewProfilLikars = new ObservableCollection<ModelDoctor>();
@@ -227,12 +206,10 @@ namespace FrontSeam
                                 selectedGridProfilLikar.pind = Idinsert.postIndex;
                             }
                         }
-                        MapOpisViewModel.nameDoctor = selectedGridProfilLikar.kodDoctor.ToString() + ": " + selectedGridProfilLikar.name.ToString() + " " + selectedGridProfilLikar.surname.ToString() + " " + selectedGridProfilLikar.telefon.ToString();
+                        nameDoctor = selectedGridProfilLikar.kodDoctor.ToString() + ": " + selectedGridProfilLikar.name.ToString() + " " + selectedGridProfilLikar.surname.ToString() + " " + selectedGridProfilLikar.telefon.ToString();
                         ViewGridProfilLikars.Add(selectedGridProfilLikar);
                     }
                 }
-
-            }
 
         }
 
@@ -263,13 +240,6 @@ namespace FrontSeam
 
         }
 
-        //// Метод введення нового дозапису в чергу прийомів пацієнтів самим лікарем
-        //public void MethodAddNewReceptionPacient()
-        //{
-
-        //    LoadProfPacient();
-
-        //}
 
         public static void BoolTrueProfilLikar()
         {
@@ -325,6 +295,7 @@ namespace FrontSeam
                 WindowMain.BorderCabLikar.Visibility = Visibility.Visible;
             }
             WindowProfilDoctor.FolderDocUri5.Visibility = Visibility.Hidden;
+            IndexAddEdit = "";
         }
 
         // команда  редактировать
@@ -333,15 +304,9 @@ namespace FrontSeam
             if (selectedGridProfilLikar != null)
             { 
                  IndexAddEdit = "editCommand";
-                if (editboolProfilLikar == false)
-                {
-                    BoolTrueProfilLikar();
-                }
-                else
-                {
-                    BoolFalseProfilLikar();
-                    IndexAddEdit = "";
-                }           
+                if (editboolProfilLikar == false)BoolTrueProfilLikar();
+                else BoolFalseProfilLikar();
+     
             }
 
 
@@ -376,18 +341,18 @@ namespace FrontSeam
 
             selectedGridProfilLikar = new ModelGridDoctor();
             SelectedGridProfilLikar = new ModelGridDoctor();
-            WindowProfilDoctor.Likart10.Text = "";
-            WindowProfilDoctor.Likart2.Text = "";
-            WindowProfilDoctor.Likart3.Text = "";
-            WindowProfilDoctor.Likart5.Text = "";
-            WindowProfilDoctor.Likart6.Text = "";
-            WindowProfilDoctor.Likart7.Text = "";
-            WindowProfilDoctor.Likart4.Text = "";
-            WindowProfilDoctor.Likart9.Text = "";
-            WindowProfilDoctor.LikarNaprt3.Text = "";
-            WindowProfilDoctor.LikarUrit7.Text = "";
+            //WindowProfilDoctor.Likart10.Text = "";
+            //WindowProfilDoctor.Likart2.Text = "";
+            //WindowProfilDoctor.Likart3.Text = "";
+            //WindowProfilDoctor.Likart5.Text = "";
+            //WindowProfilDoctor.Likart6.Text = "";
+            //WindowProfilDoctor.Likart7.Text = "";
+            //WindowProfilDoctor.Likart4.Text = "";
+            //WindowProfilDoctor.Likart9.Text = "";
+            //WindowProfilDoctor.LikarNaprt3.Text = "";
+            //WindowProfilDoctor.LikarUrit7.Text = "";
+            BoolFalseProfilLikar();
             ExitCabinetLikar();
-            IndexAddEdit = "";
         }
 
         // команда сохранить редактирование
@@ -441,11 +406,9 @@ namespace FrontSeam
                 {
 
                     MainWindow.MessageError = "Увага!" + Environment.NewLine +" Не вказано медзаклад де працює лікар.";
-                    MapOpisViewModel.SelectedFalseLogin(10);
+                    SelectedFalseLogin(10);
                 }            
             }
- 
-            IndexAddEdit = "";
             BoolFalseProfilLikar();
         }
         public void SelectProfilLikar()
@@ -538,7 +501,7 @@ namespace FrontSeam
         }
 
         
-              RelayCommand? addMedzaklad;
+        RelayCommand? addMedzaklad;
         public RelayCommand AddMedzaklad
         {
             get
