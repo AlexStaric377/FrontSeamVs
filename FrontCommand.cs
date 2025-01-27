@@ -39,7 +39,7 @@ namespace FrontSeam
                 return geustGridLoadHidden ??
                   (geustGridLoadHidden = new RelayCommand(obj =>
                   {
- 
+                       
                           switch (WindowProfilPacient.ControlMain.SelectedIndex)
                           {
                               // Закладка Гость

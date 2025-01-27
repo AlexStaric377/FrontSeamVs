@@ -340,16 +340,6 @@ namespace FrontSeam
 
             selectedGridProfilLikar = new ModelGridDoctor();
             SelectedGridProfilLikar = new ModelGridDoctor();
-            //WindowProfilDoctor.Likart10.Text = "";
-            //WindowProfilDoctor.Likart2.Text = "";
-            //WindowProfilDoctor.Likart3.Text = "";
-            //WindowProfilDoctor.Likart5.Text = "";
-            //WindowProfilDoctor.Likart6.Text = "";
-            //WindowProfilDoctor.Likart7.Text = "";
-            //WindowProfilDoctor.Likart4.Text = "";
-            //WindowProfilDoctor.Likart9.Text = "";
-            //WindowProfilDoctor.LikarNaprt3.Text = "";
-            //WindowProfilDoctor.LikarUrit7.Text = "";
             BoolFalseProfilLikar();
             ExitCabinetLikar();
         }
@@ -542,16 +532,11 @@ namespace FrontSeam
         {
             _kodDoctor = "";
             _pacientProfil = "";
+            addboolPacientProfil = loadboolProfilLikar = loadboolPacientProfil = loadboolAccountUser = boolSetAccountUser = false;
+            SelectedGridProfilLikar = selectedGridProfilLikar = new ModelGridDoctor();
+            SelectedProfilLikar = selectedProfilLikar = new ModelDoctor();
             SelectedGridProfilLikar = new ModelGridDoctor();
-            selectedGridProfilLikar = new ModelGridDoctor();
-            boolSetAccountUser = false;
-            loadboolPacientProfil = false;
-            loadboolProfilLikar = false;
-            selectedProfilLikar = new ModelDoctor();
-            SelectedProfilLikar = new ModelDoctor();
-            SelectedGridProfilLikar = new ModelGridDoctor();
-            selectedPacientProfil = new ModelPacient();
-            SelectedPacientProfil = new ModelPacient();
+            SelectedPacientProfil = selectedPacientProfil = new ModelPacient();
             SelectedPacientMapAnaliz = new PacientMapAnaliz();
             ViewPacientProfils = new ObservableCollection<ModelPacient>();
             ViewPacientMapAnalizs = new ObservableCollection<PacientMapAnaliz>();
