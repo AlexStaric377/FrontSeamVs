@@ -2255,7 +2255,7 @@
                                                 <RowDefinition Height="100*"/>
                                             </Grid.RowDefinitions>
                                             <TextBlock Grid.Row="0" x:Name="InfoSeamVer"   Text="  Веріся зборки:"  FontSize="14" Height="30" Width="410"  VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                            <TextBlock Grid.Row="1" x:Name="InfoSeamFront"   Text="  Викоавчий модуль системи - Фронт."  FontSize="14" Height="24" Width="410"  VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                            <TextBlock Grid.Row="1" x:Name="InfoSeamFront"   Text="  Виконавчий модуль системи - Фронт."  FontSize="14" Height="24" Width="410"  VerticalAlignment="Center" HorizontalAlignment="Left"/>
 
                                             <TextBlock Grid.Row="2"  x:Name="InfoDeveloper" Text="  Розробник: 2022-2023 ПП 'ОРІОН-С'. Стариченко Олександр Павлович&#xa;  Email: staric377@gmail.com&#xa;  Тел.: +380674012840&#xa;  Свідоцтво про реєсрацію авторського права № 126883"  FontSize="14" Height="80" Width="600" HorizontalAlignment="Left" />
                                         </Grid>
