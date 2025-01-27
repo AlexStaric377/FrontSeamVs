@@ -73,8 +73,7 @@ namespace FrontSeam
             if (boolSetAccountUser == false && loadboolProfilLikar == false && loadboolPacientProfil == false) { RegProfilLikar(); return; }
             if(loadboolProfilLikar == true) { loadboolProfilLikar = false; RegProfilLikar(); return; }
             if (loadboolPacientProfil == true && boolSetAccountUser == false) { PacientProfilMessageError(); return; }
-            if (boolSetAccountUser == true) MetodSelectRegProfilLikar();            
- 
+            if (boolSetAccountUser == true) MetodSelectRegProfilLikar();
         }
 
         private void RegProfilLikar()

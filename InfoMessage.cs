@@ -332,6 +332,7 @@ namespace FrontSeam
             CallServer._UrlAdres = ConfigBuild();
             LoadSelectLanguageUI();
             ViewAccountUser();
+            WindowInfo.GridLoadButton.Visibility = Visibility.Hidden;
         }
 
         public static string ConfigBuild()

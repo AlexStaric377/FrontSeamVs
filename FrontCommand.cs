@@ -625,9 +625,14 @@ namespace FrontSeam
                 return removeCommand ??
                   (removeCommand = new RelayCommand(obj =>
                   {
-                      MainWindow.MessageError = "Увага!" + Environment.NewLine +
-                        "Ви дійсно бажаєте стерти облікові данні?" ;
-                      SelectedRemove();
+                      if (boolSetAccountUser == false && loadboolProfilLikar == false && loadboolPacientProfil == false) MapOpisViewModel.DeleteOnOff = false;
+                      else
+                      {
+                          MainWindow.MessageError = "Увага!" + Environment.NewLine +
+                          "Ви дійсно бажаєте стерти облікові данні?";
+                          SelectedRemove();
+                      }
+
                       // Видалення данных о гостях, пациентах, докторах, учетных записях
                       if (MapOpisViewModel.DeleteOnOff == true)
                       { 
