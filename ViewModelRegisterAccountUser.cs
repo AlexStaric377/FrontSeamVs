@@ -166,7 +166,7 @@ namespace FrontSeam
                       {
                           MainWindow WindowMain = MainWindow.LinkNameWindow("WindowMain");
                           WindowMain.LikarLoadInf.Visibility = Visibility.Visible;
-                          WindowMain.LikarLoadinterv.Visibility = Visibility.Visible;
+                          //WindowMain.LikarLoadinterv.Visibility = Visibility.Visible;
                           WindowMain.StackPanelCabLikar.Visibility = Visibility.Visible;
                       }
                       WindowAccount.Close();

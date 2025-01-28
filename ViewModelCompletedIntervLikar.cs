@@ -17,6 +17,9 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Converters;
 using System.Windows.Media;
+using System.Windows.Controls;
+using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 /// "Диференційна діагностика стану нездужання людини-SEAM" 
 /// Розробник Стариченко Олександр Павлович тел.+380674012840, mail staric377@gmail.com
@@ -42,7 +45,7 @@ namespace FrontSeam
         public static string ProtocolcontrollerIntevLikar = "/api/DependencyDiagnozController/";
         public static string DiagnozcontrollerIntevLikar = "/api/DiagnozController/";
         public static string RecomencontrollerIntevLikar = "/api/RecommendationController/";
-        public static string Interviewcontroller = "/api/InterviewController/";
+        public static string Interviewcontroller = "/api/InterviewController/", TextContentInterv = "";
 
         public static ModelColectionInterview selectedIntevLikar;
         public static ColectionInterview selectedColectionIntevLikar;
@@ -108,6 +111,8 @@ namespace FrontSeam
                 selectModelColectionDiagnozInterview.kodPacient = modelColectionInterview.kodPacient;
                 selectModelColectionDiagnozInterview.kodProtokola = modelColectionInterview.kodProtokola;
                 selectModelColectionDiagnozInterview.nameDiagnoz = modelColectionInterview.nameDiagnoz;
+                
+                
 
                 if (ColectionDiagnozLikars.Count == 0) ColectionDiagnozLikars.Add(selectModelColectionDiagnozInterview);
                 if (ColectionDiagnozLikars[indexDiagnoz].kodProtokola == modelColectionInterview.kodProtokola) ColectionDiagnozLikars[indexDiagnoz].quanntityDiagnoz++;
@@ -160,8 +165,8 @@ namespace FrontSeam
 
         public static void MethodProtokolaIntevLikars(ColectionInterview colectionInterview, bool boolname)
         {
-
            
+
             var json = ProtocolcontrollerIntevLikar + "0/" + colectionInterview.kodProtokola.ToString() + "/0";
             CallServer.PostServer(ProtocolcontrollerIntevLikar, json, "GETID");
             if (CallServer.ResponseFromServer.Contains("[]") == false)
@@ -178,6 +183,7 @@ namespace FrontSeam
                         CallServer.ResponseFromServer = CallServer.ResponseFromServer.Replace("[", "").Replace("]", "");
                         ModelDiagnoz Insert1 = JsonConvert.DeserializeObject<ModelDiagnoz>(CallServer.ResponseFromServer);
                         selectedIntevLikar.nameDiagnoz = Insert1.nameDiagnoza;
+                        selectedIntevLikar.nameInterview = Insert1.uriDiagnoza;
                         if (boolname == true) WindowIntevLikar.LikarInterviewt6.Text = Insert1.nameDiagnoza;
                     }
 
@@ -209,7 +215,6 @@ namespace FrontSeam
             if (_kodDoctor == "") { WarningMessageOfProfilLikar(); return; }
    
             IndexAddEdit = "";
-            WindowIntevLikar.LikarLoadinterv.Visibility = Visibility.Hidden;
             WindowMen.ColectionDiagnozTablGrid.Visibility = Visibility.Hidden;
             CallServer.PostServer(ColectioncontrollerIntevLikar, ColectioncontrollerIntevLikar+ "0/" + _kodDoctor + "/0", "GETID");
             string CmdStroka = CallServer.ServerReturn();
@@ -223,8 +228,6 @@ namespace FrontSeam
             //addtboolInterview = true;
             editboolIntevLikar = true;
             WindowIntevLikar.LikarFoldInterv.Visibility = Visibility.Visible;
-            //WindowIntevLikar.LikarFolderLikar.Visibility = Visibility.Visible;
-            //WindowIntevLikar.LikarFolderPacient.Visibility = Visibility.Visible;
             WindowIntevLikar.LikarFolderRecomen.Visibility = Visibility.Visible;
             WindowIntevLikar.LikarFolderDiagn.Visibility = Visibility.Visible;
             WindowIntevLikar.LikarInterviewt7.IsEnabled = true;
@@ -237,13 +240,14 @@ namespace FrontSeam
             //addtboolInterview = false;
             editboolIntevLikar = false;
             WindowIntevLikar.LikarFoldInterv.Visibility = Visibility.Hidden;
-            //WindowIntevLikar.LikarFolderLikar.Visibility = Visibility.Hidden;
-            //WindowIntevLikar.LikarFolderPacient.Visibility = Visibility.Hidden;
             WindowIntevLikar.LikarFolderRecomen.Visibility = Visibility.Hidden;
             WindowIntevLikar.LikarFolderDiagn.Visibility = Visibility.Hidden;
             WindowIntevLikar.LikarInterviewt7.IsEnabled = false;
             WindowIntevLikar.LikarInterviewt7.Background = Brushes.White;
             WindowIntevLikar.LikarInterviewAvtort7.Text = "";
+            WindowIntevLikar.LikarFoldUrlHtpps.Visibility = Visibility.Hidden;
+            WindowIntevLikar.LikarFoldMixUrlHtpps.Visibility = Visibility.Hidden;
+            IndexAddEdit = "";
         }
         // команда удаления
         public void MethodRemoveColectionIntevLikar()
@@ -277,7 +281,7 @@ namespace FrontSeam
                           else
                           {
                               BoolFalseIntevLikarCompl();
-                              IndexAddEdit = "";
+                              
                               GetidkodProtokola = "";
                               WindowIntevLikar.ColectionIntevLikarTablGrid.SelectedItem = null;
                           }
@@ -315,7 +319,6 @@ namespace FrontSeam
                               string _repl = "000000000";
                              _repl = _repl.Length - Numbkey.ToString().Length > 0 ? _repl.Substring(0, _repl.Length - Numbkey.ToString().Length) : "";
                               Insert.kodProtokola = Insert.kodProtokola.Substring(0,Insert.kodProtokola.IndexOf(".")+1) + _repl + Numbkey.ToString();
-                              //WindowIntevLikar.LikarIntert1.Text = Insert.kodProtokola;
                           } 
 
                           
@@ -327,22 +330,11 @@ namespace FrontSeam
                           var jsonDepency = JsonConvert.SerializeObject(Insert);
                           CallServer.PostServer(ProtocolcontrollerIntevLikar, jsonDepency, Method);
                           if (selectedColectionIntevLikar == null) selectedColectionIntevLikar = new ColectionInterview();
-                          //string Intert2 = WindowIntevLikar.LikarIntert2.Text.ToString().Contains(":") ? WindowIntevLikar.LikarIntert2.Text.ToString().Substring(0, WindowIntevLikar.LikarIntert2.Text.ToString().IndexOf(":")) : WindowIntevLikar.LikarIntert2.Text.ToString();
-                          selectedColectionIntevLikar.kodDoctor = selectedIntevLikar.kodDoctor; // WindowIntevLikar.LikarIntert2.Text.Trim().Length == 0 ? "" : Intert2;
-                          //string Intert3 = WindowIntevLikar.LikarIntert3.Text.ToString().Contains(":") ? WindowIntevLikar.LikarIntert3.Text.ToString().Substring(0, WindowIntevLikar.LikarIntert3.Text.ToString().IndexOf(":")) : WindowIntevLikar.LikarIntert3.Text.ToString();
-                          //selectedColection.kodProtokola = WindowIntevLikar.LikarIntert1.Text;
-                          //selectedColection.kodPacient = selectedIntevLikar.kodPacient;
-                          //selectedColection.kodProtokola = WindowIntevLikar.LikarIntert1.Text.ToString();
-                          //selectedColection.resultDiagnoz = WindowIntevLikar.LikarInterviewt7.Text.ToString();
-                          //selectedColection.KodComplInterv = selectedIntevLikar.kodComplInterv;
-                          //selectedColection.id= selectedIntevLikar.id;
-     
+                          selectedColectionIntevLikar.kodDoctor = selectedIntevLikar.kodDoctor; 
                          
                           json = JsonConvert.SerializeObject(selectedColectionIntevLikar);
                           CallServer.PostServer(ColectioncontrollerIntevLikar, json, "PUT");
                       }
-
-                      IndexAddEdit = "";
                       WindowIntevLikar.ColectionIntevLikarTablGrid.SelectedItem = null;       
         }
  
@@ -379,8 +371,8 @@ namespace FrontSeam
         {
 
             WinCreatIntreview NewOrder = new WinCreatIntreview();
-            NewOrder.Left = 600;
-            NewOrder.Top = 130;
+            NewOrder.Left = (MainWindow.ScreenWidth / 2) - 100;
+            NewOrder.Top = (MainWindow.ScreenHeight / 2) - 350;
             NewOrder.ShowDialog();
 
 
@@ -396,8 +388,8 @@ namespace FrontSeam
                   {
                       MapOpisViewModel.CallViewProfilLikar = "WinNsiLikar";
                       WinNsiLikar NewOrder = new WinNsiLikar();
-                      NewOrder.Left = 450;
-                      NewOrder.Top = 320;
+                      //NewOrder.Left = 450;
+                      //NewOrder.Top = 320;
                       NewOrder.ShowDialog();
                       MapOpisViewModel.CallViewProfilLikar = "";
                       if (selectedIntevLikar != null && WindowMain.LikarIntert2.Text.ToString().Trim() != "")
@@ -420,8 +412,8 @@ namespace FrontSeam
                   {
                       MapOpisViewModel.CallViewProfilLikar = "WinNsiPacient";
                       WinNsiPacient NewOrder = new WinNsiPacient();
-                      NewOrder.Left = 450;
-                      NewOrder.Top = 320;
+                      //NewOrder.Left = 450;
+                      //NewOrder.Top = 320;
                       NewOrder.ShowDialog();
                       MapOpisViewModel.CallViewProfilLikar = "";
                       if (selectedIntevLikar != null && WindowMain.LikarIntert3.Text.ToString().Trim() != "")
@@ -443,8 +435,8 @@ namespace FrontSeam
                   (listRecomendaciyaIntevLikars = new RelayCommand(obj =>
                   {
                       WinNsiListRecommen NewOrder = new WinNsiListRecommen();
-                      NewOrder.Left = 450;
-                      NewOrder.Top = 320;
+                      NewOrder.Left = (MainWindow.ScreenWidth / 2) - 100;
+                      NewOrder.Top = (MainWindow.ScreenHeight / 2) - 350;
                       NewOrder.ShowDialog();
                   }));
             }
@@ -459,8 +451,8 @@ namespace FrontSeam
                   (listDiagnozIntevLikars = new RelayCommand(obj =>
                   {
                       WinNsiListDiagnoz NewOrder = new WinNsiListDiagnoz();
-                      NewOrder.Left = 450;
-                      NewOrder.Top = 320;
+                      NewOrder.Left = (MainWindow.ScreenWidth / 2) - 100;
+                      NewOrder.Top = (MainWindow.ScreenHeight / 2) - 350;
                       NewOrder.ShowDialog();
                   }));
             }
@@ -486,6 +478,21 @@ namespace FrontSeam
                               { 
                                   WindowIntevLikar.LikarFoldInterv.Visibility = Visibility.Visible;
                                   ColectionInterview selectedColection = ColectionIntevLikars[WindowIntevLikar.ColectionIntevLikarTablGrid.SelectedIndex];
+                                  WindowIntevLikar.LikarFoldUrlHtpps.Visibility = Visibility.Visible;
+                                  WindowIntevLikar.LikarFoldMixUrlHtpps.Visibility = Visibility.Visible;
+                                  int Index = 0;
+                                  TextContentInterv = "https://www.google.com/search?q=";
+                                  GetidkodProtokola = selectedColection.kodComplInterv + "/0";
+                                  CallServer.PostServer(ViewModelCreatInterview.Completedcontroller, ViewModelCreatInterview.Completedcontroller + MapOpisViewModel.GetidkodProtokola, "GETID");
+                                  string CmdStroka = CallServer.ServerReturn();
+                                  if (CmdStroka.Contains("[]") == false) ViewModelCreatInterview.ObservableContentInterv(CmdStroka);
+                                  foreach (ModelContentInterv modelContentInterv in ViewModelCreatInterview.ContentIntervs)
+                                  {
+                                      if (Index > 0) TextContentInterv += modelContentInterv.detailsInterview.Replace(" ", "+");
+                                      Index++;
+                                      if (Index > 2) break;
+                                  }
+                                  WindowIntevLikar.LikarInterviewt7.Text = selectedColection.resultDiagnoz = TextContentInterv;
                               }
  
                           }                    
@@ -533,12 +540,65 @@ namespace FrontSeam
                               }
                               WindowIntevLikar.ColectionIntevLikarTablGrid.ItemsSource = ColectionInterviewIntevLikars;
                               WindowIntevLikar.ColectionDiagnozTablGrid.Visibility = Visibility.Hidden;
+  
                           }
                       }
 
                   }));
             }
         }
+
+        
+
+        // команда просмотра содержимого интервью
+        private RelayCommand? readOpisIntevUrl;
+        public RelayCommand ReadOpisIntevUrl
+        {
+            get
+            {
+                return readOpisIntevUrl ??
+                  (readOpisIntevUrl = new RelayCommand(obj =>
+                  {
+                      string workingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
+                      string System_path = System.IO.Path.GetPathRoot(System.Environment.SystemDirectory);
+                      string Puthgoogle = workingDirectory + @"\Google\Chrome\Application\chrome.exe";
+                      Process Rungoogle = new Process();
+                      Rungoogle.StartInfo.FileName = Puthgoogle;//C:\Program Files (x86)\Google\Chrome\Application\
+                      Rungoogle.StartInfo.Arguments = selectedIntevLikar.nameInterview;
+                      //Rungoogle.StartInfo.WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.System);
+                      Rungoogle.StartInfo.UseShellExecute = false;
+                      Rungoogle.EnableRaisingEvents = true;
+                      Rungoogle.Start();
+                  }));
+            }
+        }
+
+        // команда просмотра содержимого интервью
+        private RelayCommand? readOpisMixUrlHtpps;
+        public RelayCommand ReadOpisMixUrlHtpps
+        {
+            get
+            {
+                return readOpisMixUrlHtpps ??
+                  (readOpisMixUrlHtpps = new RelayCommand(obj =>
+                  {
+
+                      string workingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
+                      string System_path = System.IO.Path.GetPathRoot(System.Environment.SystemDirectory);
+                      string Puthgoogle = workingDirectory + @"\Google\Chrome\Application\chrome.exe";
+                      Process Rungoogle = new Process();
+                      Rungoogle.StartInfo.FileName = Puthgoogle;//C:\Program Files (x86)\Google\Chrome\Application\
+                      Rungoogle.StartInfo.Arguments = TextContentInterv.Trim();
+                      //Rungoogle.StartInfo.WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.System);
+                      Rungoogle.StartInfo.UseShellExecute = false;
+                      Rungoogle.EnableRaisingEvents = true;
+                      Rungoogle.Start();
+                  }));
+            }
+        }
+
+ 
+
         #endregion
         #endregion
     }

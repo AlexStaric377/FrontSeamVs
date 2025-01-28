@@ -94,7 +94,7 @@ namespace FrontSeam
         {
             WindowMain.BorderCabLikar.Visibility = Visibility.Hidden;
             WindowProfilDoctor.LikarLoadInf.Visibility = Visibility.Hidden;
-            WindowProfilDoctor.LikarLoadinterv.Visibility = Visibility.Hidden;
+            //WindowProfilDoctor.LikarLoadinterv.Visibility = Visibility.Hidden;
             CallViewProfilLikar = "ProfilLikar";
             selectedProfilLikar = new ModelDoctor();
             SelectedProfilLikar = new ModelDoctor();

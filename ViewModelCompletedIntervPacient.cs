@@ -230,8 +230,8 @@ namespace FrontSeam
                       ModelCall = "ModelColectionInterview";
                       GetidkodProtokola = selectedIntevPacient.kodComplInterv + "/0";
                       WinCreatIntreview NewOrder = new WinCreatIntreview();
-                      NewOrder.Left = 600;
-                      NewOrder.Top = 130;
+                      NewOrder.Left = (MainWindow.ScreenWidth / 2) - 100;
+                      NewOrder.Top = (MainWindow.ScreenHeight / 2) - 350;
                       NewOrder.ShowDialog();
                   }));
             }

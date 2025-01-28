@@ -76,6 +76,8 @@ namespace FrontSeam
             ContentIntervs = new ObservableCollection<ModelContentInterv>((IEnumerable<ModelContentInterv>)res);
  
         }
+
+
         // команда закрытия окна
         RelayCommand? closeCreatInterview;
         public RelayCommand CloseCreatInterview
