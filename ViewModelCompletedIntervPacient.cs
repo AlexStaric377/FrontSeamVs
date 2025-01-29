@@ -17,6 +17,7 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Converters;
 using System.Windows.Media;
+using System.Diagnostics;
 
 /// "Диференційна діагностика стану нездужання людини-SEAM" 
 /// Розробник Стариченко Олександр Павлович тел.+380674012840, mail staric377@gmail.com
@@ -141,6 +142,7 @@ namespace FrontSeam
                         ModelDiagnoz Insert1 = JsonConvert.DeserializeObject<ModelDiagnoz>(CallServer.ResponseFromServer);
                         selectedIntevPacient.nameDiagnoz = Insert1.nameDiagnoza;
                         if (boolname == true) WindowIntevPacient.PacientInterviewt6.Text = Insert1.nameDiagnoza;
+                        selectedIntevPacient.resultDiagnoz = Insert1.uriDiagnoza;
                     }
 
                     json = RecomencontrollerIntev + Insert.kodRecommend.ToString() + "/0";
@@ -182,6 +184,8 @@ namespace FrontSeam
         private void BoolFalseIntevPacientCompl()
         {
             WindowIntevPacient.PacientFoldInterv.Visibility = Visibility.Hidden;
+            WindowIntevPacient.PacientFoldUrlHtpps.Visibility = Visibility.Hidden;
+            WindowIntevPacient.PacientFoldMixUrlHtpps.Visibility = Visibility.Hidden;
         }
         
         // команда удаления
@@ -247,24 +251,88 @@ namespace FrontSeam
                   {
                       if (IndexAddEdit == "")
                       {
-                          if (WindowIntevPacient.ColectionIntevPacientTablGrid.SelectedIndex == -1) return;
-                          if (ColectionInterviewIntevPacients != null)
-                          {
-                              MainWindow WindowIntevLikar = MainWindow.LinkNameWindow("WindowMain");
-                              WindowIntevPacient.PacientFoldInterv.Visibility = Visibility.Visible;
-                              ColectionInterview selectedColection = ColectionIntevPacients[WindowIntevPacient.ColectionIntevPacientTablGrid.SelectedIndex];
-                              if (selectedColection.kodPacient != null && selectedColection.kodPacient.Length != 0) MethodPacientIntevPacient(selectedColection, true);
-                              if (selectedColection.kodDoctor != null && selectedColection.kodDoctor.Length != 0) MethodDoctorIntevPacient(selectedColection, true);
-                              if (selectedColection.kodProtokola != null && selectedColection.kodProtokola.Length != 0) MethodProtokolaIntevPacient(selectedColection, true);
-                              //SelectedColectionIntevPacient = ColectionInterviewIntevPacients[WindowIntevPacient.ColectionIntevPacientTablGrid.SelectedIndex];
-                          }
+                        if (WindowIntevPacient.ColectionIntevPacientTablGrid.SelectedIndex == -1) return;
+                        MainWindow WindowIntevLikar = MainWindow.LinkNameWindow("WindowMain");
+                        WindowIntevPacient.PacientFoldInterv.Visibility = Visibility.Visible;
+                        ColectionInterview selectedColection = ColectionIntevPacients[WindowIntevPacient.ColectionIntevPacientTablGrid.SelectedIndex];
+                        if (selectedColection.kodPacient != null && selectedColection.kodPacient.Length != 0) MethodPacientIntevPacient(selectedColection, true);
+                        if (selectedColection.kodDoctor != null && selectedColection.kodDoctor.Length != 0) MethodDoctorIntevPacient(selectedColection, true);
+                        if (selectedColection.kodProtokola != null && selectedColection.kodProtokola.Length != 0) MethodProtokolaIntevPacient(selectedColection, true);
+                        MetodSearchContentInterv();
+                        WindowIntevPacient.PacientFoldUrlHtpps.Visibility = Visibility.Visible;
+                        WindowIntevPacient.PacientFoldMixUrlHtpps.Visibility = Visibility.Visible;
+
                       }
 
                   }));
             }
         }
 
- 
+        
+
+            
+
+        private RelayCommand? pacientReadOpisIntevUrl;
+        public RelayCommand PacientReadOpisIntevUrl
+        {
+            get
+            {
+                return pacientReadOpisIntevUrl ??
+                  (pacientReadOpisIntevUrl = new RelayCommand(obj =>
+                  {
+                      if (selectedIntevPacient.resultDiagnoz == "")  return;
+                      MetodRunGoogle(selectedIntevPacient.resultDiagnoz);
+                  }));
+            }
+        }
+
+        private RelayCommand? pacientReadOpisMixUrlHtpps;
+        public RelayCommand PacientReadOpisMixUrlHtpps
+        {
+            get
+            {
+                return pacientReadOpisMixUrlHtpps ??
+                  (pacientReadOpisMixUrlHtpps = new RelayCommand(obj =>
+                  {
+                      if (modelColectionInterview.nameInterview == "") return;
+                      MetodRunGoogle(TextContentInterv );
+                  }));
+            }
+        }
+
+        private void MetodRunGoogle(string TextContentInterv = "")
+        {
+            string workingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
+            string System_path = System.IO.Path.GetPathRoot(System.Environment.SystemDirectory);
+            string Puthgoogle = workingDirectory + @"\Google\Chrome\Application\chrome.exe";
+            Process Rungoogle = new Process();
+            Rungoogle.StartInfo.FileName = Puthgoogle;//C:\Program Files (x86)\Google\Chrome\Application\
+            Rungoogle.StartInfo.Arguments = TextContentInterv.Trim();
+            //Rungoogle.StartInfo.WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.System);
+            Rungoogle.StartInfo.UseShellExecute = false;
+            Rungoogle.EnableRaisingEvents = true;
+            Rungoogle.Start();
+        }
+
+        private void MetodSearchContentInterv()
+        {
+            int Index = 0;
+            string ContentIntervText = "https://www.google.com/search?q=";
+            MapOpisViewModel.GetidkodProtokola = selectedIntevPacient.kodComplInterv + "/0";
+            CallServer.PostServer(CompletedcontrollerIntevPacient, CompletedcontrollerIntevPacient + MapOpisViewModel.GetidkodProtokola, "GETID");
+            string CmdStroka = CallServer.ServerReturn();
+            if (CmdStroka.Contains("[]") == true) return;
+            ViewModelCreatInterview.ObservableContentInterv(CmdStroka);
+            foreach (ModelContentInterv modelContentInterv in ViewModelCreatInterview.ContentIntervs)
+            {
+                string textDetalish = modelContentInterv.detailsInterview.TrimStart().TrimEnd();
+                if (Index > 0) ContentIntervText += textDetalish.Replace(" ", "+");
+                Index++;
+                if (Index > 2) break;
+            }
+            WindowIntevPacient.PacientInterviewUriText.Text = modelColectionInterview.nameInterview = ContentIntervText;
+
+        }
         #endregion
         #endregion
     }
