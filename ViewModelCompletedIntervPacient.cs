@@ -295,7 +295,7 @@ namespace FrontSeam
                   (pacientReadOpisMixUrlHtpps = new RelayCommand(obj =>
                   {
                       if (modelColectionInterview.nameInterview == "") return;
-                      MetodRunGoogle(TextContentInterv );
+                      MetodRunGoogle(modelColectionInterview.nameInterview);
                   }));
             }
         }
