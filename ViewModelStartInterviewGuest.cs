@@ -782,7 +782,7 @@ namespace FrontSeam
         public void SetProfilPacient()
         { 
         
-           if (selectedProfilPacient != null)
+           if (selectedProfilPacient != null && selectedProfilPacient.kodPacient !="")
             { 
                  _pacientProfil = selectedProfilPacient.kodPacient;
                 SelectedProfilPacient = selectedProfilPacient;

@@ -252,8 +252,6 @@ namespace FrontSeam
                       if (IndexAddEdit == "")
                       {
                         if (WindowIntevPacient.ColectionIntevPacientTablGrid.SelectedIndex == -1) return;
-                        MainWindow WindowIntevLikar = MainWindow.LinkNameWindow("WindowMain");
-                        WindowIntevPacient.PacientFoldInterv.Visibility = Visibility.Visible;
                         ColectionInterview selectedColection = ColectionIntevPacients[WindowIntevPacient.ColectionIntevPacientTablGrid.SelectedIndex];
                         if (selectedColection.kodPacient != null && selectedColection.kodPacient.Length != 0) MethodPacientIntevPacient(selectedColection, true);
                         if (selectedColection.kodDoctor != null && selectedColection.kodDoctor.Length != 0) MethodDoctorIntevPacient(selectedColection, true);
@@ -261,7 +259,7 @@ namespace FrontSeam
                         MetodSearchContentInterv();
                         WindowIntevPacient.PacientFoldUrlHtpps.Visibility = Visibility.Visible;
                         WindowIntevPacient.PacientFoldMixUrlHtpps.Visibility = Visibility.Visible;
-
+                        WindowIntevPacient.PacientFoldInterv.Visibility = Visibility.Visible;
                       }
 
                   }));

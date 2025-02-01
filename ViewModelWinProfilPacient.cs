@@ -38,7 +38,7 @@ namespace FrontSeam
             }
 
         }
-
+        public static WinProfilPacient WindowResult = MainWindow.LinkMainWindow("WinProfilPacient");
         private string pathcontrolerPacientProfil = "/api/PacientController/";
         public static ModelPacient selectedPacientProfil;
         
@@ -91,7 +91,7 @@ namespace FrontSeam
 
         public void SetNewCombProfil(string selected = "")
         {
-            WinProfilPacient WindowResult = MainWindow.LinkMainWindow("WinProfilPacient");
+            //WinProfilPacient WindowResult = MainWindow.LinkMainWindow("WinProfilPacient");
             WindowResult.PacientProfilt7.Text = selected == "0" ? "чол." : "жін.";
         }
 
@@ -105,7 +105,7 @@ namespace FrontSeam
                 return closeProfil ??
                   (closeProfil = new RelayCommand(obj =>
                   {
-                      WinProfilPacient WindowResult = MainWindow.LinkMainWindow("WinProfilPacient");
+                      //WinProfilPacient WindowResult = MainWindow.LinkMainWindow("WinProfilPacient");
                       WindowResult.Close();
                   }));
             }
@@ -121,8 +121,9 @@ namespace FrontSeam
                 return insertProfilCommand ??
                   (insertProfilCommand = new RelayCommand(obj =>
                   {
-                      
-                      WinProfilPacient WindowResult = MainWindow.LinkMainWindow("WinProfilPacient");
+
+                      //WinProfilPacient WindowResult = MainWindow.LinkMainWindow("WinProfilPacient");
+                      if (selectedPacientProfil == null) selectedPacientProfil = new ModelPacient();
                       List<string> Units = new List<string> { "чол.", "жін." };
                       WindowResult.CombgenderProfil.SelectedIndex = 0;
                       WindowResult.CombgenderProfil.ItemsSource = Units;
@@ -162,8 +163,17 @@ namespace FrontSeam
                 return saveProfilPacientCommand ??
                   (saveProfilPacientCommand = new RelayCommand(obj =>
                   {
-                      WinProfilPacient WindowResult = MainWindow.LinkMainWindow("WinProfilPacient");
                       
+                      
+                      //WinProfilPacient WindowResult = MainWindow.LinkMainWindow("WinProfilPacient");
+                      if (WindowResult.PacientProfilt8.Text == "")
+                      {
+                          MainWindow.MessageError = "Увага!" + Environment.NewLine +
+                          "Ви не ввели номер телефону для зворотнього контакту з лікарем";
+                          MapOpisViewModel.SelectedFalseLogin(4);
+                          return;
+                      }
+
                       WindowResult.PacientProfilt2.IsReadOnly = true;
                       WindowResult.PacientProfilt3.IsReadOnly = true;
                       WindowResult.PacientProfilt4.IsReadOnly = true;
@@ -190,7 +200,7 @@ namespace FrontSeam
                       WinNsiPacient winNsiPacient = MainWindow.LinkMainWindow("WinNsiPacient");
                       MapOpisViewModel.CallViewProfilLikar = "PacientProfil";
                       MapOpisViewModel.PacientPostIndex = WindowResult.PacientProfilt13.Text.ToString();
-                      if (selectedPacientProfil == null) selectedPacientProfil = new ModelPacient();
+                      selectedPacientProfil.tel = "+" + selectedPacientProfil.tel;
                       SelectNewPacientProfil();
                       string json = JsonConvert.SerializeObject(selectedPacientProfil);
                       CallServer.PostServer(pathcontrolerPacientProfil, json, "POST");
@@ -279,5 +289,18 @@ namespace FrontSeam
             }
         }
 
+        // команда закрытия окна
+        RelayCommand? checkKeyText;
+        public RelayCommand CheckKeyText
+        {
+            get
+            {
+                return checkKeyText ??
+                  (checkKeyText = new RelayCommand(obj =>
+                  {
+                      IdCardKeyUp.CheckKeyUpIdCard(WindowResult.PacientProfilt8, 13);
+                  }));
+            }
+        }
     }
 }

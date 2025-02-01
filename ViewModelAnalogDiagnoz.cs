@@ -362,22 +362,7 @@ namespace FrontSeam
                       {
                           if (selectItogInterview.nameDiagnoza == "") { MessageNoOpis(); return; }
 
-                          CallServer.PostServer(MapOpisViewModel.pathcontrolerContent, MapOpisViewModel.pathcontrolerContent + MapOpisViewModel.modelColectionInterview.kodProtokola, "GETID");
-                          string CmdStroka = CallServer.ServerReturn();
-                          if (CmdStroka.Contains("[]")) return;
-                          else ObservableContentInterv(CmdStroka);
-                          MapOpisViewModel.SaveAnalogDiagnoz = true;
-                          MapOpisViewModel.IndexAddEdit = "addCommand";
-                          SaveInterview();
-                          switch (MapOpisViewModel.ActCompletedInterview)
-                          {
-                              case "Likar":
-                                  MapOpisViewModel.MethodLoadtableColectionIntevLikar();
-                                  break;
-                              case "Pacient":
-                                  MapOpisViewModel.MethodLoadtableColectionIntevPacient();
-                                  break;
-                          }
+                          MetodSaveIntervievAnalog();
                           if (MapOpisViewModel.ActCompletedInterview != "Guest")
                           {
                               MainWindow.MessageError = "Увага! вибраний вами попередній діагноз " + Environment.NewLine +
@@ -385,11 +370,30 @@ namespace FrontSeam
                               "вам необхідно натиснути закладку 'Перегляд проведених опитуваннь'.";
                               MapOpisViewModel.SelectedFalseLogin(10);
                           }
-
                           WinAnalog.Close();
                       }
                       else InfoNoDiagnoz();
                   }));
+            }
+        }
+
+        public static void MetodSaveIntervievAnalog()
+        {
+            CallServer.PostServer(MapOpisViewModel.pathcontrolerContent, MapOpisViewModel.pathcontrolerContent + MapOpisViewModel.modelColectionInterview.kodProtokola, "GETID");
+            string CmdStroka = CallServer.ServerReturn();
+            if (CmdStroka.Contains("[]")) return;
+            else ObservableContentInterv(CmdStroka);
+            MapOpisViewModel.SaveAnalogDiagnoz = true;
+            MapOpisViewModel.IndexAddEdit = "addCommand";
+            SaveInterview();
+            switch (MapOpisViewModel.ActCompletedInterview)
+            {
+                case "Likar":
+                    MapOpisViewModel.MethodLoadtableColectionIntevLikar();
+                    break;
+                case "Pacient":
+                    MapOpisViewModel.MethodLoadtableColectionIntevPacient();
+                    break;
             }
         }
 

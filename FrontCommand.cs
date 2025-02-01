@@ -106,6 +106,7 @@ namespace FrontSeam
                                           if (_kodDoctor == "") MethodloadProfilLikar(); // WarningMessageOfProfilLikar();
                                           if (_kodDoctor == "") { WindowProfilPacient.ControlLikar.SelectedIndex = 0; return; }
                                           MethodStartInterviewLikar();
+                                          if (_pacientProfil == "") { WindowProfilPacient.ControlLikar.SelectedIndex = 0; return; }
 
                                       break;
                                       case 2:
@@ -429,8 +430,7 @@ namespace FrontSeam
                                   case 1:
                                       // Провести нове інтервью
                                       if (_pacientProfil == "") MethodLoadPacientProfil();
-                                      if (_pacientProfil == "") return;
-                                      MethodStartInteviewPacient(); // WarningMessageOfProfilPacient();
+                                      if (_pacientProfil != "") MethodStartInteviewPacient();
                                       break;
                                   case 3:
                                       // Запис на прийом до лікаря
@@ -470,8 +470,7 @@ namespace FrontSeam
                                   case 1:
                                       // Старт інтервью яке проводить лікар
                                       if (_kodDoctor == "") MethodloadProfilLikar();
-                                      if (_kodDoctor == "") return;
-                                      MethodStartInterviewLikar();
+                                      if (_kodDoctor != "") MethodStartInterviewLikar();
                                       break;
                                   case 3:
                                       // Метод введення нового дозапису в чергу прийомів пацієнтів самим лікарем
