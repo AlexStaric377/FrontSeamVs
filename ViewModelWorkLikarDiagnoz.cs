@@ -94,43 +94,56 @@ namespace FrontSeam
 
         private void MethodloadtablWorkDiagnoz()
         {
+            string allWorkDiagnoz = "";
             MainWindow Windowmain = MainWindow.LinkNameWindow("WindowMain");
             loadWorkGrupDiagnoz = false;
             AllWorkDiagnozs = new ObservableCollection<ModelDiagnoz>();
+
+            ViewWorkDiagnozs = new ObservableCollection<ModelDiagnoz>();
+            WindowProfilDoctor.WorkDiagnozTablGrid.ItemsSource = ViewWorkDiagnozs;
+            ViewModelLikarGrupDiagnoz.LikarGrupDiagnozs = new ObservableCollection<ModelLikarGrupDiagnoz>();
+
             Windowmain.WorkLoadDia.Visibility = Visibility.Hidden;
             Windowmain.WorkFoldInterv.Visibility = Visibility.Hidden;
             Windowmain.WorkCompInterviewLab.Visibility = Visibility.Hidden;
             string json = controlerLikarGrDiagnoz + _kodDoctor + "/0";
             CallServer.PostServer(controlerLikarGrDiagnoz, json, "GETID");
             string CmdStroka = CallServer.ServerReturn();
-            if (CmdStroka.Contains("[]")) CallServer.BoolFalseTabl();
-            else ViewModelLikarGrupDiagnoz.ObservableViewLikarGrDiagnoz(CmdStroka);
-            ViewWorkDiagnozs = new ObservableCollection<ModelDiagnoz>();
-            if (ViewModelLikarGrupDiagnoz.LikarGrupDiagnozs != null && ViewModelLikarGrupDiagnoz.LikarGrupDiagnozs.Count() > 0)
-            { 
-               foreach (ModelLikarGrupDiagnoz likarGrupDiagnoz in ViewModelLikarGrupDiagnoz.LikarGrupDiagnozs)
+
+            if (CmdStroka.Contains("[]") == false)
+            {
+                ViewModelLikarGrupDiagnoz.ObservableViewLikarGrDiagnoz(CmdStroka);
+                ViewWorkDiagnozs = new ObservableCollection<ModelDiagnoz>();
+                if (ViewModelLikarGrupDiagnoz.LikarGrupDiagnozs != null && ViewModelLikarGrupDiagnoz.LikarGrupDiagnozs.Count() > 0)
                 {
-                    ModelDiagnoz likarGrupDiagnozs = new ModelDiagnoz();
-                    if (likarGrupDiagnoz.icdGrDiagnoz != "")
+                    foreach (ModelLikarGrupDiagnoz likarGrupDiagnoz in ViewModelLikarGrupDiagnoz.LikarGrupDiagnozs)
                     {
-                        likarGrupDiagnozs.icdGrDiagnoz = likarGrupDiagnoz.icdGrDiagnoz;
-                        likarGrupDiagnozs.nameDiagnoza = likarGrupDiagnoz.icdGrDiagnoz;
-                        likarGrupDiagnozs.id = likarGrupDiagnoz.id;
-                        ViewWorkDiagnozs.Add(likarGrupDiagnozs);
-                        ModelDiagnoz Idinsert = new ModelDiagnoz();
+                        ModelDiagnoz likarGrupDiagnozs = new ModelDiagnoz();
                         if (likarGrupDiagnoz.icdGrDiagnoz != "")
                         {
-                            json = controlerViewDiagnoz + "0/" + likarGrupDiagnoz.icdGrDiagnoz.Substring(0, likarGrupDiagnoz.icdGrDiagnoz.IndexOf(".")) + "/0";
-                            CallServer.PostServer(controlerViewDiagnoz, json, "GETID");
-                            CmdStroka = CallServer.ServerReturn();
-                            ObservableViewWorkDiagnoz(CmdStroka);
-                            foreach (ModelDiagnoz modelDiagnoz in TmpWorkDiagnozs)
+                            likarGrupDiagnozs.icdGrDiagnoz = likarGrupDiagnoz.icdGrDiagnoz;
+                            likarGrupDiagnozs.nameDiagnoza = likarGrupDiagnoz.icdGrDiagnoz;
+                            likarGrupDiagnozs.id = likarGrupDiagnoz.id;
+                            ViewWorkDiagnozs.Add(likarGrupDiagnozs);
+                            ModelDiagnoz Idinsert = new ModelDiagnoz();
+                            if (likarGrupDiagnoz.icdGrDiagnoz != "")
                             {
-                                AllWorkDiagnozs.Add(modelDiagnoz);
+                                json = controlerViewDiagnoz + "0/" + likarGrupDiagnoz.icdGrDiagnoz.Substring(0, likarGrupDiagnoz.icdGrDiagnoz.IndexOf(".")) + "/0";
+                                CallServer.PostServer(controlerViewDiagnoz, json, "GETID");
+                                CmdStroka = CallServer.ServerReturn();
+                                ObservableViewWorkDiagnoz(CmdStroka);
+                                foreach (ModelDiagnoz modelDiagnoz in TmpWorkDiagnozs)
+                                {
+                                    if (allWorkDiagnoz.Contains(modelDiagnoz.KodDiagnoza) == false)
+                                    {
+                                        AllWorkDiagnozs.Add(modelDiagnoz);
+                                        allWorkDiagnoz += ";" + modelDiagnoz.KodDiagnoza;
+                                    }
+                                }
                             }
                         }
                     }
-               }            
+                }
             }
  
             Windowmain.WorkDiagnozTablGrid.ItemsSource = ViewWorkDiagnozs;

@@ -971,6 +971,13 @@
                                                     </Grid.ColumnDefinitions>
                                                     <TextBlock x:Name="LikarNapr3" Text="  Напрямок" TextWrapping="Wrap" Grid.Column="0"  Height="24"  FontSize="14" Width="100" HorizontalAlignment="Left" />
                                                     <TextBox Text="{Binding napryamok, UpdateSourceTrigger=PropertyChanged}" x:Name="LikarNaprt3" Grid.Column="1" Height="24" Width="140" FontSize="14" HorizontalAlignment="Left" Background="White" BorderThickness="0,0,0,0" />
+                                                    <Image x:Name="FolderLikarProfil" Source="pack://application:,,,/FrontSeam;component/Images/folder_.png" Grid.Column="1"  Width="25"  HorizontalAlignment="Right"   Visibility="Hidden" Margin="0,0,20,0"  >
+                                                        <i:Interaction.Triggers>
+                                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                                <i:InvokeCommandAction Command="{Binding ElementName=GridProfilLikar, Path=DataContext.ListLikarGrupDiagnoz}" CommandParameter=""/>
+                                                            </i:EventTrigger>
+                                                        </i:Interaction.Triggers>
+                                                    </Image>
                                                 </Grid>
                                                 <Grid x:Name="LikarGridLab4" Height="50" Grid.Column="0"  Grid.Row="5" Grid.ColumnSpan="2"  >
                                                     <Grid.ColumnDefinitions >

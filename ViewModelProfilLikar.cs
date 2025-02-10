@@ -106,6 +106,7 @@ namespace FrontSeam
         {
             SelectRegProfilLikar();
             if (selectedProfilLikar.id == 0) return;
+            WindowMain.FolderLikarProfil.Visibility = Visibility.Visible;
             _kodDoctor = ViewModelNsiLikar.selectedLikar.kodDoctor;
             selectedProfilLikar = ViewModelNsiLikar.selectedLikar;
             MetodLoadGridProfilLikar();
@@ -276,6 +277,7 @@ namespace FrontSeam
             WindowProfilDoctor.LikarLoadInf.Content = "Для збреження профілю необхідно натиснути на кнопку 'Зберегти'";
             if (ViewModelRegisterAccountUser.ReestrOnOff == true)WindowProfilDoctor.FoldMedZaklad.Visibility = Visibility.Visible;
             if (WindowProfilDoctor.LikarUrit7.Text.Length > 0)WindowProfilDoctor.FolderDocUri5.Visibility = Visibility.Visible;
+            WindowMain.FolderLikarProfil.Visibility = Visibility.Visible;
 
         }
 
@@ -306,6 +308,7 @@ namespace FrontSeam
                 WindowMain.BorderCabLikar.Visibility = Visibility.Visible;
             }
             WindowProfilDoctor.FolderDocUri5.Visibility = Visibility.Hidden;
+            WindowMain.FolderLikarProfil.Visibility = Visibility.Hidden;
             IndexAddEdit = "";
         }
 
@@ -609,6 +612,25 @@ namespace FrontSeam
                           Rungoogle.EnableRaisingEvents = true;
                           Rungoogle.Start();
                       }
+                  }));
+            }
+        }
+
+        // команда загрузки  строки исх МКХ11 по указанному коду для вівода наименования болезни
+        private RelayCommand? listLikarGrupDiagnoz;
+        public RelayCommand ListLikarGrupDiagnoz
+        {
+            get
+            {
+                return listLikarGrupDiagnoz ??
+                  (listLikarGrupDiagnoz = new RelayCommand(obj =>
+                  {
+                      MapOpisViewModel.ActCompletedInterview = "NameGrDiagnoz";
+                      WinLikarGrupDiagnoz Order = new WinLikarGrupDiagnoz();
+                      Order.Left = (MainWindow.ScreenWidth / 2) - 50;
+                      Order.Top = (MainWindow.ScreenHeight / 2) - 350;
+                      Order.ShowDialog();
+                      MapOpisViewModel.ActCompletedInterview = "";
                   }));
             }
         }

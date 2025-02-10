@@ -38,7 +38,7 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
                 <Image Height="20" Width="20" Grid.Row="0" HorizontalAlignment="Right"  Name="Close_Grid"  VerticalAlignment="Bottom" 
-                    Source="pack://application:,,,/BackSeam;component/Images/xrestik.png"
+                    Source="pack://application:,,,/FrontSeam;component/Images/xrestik.png"
                      Cursor="Hand"  >
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseLeftButtonDown">
