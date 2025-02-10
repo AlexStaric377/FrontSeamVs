@@ -70,10 +70,12 @@ namespace FrontSeam
         public void MethodloadProfilLikar()
         {
             NewEkzemplarLikar();
+            if (boolSetAccountUser == true) { MetodSelectRegProfilLikar(); return; }
+
             if (boolSetAccountUser == false && loadboolProfilLikar == false && loadboolPacientProfil == false) { RegProfilLikar(); return; }
-            if(loadboolProfilLikar == true) { loadboolProfilLikar = false; RegProfilLikar(); return; }
+            if (loadboolProfilLikar == true) { loadboolProfilLikar = false; RegProfilLikar(); return; }
             if (loadboolPacientProfil == true && boolSetAccountUser == false) { PacientProfilMessageError(); return; }
-            if (boolSetAccountUser == true) MetodSelectRegProfilLikar();
+
         }
 
         private void RegProfilLikar()
@@ -174,41 +176,51 @@ namespace FrontSeam
 
         public static void MetodLoadGridProfilLikar()
         {
-                if (selectedProfilLikar.id != 0)
+            if (selectedProfilLikar.id != 0)
+            {
+                ViewProfilLikars = new ObservableCollection<ModelDoctor>();
+                ViewProfilLikars.Add(selectedProfilLikar);
+                ViewGridProfilLikars = new ObservableCollection<ModelGridDoctor>();
+                foreach (ModelDoctor modelDoctor in ViewProfilLikars)
                 {
-                    ViewProfilLikars = new ObservableCollection<ModelDoctor>();
-                    ViewProfilLikars.Add(selectedProfilLikar);
-                    ViewGridProfilLikars = new ObservableCollection<ModelGridDoctor>();
-                    foreach (ModelDoctor modelDoctor in ViewProfilLikars)
+                    selectedGridProfilLikar = new ModelGridDoctor();
+                    selectedGridProfilLikar.kodDoctor = modelDoctor.kodDoctor;
+                    selectedGridProfilLikar.id = modelDoctor.id;
+                    selectedGridProfilLikar.name = modelDoctor.name;
+                    selectedGridProfilLikar.surname = modelDoctor.surname;
+                    selectedGridProfilLikar.specialnoct = modelDoctor.specialnoct;
+                    selectedGridProfilLikar.telefon = modelDoctor.telefon;
+                    selectedGridProfilLikar.email = modelDoctor.email;
+                    selectedGridProfilLikar.edrpou = modelDoctor.edrpou;
+                    selectedGridProfilLikar.uriwebDoctor = modelDoctor.uriwebDoctor;
+                    selectedGridProfilLikar.napryamok = modelDoctor.napryamok;
+                    if (modelDoctor.edrpou != null)
                     {
-                        selectedGridProfilLikar = new ModelGridDoctor();
-                        selectedGridProfilLikar.kodDoctor = modelDoctor.kodDoctor;
-                        selectedGridProfilLikar.id = modelDoctor.id;
-                        selectedGridProfilLikar.name = modelDoctor.name;
-                        selectedGridProfilLikar.surname = modelDoctor.surname;
-                        selectedGridProfilLikar.specialnoct = modelDoctor.specialnoct;
-                        selectedGridProfilLikar.telefon = modelDoctor.telefon;
-                        selectedGridProfilLikar.email = modelDoctor.email;
-                        selectedGridProfilLikar.edrpou = modelDoctor.edrpou;
-                        selectedGridProfilLikar.uriwebDoctor = modelDoctor.uriwebDoctor;
-                        selectedGridProfilLikar.napryamok = modelDoctor.napryamok;
-                        if (modelDoctor.edrpou != null)
+                        string json = pathcontrolerMedZakladProfilLikar + modelDoctor.edrpou.ToString()+"/0/0/0";
+                        CallServer.PostServer(pathcontrolerMedZakladProfilLikar, json, "GETID");
+                        CallServer.ResponseFromServer = CallServer.ResponseFromServer.Replace("[", "").Replace("]", "");
+                        MedicalInstitution Idinsert = JsonConvert.DeserializeObject<MedicalInstitution>(CallServer.ResponseFromServer);
+                        if (Idinsert != null)
                         {
-                            string json = pathcontrolerMedZakladProfilLikar + modelDoctor.edrpou.ToString()+"/0/0";
-                            CallServer.PostServer(pathcontrolerMedZakladProfilLikar, json, "GETID");
-                            CallServer.ResponseFromServer = CallServer.ResponseFromServer.Replace("[", "").Replace("]", "");
-                            MedicalInstitution Idinsert = JsonConvert.DeserializeObject<MedicalInstitution>(CallServer.ResponseFromServer);
-                            if (Idinsert != null)
+                            selectedGridProfilLikar.nameZaklad = Idinsert.name;
+                            selectedGridProfilLikar.adrZaklad = Idinsert.adres;
+                            selectedGridProfilLikar.pind = Idinsert.postIndex;
+                            if (Idinsert.idstatus == "2")
                             {
-                                selectedGridProfilLikar.nameZaklad = Idinsert.name;
-                                selectedGridProfilLikar.adrZaklad = Idinsert.adres;
-                                selectedGridProfilLikar.pind = Idinsert.postIndex;
+                                WindowProfilDoctor.LikarUri7.Text = "Адреса прийому:";
+                                WindowProfilDoctor.LikarLab7.Text = "Місце прийому:";
+                            }
+                            else
+                            {
+                                WindowProfilDoctor.LikarUri7.Text = "Сторінка в інтернеті:";
+                                WindowProfilDoctor.LikarLab7.Text = "Email:";
                             }
                         }
-                        nameDoctor = selectedGridProfilLikar.kodDoctor.ToString() + ": " + selectedGridProfilLikar.name.ToString() + " " + selectedGridProfilLikar.surname.ToString() + " " + selectedGridProfilLikar.telefon.ToString();
-                        ViewGridProfilLikars.Add(selectedGridProfilLikar);
                     }
+                    nameDoctor = selectedGridProfilLikar.kodDoctor.ToString() + ": " + selectedGridProfilLikar.name.ToString() + " " + selectedGridProfilLikar.surname.ToString() + " " + selectedGridProfilLikar.telefon.ToString();
+                    ViewGridProfilLikars.Add(selectedGridProfilLikar);
                 }
+            }
 
         }
 

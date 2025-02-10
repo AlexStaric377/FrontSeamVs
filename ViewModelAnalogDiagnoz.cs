@@ -33,7 +33,7 @@ namespace FrontSeam
         private string pathcontroller = "/api/InterviewController/";
         public static string pathcontrolerContent = "/api/ContentInterviewController/";
         private static string pathcontrolerCompleted = "/api/CompletedInterviewController/";
-        public string KodProtokola = "";
+        public static string KodProtokola = "", Likar = "";
         public static ModelInterview selectedResultInterview;
         public static ModelResultInterview selectItogInterview;
         public static ObservableCollection<ModelResultInterview> AnalogDiagnozs { get; set; }
@@ -277,9 +277,9 @@ namespace FrontSeam
                                   WindowIntevLikar.ReceptionLikarGuest7.Background = Brushes.AntiqueWhite;
                                   break;
                           }
-
-                          WinAnalog.Close();
-                          MessageRegistrationLikar();
+                          MethodSelectDoctor("ReseptionAnalogLikar");
+                          WinAnalogDiagnoz WindowResult = MainWindow.LinkMainWindow("WinAnalogDiagnoz");
+                          if (WindowResult != null) WindowResult.Close();
                       }
                       else InfoNoDiagnoz();
                   }));
@@ -406,31 +406,38 @@ namespace FrontSeam
                 return listprofilMedical ??
                   (listprofilMedical = new RelayCommand(obj =>
                   {
-                      if (MapOpisViewModel.modelColectionInterview.kodProtokola != "")
-                      {
+                      MethodSelectDoctor("ListProfilMedical");
 
-                          if (selectItogInterview.kodProtokola != "")
-                          {
-                              WinNsiMedZaklad MedZaklad = new WinNsiMedZaklad();
-                              MedZaklad.ShowDialog();
-                          }
-                          MapOpisViewModel.EdrpouMedZaklad = ReceptionLIkarGuest.Likart8.Text.ToString();
-                          if (MapOpisViewModel.EdrpouMedZaklad.Length > 0)
-                          {
-                              MapOpisViewModel.ModelCall = "ReceptionLIkar";
-                              WinNsiLikar NewOrder = new WinNsiLikar();
-                              NewOrder.ShowDialog();
-                              if (MapOpisViewModel.nameDoctor.Length > 0)
-                              {
-                                  MapOpisViewModel.modelColectionInterview.nameDoctor = MapOpisViewModel.nameDoctor.Substring(MapOpisViewModel.nameDoctor.IndexOf(":"), MapOpisViewModel.nameDoctor.Length - (MapOpisViewModel.nameDoctor.IndexOf(":") + 1));
-
-                              }
-                              MapOpisViewModel.ModelCall = "";
-                          }
-                      }
-                      else InfoNoDiagnoz();
                   }));
             }
+        }
+
+        private void MethodSelectDoctor(string typeLikar = "")
+        {
+            if (MapOpisViewModel.modelColectionInterview.kodProtokola != "")
+            {
+                if (selectItogInterview.kodProtokola != "")
+                {
+                    Likar = typeLikar;
+                    WinNsiMedZaklad MedZaklad = new WinNsiMedZaklad();
+                    MedZaklad.ShowDialog();
+                }
+                MapOpisViewModel.EdrpouMedZaklad = ReceptionLIkarGuest.Likart8.Text.ToString();
+                if (MapOpisViewModel.EdrpouMedZaklad.Length > 0)
+                {
+                    MapOpisViewModel.ModelCall = "ReceptionLIkar";
+                    WinNsiLikar NewOrder = new WinNsiLikar();
+                    NewOrder.ShowDialog();
+                    if (MapOpisViewModel.nameDoctor.Length > 0)
+                    {
+                        MapOpisViewModel.modelColectionInterview.nameDoctor = MapOpisViewModel.nameDoctor.Substring(MapOpisViewModel.nameDoctor.IndexOf(":"), MapOpisViewModel.nameDoctor.Length - (MapOpisViewModel.nameDoctor.IndexOf(":") + 1));
+
+                    }
+                    MapOpisViewModel.ModelCall = "";
+                }
+            }
+            else InfoNoDiagnoz();
+
         }
         private void InfoNoDiagnoz()
         {

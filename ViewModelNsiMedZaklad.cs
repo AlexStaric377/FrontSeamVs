@@ -44,64 +44,74 @@ namespace FrontSeam
         {
 
             string CmdStroka = "";
-            if (MapOpisViewModel.selectIcdGrDiagnoz != "")
+            if (ViewModelAnalogDiagnoz.Likar == "ReseptionAnalogLikar")
             {
-
-                NsiModelMedZaklads = new ObservableCollection<MedicalInstitution>();
-                string json = controlerGrDiagnoz + "0/" + MapOpisViewModel.selectIcdGrDiagnoz ;
-                CallServer.PostServer(controlerGrDiagnoz, json, "GETID");
-                if (CallServer.ResponseFromServer.Contains("[]") == false)
+                CallServer.PostServer(pathcontrollerMedZaklad, pathcontrollerMedZaklad + "0/0/0/2", "GETID");
+                CmdStroka = CallServer.ServerReturn();
+                if (CmdStroka.Contains("[]")) CallServer.BoolFalseTabl();
+                else ObservableNsiModelMedical(CmdStroka);
+            }
+            else
+            {
+                if (MapOpisViewModel.selectIcdGrDiagnoz != "")
                 {
-                    CmdStroka = CallServer.ServerReturn();
-                    var GrDiagnoz = JsonConvert.DeserializeObject<ListModelMedGrupDiagnoz>(CmdStroka);
-                    List<ModelMedGrupDiagnoz> grupDiagnoz = GrDiagnoz.ModelMedGrupDiagnoz.ToList();
-                    GrupMedZaklads = new ObservableCollection<ModelMedGrupDiagnoz>((IEnumerable<ModelMedGrupDiagnoz>)grupDiagnoz);
 
-                    foreach (ModelMedGrupDiagnoz medGrupDiagnoz in GrupMedZaklads)
+                    NsiModelMedZaklads = new ObservableCollection<MedicalInstitution>();
+                    string json = controlerGrDiagnoz + "0/" + MapOpisViewModel.selectIcdGrDiagnoz;
+                    CallServer.PostServer(controlerGrDiagnoz, json, "GETID");
+                    if (CallServer.ResponseFromServer.Contains("[]") == false)
                     {
-                        if (VeiwModelMedicals != null)
-                        {
+                        CmdStroka = CallServer.ServerReturn();
+                        var GrDiagnoz = JsonConvert.DeserializeObject<ListModelMedGrupDiagnoz>(CmdStroka);
+                        List<ModelMedGrupDiagnoz> grupDiagnoz = GrDiagnoz.ModelMedGrupDiagnoz.ToList();
+                        GrupMedZaklads = new ObservableCollection<ModelMedGrupDiagnoz>((IEnumerable<ModelMedGrupDiagnoz>)grupDiagnoz);
 
-                            foreach (MedicalInstitution medicalInstitution in VeiwModelMedicals)
+                        foreach (ModelMedGrupDiagnoz medGrupDiagnoz in GrupMedZaklads)
+                        {
+                            if (VeiwModelMedicals != null)
                             {
-                                if (medGrupDiagnoz.edrpou == medicalInstitution.edrpou)
+
+                                foreach (MedicalInstitution medicalInstitution in VeiwModelMedicals)
                                 {
-                                    NsiModelMedZaklads.Add(medicalInstitution);
-                                    break;
+                                    if (medGrupDiagnoz.edrpou == medicalInstitution.edrpou)
+                                    {
+                                        NsiModelMedZaklads.Add(medicalInstitution);
+                                        break;
+                                    }
                                 }
                             }
-                        }
-                        else
-                        {
-                            json = pathcontrollerMedZaklad + medGrupDiagnoz.edrpou + "/0/0";
-                            CallServer.PostServer(pathcontrollerMedZaklad, json, "GETID");
-                            if (CallServer.ResponseFromServer.Contains("[]") == false)
+                            else
                             {
-                                CallServer.ResponseFromServer = CallServer.ResponseFromServer.Replace("[", "").Replace("]", "");
-                                MedicalInstitution medzaklad = JsonConvert.DeserializeObject<MedicalInstitution>(CallServer.ResponseFromServer);
-                                NsiModelMedZaklads.Add(medzaklad);
-                            }
+                                json = pathcontrollerMedZaklad + medGrupDiagnoz.edrpou + "/0/0/0";
+                                CallServer.PostServer(pathcontrollerMedZaklad, json, "GETID");
+                                if (CallServer.ResponseFromServer.Contains("[]") == false)
+                                {
+                                    CallServer.ResponseFromServer = CallServer.ResponseFromServer.Replace("[", "").Replace("]", "");
+                                    MedicalInstitution medzaklad = JsonConvert.DeserializeObject<MedicalInstitution>(CallServer.ResponseFromServer);
+                                    NsiModelMedZaklads.Add(medzaklad);
+                                }
 
+                            }
                         }
-                    }
-                    if (MapOpisViewModel.PacientPostIndex != "")
-                    {
-                        ObservableCollection<MedicalInstitution> tmpNsiModelMedZaklads = new ObservableCollection<MedicalInstitution>();
-                        foreach (MedicalInstitution Institution in NsiModelMedZaklads)
+                        if (MapOpisViewModel.PacientPostIndex != "")
                         {
-                            if (Institution.postIndex == MapOpisViewModel.PacientPostIndex ||
-                            Institution.postIndex.Substring(0, 2) == MapOpisViewModel.PacientPostIndex.Substring(0, 2) ||
-                            (Institution.postIndex.Substring(0, 1) == MapOpisViewModel.PacientPostIndex.Substring(0, 1) && MapOpisViewModel.PacientPostIndex.Trim().Length == 4) ||
-                            (Institution.postIndex.Substring(0, 1) == "0" && MapOpisViewModel.PacientPostIndex.Substring(0, 1) == "0" && MapOpisViewModel.PacientPostIndex.Trim().Length == 5) ||
-                           (Institution.postIndex.Substring(0, 1) == "0" && MapOpisViewModel.PacientPostIndex.Trim().Length == 4) ||
-                           (Institution.postIndex.Trim().Length == 4 && MapOpisViewModel.PacientPostIndex.Substring(0, 1) == "0" && MapOpisViewModel.PacientPostIndex.Trim().Length == 5)) tmpNsiModelMedZaklads.Add(Institution);
+                            ObservableCollection<MedicalInstitution> tmpNsiModelMedZaklads = new ObservableCollection<MedicalInstitution>();
+                            foreach (MedicalInstitution Institution in NsiModelMedZaklads)
+                            {
+                                if (Institution.postIndex == MapOpisViewModel.PacientPostIndex ||
+                                Institution.postIndex.Substring(0, 2) == MapOpisViewModel.PacientPostIndex.Substring(0, 2) ||
+                                (Institution.postIndex.Substring(0, 1) == MapOpisViewModel.PacientPostIndex.Substring(0, 1) && MapOpisViewModel.PacientPostIndex.Trim().Length == 4) ||
+                                (Institution.postIndex.Substring(0, 1) == "0" && MapOpisViewModel.PacientPostIndex.Substring(0, 1) == "0" && MapOpisViewModel.PacientPostIndex.Trim().Length == 5) ||
+                               (Institution.postIndex.Substring(0, 1) == "0" && MapOpisViewModel.PacientPostIndex.Trim().Length == 4) ||
+                               (Institution.postIndex.Trim().Length == 4 && MapOpisViewModel.PacientPostIndex.Substring(0, 1) == "0" && MapOpisViewModel.PacientPostIndex.Trim().Length == 5)) tmpNsiModelMedZaklads.Add(Institution);
+                            }
+                            if (tmpNsiModelMedZaklads.Count != 0) NsiModelMedZaklads = tmpNsiModelMedZaklads;
                         }
-                        if(tmpNsiModelMedZaklads.Count !=0) NsiModelMedZaklads = tmpNsiModelMedZaklads;
                     }
+                    else AddNsiModelMedZaklads();
                 }
                 else AddNsiModelMedZaklads();
             }
-            else AddNsiModelMedZaklads();
         }
 
         private void AddNsiModelMedZaklads()

@@ -49,9 +49,11 @@ namespace FrontSeam
         private string Telefon;
         private string Email;
         private string UriwebZaklad;
+        private string KodObl;
+        private string IdStatus;
 
         public MedicalInstitution(int Id = 0, string Edrpou = "", string Name = "", string PostIndex = "",
-            string Adres = "", string Telefon = "", string Email = "", string UriwebZaklad = "")
+            string Adres = "", string Telefon = "", string Email = "", string UriwebZaklad = "", string KodObl = "", string IdStatus = "")
         {
             this.Id = Id;
             this.Edrpou = Edrpou;
@@ -61,6 +63,8 @@ namespace FrontSeam
             this.Telefon = Telefon;
             this.Email = Email;
             this.UriwebZaklad = UriwebZaklad;
+            this.KodObl = KodObl;
+            this.IdStatus = IdStatus;
         }
 
 
@@ -120,7 +124,19 @@ namespace FrontSeam
             set { UriwebZaklad = value; OnPropertyChanged("uriwebZaklad"); }
         }
 
+        [JsonProperty("kodobl")]
+        public string kodobl
+        {
+            get { return KodObl; }
+            set { KodObl = value; OnPropertyChanged("kodobl"); }
+        }
 
+        [JsonProperty("idstatus")]
+        public string idstatus
+        {
+            get { return IdStatus; }
+            set { IdStatus = value; OnPropertyChanged("idstatus"); }
+        }
 
     }
   

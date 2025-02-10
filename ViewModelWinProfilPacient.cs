@@ -91,7 +91,6 @@ namespace FrontSeam
 
         public void SetNewCombProfil(string selected = "")
         {
-            //WinProfilPacient WindowResult = MainWindow.LinkMainWindow("WinProfilPacient");
             WindowResult.PacientProfilt7.Text = selected == "0" ? "чол." : "жін.";
         }
 
@@ -105,7 +104,6 @@ namespace FrontSeam
                 return closeProfil ??
                   (closeProfil = new RelayCommand(obj =>
                   {
-                      //WinProfilPacient WindowResult = MainWindow.LinkMainWindow("WinProfilPacient");
                       WindowResult.Close();
                   }));
             }
@@ -122,7 +120,6 @@ namespace FrontSeam
                   (insertProfilCommand = new RelayCommand(obj =>
                   {
 
-                      //WinProfilPacient WindowResult = MainWindow.LinkMainWindow("WinProfilPacient");
                       if (selectedPacientProfil == null) selectedPacientProfil = new ModelPacient();
                       List<string> Units = new List<string> { "чол.", "жін." };
                       WindowResult.CombgenderProfil.SelectedIndex = 0;
@@ -163,9 +160,7 @@ namespace FrontSeam
                 return saveProfilPacientCommand ??
                   (saveProfilPacientCommand = new RelayCommand(obj =>
                   {
-                      
-                      
-                      //WinProfilPacient WindowResult = MainWindow.LinkMainWindow("WinProfilPacient");
+
                       if (WindowResult.PacientProfilt8.Text == "")
                       {
                           MainWindow.MessageError = "Увага!" + Environment.NewLine +
