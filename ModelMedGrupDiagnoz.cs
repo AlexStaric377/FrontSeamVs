@@ -32,6 +32,7 @@ namespace FrontSeam
         public int id { get; set; }
         public string edrpou { get; set; }
         public string icdGrDiagnoz { get; set; } // код группы МКХ в которую входит диагноз
+        public string icdDiagnoz { get; set; }
 
     }
 
@@ -47,14 +48,14 @@ namespace FrontSeam
         public int Id;
         public string Edrpou;
         public string IcdGrDiagnoz;
-       
+        public string IcdDiagnoz;
 
-        public ModelMedGrupDiagnoz(int Id = 0, string Edrpou = "", string IcdGrDiagnoz = "")
+        public ModelMedGrupDiagnoz(int Id = 0, string Edrpou = "", string IcdGrDiagnoz = "", string IcdDiagnoz = "")
         {
             this.Id = Id;
             this.Edrpou = Edrpou;
             this.IcdGrDiagnoz = IcdGrDiagnoz;
- 
+            this.IcdDiagnoz = IcdDiagnoz;
         }
 
         [JsonProperty("id")]
@@ -75,6 +76,13 @@ namespace FrontSeam
         {
             get { return IcdGrDiagnoz; }
             set { IcdGrDiagnoz = value; OnPropertyChanged("icdGrDiagnoz"); }
+        }
+
+        [JsonProperty("icdDiagnoz")]
+        public string icdDiagnoz
+        {
+            get { return IcdDiagnoz; }
+            set { IcdDiagnoz = value; OnPropertyChanged("icdDiagnoz"); }
         }
     }
 }

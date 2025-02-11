@@ -104,6 +104,7 @@ namespace FrontSeam
         }
         private void MetodSelectRegProfilLikar()
         {
+            
             SelectRegProfilLikar();
             if (selectedProfilLikar.id == 0) return;
             WindowMain.FolderLikarProfil.Visibility = Visibility.Visible;
@@ -148,6 +149,7 @@ namespace FrontSeam
 
         private void SelectRegProfilLikar()
         {
+            selectIcdGrDiagnoz = "";
             WinNsiMedZaklad NewOrder = new WinNsiMedZaklad();
             NewOrder.ShowDialog();
             

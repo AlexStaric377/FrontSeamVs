@@ -215,7 +215,7 @@ namespace FrontSeam
                         selectedWorkDiagnoz = ViewWorkDiagnozs[WindowMen.WorkDiagnozTablGrid.SelectedIndex];
                         if (loadWorkGrupDiagnoz == false)
                         {
-                            SelectActivGrupDiagnoz = selectedWorkDiagnoz.icdGrDiagnoz;
+                            SelectActivGrupDiagnoz = selectedWorkDiagnoz.icdGrDiagnoz.Substring(0, selectedWorkDiagnoz.icdGrDiagnoz.IndexOf("."));
                             SelectedViewWorkDiagnoz = new ModelDiagnoz();
                             WinNsiListDiagnoz NewOrder = new WinNsiListDiagnoz();
                             NewOrder.Left = (MainWindow.ScreenWidth / 2);

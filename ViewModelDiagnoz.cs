@@ -120,31 +120,43 @@ namespace FrontSeam
 
         private void ComandFindNameMkx()
         {
-            if (selectedDiagnoz != null)
-            {
+ 
                 if (ViewDiagnozs != null)
                 {
                     if (WindowMen.LibDiagnozTablGrid.SelectedIndex >= 0)
                     {
-                        WindowMen.LibDiagnozt3.Text = "";
                         selectedDiagnoz = ViewDiagnozs[WindowMen.LibDiagnozTablGrid.SelectedIndex];
-                        
-                        if (selectedDiagnoz.keyIcd != "")
+                        if (loadGrupDiagnoz == false)
                         {
-
-                            string json = controlerViewDiagnoz + "/0" + selectedDiagnoz.keyIcd.ToString() + "/0";
-                            CallServer.PostServer(controlerViewDiagnoz, json, "GETID");
-                            CallServer.ResponseFromServer = CallServer.ResponseFromServer.Replace("[", "").Replace("]", "");
-                            ModelIcd Idinsert = JsonConvert.DeserializeObject<ModelIcd>(CallServer.ResponseFromServer);
-                            if (Idinsert != null) WindowMen.LibDiagnozt3.Text = Idinsert.name;
- 
+                            MapOpisViewModel.ActCompletedInterview = "IcdGrDiagnoz";
+                            SelectActivGrupDiagnoz = selectedDiagnoz.keyIcd;
+                            SelectedViewDiagnoz = new ModelDiagnoz();
+                            WinNsiListDiagnoz NewOrder = new WinNsiListDiagnoz();
+                            NewOrder.Left = (MainWindow.ScreenWidth / 2) - 100;
+                            NewOrder.Top = (MainWindow.ScreenHeight / 2) - 350;
+                            NewOrder.ShowDialog();
+                            MapOpisViewModel.ActCompletedInterview = "";
                         }
-                   
+                        else
+                        {
+                            WindowMen.LibDiagnozt3.Text = "";
+                            selectedDiagnoz = ViewDiagnozs[WindowMen.LibDiagnozTablGrid.SelectedIndex];
+
+                            if (selectedDiagnoz.keyIcd != "")
+                            {
+
+                                string json = controlerViewDiagnoz + "/0" + selectedDiagnoz.keyIcd.ToString() + "/0";
+                                CallServer.PostServer(controlerViewDiagnoz, json, "GETID");
+                                CallServer.ResponseFromServer = CallServer.ResponseFromServer.Replace("[", "").Replace("]", "");
+                                ModelIcd Idinsert = JsonConvert.DeserializeObject<ModelIcd>(CallServer.ResponseFromServer);
+                                if (Idinsert != null) WindowMen.LibDiagnozt3.Text = Idinsert.name;
+
+                            }
+
+                        }
                     }
                 }
                 
-
-            }
         }
 
         private RelayCommand? loadUriInterview;
