@@ -72,12 +72,12 @@ namespace FrontSeam
                     {
                         selectViewModelVisitingDays.nameDoctor = Idinsert.name+ Idinsert.telefon;
                         selectViewModelVisitingDays.edrpou = Idinsert.edrpou;
-                        json = pathcontrolerMedZakladProfilLikar + Idinsert.edrpou.ToString() +"/0/0";
+                        json = pathcontrolerMedZakladProfilLikar + Idinsert.edrpou.ToString() +"/0/0/0";
                         CallServer.PostServer(pathcontrolerMedZakladProfilLikar, json, "GETID");
                         CallServer.ResponseFromServer = CallServer.ResponseFromServer.Replace("[", "").Replace("]", "");
                         MedicalInstitution Idzaklad = JsonConvert.DeserializeObject<MedicalInstitution>(CallServer.ResponseFromServer);
 
-                        if (Idinsert != null)
+                        if (Idzaklad != null)
                         {
                             selectViewModelVisitingDays.nameZaklad = Idzaklad.name;
                         }

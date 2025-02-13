@@ -28,10 +28,14 @@ namespace FrontSeam
 
         WinLikarGrupDiagnoz WindowLikarGrDiag = MainWindow.LinkMainWindow("WinLikarGrupDiagnoz");
         public static string controlerLikarGrDiagnoz = "/api/LikarGrupDiagnozController/";
+        public static string controlerGrDiagnoz = "/api/MedGrupDiagnozController/";
+        public static string controlerIcd = "/api/IcdController/";
         private static ModelLikarGrupDiagnoz selectedLikarGrupDiagnoz;
+        public static ModelMedGrupDiagnoz selectedMedGrupDiagnoz;
 
         public static ObservableCollection<ModelLikarGrupDiagnoz> LikarGrupDiagnozs { get; set; }
         public static ObservableCollection<ModelLikarGrupDiagnoz> AddLikarGrupDiagnozs { get; set; }
+        public static ObservableCollection<ModelIcd> VeiwModelIcds { get; set; }
 
         public ModelLikarGrupDiagnoz SelectedLikarGrupDiagnoz
         { get { return selectedLikarGrupDiagnoz; } set { selectedLikarGrupDiagnoz = value; OnPropertyChanged("SelectedLikarGrupDiagnoz"); } }
@@ -125,7 +129,7 @@ namespace FrontSeam
                       NewOrder.Left = (MainWindow.ScreenWidth / 2);
                       NewOrder.Top = (MainWindow.ScreenHeight / 2) - 350;
                       NewOrder.ShowDialog();
-                      if (Windowmain.WorkDiagnozt1.Text != null) MetodAddLikarGrDiagnoz(Windowmain.WorkDiagnozt1.Text);
+                      if (Windowmain.WorkDiagnozt1.Text != null && Windowmain.WorkDiagnozt1.Text !="") MetodAddLikarGrDiagnoz(Windowmain.WorkDiagnozt1.Text);
                   }));
             }
         }
@@ -143,6 +147,8 @@ namespace FrontSeam
             if (Idinsert != null)
             {
                 LikarGrupDiagnozs.Add(Idinsert);
+                MapOpisViewModel.EdrpouMedZaklad = MapOpisViewModel.selectedGridProfilLikar.edrpou;
+                MetodAddGrupDiagnozMedZaklad(selectedLikarGrupDiagnoz.icdGrDiagnoz);
                 if (MapOpisViewModel.SelectActivGrupDiagnoz == "WorkGrupDiagnoz")
                 {
                     AddLikarGrupDiagnozs = new ObservableCollection<ModelLikarGrupDiagnoz>();
@@ -151,6 +157,29 @@ namespace FrontSeam
 
 
             }
+        }
+
+        public static void MetodAddGrupDiagnozMedZaklad(string diagnoz = "")
+        {
+
+            selectedMedGrupDiagnoz = new ModelMedGrupDiagnoz();
+            selectedMedGrupDiagnoz.edrpou = MapOpisViewModel.EdrpouMedZaklad;
+            selectedMedGrupDiagnoz.icdGrDiagnoz = diagnoz;
+
+            string jason = controlerIcd + "0/" + diagnoz;
+            CallServer.PostServer(controlerIcd, jason, "GETID");
+            string CmdStroka = CallServer.ServerReturn();
+            if (CmdStroka.Contains("[]") == false)
+            {
+                var result = JsonConvert.DeserializeObject<ListModelIcd>(CmdStroka);
+                List<ModelIcd> res = result.ModelIcd.ToList();
+                VeiwModelIcds = new ObservableCollection<ModelIcd>((IEnumerable<ModelIcd>)res);
+                selectedMedGrupDiagnoz.icdKey = VeiwModelIcds[0].keyIcd;
+            }
+            string json = JsonConvert.SerializeObject(selectedMedGrupDiagnoz);
+            CallServer.PostServer(controlerGrDiagnoz, json, "POST");
+            //CallServer.ResponseFromServer = CallServer.ResponseFromServer.Replace("[", "").Replace("]", "");
+            //ModelMedGrupDiagnoz Idinsert = JsonConvert.DeserializeObject<ModelMedGrupDiagnoz>(CallServer.ResponseFromServer);
         }
 
     }

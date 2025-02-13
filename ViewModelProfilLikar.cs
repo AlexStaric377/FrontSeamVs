@@ -31,8 +31,8 @@ namespace FrontSeam
         public static string pathcontrolerProfilLikar = "/api/ApiControllerDoctor/";
         public static string pathcontrolerMedZakladProfilLikar = "/api/MedicalInstitutionController/";
         public static ModelDoctor selectedProfilLikar;
-        private static ModelGridDoctor selectedGridProfilLikar;
-        private static ModelGridDoctor selectedGridDoctor;
+        public static ModelGridDoctor selectedGridProfilLikar;
+        public static ModelGridDoctor selectedGridDoctor;
 
         public static ObservableCollection<ModelDoctor> ViewProfilLikars { get; set; }
         public static ObservableCollection<ModelGridDoctor> ViewGridProfilLikars { get; set; }

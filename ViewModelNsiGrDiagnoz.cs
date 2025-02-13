@@ -155,6 +155,7 @@ namespace FrontSeam
                           {
                               case "IcdGrDiagnoz":
                                   Windowmain.LibDiagnozt1.Text = selectedViewGrupDiagnoz.icdGrDiagnoz;
+
                                   break;
                               case "NameGrDiagnoz":
                                   Windowmain.LibDiagnozt1.Text = selectedViewGrupDiagnoz.nameGrDiagnoz;
@@ -164,7 +165,7 @@ namespace FrontSeam
                                   break;
 
                           }
-
+                          Windowmain.WorkDiagnozt1.Text = selectedViewGrupDiagnoz.nameGrDiagnoz;
                           WindowNsiGrDiag.Close();
                       }
 
