@@ -104,7 +104,7 @@ namespace FrontSeam
                   {
                       if (WindowLikarGrDiag.TablLikarGrupDiagnoz.SelectedIndex >= 0)
                       {
-                          string json = controlerLikarGrDiagnoz + LikarGrupDiagnozs[WindowLikarGrDiag.TablLikarGrupDiagnoz.SelectedIndex].id.ToString();
+                          string json = controlerLikarGrDiagnoz + LikarGrupDiagnozs[WindowLikarGrDiag.TablLikarGrupDiagnoz.SelectedIndex].id.ToString() + "/0"; ;
                           CallServer.PostServer(controlerLikarGrDiagnoz, json, "DELETE");
                           LikarGrupDiagnozs.Remove(LikarGrupDiagnozs[WindowLikarGrDiag.TablLikarGrupDiagnoz.SelectedIndex]);
                       }
