@@ -390,7 +390,7 @@ namespace FrontSeam
                 WindowInfo.AccountZap.Visibility = Visibility.Visible;
                 WindowInfo.NsiStatusUser.Visibility = Visibility.Visible;
             }
-
+            WindowIntevLikar.LabelStartInterv.Content = "Почати";
         }
 
     

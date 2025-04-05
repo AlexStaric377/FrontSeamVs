@@ -55,7 +55,7 @@
                     </i:Interaction.Triggers>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Path=name}"  Width="580" Height="20" TextWrapping="Wrap" FontSize="14" FontFamily="Microsoft Sans Serif" FontWeight="Black" HorizontalAlignment="Left" />
+                            <TextBlock Text="{Binding Path=name}"  Width="580" Height="35" TextWrapping="Wrap" FontSize="14" FontFamily="Microsoft Sans Serif" FontWeight="Black" HorizontalAlignment="Left" />
                             <!--TextWrapping="Wrap"-->
 
                         </DataTemplate>
@@ -75,6 +75,15 @@
                         <ColumnDefinition Width="100*" />
                         <ColumnDefinition Width ="100*" />
                     </Grid.ColumnDefinitions>
+                    <Image Height="20" Width="25" Grid.Row="0" HorizontalAlignment="Left" Margin="20,0,0,0" Name="Back_Grid"  VerticalAlignment="Center" 
+                    Source="pack://application:,,,/FrontSeam;component/Images/backleft.png"
+                     Cursor="Hand"  >
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                <i:InvokeCommandAction Command="{Binding BackComplaint}" CommandParameter=""/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Image>
                     <Border Grid.Row="2" Grid.Column="0" Height="25" Width="70" BorderBrush="#FF3E3E3B" VerticalAlignment="Bottom"
                             Background="#FFE2E2DD"  BorderThickness="1,1,1,1" CornerRadius="15,15,15,15" Cursor="Hand" >
                         <i:Interaction.Triggers>
@@ -92,7 +101,7 @@
                                 <i:InvokeCommandAction Command="{Binding CloseModelFeature}" CommandParameter=""/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
-                        <Label Grid.Column="2" Height="25" FontSize="12"  FontWeight="Light" FontFamily="Microsoft Sans Serif"  Width="75" Content="Завершити" VerticalAlignment="Center" VerticalContentAlignment="Center"  HorizontalAlignment="Center"   >
+                        <Label Grid.Column="2" Height="25" FontSize="12"  FontWeight="Light" FontFamily="Microsoft Sans Serif"  Width="75" Content="Далі" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Center"   >
                         </Label>
                     </Border>
                 </Grid>

@@ -24,7 +24,7 @@ namespace FrontSeam
         /// через механизм REST.API
         /// </summary>      
         public static MainWindow WindowProfilDoctor = MainWindow.LinkNameWindow("WindowMain");
-        public static bool  saveboolAccountLikar = false, boolVisibleMessage = false;
+        public static bool  saveboolAccountLikar = false, boolVisibleMessage = false, reestrlikar=false;
         public static bool editboolProfilLikar = false, addboolProfilLikar = false;
         public static string CallViewProfilLikar = "ProfilLikar";
         public static string _kodDoctor = "";

@@ -41,7 +41,7 @@ namespace FrontSeam
         /// через механизм REST.API
         /// </summary> 
         public static MainWindow WindowProfilPacient = MainWindow.LinkNameWindow("WindowMain");
-        public static bool editboolPacientProfil = false, addboolPacientProfil = false;
+        public static bool editboolPacientProfil = false, addboolPacientProfil = false, reestrkabinet=false;
         private static string pathcontrolerPacientProfil = "/api/PacientController/";
         public static string pathcontrolerPacient = "/api/PacientController/", controlerLifePacient = "/api/LifePacientController/"
             , controlerLifeDoctor = "/api/LifeDoctorController/";

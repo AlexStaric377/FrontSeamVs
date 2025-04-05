@@ -42,15 +42,16 @@ namespace FrontSeam
                        
                           switch (WindowProfilPacient.ControlMain.SelectedIndex)
                           {
-                              // Закладка Гость
-                              case 0:
-                                  WindowIntevLikar.GridLoadButton.Visibility = Visibility.Hidden;
-                                  WindowIntevLikar.GridAdd.Visibility = Visibility.Visible;
-                                  WindowIntevLikar.GridGhange.Visibility = Visibility.Visible;
-                                  WindowIntevLikar.GridSave.Visibility = Visibility.Visible;
-                                  WindowIntevLikar.GridPrint.Visibility = Visibility.Visible;
-                                  WindowIntevLikar.GridDelete.Visibility = Visibility.Visible;
-                                  break;
+                           // Закладка Гость
+                          case 0:
+                                WindowIntevLikar.GridLoadButton.Visibility = Visibility.Hidden;
+                                WindowIntevLikar.GridAdd.Visibility = Visibility.Visible;
+                                WindowIntevLikar.GridGhange.Visibility = Visibility.Visible;
+                                WindowIntevLikar.GridSave.Visibility = Visibility.Visible;
+                                WindowIntevLikar.GridPrint.Visibility = Visibility.Visible;
+                                WindowIntevLikar.GridDelete.Visibility = Visibility.Visible;
+                                WindowIntevLikar.LabelStartInterv.Content = "Почати";
+                                break;
                           // Закладка пациент
                           case 1:
                                   WindowIntevLikar.GridLoadButton.Visibility = Visibility.Visible;
@@ -59,22 +60,22 @@ namespace FrontSeam
                                   WindowIntevLikar.GridSave.Visibility = Visibility.Visible;
                                   WindowIntevLikar.GridPrint.Visibility = Visibility.Visible;
                                   WindowIntevLikar.GridDelete.Visibility = Visibility.Visible;
-                                  switch (WindowProfilPacient.ControlPacient.SelectedIndex)
+                                  WindowIntevLikar.LabelStartInterv.Content = "Додати";
+                              switch (WindowProfilPacient.ControlPacient.SelectedIndex)
                                   {
-                                      case 1:
+                                    case 1:
                                           WindowIntevLikar.GridLoadButton.Visibility = Visibility.Hidden;
                                           WindowIntevLikar.GridGhange.Visibility = Visibility.Hidden;
                                           WindowIntevLikar.GridSave.Visibility = Visibility.Hidden;
                                           WindowIntevLikar.GridDelete.Visibility = Visibility.Hidden;
-                                          
-                                            // Провести опитування пацієнта
-                                            CheckLoadKabinetPacient();
-                                          if (_pacientProfil == "") MethodLoadPacientProfil();
+                                          WindowIntevLikar.LabelStartInterv.Content = "Почати";
 
-                                      if (_pacientProfil == "") { WindowProfilPacient.ControlPacient.SelectedIndex = 0; return; } 
-                                          MethodStartInteviewPacient();
-                                      WindowProfilPacient.ControlPacient.SelectedIndex = 0;
-                                      break;
+                                        // Провести опитування пацієнта
+                                        CheckLoadKabinetPacient();
+                                        if (_pacientProfil == "" && reestrkabinet == false) MethodLoadPacientProfil();
+                                        if (_pacientProfil == "") {reestrkabinet = true; return;  }
+                                        MethodStartInteviewPacient();
+                                        break;
                                       case 2:
                                           WindowIntevLikar.GridAdd.Visibility = Visibility.Hidden;
                                           WindowIntevLikar.GridGhange.Visibility = Visibility.Hidden;
@@ -96,19 +97,21 @@ namespace FrontSeam
                                   WindowIntevLikar.GridSave.Visibility = Visibility.Visible;
                                   WindowIntevLikar.GridPrint.Visibility = Visibility.Visible;
                                   WindowIntevLikar.GridDelete.Visibility = Visibility.Visible;
-                                  switch (WindowProfilPacient.ControlLikar.SelectedIndex)
+                                  WindowIntevLikar.LabelStartInterv.Content = "Додати";
+                              switch (WindowProfilPacient.ControlLikar.SelectedIndex)
                                   {
-                                      case 1:
-                                          WindowIntevLikar.GridLoadButton.Visibility = Visibility.Hidden;
-                                          WindowIntevLikar.GridGhange.Visibility = Visibility.Hidden;
-                                          WindowIntevLikar.GridSave.Visibility = Visibility.Hidden;
-                                          WindowIntevLikar.GridDelete.Visibility = Visibility.Hidden;
-                                          if (_kodDoctor == "") MethodloadProfilLikar(); // WarningMessageOfProfilLikar();
-                                          if (_kodDoctor == "") { WindowProfilPacient.ControlLikar.SelectedIndex = 0; return; }
-                                          MethodStartInterviewLikar();
-                                          if (_pacientProfil == "") { WindowProfilPacient.ControlLikar.SelectedIndex = 0; return; }
-
-                                      break;
+                                    case 1:
+                                        WindowIntevLikar.GridAdd.Visibility = Visibility.Visible;
+                                        WindowIntevLikar.GridLoadButton.Visibility = Visibility.Hidden;
+                                        WindowIntevLikar.GridGhange.Visibility = Visibility.Hidden;
+                                        WindowIntevLikar.GridSave.Visibility = Visibility.Hidden;
+                                        WindowIntevLikar.GridDelete.Visibility = Visibility.Hidden;
+                                        WindowIntevLikar.LabelStartInterv.Content = "Почати";
+                                        if (_kodDoctor == "" && reestrlikar == false) MethodloadProfilLikar(); // WarningMessageOfProfilLikar();
+                                        if (_kodDoctor == "") { reestrlikar = true; return;  }
+                                        MethodStartInterviewLikar();
+                                        if (_pacientProfil == "") return; 
+                                        break;
                                       case 2:
                                           WindowIntevLikar.GridGhange.Visibility = Visibility.Hidden;
                                           WindowIntevLikar.GridSave.Visibility = Visibility.Hidden;
@@ -132,6 +135,7 @@ namespace FrontSeam
                                   WindowIntevLikar.GridSave.Visibility = Visibility.Visible;
                                   WindowIntevLikar.GridPrint.Visibility = Visibility.Visible;
                                   WindowIntevLikar.GridDelete.Visibility = Visibility.Visible;
+                                  WindowIntevLikar.LabelStartInterv.Content = "Додати";
                               }
 
                               switch (WindowProfilPacient.ControlAdmin.SelectedIndex)
@@ -142,6 +146,7 @@ namespace FrontSeam
                                       WindowIntevLikar.GridSave.Visibility = Visibility.Hidden;
                                       WindowIntevLikar.GridPrint.Visibility = Visibility.Hidden;
                                       WindowIntevLikar.GridDelete.Visibility = Visibility.Hidden;
+                                      WindowIntevLikar.LabelStartInterv.Content = "Додати";
                                       break;
                                   case 1:
                                       if (ViewAccountUsers == null) MethodLoadAccountUser();

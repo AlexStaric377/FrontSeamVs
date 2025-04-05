@@ -6,12 +6,13 @@
     <UseWPF>true</UseWPF>
     <Platforms>AnyCPU;x86</Platforms>
     <ApplicationIcon>kaducey.ico</ApplicationIcon>
-    <AssemblyVersion>1.0.1.55</AssemblyVersion>
-    <FileVersion>1.0.1.55</FileVersion>
+    <AssemblyVersion>1.0.1.59</AssemblyVersion>
+    <FileVersion>1.0.1.59</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Images\add2.png" />
+    <None Remove="Images\backleft.png" />
     <None Remove="Images\corzina.png" />
     <None Remove="Images\corzina2.png" />
     <None Remove="Images\corzina3.png" />
@@ -46,6 +47,7 @@
 
   <ItemGroup>
     <Resource Include="Images\add2.png" />
+    <Resource Include="Images\backleft.png" />
     <Resource Include="Images\corzina.png" />
     <Resource Include="Images\corzina2.png" />
     <Resource Include="Images\corzina3.png" />

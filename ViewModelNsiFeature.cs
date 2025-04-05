@@ -26,6 +26,7 @@ namespace FrontSeam
 {
     class ViewModelNsiFeature : BaseViewModel
     {
+        WinNsiFeature WindowMen = MainWindow.LinkMainWindow("WinNsiFeature");
         private string controller = "/api/FeatureController/";
         private ModelFeature selectedFeature;
         public static ObservableCollection<ModelFeature> NsiModelFeatures { get; set; }
@@ -70,11 +71,26 @@ namespace FrontSeam
                 return closeModelFeature ??
                   (closeModelFeature = new RelayCommand(obj =>
                   {
-                      WinNsiFeature WindowMen = MainWindow.LinkMainWindow("WinNsiFeature");
-                      WindowMen.Close();
+                     WindowMen.Close();
                   }));
             }
         }
+
+        // команда возврата в начало опроса
+        RelayCommand? backComplaint;
+        public RelayCommand BackComplaint
+        {
+            get
+            {
+                return backComplaint ??
+                  (backComplaint = new RelayCommand(obj =>
+                  {
+                      WindowMen.Close();
+                      MapOpisViewModel.BackComplaint();
+                  }));
+            }
+        }
+
 
         // команда выбора строки харакутера жалобы
         RelayCommand? selectModelFeature;

@@ -33,15 +33,15 @@ namespace FrontSeam
     public partial class MapOpisViewModel : BaseViewModel
     {
 
-        private int IdItemSelected = 0;
+        private static int IdItemSelected = 0, countFeature = 0, shag = 0, key = 0;
         public static string DiagnozRecomendaciya = "", NameDiagnoz = "", NameRecomendaciya ="", OpistInterview = "", UriInterview ="", StrokaInterview = "";
-        public static bool endwhileselected = false, OnOffStartGuest=false, ViewAnalogDiagnoz=false, PrintCompletedInterview=false, SaveAnalogDiagnoz= false,
-            StopDialog = false, EndDialogdali = false, boolSetAccountUser = false, loadboolProfilLikar = false, loadboolPacientProfil = false, loadTreeInterview = false;
+        public static bool endwhileselected = false, OnOffStartGuest=false, ViewAnalogDiagnoz=false, PrintCompletedInterview=false, SaveAnalogDiagnoz= false, addInterviewGrDetail = true,
+        StopDialog = false, EndDialogdali = false, boolSetAccountUser = false, loadboolProfilLikar = false, loadboolPacientProfil = false, loadTreeInterview = false;
         public static string ActCompletedInterview = "null", ActCreatInterview = "", IndikatorSelected = "", selectedComplaintname = "", selectFeature="", selectGrDetailing="", selectQualification="";
         public static string InputContent = "", PacientContent="", LikarContent="", selectIcdGrDiagnoz = "";
         public static MainWindow WindowMain = MainWindow.LinkNameWindow("WindowMain");
         public static int NumberstrokaGuest = 0, IdItemGuestInterv = 0, endUnload = 0;
-        public static string Controlleroutfile = "/api/UnLoadController/", upLoadstroka = "", RegIdUser = "", RegUserStatus = "", RegPassword = "";
+        public static string Controlleroutfile = "/api/UnLoadController/", upLoadstroka = "", RegIdUser = "", RegUserStatus = "", RegPassword = "", ListGrDetail="";
         public static int _ControlTableItem = 0, _ControlGuest = 0, _ControlPacient = 0, _ControlLikar = 0, _ControlAdmin = 0;
         private bool endwhile = false;
         public static string IndexAddEdit ="", GetidkodProtokola="";
@@ -59,6 +59,7 @@ namespace FrontSeam
         public static ObservableCollection<ModelCompletedInterview> GuestIntervs = new ObservableCollection<ModelCompletedInterview>();
         public static ObservableCollection<ModelCompletedInterview> TmpGuestIntervs = new ObservableCollection<ModelCompletedInterview>();
         public static ObservableCollection<ModelDetailing> listgrdetaling = new ObservableCollection<ModelDetailing>();
+        public static ObservableCollection<ModelInterview> ModelInterviews { get; set; }
         public ModelCompletedInterview SelectedGuestInterv
         { get { return selectedGuestInterv; } set { selectedGuestInterv = value; OnPropertyChanged("SelectedGuestInterv"); } }
 
@@ -352,8 +353,7 @@ namespace FrontSeam
             int countFeature = GuestIntervs.Count;
             while (endwhileFeature == false)
             {
-                int shag = 1, key = 0;
-
+                shag = 1; key = 0;
                 foreach (ModelCompletedInterview modelContentInterv in GuestIntervs)
                 {
                     selectedGuestInterv = modelContentInterv;
@@ -367,47 +367,52 @@ namespace FrontSeam
                             break;
                     }
                     AutoSelectedFeature(selectedGuestInterv, shag, countFeature, key);
+                    if (shag == 0) break;
                     shag++;
                 }
-                if (IndikatorSelected == "NsiDetailing") endwhileFeature = true;
-                switch (IndikatorSelected)
-                {
-                    case "NsiComplaint":
-                        IndikatorSelected = "NsiFeature";
-                        break;
-                    case "NsiFeature":
-                        IndikatorSelected = "NsiDetailing";
-                        break;
-                }
+                if (shag != 0)
+                { 
+                     if (IndikatorSelected == "NsiDetailing") endwhileFeature = true;
+                    switch (IndikatorSelected)
+                    {
+                        case "NsiComplaint":
+                            IndikatorSelected = "NsiFeature";
+                            break;
+                        case "NsiFeature":
+                            IndikatorSelected = "NsiDetailing";
+                            break;
+                    }
  
 
-                if (countFeature == GuestIntervs.Count && endwhileFeature == false)
-                {
-                    CreatDetailsInterview();
-                    if (DiagnozRecomendaciya.Length <= 6)
+                    if (countFeature == GuestIntervs.Count && endwhileFeature == false)
                     {
-                        StopDialog = true;
-                        MessageSmalInfo();
-                        if (MapOpisViewModel.DeleteOnOff == false)
+                        CreatDetailsInterview();
+                        if (DiagnozRecomendaciya.Length <= 6)
+                        {
+                            StopDialog = true;
+                            MessageSmalInfo();
+                            if (MapOpisViewModel.DeleteOnOff == false)
+                            {
+                                GuestIntervs = new ObservableCollection<ModelCompletedInterview>();
+                                Selectedswitch();
+                                return;
+                            }
+                            StopDialog = false;
+                        }
+                        else MessageEndDialog();
+                        endwhileFeature = true;
+                        if (MapOpisViewModel.StopDialog == true)
                         {
                             GuestIntervs = new ObservableCollection<ModelCompletedInterview>();
                             Selectedswitch();
                             return;
                         }
-                        StopDialog = false;
-                    }
-                    else MessageEndDialog();
-                    endwhileFeature = true;
-                    if (MapOpisViewModel.StopDialog == true)
-                    {
-                        GuestIntervs = new ObservableCollection<ModelCompletedInterview>();
-                        Selectedswitch();
-                        return;
-                    }
-                    if (GuestIntervs.Count != 0) MetodSaveInterview();
-                    StopDialog = true;
+                        if (GuestIntervs.Count != 0) MetodSaveInterview();
+                        StopDialog = true;
 
+                    }               
                 }
+
                 countFeature = GuestIntervs.Count;
             }
 
@@ -427,7 +432,7 @@ namespace FrontSeam
         {
             
             NsiComplaint NewOrder = new NsiComplaint();
-            NewOrder.Left = (MainWindow.ScreenWidth / 2)-150;
+            NewOrder.Left = (MainWindow.ScreenWidth / 2) - 70;
             NewOrder.Top = (MainWindow.ScreenHeight / 2) - 350; //350;
             NewOrder.ShowDialog();
             IndikatorSelected = "NsiComplaint";
@@ -439,7 +444,7 @@ namespace FrontSeam
         {
             selectedComplaintname = GuestIntervs[IdItemGuestInterv-1].detailsInterview;
             WinNsiFeature NewOrder = new WinNsiFeature();
-            NewOrder.Left = (MainWindow.ScreenWidth / 2)-190;
+            NewOrder.Left = (MainWindow.ScreenWidth / 2) - 100;
             NewOrder.Top = (MainWindow.ScreenHeight / 2) - 350;
             NewOrder.ShowDialog();
         }
@@ -460,7 +465,7 @@ namespace FrontSeam
                 if (ViewModelNsiDetailing.NsiModelDetailings.Count() > 0)
                 {
                     NsiDetailing NewNsi = new NsiDetailing();
-                    NewNsi.Left = (MainWindow.ScreenWidth / 2) - 190;
+                    NewNsi.Left = (MainWindow.ScreenWidth / 2) - 100;
                     NewNsi.Top = (MainWindow.ScreenHeight / 2) - 350;
                     NewNsi.ShowDialog();
 
@@ -469,6 +474,16 @@ namespace FrontSeam
 
             }
        
+        }
+
+        public static void BackComplaint()
+        {
+            countFeature = 0; shag = 0; key = 0;
+            MapOpisViewModel.nameFeature3 = "";
+            MapOpisViewModel.GuestIntervs = new ObservableCollection<ModelCompletedInterview>();
+            MapOpisViewModel.TmpGuestIntervs = new ObservableCollection<ModelCompletedInterview>();
+            MapOpisViewModel.Selectedswitch();
+            MapOpisViewModel.OpenNsiComplaint();
         }
 
         public static void LoadTreeInterview()
@@ -504,7 +519,7 @@ namespace FrontSeam
                         ViewModelNsiDetailing.selectedDetailing = modelDetailing;
                         MapOpisViewModel.selectGrDetailing = selectFeature + " " + modelDetailing.nameDetailing.ToString().ToUpper();
                         WinNsiGrDetailing NewOrder = new WinNsiGrDetailing();
-                        NewOrder.Left = (MainWindow.ScreenWidth / 2) - 150;
+                        NewOrder.Left = (MainWindow.ScreenWidth / 2) - 100;
                         NewOrder.Top = (MainWindow.ScreenHeight / 2) - 350; //350;
                         NewOrder.ShowDialog();
                     }
@@ -518,7 +533,7 @@ namespace FrontSeam
         {
 
             WinNsiGrDetailing NewNsi = new WinNsiGrDetailing();
-            NewNsi.Left = (MainWindow.ScreenWidth / 2) - 150;
+            NewNsi.Left = (MainWindow.ScreenWidth / 2) - 100;
             NewNsi.Top = (MainWindow.ScreenHeight / 2) - 350;
             NewNsi.ShowDialog();
         }
@@ -554,13 +569,20 @@ namespace FrontSeam
                 if (IdItemGuestInterv == indexcontent && selectedGuestInterv != null && addcontent==false) booladdContent = true;
                 TmpGuestIntervs.Add(ModelCompletedInterview);
                 if (booladdContent == true)
-                { 
-                    AddselectedColection();
-                    addcontent = true;
-                    booladdContent = false;
+                {
+                    if (AddTrueColection() == true)
+                    {
+                        if (AddGrDetail() == true)
+                        {
+                            AddselectedColection();
+                            addcontent = true;
+                            booladdContent = false;
+                        }
+
+                    }
                 } 
             }
-            if (GuestIntervs.Count == TmpGuestIntervs.Count) AddselectedColection();
+            if (GuestIntervs.Count == TmpGuestIntervs.Count) if (AddTrueColection() == true) { if (AddGrDetail() == true) AddselectedColection(); }
             GuestIntervs = TmpGuestIntervs;
             Selectedswitch();
 
@@ -576,6 +598,42 @@ namespace FrontSeam
 
         }
 
+        private static bool AddTrueColection()
+        {
+            foreach (ModelCompletedInterview mInterview in TmpGuestIntervs)
+            {
+                if (mInterview.kodDetailing == nameFeature3.Substring(0, nameFeature3.IndexOf(":"))) return false;
+            }
+            return true;
+        }
+
+        private static bool AddGrDetail()
+        {
+
+            if (addInterviewGrDetail == true && ListGrDetail.Contains(nameFeature3.Substring(0, nameFeature3.IndexOf(":"))) == false)
+            {
+                string checkgrdetail = ListGrDetail + nameFeature3.Substring(0, nameFeature3.IndexOf(":")) + ";";
+
+                CallServer.PostServer(MapOpisViewModel.Interviewcontroller, MapOpisViewModel.Interviewcontroller + "0/0/0/0/" + checkgrdetail, "GETID");
+                string CmdStroka = CallServer.ServerReturn();
+                var result = JsonConvert.DeserializeObject<ListModelInterview>(CmdStroka);
+                List<ModelInterview> res = result.ModelInterview.ToList();
+                ModelInterviews = new ObservableCollection<ModelInterview>((IEnumerable<ModelInterview>)res);
+
+                if (ModelInterviews.Count > 0) { ListGrDetail += nameFeature3.Substring(0, nameFeature3.IndexOf(":")) + ";"; }
+                else
+                {
+                    MainWindow.MessageError = "Ви вибрали характер нездужання який не має взаємозв'язку з раніш обраними. " + Environment.NewLine +
+                    "Будь ласка оберіть інший характер прояву, або натисніть кнопку - Далі";
+                    SelectedWirning();
+                    return false;
+                }
+
+
+
+            }
+            return true;
+        }
         public static void SelectNewKodComplInteriew()
         {
             string indexcmp = "CMP.000000000001";
@@ -1083,7 +1141,7 @@ namespace FrontSeam
             RunGifWait();
             while (DiagnozRecomendaciya.Contains(";") == true)
             {
-                json = pathcontrolerInterview + "0/" + DiagnozRecomendaciya + "/-1/0";
+                json = pathcontrolerInterview + "0/" + DiagnozRecomendaciya + "/-1/0/0";
                 CallServer.PostServer(pathcontrolerInterview, json, "GETID");
                 CmdStroka = CallServer.ServerReturn();
                 if (CmdStroka.Contains("[]") == false) { break; }

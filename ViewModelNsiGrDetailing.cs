@@ -26,7 +26,7 @@ namespace FrontSeam
 {
     public partial class ViewModelNsiGrDetailing : BaseViewModel
     {
-
+        WinNsiGrDetailing WindowMen = MainWindow.LinkMainWindow("WinNsiGrDetailing");
         private string pathcontroller = "/api/GrDetalingController/";
         public static ModelGrDetailing selectedGrDetailing;
         public static ObservableCollection<ModelGrDetailing> NsiModelGrDetailings { get; set; }
@@ -57,8 +57,22 @@ namespace FrontSeam
                 return closeModelGrDetailing ??
                   (closeModelGrDetailing = new RelayCommand(obj =>
                   {
-                      WinNsiGrDetailing WindowMen = MainWindow.LinkMainWindow("WinNsiGrDetailing");
+                     WindowMen.Close();
+                  }));
+            }
+        }
+
+        // команда возврата в начало опроса
+        RelayCommand? backComplaint;
+        public RelayCommand BackComplaint
+        {
+            get
+            {
+                return backComplaint ??
+                  (backComplaint = new RelayCommand(obj =>
+                  {
                       WindowMen.Close();
+                      MapOpisViewModel.BackComplaint();
                   }));
             }
         }
@@ -79,6 +93,8 @@ namespace FrontSeam
                       {
                           MapOpisViewModel.selectQualification = selectedGrDetailing.nameGrDetailing;
                           MapOpisViewModel.nameFeature3 = selectedGrDetailing.kodDetailing.ToString() + ":        " + selectedGrDetailing.nameGrDetailing.ToString();
+                          if (MapOpisViewModel.ListGrDetail.Contains(ViewModelNsiDetailing.selectedDetailing.keyGrDetailing) == false) MapOpisViewModel.ListGrDetail += ViewModelNsiDetailing.selectedDetailing.keyGrDetailing + ";";
+                          MapOpisViewModel.addInterviewGrDetail = false;
                           MapOpisViewModel.SelectContentCompleted();
                           if (selectedGrDetailing.kodGroupQualification != null)
                           { if(selectedGrDetailing.kodGroupQualification.Length>0) OpenQualification();  }
@@ -105,14 +121,14 @@ namespace FrontSeam
                   (searchNameGrDeliting = new RelayCommand(obj =>
                   {
                       WinNsiGrDetailing WindowWinNsiGrDetailing = MainWindow.LinkMainWindow("WinNsiGrDetailing");
-                      if (WindowWinNsiGrDetailing.PoiskGrDeliting.Text.Trim() != "")
+                      if (WindowMen.PoiskGrDeliting.Text.Trim() != "")
                       {
                           string jason = pathcontroller + "0/0/" + WindowWinNsiGrDetailing.PoiskGrDeliting.Text;
                           CallServer.PostServer(pathcontroller, jason, "GETID");
                           string CmdStroka = CallServer.ServerReturn();
                           if (CmdStroka.Contains("[]")) CallServer.BoolFalseTabl();
                           else ObservableNsiModelGrDetailings(CmdStroka);
-                          WindowWinNsiGrDetailing.TablDeliting.ItemsSource = NsiModelGrDetailings;
+                          WindowMen.TablDeliting.ItemsSource = NsiModelGrDetailings;
                       }
                   }));
             }

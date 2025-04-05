@@ -25,7 +25,7 @@ namespace FrontSeam
 {
     public class ViewModelNsiDetailing : BaseViewModel
     {
-
+        NsiDetailing WindowMen = MainWindow.LinkMainWindow("NsiDetailing");
         private string pathcontroller = "/api/DetailingController/";
         public static ModelDetailing selectedDetailing;
         public static ObservableCollection<ModelDetailing> NsiModelDetailings { get; set; }
@@ -69,8 +69,22 @@ namespace FrontSeam
                 return closeModelDetailing ??
                   (closeModelDetailing = new RelayCommand(obj =>
                   {
-                      NsiDetailing WindowMen = MainWindow.LinkMainWindow("NsiDetailing");
                       WindowMen.Close();
+                  }));
+            }
+        }
+
+        // команда возврата в начало опроса
+        RelayCommand? backComplaint;
+        public RelayCommand BackComplaint
+        {
+            get
+            {
+                return backComplaint ??
+                  (backComplaint = new RelayCommand(obj =>
+                  {
+                      WindowMen.Close();
+                      MapOpisViewModel.BackComplaint();
                   }));
             }
         }
@@ -85,7 +99,7 @@ namespace FrontSeam
                   (selectModelDetailing = new RelayCommand(obj =>
                   {
                       MainWindow WindowMain = MainWindow.LinkNameWindow("WindowMain");
-                      NsiDetailing WindowMen = MainWindow.LinkMainWindow("NsiDetailing");
+                      
                       if (selectedDetailing != null)
                       {
                           bool keyGr = false;
@@ -106,6 +120,7 @@ namespace FrontSeam
                           else
                           {
                               MapOpisViewModel.nameFeature3 = selectedDetailing.kodDetailing.ToString() + ":        " + selectedDetailing.nameDetailing.ToString();
+                              MapOpisViewModel.addInterviewGrDetail = false;
                               if (keyGr == false) MapOpisViewModel.SelectContentCompleted();
                           }
                       }
@@ -122,7 +137,7 @@ namespace FrontSeam
                 return viewGrDetaling ??
                   (viewGrDetaling = new RelayCommand(obj =>
                   {
-                      NsiDetailing WindowMen = MainWindow.LinkMainWindow("NsiDetailing");
+                      
                       if (WindowMen.TablDeliting.SelectedIndex != -1 && MapOpisViewModel.ActCreatInterview != "ActCreatInterview ")
                       {
                           selectedDetailing = NsiModelDetailings[WindowMen.TablDeliting.SelectedIndex];
@@ -160,15 +175,15 @@ namespace FrontSeam
                 return searchNameDeliting ??
                   (searchNameDeliting = new RelayCommand(obj =>
                   {
-                      NsiDetailing WindowWinNsiDetailing = MainWindow.LinkMainWindow("NsiDetailing");
-                      if (WindowWinNsiDetailing.PoiskDeliting.Text.Trim() != "")
+                      
+                      if (WindowMen.PoiskDeliting.Text.Trim() != "")
                       {
-                          string jason = pathcontroller + "0/0/" + WindowWinNsiDetailing.PoiskDeliting.Text;
+                          string jason = pathcontroller + "0/0/" + WindowMen.PoiskDeliting.Text;
                           CallServer.PostServer(pathcontroller, jason, "GETID");
                           string CmdStroka = CallServer.ServerReturn();
                           if (CmdStroka.Contains("[]")) CallServer.BoolFalseTabl();
                           else ObservableNsiModelFeatures(CmdStroka);
-                          WindowWinNsiDetailing.TablDeliting.ItemsSource = NsiModelDetailings;
+                          WindowMen.TablDeliting.ItemsSource = NsiModelDetailings;
                       }
                   }));
             }
