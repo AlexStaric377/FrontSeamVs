@@ -170,6 +170,7 @@ namespace FrontSeam
                           WindowMain.StackPanelCabLikar.Visibility = Visibility.Visible;
                       }
                       WindowAccount.Close();
+ 
                   }));
             }
         }
@@ -233,23 +234,22 @@ namespace FrontSeam
                   {
                       MapOpisViewModel.IndexAddEdit = "addCommand";
                       ReestrOnOff = true;
-                      MainWindow WindowMen = MainWindow.LinkNameWindow("WindowMain");
-                      MainWindow.MessageError = "Для реєєстрації необхідно виконати наступні дії:" + Environment.NewLine;
-                      switch (MapOpisViewModel.CallViewProfilLikar)
-                      {
-                          case "ProfilLikar":
-                              MainWindow.MessageError += "1. Ввести реєстраційні данні до профілю лікаря.";
-                              MapOpisViewModel.BoolTrueProfilLikar();
-                              break;
-                          case "PacientProfil":
-                              MainWindow.MessageError += "1. Ввести реєстраційні данні до профілю пацієнта.";
-                              MapOpisViewModel.BoolTruePacientProfil();
-                              break;
-                      }
-                      MainWindow.MessageError += Environment.NewLine + "2. Зберегти введені дані натиснувши на кнопку 'Зберегти'" +
-                                Environment.NewLine + "3. У відповідь на запит ввести логін та пароль";
-                      MapOpisViewModel.SelectedFalseLogin(20);
-                      WindowAccount.Close();
+                      //MainWindow WindowMen = MainWindow.LinkNameWindow("WindowMain");
+                      //MainWindow.MessageError = "Для реєєстрації та створення облікового запису необхідно виконати наступні дії:" + Environment.NewLine;
+                      //MainWindow.MessageError += "1. Ввести номер телефону, це ваш логін."+Environment.NewLine ;
+                      //switch (MapOpisViewModel.CallViewProfilLikar)
+                      //{
+                      //    case "ProfilLikar":
+                      //        MapOpisViewModel.BoolTrueProfilLikar();
+                      //        break;
+                      //    case "PacientProfil":
+                      //        MapOpisViewModel.BoolTruePacientProfil();
+                      //        break;
+                      //}
+                      //MainWindow.MessageError += "2. Ввести пароль з підтвердженням.";
+                      //MapOpisViewModel.SelectedFalseLogin(20);
+                      //WindowAccount.Close();
+                      //if (MapOpisViewModel.StopDialog == true) { MapOpisViewModel.BoolFalsePacientProfil(); return;}
                       MapOpisViewModel.NewAccountRecords();
 
                   }));
@@ -359,8 +359,7 @@ namespace FrontSeam
             
         }
 
-
-
+ 
         //public static List<string> Countrys { get; set; } = new List<string> { "+380", "+44" };
 
         //private string _SelectedCountry;
@@ -397,7 +396,7 @@ namespace FrontSeam
 
             if (SetTextBox.Text.Length >= (IdLengh + 1)) SetTextBox.Text = SetTextBox.Text.Substring(0, IdLengh); ;
 
-            for (int indPoint = 2; indPoint <= SetTextBox.Text.Length; indPoint++)
+            for (int indPoint = 1; indPoint <= SetTextBox.Text.Length; indPoint++)
             {
                 if (!Char.IsDigit(Convert.ToChar(SetTextBox.Text.Substring(indPoint - 1, 1)))) SetTextBox.Text = SetTextBox.Text.Substring(0, indPoint - 1);
             }

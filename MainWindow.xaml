@@ -329,7 +329,7 @@
                                                         <ColumnDefinition Width ="110*" />
                                                         <ColumnDefinition Width ="100*" />
                                                     </Grid.ColumnDefinitions>
-                                                    <TextBlock x:Name="PacientProfilLab8" Grid.Column="0"  Text="  Телефон              +&#xa;xxx xx xx xxx xx" TextWrapping="Wrap" Height="30" FontSize="14" Width="127" HorizontalAlignment="Left" />
+                                                    <TextBlock x:Name="PacientProfilLab8" Grid.Column="0"  Text="  Телефон              &#xa;+xxx xx xx xxx xx" TextWrapping="Wrap" Height="30" FontSize="14" Width="127" HorizontalAlignment="Left" />
                                                     <TextBox Text="{Binding tel, UpdateSourceTrigger=PropertyChanged}" Name="PacientProfilt8" IsEnabled="False" Grid.Column="1"  Height="24" Width="120" VerticalAlignment="Top" Background="White" FontSize="14"
                                                              Margin="0,10,0,0" HorizontalAlignment="Left" BorderThickness="0,0,0,0"  />
                                                     <i:Interaction.Triggers>

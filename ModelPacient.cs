@@ -60,7 +60,11 @@ namespace FrontSeam
                       {
                           IdCardKeyUp.CheckKeyUpIdCard(MapOpisViewModel.WindowProfilPacient.PacientProfilt8, 12);
                       }
-                      IdCardKeyUp.CheckKeyUpIdCard(ViewModelWinProfilPacient.WindowResult.PacientProfilt8, 12);
+                      if (ViewModelWinProfilPacient.WindowResult != null)
+                      {
+                          IdCardKeyUp.CheckKeyUpIdCard(ViewModelWinProfilPacient.WindowResult.PacientProfilt8, 12);
+                      }
+                      
                   }));
             }
         }
@@ -78,7 +82,11 @@ namespace FrontSeam
                       {
                           IdCardKeyUp.CheckKeyUpIdCard(MapOpisViewModel.WindowProfilPacient.PacientProfilt13, 5);
                       }
-                      IdCardKeyUp.CheckKeyUpIdCard(ViewModelWinProfilPacient.WindowResult.PacientProfilt13, 5);
+                      if (ViewModelWinProfilPacient.WindowResult != null)
+                      { 
+                        IdCardKeyUp.CheckKeyUpIdCard(ViewModelWinProfilPacient.WindowResult.PacientProfilt13, 5);
+                      }
+                      
 
                   }));
             }

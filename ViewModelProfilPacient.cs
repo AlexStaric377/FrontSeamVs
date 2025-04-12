@@ -268,7 +268,7 @@ namespace FrontSeam
             WindowMain.BorderCabPacient.Visibility = Visibility.Hidden;
         }
 
-        private void BoolFalsePacientProfil()
+        public static void BoolFalsePacientProfil()
         {
             addboolPacientProfil = false;
             editboolPacientProfil = false;
@@ -412,9 +412,29 @@ namespace FrontSeam
                         else ViewPacientProfils.Insert(Countins, Idinsert);
                         SelectedPacientProfil = Idinsert;
                         _pacientProfil = Idinsert.kodPacient;
+
+                        json = pathcontrolerAccountUser + "0/" + Idinsert.tel + "/0/0"; //{ IdUser}/{ Login}/{ Password}/{ PoiskUser}.;
+                        CallServer.PostServer(pathcontrolerAccountUser, json, "GETID");
+                        CallServer.ResponseFromServer = CallServer.ResponseFromServer.Replace("[", "").Replace("]", "");
+                        AccountUser Insert = JsonConvert.DeserializeObject<AccountUser>(CallServer.ResponseFromServer);
+                        if (Insert != null)
+                        {
+                            Insert.idUser = _pacientProfil;
+                            json = JsonConvert.SerializeObject(Insert);
+                            CallServer.PostServer(pathcontrolerAccountUser, json, "PUT");
+                        }
+
                         WindowProfilPacient.PacientIntert3.Text = selectedPacientProfil.name + " " + selectedPacientProfil.surname + " " + selectedPacientProfil.profession + " " + selectedPacientProfil.tel;
                         WindowProfilPacient.ReceptionPacientzap3.Text = WindowProfilPacient.PacientIntert3.Text;
                         WindowProfilPacient.StatusHealth3.Text = WindowProfilPacient.PacientIntert3.Text;
+
+                        MainWindow.MessageError = "Увага!" + Environment.NewLine +
+                        "Ваш профіль та обліковий запис  успішно створено." + Environment.NewLine +
+                        "Відтепер ви маєте свій кабінет і вхід до нього за вашим логіном та паролем. ";
+                        SelectedFalseLogin(10,"Pacient");
+
+                        ViewModelRegisterAccountUser.ReestrOnOff = true;
+                        MapOpisViewModel.saveboolAccountLikar = true;
                     }
                     else SelectedPacientProfil = new ModelPacient();
                 }
@@ -423,6 +443,7 @@ namespace FrontSeam
                     string json = JsonConvert.SerializeObject(selectedPacientProfil);
                     CallServer.PostServer(pathcontrolerPacientProfil, json, "PUT");
                 }
+
                 BoolFalsePacientProfil();
             }
         }
@@ -493,20 +514,22 @@ namespace FrontSeam
             selectedPacientProfil.name = WindowProfilPacient.PacientProfilt2.Text;
             selectedPacientProfil.surname = WindowProfilPacient.PacientProfilt3.Text;
             selectedPacientProfil.profession = WindowProfilPacient.PacientProfilt9.Text;
-            selectedPacientProfil.tel = "+" + WindowProfilPacient.PacientProfilt8.Text;
+            selectedPacientProfil.tel =  WindowProfilPacient.PacientProfilt8.Text;
             selectedPacientProfil.weight = WindowProfilPacient.PacientProfilt5.Text.ToString() != "" ? Convert.ToDecimal(WindowProfilPacient.PacientProfilt5.Text) : 0;
+            selectedPacientProfil.login =  WindowProfilPacient.PacientProfilt8.Text;
 
-            MainWindow.MessageError = "Увага!" + Environment.NewLine +
-                      "Ви бажаєте створити кабінет пацієнта для зберігання" + Environment.NewLine +" результатів ваших опитувань та записів до лікаря?";
-            SelectedDelete(-1);
-            if (MapOpisViewModel.DeleteOnOff == true)
-            {
-                MapOpisViewModel.selectedProfilPacient = selectedPacientProfil;
-                if(regaccountUser.login == "") NewAccountRecords();
-                
+ 
+            MapOpisViewModel.selectedProfilPacient = selectedPacientProfil;
+            if (regaccountUser.login == "")
+            { 
+                MainWindow.MessageError = "Увага!" + Environment.NewLine +
+                "Ви бажаєте створити кабінет пацієнта для зберігання" + Environment.NewLine +" результатів ваших опитувань та записів до лікаря?";
+                SelectedDelete(-1);
+                if (MapOpisViewModel.DeleteOnOff == true)NewAccountRecords();
+                 
+
             }
-
-
+ 
         }
 
         // команда печати

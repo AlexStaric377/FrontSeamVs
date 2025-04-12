@@ -34,6 +34,9 @@
     <Compile Update="WinProfilPacient.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WinRegKodDostup.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WinVisitingDays.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -70,6 +73,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WinProfilPacient.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WinRegKodDostup.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WinVisitingDays.xaml">

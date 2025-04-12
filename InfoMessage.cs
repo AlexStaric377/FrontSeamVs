@@ -56,13 +56,17 @@ namespace FrontSeam
             NewOrder.ShowDialog();
         }
         
-        public static void SelectedFalseLogin(int TimePauza = 0)
+        public static void SelectedFalseLogin(int TimePauza = 0, string type ="")
         {
             TimePauza = TimePauza == 0 ? 7 : TimePauza;
-            MessageWarn NewOrder = new MessageWarn(MainWindow.MessageError, 2, TimePauza);
-            NewOrder.Height = NewOrder.Height + 90;
-            NewOrder.grid2.Height = NewOrder.grid2.Height + 60;
-            NewOrder.ShowDialog();
+
+ 
+                MessageWarn NewOrder = new MessageWarn(MainWindow.MessageError, 2, TimePauza);
+                NewOrder.Height = NewOrder.Height + 90;
+                NewOrder.grid2.Height = NewOrder.grid2.Height + 60;
+                NewOrder.ShowDialog();            
+ 
+ 
         }
 
         public static void SelectedRemove()
@@ -440,6 +444,24 @@ namespace FrontSeam
 
         }
 
+        public static void SetHidenPasword()
+        {
+            WinAccountRecords WindowAccount = MainWindow.LinkNameWindow("AccountRecords");
+            WindowAccount.Password1.Visibility = Visibility.Hidden;
+            WindowAccount.Passw1.Visibility = Visibility.Hidden;
+            WindowAccount.Passw1.Visibility = Visibility.Hidden;
+            WindowAccount.Eye1.Visibility = Visibility.Hidden;
+            WindowAccount.EyeDis1.Visibility = Visibility.Hidden;
+            WindowAccount.Pas.Visibility = Visibility.Hidden;
+            WindowAccount.Passw.Visibility = Visibility.Hidden;
+            WindowAccount.Eye.Visibility = Visibility.Hidden;
+            WindowAccount.EyeDis.Visibility = Visibility.Hidden;
+            WindowAccount.Open.Visibility = Visibility.Hidden; 
+            WindowAccount.Line2.Visibility = Visibility.Hidden;
+            WindowAccount.Line1.Visibility = Visibility.Hidden;
+            WindowAccount.PasswText.Visibility = Visibility.Hidden; 
+            WindowAccount.Passw1Text.Visibility = Visibility.Hidden;
 
+        }
     }
 }
