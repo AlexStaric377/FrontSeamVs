@@ -339,7 +339,6 @@ namespace FrontSeam
                           else MetodSaveAccountRecords();                      
                       }
 
- 
                       MapOpisViewModel.loadboolPacientProfil = true;
                       WindowAccount.Close();
                       WinRegisterAccountUser Windowrecord = MainWindow.LinkMainWindow("WinRegisterAccountUser");

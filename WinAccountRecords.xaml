@@ -32,14 +32,14 @@
                     <RowDefinition Height="40*" />
                     <RowDefinition Height="50*" />
                 </Grid.RowDefinitions>
-                <Label Name="Zagolovok"  Content="Створення облікового запису " Grid.Row="0" Height="30" FontSize="14" FontFamily="Microsoft Sans Serif"  HorizontalAlignment="Center"  />
+                <Label Name="Zagolovok"  Content="Створення облікового запису " Grid.Row="0" Height="30" FontSize="14" FontFamily="Microsoft Sans Serif"  HorizontalAlignment="Right" Margin="0,0,37,44" Grid.RowSpan="2"  />
                 <TextBlock Name="Fio"  Text="{Binding name, UpdateSourceTrigger=PropertyChanged}" DataContext="{Binding SelectProfilLikar}" Grid.Row="1" Height="28" Width="100" FontSize="16" FontFamily="Microsoft Sans Serif"  HorizontalAlignment="Left" Margin="40,0,0,0" />
                 <TextBlock Name="Famely"  Text="{Binding surname, UpdateSourceTrigger=PropertyChanged}" DataContext="{Binding SelectProfilLikar}" Grid.Row="1" Height="28" Width="110" FontSize="16" FontFamily="Microsoft Sans Serif"  HorizontalAlignment="Right" Margin="0,0,20,0" />
 
                 <!--<Label Name="Nomtel1"  Content="Логін : Номер телефону " Grid.Row="2" Height="30" FontSize="10" FontFamily="Microsoft Sans Serif"  HorizontalAlignment="Left" Margin="10,0,0,0" />-->
                 <Label Name="Nomtel"  Content="Логін :Номер телефону:   +380  XX XX XXX XX " Grid.Row="2" Height="30" Width="210" FontSize="10" FontFamily="Microsoft Sans Serif"  HorizontalAlignment="Left" Margin="10,0,0,0" />
 
-                <Image Height="30" Width="30" Grid.Row="0" HorizontalAlignment="Right"  Name="Close_Grid"  VerticalAlignment="Bottom" 
+                <Image Height="20" Width="20" Grid.Row="0" HorizontalAlignment="Right"  Name="Close_Grid"  VerticalAlignment="Center"  Margin="0,0,10,0"
                     Source="pack://application:,,,/FrontSeam;component/Images/delete2.png" Cursor="Hand"  >
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseLeftButtonDown">
