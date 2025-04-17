@@ -138,7 +138,7 @@ namespace FrontSeam {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/FrontSeam;V1.0.1.59;component/winlikargrupdiagnoz.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/FrontSeam;V1.0.1.61;component/winlikargrupdiagnoz.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\WinLikarGrupDiagnoz.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
