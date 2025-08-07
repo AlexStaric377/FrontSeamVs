@@ -42,7 +42,8 @@ namespace FrontSeam
             }
 
         }
-
+       
+        
 
         private int Id;
         private string KodDoctor;
@@ -52,10 +53,10 @@ namespace FrontSeam
         private string KodProtokola;
         private string TopictVizita;
         private string KodComplInterv;
-
+        private string KodDiagnoz; 
 
         public ModelRegistrationAppointment(int Id = 0, string KodDoctor = "", string KodPacient = "", string DateInterview = "", string DateDoctor = "",
-           string KodProtokola = "", string TopictVizita = "", string KodComplInterv = "")
+           string KodProtokola = "", string TopictVizita = "", string KodComplInterv = "", string KodDiagnoz="")
         {
 
             this.Id = Id;
@@ -66,6 +67,7 @@ namespace FrontSeam
             this.KodProtokola = KodProtokola;
             this.TopictVizita = TopictVizita;
             this.KodComplInterv = KodComplInterv;
+            this.KodDiagnoz = KodDiagnoz;
 
         }
 
@@ -123,10 +125,16 @@ namespace FrontSeam
         {
             get { return TopictVizita; }
             set { TopictVizita = value; OnPropertyChanged("topictVizita"); }
+        }
+
+        [JsonProperty("kodDiagnoz")]
+        public string kodDiagnoz
+        {
+            get { return KodDiagnoz; }
+            set { KodDiagnoz = value; OnPropertyChanged("kodDiagnoz"); }
 
 
         }
-
     }
 
 
