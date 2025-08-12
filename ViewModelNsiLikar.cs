@@ -187,6 +187,7 @@ namespace FrontSeam
                         MapOpisViewModel.admissionPatient.kodComplInterv = MapOpisViewModel.modelColectionInterview.kodComplInterv;
                         MapOpisViewModel.admissionPatient.topictVizita = "Гість:  " + WindowMain.ReceptionLikarGuest7.Text.ToString();
                         MapOpisViewModel.admissionPatient.dateInterview = MapOpisViewModel.modelColectionInterview.dateInterview;
+                        MapOpisViewModel.admissionPatient.kodDiagnoz = MapOpisViewModel.kodDiagnoz;
 
                         MapOpisViewModel.modelColectionInterview.kodDoctor = MapOpisViewModel._kodDoctor;
                         MapOpisViewModel.modelColectionInterview.namePacient = MapOpisViewModel.selectedPacientProfil.name + " " + MapOpisViewModel.selectedPacientProfil.surname;
@@ -199,12 +200,14 @@ namespace FrontSeam
                             NewOrder.Left = (MainWindow.ScreenWidth / 2);//- 100;
                             NewOrder.Top = (MainWindow.ScreenHeight / 2) - 400;
                             NewOrder.ShowDialog();
+
+                            WindowMain.ReceptionLikarGuest4.Text = "не встановлено";
                             if (MapOpisViewModel.selectVisitingDays != null)
                             {
                                 WindowMain.ReceptionLikarGuest4.Text = MapOpisViewModel.selectVisitingDays.dateVizita + " :" + MapOpisViewModel.selectVisitingDays.timeVizita;
-                                MapOpisViewModel.admissionPatient.dateVizita = WindowMain.ReceptionLikarGuest4.Text.ToString();
-                                MapOpisViewModel.modelColectionInterview.dateDoctor = WindowMain.ReceptionLikarGuest4.Text.ToString();
                             }
+                            MapOpisViewModel.admissionPatient.dateVizita = WindowMain.ReceptionLikarGuest4.Text.ToString();
+                            MapOpisViewModel.modelColectionInterview.dateDoctor = WindowMain.ReceptionLikarGuest4.Text.ToString();
                         }
 
                         string strokadiagnoz = MapOpisViewModel.NameDiagnoz.Length > 50 ? MapOpisViewModel.NameDiagnoz.Substring(0, 50) + Environment.NewLine + MapOpisViewModel.NameDiagnoz.Substring(50, MapOpisViewModel.NameDiagnoz.Length - 50) : MapOpisViewModel.NameDiagnoz;
@@ -231,7 +234,8 @@ namespace FrontSeam
                             MapOpisViewModel.selectRegistrationAppointment.kodComplInterv = MapOpisViewModel.modelColectionInterview.kodComplInterv;
                             MapOpisViewModel.selectRegistrationAppointment.topictVizita = MapOpisViewModel.modelColectionInterview.resultDiagnoz;
                             MapOpisViewModel.selectRegistrationAppointment.dateInterview = MapOpisViewModel.modelColectionInterview.dateInterview;
-                            MapOpisViewModel.selectRegistrationAppointment.dateDoctor = MapOpisViewModel.modelColectionInterview.dateDoctor; // selectReceptionPatient.dateDoctor;
+                            MapOpisViewModel.selectRegistrationAppointment.dateDoctor = MapOpisViewModel.modelColectionInterview.dateDoctor; 
+                            MapOpisViewModel.selectRegistrationAppointment.kodDiagnoz = MapOpisViewModel.kodDiagnoz;
 
                             json = JsonConvert.SerializeObject(MapOpisViewModel.selectRegistrationAppointment);
                             CallServer.PostServer(MapOpisViewModel.pathcontrollerAppointment, json, "POST");

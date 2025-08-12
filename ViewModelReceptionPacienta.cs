@@ -45,7 +45,7 @@ namespace FrontSeam
 
         public static void LoadReceptionPacient()
         {
-            CallServer.PostServer(pathcontrollerAppointment, pathcontrollerAppointment + _pacientProfil, "GETID");
+            CallServer.PostServer(pathcontrollerAppointment, pathcontrollerAppointment + _pacientProfil+"/0", "GETID");
             string CmdStroka = CallServer.ServerReturn();
             if (CmdStroka.Contains("[]")) CallServer.BoolFalseTabl();
             else ObservablelColectionRegistrationAppointment(CmdStroka);
@@ -129,6 +129,7 @@ namespace FrontSeam
                         CallServer.ResponseFromServer = CallServer.ResponseFromServer.Replace("[", "").Replace("]", "");
                         ModelDiagnoz Insert1 = JsonConvert.DeserializeObject<ModelDiagnoz>(CallServer.ResponseFromServer);
                         modelColectionInterview.nameDiagnoz = Insert1.nameDiagnoza;
+                        kodDiagnoz = Insert.kodDiagnoz;
                     }
 
                     json = RecomencontrollerIntevLikar + Insert.kodRecommend.ToString() + "/0";

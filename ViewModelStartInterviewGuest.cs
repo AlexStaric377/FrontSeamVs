@@ -34,7 +34,7 @@ namespace FrontSeam
     {
 
         private static int IdItemSelected = 0, countFeature = 0, shag = 0, key = 0;
-        public static string DiagnozRecomendaciya = "", NameDiagnoz = "", NameRecomendaciya ="", OpistInterview = "", UriInterview ="", StrokaInterview = "";
+        public static string DiagnozRecomendaciya = "", NameDiagnoz = "", kodDiagnoz = "", NameRecomendaciya ="", OpistInterview = "", UriInterview ="", StrokaInterview = "";
         public static bool endwhileselected = false, OnOffStartGuest=false, ViewAnalogDiagnoz=false, PrintCompletedInterview=false, SaveAnalogDiagnoz= false, addInterviewGrDetail = true,
         StopDialog = false, EndDialogdali = false, boolSetAccountUser = false, loadboolProfilLikar = false, loadboolPacientProfil = false, loadTreeInterview = false;
         public static string ActCompletedInterview = "null", ActCreatInterview = "", IndikatorSelected = "", selectedComplaintname = "", selectFeature="", selectGrDetailing="", selectQualification="";
@@ -990,6 +990,7 @@ namespace FrontSeam
                         CallServer.ResponseFromServer = CallServer.ResponseFromServer.Replace("[", "").Replace("]", "");
                         ModelDiagnoz Insert1 = JsonConvert.DeserializeObject<ModelDiagnoz>(CallServer.ResponseFromServer);
                         NameDiagnoz = Insert1.nameDiagnoza;
+                        kodDiagnoz = Insert.kodDiagnoz;
 
                         json = ViewModelNsiLikar.controlerLikarGrDiagnoz + "0/" + Insert1.icdGrDiagnoz.ToString() + "/0";
                         CallServer.PostServer(ViewModelNsiLikar.controlerLikarGrDiagnoz, json, "GETID");

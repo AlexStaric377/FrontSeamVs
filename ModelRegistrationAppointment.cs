@@ -53,10 +53,11 @@ namespace FrontSeam
         private string KodProtokola;
         private string TopictVizita;
         private string KodComplInterv;
-        private string KodDiagnoz; 
+        public string KodDiagnoz;
+
 
         public ModelRegistrationAppointment(int Id = 0, string KodDoctor = "", string KodPacient = "", string DateInterview = "", string DateDoctor = "",
-           string KodProtokola = "", string TopictVizita = "", string KodComplInterv = "", string KodDiagnoz="")
+           string KodProtokola = "", string TopictVizita = "", string KodComplInterv = "", string KodDiagnoz = "")
         {
 
             this.Id = Id;
