@@ -281,6 +281,37 @@ namespace FrontSeam
             selectedIndexVizitsOnOff = selected;
 
         }
+
+        public static List<string> MonthYear { get; set; } = new List<string> { "Місяць року", "Січень", "Лютий", "Березень", "Квітень", "Травень", "Червень", "Липень", "Серпень", "Вереснь", "Жовтень", "Листопад", "Грудень" };
+        private string _SelectedMonthYear = "0";
+        public static string selectedIndexMonthYear = "";
+        public string SelectedMonthYear
+        {
+            get => _SelectedMonthYear;
+            set
+            {
+                //// сохраняем старое значение
+                //var origValue = _SelectedUnit;
+
+                //меняем значение в обычном порядке
+                _SelectedMonthYear = value;
+                //Оповещаем как обычно изменение, сделанное до if (!_mainWindow.ShowYesNo("Изменить значение?"))
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedMonthYear)));
+                //OnPropertyChanged(nameof(SelectedUnit));
+                //а здесь уже преобразуем изменившиеся значение
+                //в необходимое uint
+                SetNewMonthYear(_SelectedMonthYear);
+            }
+        }
+
+        public void SetNewMonthYear(string selected = "")
+        {
+            MainWindow WindowMen = MainWindow.LinkNameWindow("WindowMain");
+            WindowMen.CabinetReseptionBoxMonth.Text = selected == "0" ? WindowMen.CabinetReseptionBoxMonth.Text : MonthYear[Convert.ToInt32(selected)];
+            selectedIndexMonthYear = selected;
+            MapOpisViewModel.loadthisMonth = true;
+
+        }
     }
 
 

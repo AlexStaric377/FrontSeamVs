@@ -285,6 +285,7 @@ namespace FrontSeam
                 selectRegistrationAppointment.topictVizita = modelColectionInterview.resultDiagnoz;
                 selectRegistrationAppointment.dateInterview = modelColectionInterview.dateInterview;
                 selectRegistrationAppointment.dateDoctor = modelColectionInterview.dateDoctor; // selectReceptionPatient.dateDoctor;
+                selectRegistrationAppointment.kodDiagnoz = kodDiagnoz;
                 var json = JsonConvert.SerializeObject(selectRegistrationAppointment);
                 string Method = "POST";
                 if (IndexAddEdit == "editCommand" && selectRegistrationAppointment.id != 0)
@@ -309,7 +310,7 @@ namespace FrontSeam
                 admissionPatient.topictVizita = modelColectionInterview.resultDiagnoz;
                 admissionPatient.dateInterview = modelColectionInterview.dateInterview;
                 admissionPatient.dateVizita = modelColectionInterview.dateDoctor;
-        
+                admissionPatient.kodDiagnoz = kodDiagnoz;
                 if ((IndexAddEdit == "editCommand" && Method == "POST") || IndexAddEdit == "addCommand")
                 {
 

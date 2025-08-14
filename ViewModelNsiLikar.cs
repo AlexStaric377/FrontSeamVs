@@ -32,6 +32,7 @@ namespace FrontSeam
         private MainWindow WindowMain = MainWindow.LinkNameWindow("WindowMain");
         private string pathcontroller = "/api/ApiControllerDoctor/";
         public static string controlerLikarGrDiagnoz = "/api/LikarGrupDiagnozController/";
+        private string pathcontrollerVisitingDays = "/api/VisitingDaysController/";
         public static ModelDoctor selectedLikar;
         public static ObservableCollection<ModelDoctor> NsiLikars { get; set; }
 
@@ -239,6 +240,12 @@ namespace FrontSeam
 
                             json = JsonConvert.SerializeObject(MapOpisViewModel.selectRegistrationAppointment);
                             CallServer.PostServer(MapOpisViewModel.pathcontrollerAppointment, json, "POST");
+                            CmdStroka = CallServer.ServerReturn();
+                            if (CmdStroka.Contains("[]")) { CallServer.FalseServerGet(); return; }
+
+                            MapOpisViewModel.selectVisitingDays.onOff = "Ні";
+                            json = JsonConvert.SerializeObject(MapOpisViewModel.selectVisitingDays);
+                            CallServer.PostServer(pathcontrollerVisitingDays, json, "PUT");
                             CmdStroka = CallServer.ServerReturn();
                             if (CmdStroka.Contains("[]")) { CallServer.FalseServerGet(); return; }
                         }
