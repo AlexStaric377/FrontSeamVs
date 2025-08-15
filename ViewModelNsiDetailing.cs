@@ -29,6 +29,7 @@ namespace FrontSeam
         private string pathcontroller = "/api/DetailingController/";
         public static ModelDetailing selectedDetailing;
         public static ObservableCollection<ModelDetailing> NsiModelDetailings { get; set; }
+        public static ObservableCollection<ModelDetailing> tmpModelDetailings { get; set; }
         public ModelDetailing SelectedModelDetailing
         { get { return selectedDetailing; } set { selectedDetailing = value; OnPropertyChanged("SelectedModelDetailing"); } }
         // конструктор класса
@@ -120,6 +121,10 @@ namespace FrontSeam
                           else
                           {
                               MapOpisViewModel.nameFeature3 = selectedDetailing.kodDetailing.ToString() + ":        " + selectedDetailing.nameDetailing.ToString();
+                              tmpModelDetailings = NsiModelDetailings;
+                              tmpModelDetailings.Remove(selectedDetailing);
+                              NsiModelDetailings = tmpModelDetailings;
+                              WindowMen.TablDeliting.ItemsSource = NsiModelDetailings;
                               MapOpisViewModel.addInterviewGrDetail = false;
                               if (keyGr == false) MapOpisViewModel.SelectContentCompleted();
                           }

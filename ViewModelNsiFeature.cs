@@ -29,7 +29,9 @@ namespace FrontSeam
         WinNsiFeature WindowMen = MainWindow.LinkMainWindow("WinNsiFeature");
         private string controller = "/api/FeatureController/";
         private ModelFeature selectedFeature;
+        private ModelFeature remFeature;
         public static ObservableCollection<ModelFeature> NsiModelFeatures { get; set; }
+        public static ObservableCollection<ModelFeature> tmpModelFeatures { get; set; }
         public ModelFeature SelectedModelFeature
         { get { return selectedFeature; } set { selectedFeature = value; OnPropertyChanged("SelectedModelFeature"); } }
         // конструктор класса
@@ -47,8 +49,6 @@ namespace FrontSeam
                         break;
                 }
 
-
-                
                 string CmdStroka = CallServer.ServerReturn();
                 ObservableNsiModelFeatures(CmdStroka);
 
@@ -106,15 +106,72 @@ namespace FrontSeam
                       if (selectedFeature != null)
                       {
                          
-                          MapOpisViewModel.nameFeature3 = selectedFeature.keyFeature.ToString() + ":    " + selectedFeature.name.ToString();
+                          MapOpisViewModel.nameFeature3 = selectedFeature.keyFeature + ":    " + selectedFeature.name.ToString();
                           MapOpisViewModel.SelectContentCompleted();
                           if(MapOpisViewModel.CallViewDetailing == "ModelDetailing") WindowMen.Close();
+                          CheckmixFeatures(selectedFeature.keyFeature);
+                          if (tmpModelFeatures.Count == 1) { WindowMen.Close(); return; }
+                          remFeature = new ModelFeature();
+                          remFeature = selectedFeature;
+                          tmpModelFeatures.Remove(remFeature);
+                          NsiModelFeatures = tmpModelFeatures;
+                          WindowMen.TablFeature.ItemsSource = NsiModelFeatures;
+
                       }
                   }));
             }
         }
 
- 
+
+        private void CheckmixFeatures(string keyFeature = "")
+        {
+            string listkeyFeature = keyFeature;
+            bool keyComplainttrue = false;
+            tmpModelFeatures = new ObservableCollection<ModelFeature>();
+            foreach (ModelFeature modelFeature in NsiModelFeatures)
+            {
+                tmpModelFeatures.Add(modelFeature);
+            }
+
+
+            //listkeyFeature = keyFeature + ";" + modelFeature.keyFeature + ";";
+            listkeyFeature = selectedFeature.keyComplaint + ";"+ selectedFeature.keyFeature + ";";
+            CallServer.PostServer(MapOpisViewModel.Interviewcontroller, MapOpisViewModel.Interviewcontroller + "0/0/0/0/" + listkeyFeature, "GETID");
+            string CmdStroka = CallServer.ServerReturn();
+            var result = JsonConvert.DeserializeObject<ListModelInterview>(CmdStroka);
+            List<ModelInterview> res = result.ModelInterview.ToList();
+            MapOpisViewModel.ModelInterviews = new ObservableCollection<ModelInterview>((IEnumerable<ModelInterview>)res);
+            if (MapOpisViewModel.ModelInterviews.Count > 0)
+            {
+                foreach (ModelFeature modelFeature in NsiModelFeatures)
+                {
+                    foreach (ModelInterview modelInterview in MapOpisViewModel.ModelInterviews)
+                    {
+                        if (modelInterview.grDetail.Contains(modelFeature.keyFeature) == true)
+                        {
+                            keyComplainttrue = true;
+                            break;
+
+                        }
+
+
+                    }
+                    if (keyComplainttrue == false)
+                    {
+                        remFeature = new ModelFeature();
+                        remFeature = modelFeature;
+                        tmpModelFeatures.Remove(remFeature);
+                    }
+                    keyComplainttrue = false;
+                }
+
+            }
+
+
+            
+        }
+
+
         // команда поиска наименования характера проявления болей
         RelayCommand? searchNameFeature;
         public RelayCommand SearchNameFeature

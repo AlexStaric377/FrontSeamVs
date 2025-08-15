@@ -28,8 +28,9 @@ namespace FrontSeam
     {
         WinNsiGrDetailing WindowMen = MainWindow.LinkMainWindow("WinNsiGrDetailing");
         private string pathcontroller = "/api/GrDetalingController/";
-        public static ModelGrDetailing selectedGrDetailing;
+        public static ModelGrDetailing selectedGrDetailing, GrDetailing;
         public static ObservableCollection<ModelGrDetailing> NsiModelGrDetailings { get; set; }
+        public static ObservableCollection<ModelGrDetailing> tmpModelGrDetailings { get; set; }
         public ModelGrDetailing SelectedModelGrDetailing
         { get { return selectedGrDetailing; } set { selectedGrDetailing = value; OnPropertyChanged("SelectedModelGrDetailing"); } }
         // конструктор класса
@@ -94,10 +95,18 @@ namespace FrontSeam
                           MapOpisViewModel.selectQualification = selectedGrDetailing.nameGrDetailing;
                           MapOpisViewModel.nameFeature3 = selectedGrDetailing.kodDetailing.ToString() + ":        " + selectedGrDetailing.nameGrDetailing.ToString();
                           if (MapOpisViewModel.ListGrDetail.Contains(ViewModelNsiDetailing.selectedDetailing.keyGrDetailing) == false) MapOpisViewModel.ListGrDetail += ViewModelNsiDetailing.selectedDetailing.keyGrDetailing + ";";
+                          
                           MapOpisViewModel.addInterviewGrDetail = false;
                           MapOpisViewModel.SelectContentCompleted();
                           if (selectedGrDetailing.kodGroupQualification != null)
                           { if(selectedGrDetailing.kodGroupQualification.Length>0) OpenQualification();  }
+
+                          tmpModelGrDetailings = new ObservableCollection<ModelGrDetailing>();
+                          GrDetailing = new ModelGrDetailing();
+                          tmpModelGrDetailings = NsiModelGrDetailings;
+                          GrDetailing = selectedGrDetailing;
+                          tmpModelGrDetailings.Remove(GrDetailing);
+                          NsiModelGrDetailings = tmpModelGrDetailings;
 
                       }
                   }));

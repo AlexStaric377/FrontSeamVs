@@ -25,11 +25,14 @@ using System.Windows.Controls;
 
 namespace FrontSeam
 {
-    public class ViewModelNsiComplaint : INotifyPropertyChanged
+    public class ViewModelNsiComplaint : BaseViewModel
     {
+        private NsiComplaint WindowMen = MainWindow.LinkMainWindow("NsiComplaint");
         public static string pathComplaint = "/api/ApiControllerComplaint/";
         public  static ModelComplaint selectedComplaint;
+        public static ModelComplaint remComplaint;
         public static ObservableCollection<ModelComplaint> NsiComplaints { get; set; }
+        public static ObservableCollection<ModelComplaint> tmpComplaints { get; set; }
         public static int CountComplaint = 0;
         
         public ModelComplaint SelectedComplaint
@@ -60,13 +63,13 @@ namespace FrontSeam
                 return closeComplaint ??
                   (closeComplaint = new RelayCommand(obj =>
                   { 
-                      NsiComplaint WindowMen = MainWindow.LinkMainWindow("NsiComplaint");
+                      //NsiComplaint WindowMen = MainWindow.LinkMainWindow("NsiComplaint");
                       WindowMen.Close();
                   }));
             }
         }
 
-        // команда закрытия окна
+        // команда поиска симптома
         RelayCommand? searchComplaint;
         public RelayCommand SearchComplaint
         {
@@ -75,7 +78,7 @@ namespace FrontSeam
                 return searchComplaint ??
                   (searchComplaint = new RelayCommand(obj =>
                   {
-                      NsiComplaint WindowMen = MainWindow.LinkMainWindow("NsiComplaint");
+                      
                       string jason = pathComplaint + "0/" + WindowMen.PoiskComplaints.Text;
                       CallServer.PostServer(pathComplaint, jason, "GETID");
                       string CmdStroka = CallServer.ServerReturn();
@@ -98,22 +101,51 @@ namespace FrontSeam
                   {
                       if (selectedComplaint != null)
                       {
+                          MapOpisViewModel.nameFeature3 = selectedComplaint.keyComplaint + ": " + selectedComplaint.name.ToString();
                           
-                          MapOpisViewModel.nameFeature3 = selectedComplaint.keyComplaint.ToString() + ": " + selectedComplaint.name.ToString();
+                          WindowMen.TablComplaints.ItemsSource = NsiComplaints;
                           MapOpisViewModel.SelectContentCompleted();
+                          Checkmixcompl(selectedComplaint.keyComplaint);
+                          if (tmpComplaints.Count == 1) { WindowMen.Close(); return; }
+                          NsiComplaints = tmpComplaints;
                       }
                   }));
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string propertyName = "")
+
+        private void Checkmixcompl(string keyComplaint = "")
         {
-            if (PropertyChanged != null)
+            string listkeyComplaint = keyComplaint;
+            tmpComplaints = new ObservableCollection<ModelComplaint>();
+            foreach (ModelComplaint modelComplaint in NsiComplaints)
             {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+                tmpComplaints.Add(modelComplaint);
             }
 
+            foreach (ModelComplaint modelComplaint in NsiComplaints)
+            {
+                if (keyComplaint != modelComplaint.keyComplaint)
+                { 
+                    listkeyComplaint = keyComplaint +";" + modelComplaint.keyComplaint + ";";
+                    CallServer.PostServer(MapOpisViewModel.Interviewcontroller, MapOpisViewModel.Interviewcontroller + "0/0/0/0/" + listkeyComplaint, "GETID");
+                    string CmdStroka = CallServer.ServerReturn();
+                    var result = JsonConvert.DeserializeObject<ListModelInterview>(CmdStroka);
+                    List<ModelInterview> res = result.ModelInterview.ToList();
+                    MapOpisViewModel.ModelInterviews = new ObservableCollection<ModelInterview>((IEnumerable<ModelInterview>)res);
+
+                    if (MapOpisViewModel.ModelInterviews.Count == 0)
+                    {
+                        remComplaint = new ModelComplaint();
+                        remComplaint = modelComplaint;
+                        tmpComplaints.Remove(remComplaint);
+                        
+                    }
+                }
+                
+
+            }
         }
+
     }
 }

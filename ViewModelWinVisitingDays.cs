@@ -37,7 +37,7 @@ namespace FrontSeam
             set { selectVisitDays = value; OnPropertyChanged("SelectedVisitingDays"); }
         }
         public static ObservableCollection<ModelVisitingDays> ViewVisitingDayss { get; set; }
-
+        public static ObservableCollection<ModelVisitingDays> tmpVisitingDayss { get; set; }
 
 
         public ViewModelWinVisitingDays()
@@ -45,6 +45,12 @@ namespace FrontSeam
             CallServer.PostServer(pathcontrollerVisitingDays, pathcontrollerVisitingDays  + MapOpisViewModel._kodDoctor + "/0", "GETID");
             string CmdStroka = CallServer.ServerReturn();
             ObservableVisitingDays(CmdStroka);
+            tmpVisitingDayss = new ObservableCollection<ModelVisitingDays>();
+            foreach (ModelVisitingDays modelVisitingDays in ViewVisitingDayss)
+            {
+                if (modelVisitingDays.onOff == "Так") tmpVisitingDayss.Add(modelVisitingDays);
+            }
+            ViewVisitingDayss = tmpVisitingDayss;
         }
 
         public static void ObservableVisitingDays(string CmdStroka)

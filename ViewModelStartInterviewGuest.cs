@@ -38,7 +38,7 @@ namespace FrontSeam
         public static bool endwhileselected = false, OnOffStartGuest=false, ViewAnalogDiagnoz=false, PrintCompletedInterview=false, SaveAnalogDiagnoz= false, addInterviewGrDetail = true,
         StopDialog = false, EndDialogdali = false, boolSetAccountUser = false, loadboolProfilLikar = false, loadboolPacientProfil = false, loadTreeInterview = false;
         public static string ActCompletedInterview = "null", ActCreatInterview = "", IndikatorSelected = "", selectedComplaintname = "", selectFeature="", selectGrDetailing="", selectQualification="";
-        public static string InputContent = "", PacientContent="", LikarContent="", selectIcdGrDiagnoz = "";
+        public static string InputContent = "", PacientContent="", LikarContent="", selectIcdGrDiagnoz = "", selectopenwin = "";
         public static MainWindow WindowMain = MainWindow.LinkNameWindow("WindowMain");
         public static int NumberstrokaGuest = 0, IdItemGuestInterv = 0, endUnload = 0;
         public static string Controlleroutfile = "/api/UnLoadController/", upLoadstroka = "", RegIdUser = "", RegUserStatus = "", RegPassword = "", ListGrDetail="";
@@ -430,7 +430,7 @@ namespace FrontSeam
 
         public static void OpenNsiComplaint()
         {
-            
+            selectopenwin = "OpenNsiComplaint";
             NsiComplaint NewOrder = new NsiComplaint();
             NewOrder.Left = (MainWindow.ScreenWidth / 2) - 70;
             NewOrder.Top = (MainWindow.ScreenHeight / 2) - 350; //350;
@@ -442,6 +442,7 @@ namespace FrontSeam
 
         public static void OpenNsiFeature()
         {
+            selectopenwin = "OpenNsiFeature";
             selectedComplaintname = GuestIntervs[IdItemGuestInterv-1].detailsInterview;
             WinNsiFeature NewOrder = new WinNsiFeature();
             NewOrder.Left = (MainWindow.ScreenWidth / 2) - 100;
@@ -451,9 +452,9 @@ namespace FrontSeam
 
         public static void OpenNsiDetailing()
         {
-            
-            // загрузка деревьв подобных интервью для настройки груповых детализаций
 
+            // загрузка деревьв подобных интервью для настройки груповых детализаций
+            selectopenwin = "OpenNsiDetailing";
             MapOpisViewModel.ActCreatInterview = "SelectInterview";
             selectFeature = GuestIntervs[IdItemGuestInterv - 1].detailsInterview;
             string pathcontroller = "/api/DetailingController/";
@@ -513,6 +514,7 @@ namespace FrontSeam
                     }
                     if (StrokaInterview.Contains(modelDetailing.keyGrDetailing) == true && GrDetailing == false)
                     {
+                        selectopenwin = "LoadNsiGrDetailing";
                         ViewModelNsiDetailing.selectedDetailing = modelDetailing;
                         MapOpisViewModel.selectGrDetailing = selectFeature + " " + modelDetailing.nameDetailing.ToString().ToUpper();
                         WinNsiGrDetailing NewOrder = new WinNsiGrDetailing();
@@ -528,7 +530,7 @@ namespace FrontSeam
 
         public static void OpenNsiGrDetailing()
         {
-
+            selectopenwin = "OpenNsiGrDetailing";
             WinNsiGrDetailing NewNsi = new WinNsiGrDetailing();
             NewNsi.Left = (MainWindow.ScreenWidth / 2) - 100;
             NewNsi.Top = (MainWindow.ScreenHeight / 2) - 350;
@@ -558,6 +560,10 @@ namespace FrontSeam
         {
             int indexcontent = 0;
             bool booladdContent = false, addcontent = false;
+
+
+            // вставить проверку возможности выбора нескольких строк из списка симптомов
+
 
             TmpGuestIntervs = new ObservableCollection<ModelCompletedInterview>();
             foreach (ModelCompletedInterview ModelCompletedInterview in GuestIntervs) //.OrderBy(x => x.kodDetailing)
@@ -606,7 +612,10 @@ namespace FrontSeam
 
         private static bool AddGrDetail()
         {
-
+            if (selectopenwin == "OpenNsiComplaint" || selectopenwin == "OpenNsiFeature")
+            {
+                return true;
+            }
             if (addInterviewGrDetail == true && ListGrDetail.Contains(nameFeature3.Substring(0, nameFeature3.IndexOf(":"))) == false)
             {
                 string checkgrdetail = ListGrDetail + nameFeature3.Substring(0, nameFeature3.IndexOf(":")) + ";";
@@ -643,6 +652,8 @@ namespace FrontSeam
                 detailsInterview += modelCompletedInterview.kodDetailing + ";";
             }
             detailsInterview += selectedaddContent.kodDetailing + ";";
+            if (selectopenwin == "OpenNsiFeature" && detailsInterview.Length > 16) return;
+
             string jason = Interviewcontroller + "0/0/0/0/" + detailsInterview;
             CallServer.PostServer(Interviewcontroller, jason, "GETID");
             StrokaInterview = CallServer.ServerReturn();

@@ -38,6 +38,7 @@ namespace FrontSeam
         private string pathcontroller = "/api/QualificationController/";
         public static ModelQualification selectedlQualification;
         public static ObservableCollection<ModelQualification> NsiModelQualifications { get; set; }
+        public static ObservableCollection<ModelQualification> tmpModelQualifications { get; set; }
         public ModelQualification SelectedQualification
         { get { return selectedlQualification; } set { selectedlQualification = value; OnPropertyChanged("SelectedQualification"); } }
         // конструктор класса
@@ -85,6 +86,10 @@ namespace FrontSeam
                       if (selectedlQualification != null)
                       {
                           MapOpisViewModel.nameFeature3 = selectedlQualification.kodQualification.ToString() + ":            " + selectedlQualification.nameQualification.ToString();
+                          tmpModelQualifications = NsiModelQualifications;
+                          tmpModelQualifications.Remove(selectedlQualification);
+                          NsiModelQualifications = tmpModelQualifications;
+
                           switch (MapOpisViewModel.ActCompletedInterview)
                           {
                               case "Guest":
