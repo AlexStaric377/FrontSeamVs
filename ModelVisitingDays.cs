@@ -38,17 +38,18 @@ namespace FrontSeam
             }
 
         }
- 
+        
         private int Id;
         private string KodDoctor;
         private string DaysOfTheWeek;
         private string DateVizita;
         private string TimeVizita;
-        private string OnOff;
+        private string OnOff; 
+        private DateTime DateWork;
 
 
         public ModelVisitingDays(int Id = 0, string KodDoctor = "", string DaysOfTheWeek = "", string DateVizita = "",
-            string TimeVizita = "", string OnOff = "")
+           string TimeVizita = "", string OnOff = "", DateTime DateWork  = new DateTime())
         {
 
             this.Id = Id;
@@ -57,7 +58,7 @@ namespace FrontSeam
             this.DateVizita = DateVizita;
             this.TimeVizita = TimeVizita;
             this.OnOff = OnOff;
-
+            this.DateWork = DateWork;
         }
 
         [JsonProperty("id")]
@@ -99,6 +100,12 @@ namespace FrontSeam
             set { OnOff = value; OnPropertyChanged("onOff"); }
         }
 
+        [JsonProperty("dateWork")]
+        public DateTime dateWork
+        {
+            get { return DateWork; }
+            set { DateWork = value; OnPropertyChanged("dateWork"); }
+        }
     }
 
     public class ViewModelVisitingDays : INotifyPropertyChanged

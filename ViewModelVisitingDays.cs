@@ -403,6 +403,7 @@ namespace FrontSeam
                 string dateVisit = ThisDay + "." + ThisMonth + "." + ThisYear;
                 MapOpisViewModel.selectModelVisitingDays.dateVizita = dateVisit;
                 DateTime convertedDate = Convert.ToDateTime(dateVisit);
+                MapOpisViewModel.selectModelVisitingDays.dateWork = convertedDate;
                 int theweek = (int)convertedDate.DayOfWeek;
                 MapOpisViewModel.selectModelVisitingDays.daysOfTheWeek = ViewModelVisitingDays.DayWeeks[theweek];
                 MapOpisViewModel.selectModelVisitingDays.onOff = "Так";
