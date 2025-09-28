@@ -92,7 +92,7 @@ namespace FrontSeam {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/FrontSeam;V1.1.0.61;component/waitwindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/FrontSeam;V1.1.0.63;component/waitwindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\WaitWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

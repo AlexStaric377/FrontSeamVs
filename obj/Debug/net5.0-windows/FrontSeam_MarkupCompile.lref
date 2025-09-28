@@ -1,4 +1,4 @@
-﻿
+﻿D:\FrontSeam\obj\Debug\net5.0-windows\GeneratedInternalTypeHelper.g.cs
 
 FD:\FrontSeam\MainWindow.xaml;;
 FD:\FrontSeam\MessageError.xaml;;
@@ -14,6 +14,7 @@ FD:\FrontSeam\WinCreatIntreview.xaml;;
 FD:\FrontSeam\WinDeleteData.xaml;;
 FD:\FrontSeam\WinLikarGrupDiagnoz.xaml;;
 FD:\FrontSeam\WinListInteviewPacient.xaml;;
+FD:\FrontSeam\WinMedicalGrDiagnoz.xaml;;
 FD:\FrontSeam\WinMessageDialog.xaml;;
 FD:\FrontSeam\WinMessageErr.xaml;;
 FD:\FrontSeam\WinNsiCompliant.xaml;;

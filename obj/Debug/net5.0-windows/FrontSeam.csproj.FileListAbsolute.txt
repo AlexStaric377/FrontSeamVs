@@ -42,7 +42,6 @@ D:\FrontSeam\bin\Debug\net5.0-windows\System.Text.Json.dll
 D:\FrontSeam\bin\Debug\net5.0-windows\Microsoft.Expression.Interactions.dll
 D:\FrontSeam\bin\Debug\net5.0-windows\System.Windows.Interactivity.dll
 D:\FrontSeam\bin\Debug\net5.0-windows\WpfAnimatedGif.dll
-D:\FrontSeam\obj\Debug\net5.0-windows\FrontSeam.csproj.AssemblyReference.cache
 D:\FrontSeam\obj\Debug\net5.0-windows\MainWindow.g.cs
 D:\FrontSeam\obj\Debug\net5.0-windows\MessageError.g.cs
 D:\FrontSeam\obj\Debug\net5.0-windows\MessageWarn.g.cs
@@ -57,6 +56,7 @@ D:\FrontSeam\obj\Debug\net5.0-windows\WinCreatIntreview.g.cs
 D:\FrontSeam\obj\Debug\net5.0-windows\WinDeleteData.g.cs
 D:\FrontSeam\obj\Debug\net5.0-windows\WinLikarGrupDiagnoz.g.cs
 D:\FrontSeam\obj\Debug\net5.0-windows\WinListInteviewPacient.g.cs
+D:\FrontSeam\obj\Debug\net5.0-windows\WinMedicalGrDiagnoz.g.cs
 D:\FrontSeam\obj\Debug\net5.0-windows\WinMessageDialog.g.cs
 D:\FrontSeam\obj\Debug\net5.0-windows\WinMessageErr.g.cs
 D:\FrontSeam\obj\Debug\net5.0-windows\WinNsiCompliant.g.cs
@@ -76,6 +76,7 @@ D:\FrontSeam\obj\Debug\net5.0-windows\WinNsiQualification.g.cs
 D:\FrontSeam\obj\Debug\net5.0-windows\WinNsiStatusUser.g.cs
 D:\FrontSeam\obj\Debug\net5.0-windows\WinProfilPacient.g.cs
 D:\FrontSeam\obj\Debug\net5.0-windows\WinRegisterAccountUser.g.cs
+D:\FrontSeam\obj\Debug\net5.0-windows\WinRegKodDostup.g.cs
 D:\FrontSeam\obj\Debug\net5.0-windows\WinResultInterview.g.cs
 D:\FrontSeam\obj\Debug\net5.0-windows\WinVisitingDays.g.cs
 D:\FrontSeam\obj\Debug\net5.0-windows\WinWelcome.g.cs
@@ -97,6 +98,7 @@ D:\FrontSeam\obj\Debug\net5.0-windows\WinCreatIntreview.baml
 D:\FrontSeam\obj\Debug\net5.0-windows\WinDeleteData.baml
 D:\FrontSeam\obj\Debug\net5.0-windows\WinLikarGrupDiagnoz.baml
 D:\FrontSeam\obj\Debug\net5.0-windows\WinListInteviewPacient.baml
+D:\FrontSeam\obj\Debug\net5.0-windows\WinMedicalGrDiagnoz.baml
 D:\FrontSeam\obj\Debug\net5.0-windows\WinMessageDialog.baml
 D:\FrontSeam\obj\Debug\net5.0-windows\WinMessageErr.baml
 D:\FrontSeam\obj\Debug\net5.0-windows\WinNsiCompliant.baml
@@ -116,6 +118,7 @@ D:\FrontSeam\obj\Debug\net5.0-windows\WinNsiQualification.baml
 D:\FrontSeam\obj\Debug\net5.0-windows\WinNsiStatusUser.baml
 D:\FrontSeam\obj\Debug\net5.0-windows\WinProfilPacient.baml
 D:\FrontSeam\obj\Debug\net5.0-windows\WinRegisterAccountUser.baml
+D:\FrontSeam\obj\Debug\net5.0-windows\WinRegKodDostup.baml
 D:\FrontSeam\obj\Debug\net5.0-windows\WinResultInterview.baml
 D:\FrontSeam\obj\Debug\net5.0-windows\WinVisitingDays.baml
 D:\FrontSeam\obj\Debug\net5.0-windows\WinWelcome.baml
@@ -129,5 +132,4 @@ D:\FrontSeam\obj\Debug\net5.0-windows\FrontSeam.dll
 D:\FrontSeam\obj\Debug\net5.0-windows\ref\FrontSeam.dll
 D:\FrontSeam\obj\Debug\net5.0-windows\FrontSeam.pdb
 D:\FrontSeam\obj\Debug\net5.0-windows\FrontSeam.genruntimeconfig.cache
-D:\FrontSeam\obj\Debug\net5.0-windows\WinRegKodDostup.g.cs
-D:\FrontSeam\obj\Debug\net5.0-windows\WinRegKodDostup.baml
+D:\FrontSeam\obj\Debug\net5.0-windows\FrontSeam.csproj.AssemblyReference.cache

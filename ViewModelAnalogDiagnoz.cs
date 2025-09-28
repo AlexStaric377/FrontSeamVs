@@ -259,15 +259,15 @@ namespace FrontSeam
                                   MapOpisViewModel.OnOffStartGuest = true;
                                   MapOpisViewModel.modelColectionInterview.namePacient = "";
 
-                                  WindowIntevLikar.ReceptionLikarFolderLikarGuest.Visibility = Visibility.Visible;
-                                  WindowIntevLikar.ReceptionLikarFolderGuestTime.Visibility = Visibility.Visible;
-                                  WindowIntevLikar.ReceptionLikarGuestFoldInterv.Visibility = Visibility.Visible;
-                                  WindowIntevLikar.ReceptionLikarGuestCompInterview.Visibility = Visibility.Visible;
+                                  //WindowIntevLikar.ReceptionLikarFolderLikarGuest.Visibility = Visibility.Visible;
+                                  //WindowIntevLikar.ReceptionLikarFolderGuestTime.Visibility = Visibility.Visible;
+                                  //WindowIntevLikar.ReceptionLikarGuestFoldInterv.Visibility = Visibility.Visible;
+                                  //WindowIntevLikar.ReceptionLikarGuestCompInterview.Visibility = Visibility.Visible;
 
-                                  WindowIntevLikar.ReseptionZapisLikar.Text = "Ваші дії:  -вибрати лікаря натиснув на малюнок папки; -ввести дату, час прийому та зміст звернення; -натиснути кнопку 'Зберегти'. ";
-                                  WindowIntevLikar.ReceptionLikarGuest3.Text = "";
-                                  WindowIntevLikar.ReceptionLikarGuest7.IsEnabled = true;
-                                  WindowIntevLikar.ReceptionLikarGuest7.Background = Brushes.AntiqueWhite;
+                                  //WindowIntevLikar.ReseptionZapisLikar.Text = "Ваші дії:  -вибрати лікаря натиснув на малюнок папки; -ввести дату, час прийому та зміст звернення; -натиснути кнопку 'Зберегти'. ";
+                                  //WindowIntevLikar.ReceptionLikarGuest3.Text = "";
+                                  //WindowIntevLikar.ReceptionLikarGuest7.IsEnabled = true;
+                                  //WindowIntevLikar.ReceptionLikarGuest7.Background = Brushes.AntiqueWhite;
                                   break;
                           }
                           MethodSelectDoctor("ReseptionAnalogLikar");

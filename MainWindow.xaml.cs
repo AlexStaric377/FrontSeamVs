@@ -30,7 +30,16 @@ namespace FrontSeam
         public static string CmdStrokaServer = "", UrlServer = "", UrlAdresServer = "http://localhost:50001", UrlAdresServerClient = "http://localhost:50001" ;
         public static string TextName = "", SourceServer = "",IncreDecre = "", MessageError = "", SelectLanguageUI = "";
 
-    
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MedicalTablGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
         public static int Idstr = 0;
         public static double ScreenHeight = 0.0, ScreenWidth = 0.0, SetHeigtCurent = 0.0;
 

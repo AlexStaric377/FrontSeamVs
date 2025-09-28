@@ -51,6 +51,23 @@ namespace FrontSeam
                                 WindowIntevLikar.GridPrint.Visibility = Visibility.Visible;
                                 WindowIntevLikar.GridDelete.Visibility = Visibility.Visible;
                                 WindowIntevLikar.LabelStartInterv.Content = "Почати";
+                              switch (WindowProfilPacient.ControlGuest.SelectedIndex)
+                              {
+                                  case 0:
+                                      break;
+                                  case 1:
+                                  case 2:
+                                      WindowIntevLikar.GridLoadButton.Visibility = Visibility.Visible;
+                                      WindowIntevLikar.GridAdd.Visibility = Visibility.Hidden;
+                                      WindowIntevLikar.GridGhange.Visibility = Visibility.Hidden;
+                                      WindowIntevLikar.GridSave.Visibility = Visibility.Hidden;
+                                      WindowIntevLikar.GridPrint.Visibility = Visibility.Hidden;
+                                      WindowIntevLikar.GridDelete.Visibility = Visibility.Hidden;
+                                      if (WindowProfilPacient.ControlGuest.SelectedIndex == 2)
+                                        { WindowIntevLikar.GridGrDiagnoz.Visibility = Visibility.Hidden;  }
+                                      break;
+                                      //"MedicalInstitution"
+                                      }
                                 break;
                           // Закладка пациент
                           case 1:
@@ -219,11 +236,17 @@ namespace FrontSeam
                               switch (WindowProfilPacient.ControlGuest.SelectedIndex)
                               {
                                   case 1:
-                                      // Завантажити записи гостя до лікаря
-                                      MethodLoadReceptionLIkarGuest(); 
+                                      // 
+                                      // MethodLoadReceptionLIkarGuest();
+                                      MethodloadtabMedical();
+                                      break;
+                                  case 2:
+                                      // Завантажити напрямки діагностики
+                                      MethodLoadGrupDiagnoz();
                                       break;
                               }
                               break;
+
                           // Закладка Пациент
                           case 1:
                               switch (WindowProfilPacient.ControlPacient.SelectedIndex)

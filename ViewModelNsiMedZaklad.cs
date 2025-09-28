@@ -57,7 +57,7 @@ namespace FrontSeam
                 {
 
                     NsiModelMedZaklads = new ObservableCollection<MedicalInstitution>();
-                    string json = controlerGrDiagnoz + "0/" + MapOpisViewModel.selectIcdGrDiagnoz + "/0";
+                    string json = controlerGrDiagnoz + "0/" + MapOpisViewModel.selectIcdGrDiagnoz + "/0/0";
                     if (ViewModelAnalogDiagnoz.Likar == "ListProfilMedical")
                     {
                         string grupdiagnoz = MapOpisViewModel.selectIcdGrDiagnoz.Substring(MapOpisViewModel.selectIcdGrDiagnoz.IndexOf(".") + 1, MapOpisViewModel.selectIcdGrDiagnoz.Length - (MapOpisViewModel.selectIcdGrDiagnoz.IndexOf(".") + 1));

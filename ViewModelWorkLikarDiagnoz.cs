@@ -39,11 +39,15 @@ namespace FrontSeam
         public static string pathcontrolerDependency = "/api/DependencyDiagnozController/";
         public static ModelDiagnoz selectedWorkDiagnoz;
         public static ModelInterview selectedInterview;
+        public static ModelLikarGrupDiagnoz selectLikarGrupDiagnozs;
         public static ObservableCollection<ModelDiagnoz> ViewWorkDiagnozs { get; set; }
         public static ObservableCollection<ModelDiagnoz> TmpWorkDiagnozs = new ObservableCollection<ModelDiagnoz>();
         public static ObservableCollection<ModelDiagnoz> AllWorkDiagnozs = new ObservableCollection<ModelDiagnoz>();
         public static ObservableCollection<ModelDiagnoz> TmpDiagnozs = new ObservableCollection<ModelDiagnoz>();
         public static ObservableCollection<ModelLikarGrupDiagnoz> LikarGrupDiagnozs { get; set; }
+
+        public ModelLikarGrupDiagnoz SelectLikarGrupDiagnozs
+        { get { return selectLikarGrupDiagnozs; } set { selectLikarGrupDiagnozs = value; OnPropertyChanged("SelectLikarGrupDiagnozs"); } }
         public ModelDiagnoz SelectedViewWorkDiagnoz
         { get { return selectedWorkDiagnoz; } set { selectedWorkDiagnoz = value; OnPropertyChanged("SelectedViewWorkDiagnoz"); } }
 
@@ -59,8 +63,6 @@ namespace FrontSeam
             var result = JsonConvert.DeserializeObject<ListModelLikarGrupDiagnoz>(CmdStroka);
             List<ModelLikarGrupDiagnoz> res = result.ModelLikarGrupDiagnoz.ToList();
             LikarGrupDiagnozs = new ObservableCollection<ModelLikarGrupDiagnoz>((IEnumerable<ModelLikarGrupDiagnoz>)res);
-
-
         }
         #region Команды вставки, удаления и редектирования справочника "ГРупи кваліфікації"
         /// <summary>
@@ -112,7 +114,7 @@ namespace FrontSeam
 
             if (CmdStroka.Contains("[]") == false)
             {
-                ViewModelLikarGrupDiagnoz.ObservableViewLikarGrDiagnoz(CmdStroka);
+               ViewModelLikarGrupDiagnoz.ObservableViewLikarGrDiagnoz(CmdStroka); 
                 ViewWorkDiagnozs = new ObservableCollection<ModelDiagnoz>();
                 if (ViewModelLikarGrupDiagnoz.LikarGrupDiagnozs != null && ViewModelLikarGrupDiagnoz.LikarGrupDiagnozs.Count() > 0)
                 {
