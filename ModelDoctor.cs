@@ -25,7 +25,7 @@ namespace FrontSeam
         public ModelDoctor[] ModelDoctor { get; set; }
     }
 
-    public partial class ModelDoctor
+    public partial class ModelDoctor : BaseViewModel
     {
         private int Id;
         private string KodDoctor;
@@ -37,10 +37,11 @@ namespace FrontSeam
         private string Specialnoct;
         private string Napryamok;
         private string UriwebDoctor;
+        private string Resume;
 
         public ModelDoctor(int Id = 0, string KodDoctor = "", string Name = "", string Surname = "",
              string Telefon = "", string Email = "", string Edrpou = "", string Specialnoct = "",
-             string Napryamok = "", string UriwebDoctor = "")
+             string Napryamok = "", string UriwebDoctor = "", string Resume ="")
 
         {
             this.Id = Id;
@@ -53,6 +54,7 @@ namespace FrontSeam
             this.Specialnoct = Specialnoct;
             this.Napryamok = Napryamok;
             this.UriwebDoctor = UriwebDoctor;
+            this.Resume = Resume;
 
         }
 
@@ -118,18 +120,16 @@ namespace FrontSeam
             set { UriwebDoctor = value; OnPropertyChanged("uriwebDoctor"); }
         }
 
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        [JsonProperty("resume")]
+        public string resume
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-
+            get { return Resume; }
+            set { Resume = value; OnPropertyChanged("resume"); }
         }
+
+
     }
-    public partial class ModelGridDoctor
+    public partial class ModelGridDoctor : BaseViewModel
     {
         private int Id;
         private string KodDoctor;
@@ -144,10 +144,11 @@ namespace FrontSeam
         private string Specialnoct;
         private string Napryamok;
         private string UriwebDoctor;
+        private string Resume;
 
         public ModelGridDoctor(int Id = 0, string KodDoctor = "", string Name = "", string Surname = "", string NameZaklad = "",
             string AdrZaklad = "", string Pind = "", string Telefon = "", string Email = "", string Edrpou = "", string Specialnoct = "",
-             string Napryamok = "", string UriwebDoctor = "")
+             string Napryamok = "", string UriwebDoctor = "", string Resume = "")
 
         {
             this.Id = Id;
@@ -163,6 +164,7 @@ namespace FrontSeam
             this.Specialnoct = Specialnoct;
             this.Napryamok = Napryamok;
             this.UriwebDoctor = UriwebDoctor;
+            this.Resume = Resume;
         }
 
         [JsonProperty("id")]
@@ -235,16 +237,13 @@ namespace FrontSeam
             set { UriwebDoctor = value; OnPropertyChanged("uriwebDoctor"); }
         }
 
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        [JsonProperty("resume")]
+        public string resume
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-
+            get { return Resume; }
+            set { Resume = value; OnPropertyChanged("resume"); }
         }
+
     }
 
 }

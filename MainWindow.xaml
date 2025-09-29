@@ -1160,13 +1160,13 @@
                                 </i:Interaction.Triggers>
                                 <Grid Width="640" Height="550" Background="White" HorizontalAlignment="Left">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="300*"/>
-                                        <RowDefinition Height="250*"/>
+                                        <RowDefinition Height="330*"/>
+                                        <RowDefinition Height="230*"/>
                                     </Grid.RowDefinitions>
 
 
-                                    <Border Grid.Row="0" x:Name="GridProfilLikar" BorderBrush="#FFB6B3B3" Background="#FF858585"  BorderThickness="1" Width="630" Height="300" Padding="0,0,0,0" VerticalAlignment="Top">
-                                        <StackPanel x:Name="LikarPanelMapOpis" Width="Auto" Background="White" Height="300" DataContext="{Binding SelectedGridProfilLikar}">
+                                    <Border Grid.Row="0" x:Name="GridProfilLikar" BorderBrush="#FFB6B3B3" Background="#FF858585"  BorderThickness="1" Width="630" Height="320" Padding="0,0,0,0" VerticalAlignment="Top">
+                                        <StackPanel x:Name="LikarPanelMapOpis" Width="Auto" Background="White" Height="320" DataContext="{Binding SelectedGridProfilLikar}">
                                             <Grid Width="Auto" Height="Auto">
                                                 <Grid.ColumnDefinitions >
                                                     <ColumnDefinition Width ="150*" />
@@ -1192,7 +1192,8 @@
                                                         <ColumnDefinition Width ="100*" />
                                                     </Grid.ColumnDefinitions>
                                                     <TextBlock x:Name="LikarLab10" Grid.Column="0"  Text="  Ім'я " TextWrapping="Wrap"  FontSize="14" Width="70" Height="24" HorizontalAlignment="Left" />
-                                                    <TextBox Text="{Binding name, UpdateSourceTrigger=PropertyChanged}" Name="Likart10" Grid.Column="1"  Height="24" Width="140" FontSize="14" Background="White" HorizontalAlignment="Left" BorderThickness="0,0,0,0"  />
+                                                    <TextBox Text="{Binding name, UpdateSourceTrigger=PropertyChanged}" Name="Likart10" Grid.Column="1"  Height="24" Width="140" FontSize="14" Background="White"
+                                                             IsEnabled="False" HorizontalAlignment="Left" BorderThickness="0,0,0,0"  />
                                                 </Grid>
                                                 <Grid x:Name="LikarGridLab2" Height="50" Grid.Column="0" Grid.Row="2" >
                                                     <Grid.ColumnDefinitions >
@@ -1201,7 +1202,8 @@
                                                         <ColumnDefinition Width ="100*" />
                                                     </Grid.ColumnDefinitions>
                                                     <TextBlock x:Name="LikarLab2" Grid.Column="0" Height="24" Text="  Прізвище"  Width="80" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="14"    />
-                                                    <TextBox Text="{Binding surname, UpdateSourceTrigger=PropertyChanged}" Name="Likart2" Grid.Column="1" FontSize="14" Height="24" Width="140" Background="White" VerticalContentAlignment="Top" HorizontalAlignment="Left" BorderThickness="0,0,0,0"  />
+                                                    <TextBox Text="{Binding surname, UpdateSourceTrigger=PropertyChanged}" Name="Likart2" Grid.Column="1" FontSize="14" Height="24" Width="140" Background="White"
+                                                             IsEnabled="False" VerticalContentAlignment="Top" HorizontalAlignment="Left" BorderThickness="0,0,0,0"  />
                                                 </Grid>
                                                 <Grid x:Name="LikarGridLab3" Height="34" Grid.Column="0" Grid.Row="3" >
                                                     <Grid.ColumnDefinitions >
@@ -1209,7 +1211,8 @@
                                                         <ColumnDefinition Width ="100*" />
                                                     </Grid.ColumnDefinitions>
                                                     <TextBlock x:Name="LikarLab3" Text="  Спеціальність" TextWrapping="Wrap" Grid.Column="0"  Height="24"  FontSize="14" Width="100" HorizontalAlignment="Left" />
-                                                    <TextBox Text="{Binding specialnoct, UpdateSourceTrigger=PropertyChanged}" x:Name="Likart3" Grid.Column="1" Height="24" Width="140" FontSize="14" HorizontalAlignment="Left" Background="White" BorderThickness="0,0,0,0" />
+                                                    <TextBox Text="{Binding specialnoct, UpdateSourceTrigger=PropertyChanged}" x:Name="Likart3" Grid.Column="1" Height="24" Width="140" FontSize="14" 
+                                                             IsEnabled="False" HorizontalAlignment="Left" Background="White" BorderThickness="0,0,0,0" />
                                                 </Grid>
                                                 <Grid x:Name="LikarGridNapr" Height="34" Grid.Column="0" Grid.Row="4" >
                                                     <Grid.ColumnDefinitions >
@@ -1217,7 +1220,8 @@
                                                         <ColumnDefinition Width ="90*" />
                                                     </Grid.ColumnDefinitions>
                                                     <TextBlock x:Name="LikarNapr3" Text="  Напрямок" TextWrapping="Wrap" Grid.Column="0"  Height="24"  FontSize="14" Width="100" HorizontalAlignment="Left" />
-                                                    <TextBox Text="{Binding napryamok, UpdateSourceTrigger=PropertyChanged}" x:Name="LikarNaprt3" Grid.Column="1" Height="24" Width="140" FontSize="14" HorizontalAlignment="Left" Background="White" BorderThickness="0,0,0,0" />
+                                                    <TextBox Text="{Binding napryamok, UpdateSourceTrigger=PropertyChanged}" x:Name="LikarNaprt3" Grid.Column="1" Height="24" Width="140" FontSize="14"
+                                                             IsEnabled="False" HorizontalAlignment="Left" Background="White" BorderThickness="0,0,0,0" />
                                                     <Image x:Name="FolderLikarProfil" Source="pack://application:,,,/FrontSeam;component/Images/folder_.png" Grid.Column="1"  Width="25"  HorizontalAlignment="Right"   Visibility="Hidden" Margin="0,0,20,0"  >
                                                         <i:Interaction.Triggers>
                                                             <i:EventTrigger EventName="MouseLeftButtonDown">
@@ -1231,8 +1235,9 @@
                                                         <ColumnDefinition Width ="60*" />
                                                         <ColumnDefinition Width ="290*" />
                                                     </Grid.ColumnDefinitions>
-                                                    <TextBlock x:Name="LikarLab4" Grid.Column="0"  Text="  Адреса мед.&#xa;  закладу" TextWrapping="Wrap"  FontSize="14" Width="100" HorizontalAlignment="Left" Height="35" />
-                                                    <TextBox Text="{Binding adrZaklad, UpdateSourceTrigger=PropertyChanged}" Name="Likart4" Grid.Column="1" Grid.ColumnSpan="2" FontSize="14" Height="40" Width="450"  Background="White" BorderThickness="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                                    <TextBlock x:Name="LikarLab4" Grid.Column="0"  Text="  Адреса мед.&#xa;     закладу" TextWrapping="Wrap"  FontSize="14" Width="100" HorizontalAlignment="Left" Height="35" />
+                                                    <TextBox Text="{Binding adrZaklad, UpdateSourceTrigger=PropertyChanged}" Name="Likart4" Grid.Column="1" Grid.ColumnSpan="2" FontSize="14" Height="40" Width="450"
+                                                             IsEnabled="False" Background="White" BorderThickness="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                                                     <Image x:Name="FoldMedZaklad" Source="pack://application:,,,/FrontSeam;component/Images/folder_.png" Grid.Column="1"  Width="25"  HorizontalAlignment="Right"   Visibility="Hidden" Margin="0,0,30,0"  >
                                                         <i:Interaction.Triggers>
                                                             <i:EventTrigger EventName="MouseLeftButtonDown">
@@ -1247,7 +1252,8 @@
                                                         <ColumnDefinition Width ="150*" />
                                                     </Grid.ColumnDefinitions>
                                                     <TextBlock x:Name="LikarLab5" Text="  Поштовий&#xa;   індекс:" TextWrapping="Wrap" Grid.Column="0" Height="35" Width="100" HorizontalAlignment="Left" FontSize="14" />
-                                                    <TextBox Text="{Binding pind, UpdateSourceTrigger=PropertyChanged}" x:Name="Likart5" Grid.Column="1"  Width="90"  Background="White" HorizontalAlignment="Left" Height="30" FontSize="14" BorderThickness="0,0,0,0"  />
+                                                    <TextBox Text="{Binding pind, UpdateSourceTrigger=PropertyChanged}" x:Name="Likart5" Grid.Column="1"  Width="90"  Background="White"
+                                                             IsEnabled="False" HorizontalAlignment="Left" Height="30" FontSize="14" BorderThickness="0,0,0,0"  />
 
                                                 </Grid>
                                                 <Grid x:Name="LikarGridLab6" Height="34" Grid.Column="1" Grid.Row="2" >
@@ -1256,7 +1262,8 @@
                                                         <ColumnDefinition Width ="150*" />
                                                     </Grid.ColumnDefinitions>
                                                     <TextBlock x:Name="LikarLab6" Text="  Телефон&#xa; +xxx xx xx xxx xx" TextWrapping="Wrap"  Grid.Column="0" Height="30"  FontSize="14" HorizontalAlignment="Left"  Width="100"/>
-                                                    <TextBox Text="{Binding telefon, UpdateSourceTrigger=PropertyChanged}" x:Name="Likart6"  Grid.Column="1"  Background="White" Height="30" Width="160" FontSize="14" HorizontalAlignment="Left" BorderThickness="0,0,0,0" />
+                                                    <TextBox Text="{Binding telefon, UpdateSourceTrigger=PropertyChanged}" x:Name="Likart6"  Grid.Column="1"  Background="White" Height="30" Width="160" FontSize="14"
+                                                             IsEnabled="False" HorizontalAlignment="Left" BorderThickness="0,0,0,0" />
                                                 </Grid>
                                                 <Grid x:Name="LikarGridLab7" Height="34" Grid.Column="1" Grid.Row="3" >
                                                     <Grid.ColumnDefinitions >
@@ -1264,7 +1271,8 @@
                                                         <ColumnDefinition Width ="150*" />
                                                     </Grid.ColumnDefinitions>
                                                     <TextBlock x:Name="LikarLab7" Text="  Email:" TextWrapping="Wrap" Grid.Column="0" Height="24"  FontSize="14" Width="120" HorizontalAlignment="Left"/>
-                                                    <TextBox Text="{Binding email, UpdateSourceTrigger=PropertyChanged}" x:Name="Likart7" Grid.Column="1"  Height="30" Width="200" FontSize="14" HorizontalAlignment="Left" Background="White" BorderThickness="0,0,0,0" />
+                                                    <TextBox Text="{Binding email, UpdateSourceTrigger=PropertyChanged}" x:Name="Likart7" Grid.Column="1"  Height="30" Width="200" FontSize="14"
+                                                             IsEnabled="False" HorizontalAlignment="Left" Background="White" BorderThickness="0,0,0,0" />
                                                 </Grid>
                                                 <Grid x:Name="LikarGridUri7" Height="34" Grid.Column="1" Grid.Row="4" >
                                                     <Grid.ColumnDefinitions >
@@ -1272,7 +1280,8 @@
                                                         <ColumnDefinition Width ="150*" />
                                                     </Grid.ColumnDefinitions>
                                                     <TextBlock x:Name="LikarUri7" Text="  Сторінка в&#xa;   інтернеті:" TextWrapping="Wrap" Grid.Column="0" Height="34"  FontSize="14" Width="110" HorizontalAlignment="Left"/>
-                                                    <TextBox Text="{Binding uriwebDoctor, UpdateSourceTrigger=PropertyChanged}" x:Name="LikarUrit7" TextWrapping="Wrap" Grid.Column="1"  Height="35" Width="240" FontSize="14" HorizontalAlignment="Left" Background="White" BorderThickness="0,0,0,0" />
+                                                    <TextBox Text="{Binding uriwebDoctor, UpdateSourceTrigger=PropertyChanged}" x:Name="LikarUrit7" TextWrapping="Wrap" Grid.Column="1"  Height="35" Width="240" FontSize="14"
+                                                             IsEnabled="False" HorizontalAlignment="Left" Background="White" BorderThickness="0,0,0,0" />
                                                     <Image x:Name="FolderDocUri5" Source="pack://application:,,,/FrontSeam;component/Images/folder_.png" Grid.Column="1"  Width="25"  HorizontalAlignment="Left"   Visibility="Hidden" Margin="200,0,0,0"  >
                                                         <i:Interaction.Triggers>
                                                             <i:EventTrigger EventName="MouseLeftButtonDown">
@@ -1296,12 +1305,21 @@
                                                         <ColumnDefinition Width="70*"/>
                                                         <ColumnDefinition Width="300*"/>
                                                     </Grid.ColumnDefinitions>
-                                                    <TextBlock x:Name="LikarLab9" Text="  Назва Мед.&#xa;  закладу" TextWrapping="Wrap" Grid.Column="0" Height="35"  Width="100"  FontSize="14"  HorizontalAlignment="Left" VerticalAlignment="Top" />
-                                                    <TextBox Text="{Binding nameZaklad, UpdateSourceTrigger=PropertyChanged}" x:Name="Likart9" Grid.Column="1" Grid.ColumnSpan="2"  Height="40" FontSize="14" Width="480" Background="White" BorderThickness="0,0,0,0"  HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                                    <TextBlock x:Name="LikarLab9" Text="  Назва Мед.&#xa;     закладу" TextWrapping="Wrap" Grid.Column="0" Height="35"  Width="100"  FontSize="14"  HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                                    <TextBox Text="{Binding nameZaklad, UpdateSourceTrigger=PropertyChanged}" x:Name="Likart9" Grid.Column="1" Grid.ColumnSpan="2"  Height="40" FontSize="14" Width="480"
+                                                             IsEnabled="False" Background="White" BorderThickness="0,0,0,0"  HorizontalAlignment="Left" VerticalAlignment="Top" />
                                                 </Grid>
-                                                <Grid x:Name="LikarGridInf" Height="28" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="7" >
-                                                    <Label Name="LikarLoadInf" Content="Для проведення опитування необхідно завантажити профіль лікаря" Width="520"  Height="28"
-                                                       HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="16"  Grid.ColumnSpan="2" Margin="0,0,0,0"/>
+                                                <Grid x:Name="LikarGridInf" Height="40" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="7" >
+                                                    <TextBlock x:Name="LikarresumeBlock" Text="  Професійний&#xa;      досвід" TextWrapping="Wrap" Grid.Column="0" Height="40"  Width="100"  FontSize="14"  HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                                    <TextBox Text="{Binding resume, UpdateSourceTrigger=PropertyChanged}" x:Name="LikarresumeBox" Grid.Column="1" Grid.ColumnSpan="2"  Height="35" FontSize="14" Width="450" 
+                                                             IsEnabled="False" Background="White" BorderThickness="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="110,0,0,0" />
+                                                    <Image x:Name="Folderworklikar" Source="pack://application:,,,/FrontSeam;component/Images/folder_.png" Grid.Column="1"  Width="25"  HorizontalAlignment="Right"   Visibility="Hidden" Margin="0,0,20,0"  >
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                            <i:InvokeCommandAction Command="{Binding ElementName=GridProfilLikar, Path=DataContext.InfoWorkLikar}" CommandParameter=""/>
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                    </Image>
                                                 </Grid>
                                             </Grid>
                                         </StackPanel>
@@ -2550,29 +2568,47 @@
                                 <i:InvokeCommandAction Command="{Binding ElementName=GridMain, Path=DataContext.GeustGridLoadHidden}" CommandParameter=""/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
-                        <Grid Width="640" x:Name="InfoSeamGrids" Background="White" HorizontalAlignment="Center">
+                        <Grid Width="770" x:Name="InfoSeamGrids" Background="White" HorizontalAlignment="Center">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="60*" />
-                                <RowDefinition Height="220*"/>
-                                <RowDefinition Height="50*" />
-                                <RowDefinition Height="50*" />
-                                <RowDefinition Height="100*" />
-                                <RowDefinition Height="180*"/>
+                                <RowDefinition Height="40*" />
+                                <RowDefinition Height="700*"/>
+
                             </Grid.RowDefinitions>
                             <Grid Grid.Row="0" Width="630"/>
-                            <Grid Grid.Row="1" Width="630">
-                                <Border BorderBrush="#FFB6B3B3" Background="#FF858585"  BorderThickness="1" Width="630" Height="190" Padding="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                    <StackPanel x:Name="InfoSeamBd" Width="Auto" Background="White" Height="180" DataContext="{Binding SelectedModelAccountUser}" >
-                                        <Grid Width="Auto" Height="180">
+                            <Grid Grid.Row="1" Width="770">
+                                <Border BorderBrush="#FFB6B3B3" Background="#FF858585"  BorderThickness="1" Width="770" Height="500" Padding="0,0,0,0">
+                                    <StackPanel x:Name="InfoSeamBd" Width="Auto" Background="White" Height="500" DataContext="{Binding SelectedModelAccountUser}">
+                                        <Grid Width="Auto" Height="500">
                                             <Grid.RowDefinitions>
-                                                <RowDefinition Height="60*" />
-                                                <RowDefinition Height="40*" />
-                                                <RowDefinition Height="100*"/>
+                                                <RowDefinition Height="63*" />
+                                                <RowDefinition Height="430*"/>
                                             </Grid.RowDefinitions>
                                             <TextBlock Grid.Row="0" x:Name="InfoSeamVer"   Text="  Веріся зборки:"  FontSize="14" Height="30" Width="410"  VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                            <TextBlock Grid.Row="1" x:Name="InfoSeamFront"   Text="  Виконавчий модуль системи - Фронт."  FontSize="14" Height="24" Width="410"  VerticalAlignment="Center" HorizontalAlignment="Left"/>
-
-                                            <TextBlock Grid.Row="2"  x:Name="InfoDeveloper" Text="  Розробник: 2022-2023, Україна, м. Київ, ПП 'ОРІОН-С'. Стариченко Олександр Павлович&#xa;  Email: staric377@gmail.com&#xa;  Тел.: +380674012840&#xa;  Свідоцтво про реєсрацію авторського права № 126883"  FontSize="14" Height="80" Width="600" HorizontalAlignment="Left" />
+                                            <TextBlock Grid.Row="1"  x:Name="InfoDeveloper"  FontSize="14" Height="430" Width="770" HorizontalAlignment="Left" Text="                                    Диференційна діагностика стану нездужання людини-SEAM&#xa;
+ SЕАМ призначена для визначення поточного стану здоров'я людини, яка страждає від того або іншого нездужання.&#xa;
+ SЕАМ є одним з автоматизованих способів профілактики та раннього діагностування захворювання людини&#xa;   без контакту з лікарем.&#xa;
+ SЕАМ проводить діагностику шляхом послідовного опитування пацієнта. Процес опитування пацієнта здійснюється &#xa; 
+ на підставі його власних больових відчуттів та взаємопов'язаних з цим послідовностей симптомів.&#xa;
+    Процес опитування побудовано таким чином що відповідає потребам збору анамнезу подібного тому,&#xa;
+ що здійснює лікар при обстежені пацієнтів. Він містить напрацьовані у медичній практиці клініко - анамнестичні&#xa;
+ дані щодо більшості нозологічних форм та експертні діагностичні схеми визначення діагнозів нездужання. &#xa;
+    Опитування починається з визначення яке у вас нездужання (закладеність носу, кашель, головний біль,&#xa;
+ біль у серці, попереку, животі і таке інше), а далі проявляються характер та деталі нездужання.&#xa;
+    За результатами опитування виводиться один або декілька попередніх діагнозів та пропонується запис&#xa;
+ на обстеження до сімейного або профільного лікаря. У разі реєстрації звернення система аналізує за поштовим&#xa;
+ індексом із профілю пацієнта та встановленим попереднім діагнозом максимально наближене місце розташування&#xa;
+ медичного закладу до пацієнта та наявність в ньому відповідних лікарів фахівців, в якому пацієнту можуть надати&#xa; 
+ медичну допомогу.&#xa;
+    Пацієнт та лікар мають у своєму розпорядженні електронний кабінет де зберігається вся статистика&#xa;
+ проведених опитувань, їх профілі, напрямки за якими лікарі здійснюють медичну допомогу, довідки про &#xa;
+ нездужання з якими вони працюють та іншу аналітичну інформацію.&#xa;
+   Склад лікарів, які працюють в системі SЕАМ, регламентується Наглядовою Радою профільних лікарів Системи &#xa;
+ що забезпечують правдивість визначення попередніх діагнозів нездужання. Голова Наглядової Ради Доктор&#xa;
+ медичних наук, лікар-нейрохірург,завідувач відділу клініки субтентеріальної нейроонкології Інституту&#xa;
+  Нейрохірургії ім. Ромоданова Федірко Володимир Олегович.&#xa;&#xa;
+ 
+     Розробник: 2022-2023, Україна, м. Київ, ПП 'ОРІОН-С'. Стариченко Олександр Павлович&#xa;        Email: staric377@gmail.com  Тел.: +380674012840&#xa;
+       Свідоцтво про реєсрацію авторського права № 126883"  />
                                         </Grid>
                                     </StackPanel>
                                 </Border>

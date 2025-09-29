@@ -165,7 +165,7 @@ namespace FrontSeam
                       if (MapOpisViewModel.CallViewProfilLikar == "ProfilLikar")
                       {
                           MainWindow WindowMain = MainWindow.LinkNameWindow("WindowMain");
-                          WindowMain.LikarLoadInf.Visibility = Visibility.Visible;
+                          
                           //WindowMain.LikarLoadinterv.Visibility = Visibility.Visible;
                           WindowMain.StackPanelCabLikar.Visibility = Visibility.Visible;
                       }

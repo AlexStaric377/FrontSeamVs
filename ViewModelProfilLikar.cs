@@ -95,7 +95,7 @@ namespace FrontSeam
         private void NewEkzemplarLikar()
         {
             WindowMain.BorderCabLikar.Visibility = Visibility.Hidden;
-            WindowProfilDoctor.LikarLoadInf.Visibility = Visibility.Hidden;
+            
             //WindowProfilDoctor.LikarLoadinterv.Visibility = Visibility.Hidden;
             CallViewProfilLikar = "ProfilLikar";
             selectedProfilLikar = new ModelDoctor();
@@ -122,6 +122,7 @@ namespace FrontSeam
             addboolProfilLikar = true;
             selectedGridProfilLikar = ViewGridProfilLikars[0];
             SelectedGridProfilLikar = selectedGridProfilLikar;
+            WindowProfilDoctor.Folderworklikar.Visibility = Visibility.Visible;
             WindowProfilDoctor.LikarIntert2.Text = selectedGridProfilLikar.name + " " + selectedGridProfilLikar.surname + " " + selectedGridProfilLikar.specialnoct + " " + selectedGridProfilLikar.telefon;
             WindowProfilDoctor.LikarNameInterv.Text = "Лікарське опитування: ";
             WindowProfilDoctor.ReceptionPacient2.Text = selectedGridProfilLikar.name + " " + selectedGridProfilLikar.surname + " " + selectedGridProfilLikar.specialnoct + " " + selectedGridProfilLikar.telefon;
@@ -197,6 +198,8 @@ namespace FrontSeam
                     selectedGridProfilLikar.edrpou = modelDoctor.edrpou;
                     selectedGridProfilLikar.uriwebDoctor = modelDoctor.uriwebDoctor;
                     selectedGridProfilLikar.napryamok = modelDoctor.napryamok;
+                    selectedGridProfilLikar.resume = modelDoctor.resume;
+
                     if (modelDoctor.edrpou != null)
                     {
                         string json = pathcontrolerMedZakladProfilLikar + modelDoctor.edrpou.ToString()+"/0/0/0";
@@ -276,7 +279,7 @@ namespace FrontSeam
             WindowProfilDoctor.LikarNaprt3.Background = Brushes.AntiqueWhite;
             WindowProfilDoctor.LikarUrit7.IsEnabled = true;
             WindowProfilDoctor.LikarUrit7.Background = Brushes.AntiqueWhite;
-            WindowProfilDoctor.LikarLoadInf.Content = "Для збреження профілю необхідно натиснути на кнопку 'Зберегти'";
+            
             if (ViewModelRegisterAccountUser.ReestrOnOff == true)WindowProfilDoctor.FoldMedZaklad.Visibility = Visibility.Visible;
             if (WindowProfilDoctor.LikarUrit7.Text.Length > 0)WindowProfilDoctor.FolderDocUri5.Visibility = Visibility.Visible;
             WindowMain.FolderLikarProfil.Visibility = Visibility.Visible;
@@ -404,7 +407,7 @@ namespace FrontSeam
                 SelectedGridProfilLikar = selectedGridProfilLikar;
                 WindowProfilDoctor.LikarNameInterv.Text = "Гіпотеза ";
                 WindowProfilDoctor.ReceptionPacient2.Text = selectedGridProfilLikar.name + " " + selectedGridProfilLikar.surname + " " + selectedGridProfilLikar.specialnoct + " " + selectedGridProfilLikar.telefon;
-                WindowProfilDoctor.LikarLoadInf.Visibility = Visibility.Hidden;
+               
             }
             else
             { 
@@ -636,6 +639,43 @@ namespace FrontSeam
                   }));
             }
         }
+
+       
+        private RelayCommand? infoWorkLikar;
+        public RelayCommand InfoWorkLikar
+        {
+            get
+            {
+                return infoWorkLikar ??
+                  (infoWorkLikar = new RelayCommand(obj =>
+                  {
+                     
+                      Winlikarresume Order = new Winlikarresume();
+                      Order.Left = (MainWindow.ScreenWidth / 2) - 150;
+                      Order.Top = (MainWindow.ScreenHeight / 2) - 350;
+                      Order.ShowDialog();
+                      
+                  }));
+            }
+        }
+
+        // команда закрытия окна
+        RelayCommand? closeLikarWork;
+        public RelayCommand CloseLikarWork
+        {
+            get
+            {
+                return closeLikarWork ??
+                  (closeLikarWork = new RelayCommand(obj =>
+                  {
+                      Winlikarresume Windowlikarresume = MainWindow.LinkMainWindow("Winlikarresume");
+                      Windowlikarresume.Close();
+                  }));
+            }
+        }
+
+
+        
 
         #endregion
     }
