@@ -13,7 +13,7 @@ using System.Reflection;
 
 [assembly: System.Reflection.AssemblyCompanyAttribute("FrontSeam")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
-[assembly: System.Reflection.AssemblyFileVersionAttribute("1.1.0.61")]
+[assembly: System.Reflection.AssemblyFileVersionAttribute("1.1.0.63")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("FrontSeam")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FrontSeam")]

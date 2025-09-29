@@ -254,6 +254,16 @@ namespace FrontSeam
                     }
 
                 }
+                if (MapOpisViewModel.ModelCall == "GrDiagnoz")
+                {
+                    MapOpisViewModel.selectedGridProfilLikar = new ModelGridDoctor();
+                    MapOpisViewModel.selectedGridProfilLikar.resume  = selectedLikar.resume;
+                    Winlikarresume Order = new Winlikarresume();
+                    Order.Left = (MainWindow.ScreenWidth / 2) - 150;
+                    Order.Top = (MainWindow.ScreenHeight / 2) - 350;
+                    Order.ShowDialog();
+
+                }
             }
             WindowMen.Close();
             WinResultInterview WindowResult = MainWindow.LinkMainWindow("WinResultInterview");

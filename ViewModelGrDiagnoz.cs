@@ -452,7 +452,7 @@ namespace FrontSeam
                 MapOpisViewModel.EdrpouMedZaklad = WindowIntevLikar.Likart8.Text.ToString();
                 if (MapOpisViewModel.EdrpouMedZaklad.Length > 0)
                 {
-                    MapOpisViewModel.ModelCall = "ReceptionLIkar";
+                    MapOpisViewModel.ModelCall = "GrDiagnoz";
                     WinNsiLikar NewOrder = new WinNsiLikar();
                     NewOrder.ShowDialog();
                     

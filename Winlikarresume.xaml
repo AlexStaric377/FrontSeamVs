@@ -26,7 +26,7 @@
                 <Border Grid.Row="1" x:Name="GridProfilLikar" BorderBrush="#FFB6B3B3" Background="#FF858585"  BorderThickness="1" Width="560" Height="270" Padding="0,0,0,0" VerticalAlignment="Top">
                     <StackPanel  x:Name="LikarPanelMapOpis" Grid.Row="1" Width="560" Background="White" Height="270" DataContext="{Binding SelectedGridProfilLikar}">
                         <Grid Width="Auto" Height="Auto">
-                            <TextBox Grid.Row="1" Text="{Binding resume, UpdateSourceTrigger=PropertyChanged}" x:Name="LikarresumeBox"  
+                            <TextBox Grid.Row="1" Text="{Binding resume, UpdateSourceTrigger=PropertyChanged}" x:Name="LikarresumeBox"   TextWrapping="Wrap"
                          Height="270" FontSize="14" Width="560" IsEnabled="False" Background="White" BorderThickness="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" />
                         </Grid>
                     </StackPanel>
