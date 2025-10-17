@@ -77,7 +77,7 @@ namespace FrontSeam {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/FrontSeam;V1.1.0.63;component/winmessageerr.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/FrontSeam;V1.1.0.65;component/winmessageerr.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\WinMessageErr.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

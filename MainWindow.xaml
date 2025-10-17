@@ -1913,26 +1913,34 @@
                                                     <!--SelectionChanged="AppPanelNumberChanged" DropDownClosed="ComboBox_DropDownClosed"-->
                                                     <TextBlock x:Name="CabinetReseptionBlockMonth" Grid.Row="6" Text=" Створити розклад на місяць" TextWrapping="Wrap"  FontSize="14" Height="34" Width="148" HorizontalAlignment="Left" VerticalAlignment="Center" />
                                                     <TextBox Name="CabinetReseptionBoxMonth" Text="" IsEnabled="False" 
-                                                            Grid.Column="1" Grid.Row="6"  Background="White" Width="90" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center" BorderThickness="0,0,0,0" Height="24" RenderTransformOrigin="0.61,4.588"  />
-                                                    <TextBlock x:Name="CabinetReseptionIntervalTime" Grid.Row="6" Grid.Column="1"  Text=" Час: з " FontSize="14" Height="28" Width="100" HorizontalAlignment="Left" Margin="100,0,0,0" VerticalAlignment="Center" />
-                                                    <TextBox Name="CabinetReseptionTimeOn" Text="09.00" IsEnabled="False" Margin="150,0,0,0"
-                                                            Grid.Column="1" Grid.Row="6"  Background="White" Width="50" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center" BorderThickness="0,0,0,0" Height="24"  />
-                                                    <TextBlock x:Name="CabinetReseptionTimeLast" Grid.Row="6" Grid.Column="1"  Text=" по " FontSize="14" Height="28" Width="30" HorizontalAlignment="Left" Margin="200,0,0,0" VerticalAlignment="Center" />
-                                                    <TextBox Name="CabinetReseptionTimeBoxLast" Text="17.00" IsEnabled="False" Margin="230,0,0,0"
-                                                            Grid.Column="1" Grid.Row="6"  Background="White" Width="50" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center" BorderThickness="0,0,0,0" Height="24"  />
+                                                            Grid.Column="1" Grid.Row="6"  Background="White" Width="90" FontSize="14" HorizontalAlignment="Right" VerticalAlignment="Center" BorderThickness="0,0,0,0" Height="24" Margin="0,0,160,0"  />
+                                                    <TextBlock x:Name="CabinetReseptionBlockWeek" Grid.Row="7" Text=" Створити розклад на день неділі" TextWrapping="Wrap"  FontSize="14" Height="34" Width="148" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                                    <TextBox Name="CabinetReseptionBoxWeek" Text="" IsEnabled="False" Grid.Column="1" Grid.Row="7"  Background="White" Width="90" FontSize="14" 
+                                                            HorizontalAlignment="Right" VerticalAlignment="Center" BorderThickness="0,0,0,0" Height="24"  Margin="0,0,160,0"  />
+                                                    
+                                                    <TextBlock x:Name="CabinetReseptionIntervalTime" Grid.Row="7" Grid.Column="1"  Text=" Час: з " FontSize="14" Height="28" Width="100" HorizontalAlignment="Left"  VerticalAlignment="Center" />
+                                                    <TextBox Name="CabinetReseptionTimeOn" Text="09.00" IsEnabled="False" Margin="65,0,0,0"
+                                                            Grid.Column="1" Grid.Row="7"  Background="White" Width="50" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center" BorderThickness="0,0,0,0" Height="24"  />
+                                                    <TextBlock x:Name="CabinetReseptionTimeLast" Grid.Row="7" Grid.Column="1"  Text=" по " FontSize="14" Height="28" Width="30" HorizontalAlignment="Left" Margin="120,0,0,0" VerticalAlignment="Center" />
+                                                    <TextBox Name="CabinetReseptionTimeBoxLast" Text="17.00" IsEnabled="False" Margin="145,0,0,0"
+                                                            Grid.Column="1" Grid.Row="7"  Background="White" Width="50" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center" BorderThickness="0,0,0,0" Height="24"  />
 
                                                     <ComboBox Name="CabinetDayoftheMonth"  ItemsSource="{Binding MonthYear}" SelectedIndex="{Binding SelectedMonthYear}" Grid.Column="1" Grid.Row="6" 
                                                              IsEnabled="false" Width="130"  Margin="0,0,20,5"  HorizontalAlignment="Right" VerticalAlignment="Center" Height="24"  />
 
-                                                    <TextBlock x:Name="CabinetReseptionIntervalDay" Grid.Row="7" Grid.Column="1"  Text="День: з " FontSize="14" Height="28" Width="100" HorizontalAlignment="Left" Margin="95,0,0,0" VerticalAlignment="Center" />
-                                                    <TextBox Name="CabinetReseptionDayOn" Text="01" IsEnabled="False" Margin="150,0,0,0"
-                                                            Grid.Column="1" Grid.Row="7"  Background="White" Width="50" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center" BorderThickness="0,0,0,0" Height="24"  />
-                                                    <TextBlock x:Name="CabinetReseptionDayLast" Grid.Row="7" Grid.Column="1"  Text=" по " FontSize="14" Height="28" Width="30" HorizontalAlignment="Left" Margin="200,0,0,0" VerticalAlignment="Center" />
-                                                    <TextBox Name="CabinetReseptionDayBoxLast" Text="31" IsEnabled="False" Margin="230,0,0,0"
-                                                            Grid.Column="1" Grid.Row="7"  Background="White" Width="50" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center" BorderThickness="0,0,0,0" Height="24"  />
-
-                                                    <Label Name="CabinetReseptionPacientLab" Content="Для завантаження довідника натисніть клавішу 'Завантажити'" Width="570" Grid.Row="8"
-                                                       HorizontalAlignment="Left" FontSize="18"  Grid.ColumnSpan="2" Margin="40,0,0,0" />
+                                                    <TextBlock x:Name="CabinetReseptionIntervalDay" Grid.Row="6" Grid.Column="1"  Text="День: з " FontSize="14" Height="28" Width="100" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center" />
+                                                    <TextBox Name="CabinetReseptionDayOn" Text="01" IsEnabled="False" Margin="65,0,0,0"
+                                                            Grid.Column="1" Grid.Row="6"  Background="White" Width="50" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center" BorderThickness="0,0,0,0" Height="24"  />
+                                                    <TextBlock x:Name="CabinetReseptionDayLast" Grid.Row="6" Grid.Column="1"  Text=" по " FontSize="14" Height="28" Width="30" HorizontalAlignment="Left" Margin="120,0,0,0" VerticalAlignment="Center" />
+                                                    <TextBox Name="CabinetReseptionDayBoxLast" Text="31" IsEnabled="False" Margin="145,0,0,0"
+                                                            Grid.Column="1" Grid.Row="6"  Background="White" Width="50" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center" BorderThickness="0,0,0,0" Height="24"  />
+                                                    <ComboBox Name="DayoftheWeekMonth"  ItemsSource="{Binding DayWeeks}" SelectedIndex="{Binding SelectedDayWeek}" Grid.Column="1" Grid.Row="7" 
+                                                             IsEnabled="false" Width="130"  Margin="0,0,20,5"  HorizontalAlignment="Right" VerticalAlignment="Center" Height="24"  />
+                                                    <TextBlock x:Name="CabinetReseptionBlocklen" Grid.Row="8" Text=" Тривалість прийому (хв.)" TextWrapping="Wrap"  FontSize="14" Height="34" Width="148" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                                    <TextBox Name="CabinetReseptionTimelen" Text="30" IsEnabled="False" Margin="65,0,0,0"
+                                                            Grid.Column="1" Grid.Row="8"  Background="White" Width="50" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center" BorderThickness="0,0,0,0" Height="24"  />
+                                                    <!--<Label Name="CabinetReseptionPacientLab" Content="Для завантаження довідника натисніть клавішу 'Завантажити'" Width="570" Grid.Row="8"
+                                                       HorizontalAlignment="Left" FontSize="18"  Grid.ColumnSpan="2" Margin="40,0,0,0" />-->
                                                 </Grid>
                                             </StackPanel>
                                         </Border>

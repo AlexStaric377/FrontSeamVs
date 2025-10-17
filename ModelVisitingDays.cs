@@ -224,7 +224,14 @@ namespace FrontSeam
         public void SetNewDayWeek(string selected = "")
         {
             MainWindow WindowMen = MainWindow.LinkNameWindow("WindowMain");
-            WindowMen.ReseptionPacient.Text = (selected == "0" ) ? WindowMen.ReseptionPacient.Text : DayWeeks[Convert.ToInt32(selected)];
+            if (WindowMen.DayoftheWeekMonth.IsEnabled == true)
+            { 
+                WindowMen.CabinetReseptionBoxWeek.Text = (selected == "0") ? WindowMen.CabinetReseptionBoxWeek.Text : DayWeeks[Convert.ToInt32(selected)];
+                WindowMen.CabinetReseptionDayOn.IsEnabled = false;
+                WindowMen.CabinetReseptionDayBoxLast.IsEnabled = false;
+            } 
+ 
+            else WindowMen.ReseptionPacient.Text = (selected == "0" ) ? WindowMen.ReseptionPacient.Text : DayWeeks[Convert.ToInt32(selected)];
             selectedIndexDayWeek = selected;
         }
 
@@ -317,7 +324,13 @@ namespace FrontSeam
             WindowMen.CabinetReseptionBoxMonth.Text = selected == "0" ? WindowMen.CabinetReseptionBoxMonth.Text : MonthYear[Convert.ToInt32(selected)];
             selectedIndexMonthYear = selected;
             MapOpisViewModel.loadthisMonth = true;
-
+            WindowMen.DayoftheWeekMonth.IsEnabled = true;
+            WindowMen.CabinetReseptionTimelen.IsEnabled = true;
+            WindowMen.DayoftheWeek.IsEnabled = false;
+            WindowMen.DatePicker.IsEnabled = false;
+            WindowMen.TimeofDay.IsEnabled = false;
+            WindowMen.ComboBoxOnoff.IsEnabled = false;
+            WindowMen.ReseptionTime.IsEnabled = false;
         }
     }
 
