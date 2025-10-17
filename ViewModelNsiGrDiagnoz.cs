@@ -26,7 +26,7 @@ namespace FrontSeam
     public class ViewModelNsiGrDiagnoz : BaseViewModel
     {
 
-        WinNsiListGrDiagnoz WindowNsiGrDiag = MainWindow.LinkMainWindow("WinNsiListGrDiagnoz");
+        private WinNsiListGrDiagnoz WindowNsiGrDiag = MainWindow.LinkMainWindow("WinNsiListGrDiagnoz");
         public static string controlerGrDiagnoz = "/api/GrupDiagnozController/";
         private ModelGrupDiagnoz selectedViewGrupDiagnoz;
         private MedGrupDiagnoz selectedMedGrupDiagnoz;
@@ -169,6 +169,30 @@ namespace FrontSeam
                           WindowNsiGrDiag.Close();
                       }
 
+                  }));
+            }
+        }
+
+        
+        // команда закрытия окна
+        RelayCommand? searchNameGrDiagnoz;
+        public RelayCommand SearchNameGrDiagnoz
+        {
+            get
+            {
+                return searchNameGrDiagnoz ??
+                  (searchNameGrDiagnoz = new RelayCommand(obj =>
+                  {
+                      
+                      if (WindowNsiGrDiag.PoiskGrDiagnoz.Text.Trim() != "")
+                      {
+                          string jason = controlerGrDiagnoz  + WindowNsiGrDiag.PoiskGrDiagnoz.Text+ "/0";
+                          CallServer.PostServer(controlerGrDiagnoz, jason, "GETID");
+                          string CmdStroka = CallServer.ServerReturn();
+                          if (CmdStroka.Contains("[]")) CallServer.BoolFalseTabl();
+                          else ObservableViewGrDiagnoz(CmdStroka);
+                          WindowNsiGrDiag.TablGrupDiagnozs.ItemsSource = ViewGrupDiagnozs;
+                      }
                   }));
             }
         }

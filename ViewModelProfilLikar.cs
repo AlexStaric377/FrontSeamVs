@@ -27,7 +27,7 @@ namespace FrontSeam
         public static bool  saveboolAccountLikar = false, boolVisibleMessage = false, reestrlikar=false;
         public static bool editboolProfilLikar = false, addboolProfilLikar = false;
         public static string CallViewProfilLikar = "ProfilLikar";
-        public static string _kodDoctor = "";
+        public static string _kodDoctor = "", profilLikarAddEdit = "";
         public static string pathcontrolerProfilLikar = "/api/ApiControllerDoctor/";
         public static string pathcontrolerMedZakladProfilLikar = "/api/MedicalInstitutionController/";
         public static ModelDoctor selectedProfilLikar;
@@ -53,7 +53,7 @@ namespace FrontSeam
             var result = JsonConvert.DeserializeObject<ListModelDoctor>(CmdStroka);
             List<ModelDoctor> res = result.ModelDoctor.ToList();
             ViewDoctors = new ObservableCollection<ModelDoctor>((IEnumerable<ModelDoctor>)res);
-            IndexAddEdit = "";
+            profilLikarAddEdit = "";
             selectedProfilLikar = ViewDoctors[0];
             MetodLoadGridProfilLikar();
         }
@@ -236,7 +236,7 @@ namespace FrontSeam
         {
             selectedProfilLikar = new ModelDoctor();
             CallViewProfilLikar = "ProfilLikar";
-            IndexAddEdit = IndexAddEdit == "addCommand" ? "" : "addCommand";
+            profilLikarAddEdit = profilLikarAddEdit == "addCommand" ? "" : "addCommand";
             selectedGridProfilLikar = new ModelGridDoctor();
             ViewDoctors = new ObservableCollection<ModelDoctor>();
             WindowMain.BorderCabLikar.Visibility = Visibility.Hidden;
@@ -321,8 +321,8 @@ namespace FrontSeam
         public void MethodEditProfilLikar()
         {
             if (selectedGridProfilLikar != null)
-            { 
-                 IndexAddEdit = "editCommand";
+            {
+                profilLikarAddEdit = "editCommand";
                 if (editboolProfilLikar == false)BoolTrueProfilLikar();
                 else BoolFalseProfilLikar();
      
@@ -371,19 +371,20 @@ namespace FrontSeam
             if (WindowProfilDoctor.Likart10.Text.Length != 0 && WindowProfilDoctor.Likart2.Text.Length != 0
                  && WindowProfilDoctor.Likart4.Text.Length != 0 && WindowProfilDoctor.Likart9.Text.Length != 0)
             {
-                if (WindowProfilDoctor.Likart6.Text.Length > 9)
+                if (WindowProfilDoctor.Likart6.Text.Length > 13)
                 {
                     MainWindow.MessageError = "Увага!" + Environment.NewLine + "Порушено формат номеру телефону." + Environment.NewLine + "Кількість цифр у номері телефону перевищує дев'ять."
                         + Environment.NewLine + "Необхідно зменьшити кількість цифр у номері телефону.";
                     MapOpisViewModel.SelectedFalseLogin(8);
                     return;
                 }
-                
-                ViewModelRegisterAccountUser.ReestrOnOff = true;
+
+                if (profilLikarAddEdit == "addCommand")  ViewModelRegisterAccountUser.ReestrOnOff = true;
                 SelectProfilLikar();
 
-                if (IndexAddEdit == "addCommand")
+                if (profilLikarAddEdit == "addCommand")
                 {
+
                     string json = JsonConvert.SerializeObject(selectedProfilLikar);
                     CallServer.PostServer(pathcontrolerProfilLikar, json, "POST");
                     CallServer.ResponseFromServer = CallServer.ResponseFromServer.Replace("[", "").Replace("]", "");
@@ -632,7 +633,7 @@ namespace FrontSeam
                   {
                       MapOpisViewModel.ActCompletedInterview = "NameGrDiagnoz";
                       WinLikarGrupDiagnoz Order = new WinLikarGrupDiagnoz();
-                      Order.Left = (MainWindow.ScreenWidth / 2) - 50;
+                      Order.Left = (MainWindow.ScreenWidth / 2) - 100;
                       Order.Top = (MainWindow.ScreenHeight / 2) - 350;
                       Order.ShowDialog();
                       MapOpisViewModel.ActCompletedInterview = "";

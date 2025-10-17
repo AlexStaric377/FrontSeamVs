@@ -126,7 +126,7 @@ namespace FrontSeam
                       MainWindow Windowmain = MainWindow.LinkNameWindow("WindowMain");
                       Windowmain.WorkDiagnozt1.Text = "";
                       WinNsiListGrDiagnoz NewOrder = new WinNsiListGrDiagnoz();
-                      NewOrder.Left = (MainWindow.ScreenWidth / 2);
+                      NewOrder.Left = (MainWindow.ScreenWidth / 2) -250;
                       NewOrder.Top = (MainWindow.ScreenHeight / 2) - 350;
                       NewOrder.ShowDialog();
                       if (Windowmain.WorkDiagnozt1.Text != null && Windowmain.WorkDiagnozt1.Text !="") MetodAddLikarGrDiagnoz(Windowmain.WorkDiagnozt1.Text);
