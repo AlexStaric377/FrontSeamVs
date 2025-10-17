@@ -13,6 +13,7 @@ FD:\FrontSeam\WinColectionStanHealth.xaml;;
 FD:\FrontSeam\WinCreatIntreview.xaml;;
 FD:\FrontSeam\WinDeleteData.xaml;;
 FD:\FrontSeam\WinLikarGrupDiagnoz.xaml;;
+FD:\FrontSeam\Winlikarresume.xaml;;
 FD:\FrontSeam\WinListInteviewPacient.xaml;;
 FD:\FrontSeam\WinMedicalGrDiagnoz.xaml;;
 FD:\FrontSeam\WinMessageDialog.xaml;;
@@ -38,5 +39,4 @@ FD:\FrontSeam\WinRegKodDostup.xaml;;
 FD:\FrontSeam\WinResultInterview.xaml;;
 FD:\FrontSeam\WinVisitingDays.xaml;;
 FD:\FrontSeam\WinWelcome.xaml;;
-FD:\FrontSeam\Winlikarresume.xaml;;
 
