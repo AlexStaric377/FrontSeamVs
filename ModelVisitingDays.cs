@@ -323,14 +323,18 @@ namespace FrontSeam
             MainWindow WindowMen = MainWindow.LinkNameWindow("WindowMain");
             WindowMen.CabinetReseptionBoxMonth.Text = selected == "0" ? WindowMen.CabinetReseptionBoxMonth.Text : MonthYear[Convert.ToInt32(selected)];
             selectedIndexMonthYear = selected;
-            MapOpisViewModel.loadthisMonth = true;
-            WindowMen.DayoftheWeekMonth.IsEnabled = true;
-            WindowMen.CabinetReseptionTimelen.IsEnabled = true;
-            WindowMen.DayoftheWeek.IsEnabled = false;
-            WindowMen.DatePicker.IsEnabled = false;
-            WindowMen.TimeofDay.IsEnabled = false;
-            WindowMen.ComboBoxOnoff.IsEnabled = false;
-            WindowMen.ReseptionTime.IsEnabled = false;
+            if (selected != "0")
+            {
+                MapOpisViewModel.loadthisMonth = true;
+                WindowMen.DayoftheWeekMonth.IsEnabled = true;
+                WindowMen.CabinetReseptionTimelen.IsEnabled = true;
+                WindowMen.DayoftheWeek.IsEnabled = false;
+                WindowMen.DatePicker.IsEnabled = false;
+                WindowMen.TimeofDay.IsEnabled = false;
+                WindowMen.ComboBoxOnoff.IsEnabled = false;
+                WindowMen.ReseptionTime.IsEnabled = false;
+            }
+
         }
     }
 

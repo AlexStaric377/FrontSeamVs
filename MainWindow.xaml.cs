@@ -35,11 +35,7 @@ namespace FrontSeam
 
         }
 
-        private void MedicalTablGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
+        
         public static int Idstr = 0;
         public static double ScreenHeight = 0.0, ScreenWidth = 0.0, SetHeigtCurent = 0.0;
 

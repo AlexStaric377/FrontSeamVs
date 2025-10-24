@@ -39,7 +39,7 @@ namespace FrontSeam
         public static void MetodLoadGridViewModelVisitingDays()
         {
             ViewModeVisitingDays = new ObservableCollection<ViewModelVisitingDays>();
-            foreach (ModelVisitingDays modelVisitingDays in ViewVisitingDays)
+            foreach (ModelVisitingDays modelVisitingDays in ViewVisitingDays.OrderBy(x=>x.dateWork))
             {
                 selectModelVisitingDays = modelVisitingDays;
                 selectViewModelVisitingDays = new ViewModelVisitingDays();
@@ -89,6 +89,8 @@ namespace FrontSeam
 
         private void LoadVisitingDays()
         {
+
+
 
 
             VisitngDays.NameMedZaklad.Text = VisitngDays.Likart9.Text;
@@ -160,6 +162,7 @@ namespace FrontSeam
             VisitngDays.CabinetDayoftheMonth.IsEnabled = true;
             VisitngDays.CabinetReseptionTimeOn.IsEnabled = true;
             VisitngDays.CabinetReseptionDayBoxLast.IsEnabled = true;
+            VisitngDays.DayoftheWeekMonth.IsEnabled = true;
             VisitngDays.CabinetReseptionDayBoxLast.Background = Brushes.AntiqueWhite;
             VisitngDays.CabinetReseptionDayOn.IsEnabled = true;
             VisitngDays.CabinetReseptionDayOn.Background = Brushes.AntiqueWhite;
@@ -186,6 +189,7 @@ namespace FrontSeam
             VisitngDays.CabinetDayoftheMonth.IsEnabled = false;
             VisitngDays.CabinetReseptionTimeOn.IsEnabled = false;
             VisitngDays.CabinetReseptionDayBoxLast.IsEnabled = false;
+            VisitngDays.DayoftheWeekMonth.IsEnabled = false;
             VisitngDays.CabinetReseptionDayBoxLast.Background = Brushes.White;
             VisitngDays.CabinetReseptionDayOn.IsEnabled = false;
             VisitngDays.CabinetReseptionDayOn.Background = Brushes.White;
@@ -323,24 +327,10 @@ namespace FrontSeam
             int beginind = Convert.ToInt32(WindowMen.CabinetReseptionDayOn.Text);
             int Daymonth = System.DateTime.DaysInMonth(DateTime.Now.Year, Convert.ToInt32(ViewModelVisitingDays.selectedIndexMonthYear));
             int lastDay = Convert.ToInt32(WindowMen.CabinetReseptionDayBoxLast.Text);
+            
+            if (nawmonth == beginmonth && nawday > beginind) beginind = nawday;
             if (lastDay > Daymonth) lastDay = Daymonth;
-            if (WindowMen.CabinetReseptionBoxWeek.Text.Trim() == "")
-            { 
-                
-                if (beginmonth == nawmonth && beginind < nawday )
-                {
-                    MainWindow.MessageError = " Перший день прийому меньше поточного дня календарного місяця обраного вами. ";
-                    MapOpisViewModel.SelectedWirning(0);
-                    return;
-                }
- 
-                if (lastDay < beginind)
-                {
-                    MainWindow.MessageError = " Перший день прийому більше останнього дня прийому. ";
-                    MapOpisViewModel.SelectedWirning(0);
-                    return;
-                }
-            }
+            if (lastDay < beginind) beginind = lastDay;
 
             decimal TimeOn = Convert.ToDecimal(WindowMen.CabinetReseptionTimeOn.Text.Replace(".", ","));
             decimal TimeLast = Convert.ToDecimal(WindowMen.CabinetReseptionTimeBoxLast.Text.Replace(".", ","));
@@ -375,10 +365,7 @@ namespace FrontSeam
                 date = date.AddMinutes(lentime);
                 itime++;
             }
-            //for (int ind = itime; ind < 19; ind++)
-            //{ ViewModelVisitingDays.TimeVizits[ind] = ""; }
 
-            //}
             // выбранный месяц и год 
             string ThisYear = DateTime.Now.ToShortDateString().Substring(DateTime.Now.ToShortDateString().LastIndexOf(".") + 1, DateTime.Now.ToShortDateString().Length - (DateTime.Now.ToShortDateString().LastIndexOf(".") + 1));
             ThisMonth = ViewModelVisitingDays.selectedIndexMonthYear.Length > 1 ? ViewModelVisitingDays.selectedIndexMonthYear : "0" + ViewModelVisitingDays.selectedIndexMonthYear;

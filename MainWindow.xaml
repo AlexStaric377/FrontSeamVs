@@ -323,7 +323,7 @@
                                         <DataGrid x:Name="MedicalTablGrid" Grid.Row="2"   Cursor="Hand" ItemsSource="{Binding VeiwModelMedicals }" SelectedItem="{Binding SelectedMedical}"
                                           IsReadOnly="true" AutoGenerateColumns="false" ColumnHeaderStyle="{StaticResource DGridCentAl}" HorizontalAlignment="Center" Height="240"
                                           VerticalAlignment="Top"  Width="Auto" GridLinesVisibility="None"
-                                          HorizontalGridLinesBrush="Black"  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" SelectionChanged="MedicalTablGrid_SelectionChanged">
+                                          HorizontalGridLinesBrush="Black"  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" >
                                             <i:Interaction.Triggers>
                                                 <i:EventTrigger EventName="MouseUp">
                                                     <i:InvokeCommandAction Command="{Binding ElementName=MedicalTablGrid, Path=DataContext.VisibleFolderUriWeb}" CommandParameter=""/>
